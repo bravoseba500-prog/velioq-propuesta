@@ -451,11 +451,11 @@ footer{padding:2.5rem 3rem;border-top:0.5px solid rgba(200,168,75,0.07);display:
   </div>
   <div class="contact-right fade-up">
     <div class="section-tag" style="margin-bottom:1.25rem;">Solicitar demo</div>
-    <div class="form-group"><label class="form-label">Nombre</label><input class="form-input" id="inp-nombre" type="text" placeholder="Tu nombre" maxlength="100"></div>
-    <div class="form-group"><label class="form-label">Negocio</label><input class="form-input" id="inp-negocio" type="text" placeholder="Nombre de tu clínica o empresa" maxlength="150"></div>
-    <div class="form-group"><label class="form-label">WhatsApp</label><input class="form-input" id="inp-whatsapp" type="tel" placeholder="+56 9 xxxx xxxx" maxlength="20" pattern="[\+\d\s\-]{7,20}"></div>
-    <div class="form-group"><label class="form-label">Mensaje (opcional)</label><textarea class="form-input" id="inp-mensaje" placeholder="¿Qué necesitas automatizar?" maxlength="500"></textarea></div>
-    <button class="form-submit" id="btn-submit" onclick="handleFormSubmit()">Solicitar demo gratis →</button>
+    <div class="form-group"><label class="form-label">Nombre</label><input class="form-input" type="text" placeholder="Tu nombre"></div>
+    <div class="form-group"><label class="form-label">Negocio</label><input class="form-input" type="text" placeholder="Nombre de tu clínica o empresa"></div>
+    <div class="form-group"><label class="form-label">WhatsApp</label><input class="form-input" type="tel" placeholder="+56 9 xxxx xxxx"></div>
+    <div class="form-group"><label class="form-label">Mensaje (opcional)</label><textarea class="form-input" placeholder="¿Qué necesitas automatizar?"></textarea></div>
+    <button class="form-submit" onclick="alert('¡Gracias! Te contactaremos pronto por WhatsApp.')">Solicitar demo gratis →</button>
   </div>
 </section>
 
@@ -512,72 +512,13 @@ footer{padding:2.5rem 3rem;border-top:0.5px solid rgba(200,168,75,0.07);display:
 <div class="modal-overlay" id="modalLegal" onclick="handleLegalClick(event)">
   <div class="modal" id="modalLegalBox">
     <button class="modal-close" onclick="closeLegal()">✕</button>
-    <div class="modal-left">
-      <div class="modal-hero">
-        <div class="modal-hero-img" style="background:url('https://images.unsplash.com/photo-1589391886645-d51941baf7fb?w=1000&q=90') center center/cover no-repeat;opacity:0.82;"></div>
-        <div class="modal-hero-overlay">
-          <div class="modal-hero-tag">Velioq · Producto</div>
-          <div class="modal-hero-title">LegalAI</div>
-          <div class="modal-hero-sub">Automatización inteligente para estudios jurídicos</div>
-        </div>
-      </div>
-      <p class="modal-desc">Tu estudio jurídico recibe consultas, precalifica casos y agenda entrevistas automáticamente por WhatsApp. Sin secretaria disponible 24/7, sin llamadas perdidas, sin leads sin respuesta.</p>
-      <div class="modal-section-title">¿Qué hace por tu estudio?</div>
-      <div class="feature-pills">
-        <div class="feat-pill"><span class="feat-pill-dot"></span>Recibe consultas 24/7</div>
-        <div class="feat-pill"><span class="feat-pill-dot"></span>Precalifica casos con IA</div>
-        <div class="feat-pill"><span class="feat-pill-dot"></span>Agenda entrevistas</div>
-        <div class="feat-pill"><span class="feat-pill-dot"></span>Documentación automática</div>
-        <div class="feat-pill"><span class="feat-pill-dot"></span>Pipeline en Google Sheets</div>
-        <div class="feat-pill"><span class="feat-pill-dot"></span>Notifica al abogado</div>
-        <div class="feat-pill"><span class="feat-pill-dot"></span>Responde preguntas frecuentes</div>
-        <div class="feat-pill"><span class="feat-pill-dot"></span>Sin código requerido</div>
-      </div>
-      <div class="modal-section-title">Planes</div>
-      <div class="modal-plans">
-        <div class="plan-card">
-          <div class="plan-name">Starter</div>
-          <div class="plan-price"><sup>$</sup>59.990</div>
-          <div class="plan-period">setup único</div>
-          <div class="plan-setup">+ $59.990/mes</div>
-          <ul class="plan-features-mini">
-            <li>Bot WhatsApp básico</li>
-            <li>Agenda de entrevistas</li>
-            <li>CRM en Google Sheets</li>
-            <li>Soporte por email</li>
-          </ul>
-        </div>
-        <div class="plan-card featured">
-          <div class="plan-featured-badge">Más elegido</div>
-          <div class="plan-name">Growth</div>
-          <div class="plan-price"><sup>$</sup>99.990</div>
-          <div class="plan-period">setup único</div>
-          <div class="plan-setup">+ $89.990/mes</div>
-          <ul class="plan-features-mini">
-            <li>Precalificación con IA</li>
-            <li>Pipeline de casos</li>
-            <li>Notificaciones Slack</li>
-            <li>Dashboard de métricas</li>
-            <li>Soporte WhatsApp</li>
-          </ul>
-        </div>
-        <div class="plan-card">
-          <div class="plan-name">Premium</div>
-          <div class="plan-price"><sup>$</sup>199.990</div>
-          <div class="plan-period">setup único</div>
-          <div class="plan-setup">+ $149.990/mes</div>
-          <ul class="plan-features-mini">
-            <li>Todo Growth incluido</li>
-            <li>Multi-canal (IG + WA)</li>
-            <li>Reportes semanales</li>
-            <li>Soporte prioritario 24/7</li>
-          </ul>
-        </div>
-      </div>
-      <div class="modal-cta-row">
-        <a href="https://wa.me/56932446500?text=Hola%20Velioq,%20quiero%20una%20demo%20de%20LegalAI" class="modal-btn-primary">Quiero una demo gratis →</a>
-        <button class="modal-btn-ghost" onclick="closeLegal()">Cerrar</button>
-      </div>
+    <div class="modal-left" style="padding:0;overflow:hidden;display:flex;flex-direction:column;">
+      <iframe 
+        src="legalai-dashboard.html" 
+        id="legalaiFrame"
+        style="flex:1;width:100%;border:none;min-height:85vh;"
+        title="LegalAI Dashboard">
+      </iframe>
     </div>
     <!-- RIGHT CHAT -->
     <div class="modal-right">
@@ -742,48 +683,6 @@ function getTime(i){
   const base=new Date();base.setHours(14,22,0,0);
   base.setSeconds(base.getSeconds()+i*45);
   return base.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
-}
-
-// Form security: XSS sanitization + rate limiting
-function escapeHtml(str){
-  return String(str)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#x27;')
-    .replace(/\//g,'&#x2F;');
-}
-
-function checkRateLimit(){
-  const KEY='vq_form_ts',LIMIT=3,WINDOW=3600000,now=Date.now();
-  let times;
-  try{times=JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){times=[];}
-  times=times.filter(t=>now-t<WINDOW);
-  if(times.length>=LIMIT)return false;
-  times.push(now);
-  localStorage.setItem(KEY,JSON.stringify(times));
-  return true;
-}
-
-function handleFormSubmit(){
-  if(!checkRateLimit()){
-    alert('Demasiados envíos en poco tiempo. Escríbenos directamente por WhatsApp o espera un momento.');
-    return;
-  }
-  const nombre=escapeHtml(document.getElementById('inp-nombre').value.trim());
-  const wp=document.getElementById('inp-whatsapp').value.trim();
-  escapeHtml(document.getElementById('inp-negocio').value.trim());
-  escapeHtml(document.getElementById('inp-mensaje').value.trim());
-  if(!nombre){alert('Por favor ingresa tu nombre.');return;}
-  if(wp&&!/^[\+\d\s\-]{7,20}$/.test(wp)){
-    alert('El número de WhatsApp no parece válido. Ejemplo: +56 9 1234 5678');
-    return;
-  }
-  const btn=document.getElementById('btn-submit');
-  btn.disabled=true;btn.textContent='Enviado ✓';
-  setTimeout(()=>{btn.disabled=false;btn.textContent='Solicitar demo gratis →';},5000);
-  alert('¡Gracias, '+nombre+'! Te contactaremos pronto por WhatsApp.');
 }
 </script>
 </body>
