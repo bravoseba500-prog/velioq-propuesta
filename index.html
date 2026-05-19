@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velioq — Automatización con IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0C0C0B;--white:#F8F5F0;
+  --gold:#C8A84B;--gold-light:#D4B86A;--gold-pale:#E8D5A0;
+  --gold-dim:rgba(200,168,75,0.12);--gold-border:rgba(200,168,75,0.22);
+  --muted:rgba(248,245,240,0.48);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 3rem;background:rgba(12,12,11,0.82);backdrop-filter:blur(28px);border-bottom:0.5px solid rgba(200,168,75,0.1);}
+.logo-nav{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
+.logo-v{width:28px;height:22px;}
+.logo-wordmark{font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--white);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center;}
+.nav-links a{font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-cta{background:transparent!important;border:0.5px solid rgba(200,168,75,0.3)!important;color:var(--gold)!important;padding:0.5rem 1.3rem;border-radius:2rem;transition:background 0.2s!important;}
+.nav-cta:hover{background:var(--gold-dim)!important;}
+
+/* HERO */
+.hero{min-height:100vh;position:relative;display:flex;align-items:flex-end;padding:0 3rem 5rem;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(12,12,11,0.1) 0%,rgba(12,12,11,0.55) 50%,rgba(12,12,11,0.97) 100%);}
+.hero-bg-img{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1800&q=85') center/cover no-repeat;
+  opacity:0.38;
+}
+.hero-glow{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(200,168,75,0.07) 0%,transparent 70%);top:15%;right:0;pointer-events:none;}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 390px;gap:5rem;align-items:flex-end;width:100%;}
+.hero-eyebrow{display:flex;align-items:center;gap:0.85rem;margin-bottom:1.75rem;}
+.eyebrow-line{width:28px;height:0.5px;background:var(--gold);}
+.eyebrow-text{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);font-weight:400;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,8vw,7.5rem);font-weight:600;line-height:0.92;letter-spacing:-0.02em;color:var(--white);margin-bottom:1.5rem;}
+.hero h1 em{font-style:italic;font-weight:400;background:linear-gradient(135deg,var(--gold-pale),var(--gold),#9A7520);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.gold-line{width:50px;height:0.5px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:1.5rem;}
+.hero-desc{font-size:0.93rem;line-height:1.82;color:var(--muted);max-width:460px;margin-bottom:2.5rem;font-weight:300;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:0.55rem;margin-bottom:2.75rem;}
+.pill{border:0.5px solid rgba(200,168,75,0.18);border-radius:2rem;padding:0.35rem 0.9rem;font-size:0.7rem;color:rgba(248,245,240,0.45);cursor:pointer;transition:border-color 0.2s,color 0.2s,background 0.2s;letter-spacing:0.03em;}
+.pill:hover,.pill.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim);}
+.hero-actions{display:flex;align-items:center;gap:1.75rem;}
+.btn-primary{background:linear-gradient(135deg,var(--gold-light),var(--gold));color:var(--black);padding:0.85rem 2rem;border-radius:3rem;font-size:0.83rem;font-weight:500;text-decoration:none;border:none;cursor:pointer;letter-spacing:0.03em;transition:transform 0.2s,opacity 0.2s;}
+.btn-primary:hover{transform:translateY(-2px);opacity:0.9;}
+.btn-ghost{color:var(--muted);font-size:0.8rem;text-decoration:none;display:flex;align-items:center;gap:0.5rem;transition:color 0.2s;}
+.btn-ghost:hover{color:var(--white);}
+.btn-circle{width:28px;height:28px;border:0.5px solid rgba(200,168,75,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--gold);}
+
+/* HERO CARDS */
+.hero-right{display:flex;flex-direction:column;gap:1rem;}
+.glass-card{background:rgba(15,14,12,0.82);border:0.5px solid rgba(200,168,75,0.15);border-radius:1.25rem;backdrop-filter:blur(24px);padding:1.25rem 1.5rem;}
+.card-tag{font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,168,75,0.45);margin-bottom:0.5rem;}
+.card-title{font-size:0.9rem;font-weight:500;color:var(--white);margin-bottom:0.2rem;}
+.card-sub{font-size:0.73rem;color:var(--muted);}
+.card-badge{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(200,168,75,0.07);border:0.5px solid rgba(200,168,75,0.2);border-radius:2rem;padding:0.22rem 0.7rem;font-size:0.62rem;color:var(--gold);margin-top:0.75rem;}
+.live-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;animation:blink 1.8s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+.metrics-row{display:flex;gap:1.5rem;margin-top:0.85rem;}
+.metric-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--gold-pale);line-height:1;}
+.metric-label{font-size:0.62rem;color:rgba(248,245,240,0.28);margin-top:0.15rem;letter-spacing:0.06em;}
+.card-row{display:flex;align-items:center;gap:0.85rem;}
+.card-icon{width:36px;height:36px;background:var(--gold-dim);border:0.5px solid rgba(200,168,75,0.2);border-radius:0.65rem;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.float-a{animation:fA 6s ease-in-out infinite;}
+.float-b{animation:fB 6s ease-in-out infinite 1.5s;}
+.float-c{animation:fC 6s ease-in-out infinite 3s;}
+@keyframes fA{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+@keyframes fB{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+@keyframes fC{0%,100%{transform:translateY(0);}50%{transform:translateY(-11px);}}
+
+/* TICKER */
+.ticker{overflow:hidden;white-space:nowrap;border-top:0.5px solid rgba(200,168,75,0.08);border-bottom:0.5px solid rgba(200,168,75,0.08);padding:0.85rem 0;}
+.ticker-inner{display:inline-flex;gap:3rem;animation:tick 22s linear infinite;}
+.ticker-item{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(248,245,240,0.22);display:flex;align-items:center;gap:0.75rem;}
+.ticker-dot{width:3px;height:3px;background:var(--gold);border-radius:50%;opacity:0.35;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SECTIONS */
+.section{padding:6rem 3rem;}
+.section-tag{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;font-weight:400;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:600;line-height:1.1;letter-spacing:-0.01em;}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3.5rem;}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.product-card{background:rgba(15,14,12,0.5);border:0.5px solid rgba(200,168,75,0.09);border-radius:1.5rem;padding:2rem;transition:background 0.3s,border-color 0.3s,transform 0.3s;cursor:pointer;position:relative;overflow:hidden;}
+.product-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity 0.3s;}
+.product-card:not(.coming):hover{background:rgba(200,168,75,0.04);border-color:rgba(200,168,75,0.28);transform:translateY(-5px);}
+.product-card:not(.coming):hover::after{opacity:1;}
+.product-icon{width:50px;height:50px;background:var(--gold-dim);border:0.5px solid rgba(200,168,75,0.18);border-radius:1rem;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.5rem;}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;margin-bottom:0.4rem;color:var(--white);}
+.product-tag{display:inline-block;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);background:var(--gold-dim);border-radius:2rem;padding:0.2rem 0.65rem;margin-bottom:1rem;}
+.product-desc{font-size:0.82rem;line-height:1.78;color:rgba(248,245,240,0.42);margin-bottom:1.5rem;}
+.product-features{list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.75rem;}
+.product-features li{font-size:0.76rem;color:rgba(248,245,240,0.48);display:flex;align-items:center;gap:0.5rem;}
+.product-features li::before{content:'—';color:var(--gold);opacity:0.55;}
+.product-cta{display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;color:var(--gold);font-weight:400;letter-spacing:0.04em;transition:gap 0.2s;}
+.product-card:hover .product-cta{gap:0.85rem;}
+.product-card.coming{opacity:0.45;cursor:default;}
+.coming-badge{position:absolute;top:1.25rem;right:1.25rem;font-size:0.56rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(255,255,255,0.05);border-radius:2rem;padding:0.2rem 0.6rem;color:rgba(248,245,240,0.28);}
+
+/* HOW */
+.how-section{padding:6rem 3rem;background:rgba(200,168,75,0.015);border-top:0.5px solid rgba(200,168,75,0.07);border-bottom:0.5px solid rgba(200,168,75,0.07);}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:3.5rem;position:relative;}
+.steps-grid::before{content:'';position:absolute;top:26px;left:calc(12.5% + 27px);right:calc(12.5% + 27px);height:0.5px;background:linear-gradient(90deg,rgba(200,168,75,0.25),rgba(200,168,75,0.06));}
+.step{text-align:center;position:relative;}
+.step-num{width:52px;height:52px;border:0.5px solid rgba(200,168,75,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--gold);margin:0 auto 1.25rem;background:var(--black);position:relative;z-index:1;}
+.step-title{font-size:0.88rem;font-weight:500;color:var(--white);margin-bottom:0.5rem;}
+.step-desc{font-size:0.76rem;line-height:1.72;color:var(--muted);}
+
+/* CONTACT */
+.contact-section{padding:6rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.contact-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:600;line-height:1.1;margin-bottom:1rem;}
+.contact-left p{font-size:0.88rem;line-height:1.82;color:var(--muted);margin-bottom:2rem;font-weight:300;}
+.contact-buttons{display:flex;flex-direction:column;gap:0.85rem;}
+.contact-btn{display:flex;align-items:center;gap:1rem;padding:1rem 1.4rem;border:0.5px solid rgba(200,168,75,0.1);border-radius:1rem;text-decoration:none;transition:border-color 0.2s,background 0.2s,transform 0.2s;}
+.contact-btn:hover{border-color:rgba(200,168,75,0.28);background:var(--gold-dim);transform:translateX(4px);}
+.contact-btn-icon{width:40px;height:40px;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;font-size:1.2rem;background:var(--gold-dim);border:0.5px solid rgba(200,168,75,0.18);flex-shrink:0;}
+.contact-btn-label{font-size:0.62rem;color:rgba(200,168,75,0.45);text-transform:uppercase;letter-spacing:0.1em;}
+.contact-btn-val{font-size:0.86rem;font-weight:400;color:var(--white);margin-top:0.1rem;}
+.contact-right{background:rgba(15,14,12,0.7);border:0.5px solid rgba(200,168,75,0.1);border-radius:1.5rem;padding:2.5rem;}
+.form-group{margin-bottom:1.25rem;}
+.form-label{display:block;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,168,75,0.45);margin-bottom:0.5rem;}
+.form-input{width:100%;background:rgba(255,255,255,0.03);border:0.5px solid rgba(200,168,75,0.1);border-radius:0.75rem;padding:0.75rem 1rem;color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.86rem;outline:none;transition:border-color 0.2s;}
+.form-input:focus{border-color:rgba(200,168,75,0.35);}
+.form-input::placeholder{color:rgba(248,245,240,0.15);}
+textarea.form-input{resize:vertical;min-height:90px;}
+.form-submit{width:100%;background:linear-gradient(135deg,var(--gold-light),var(--gold));color:var(--black);border:none;border-radius:2rem;padding:0.9rem;font-size:0.85rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.04em;transition:opacity 0.2s,transform 0.2s;}
+.form-submit:hover{opacity:0.9;transform:translateY(-1px);}
+
+/* FOOTER */
+footer{padding:2.5rem 3rem;border-top:0.5px solid rgba(200,168,75,0.07);display:flex;align-items:center;justify-content:space-between;}
+.footer-logo{display:flex;align-items:center;gap:0.6rem;}
+.footer-v{width:18px;height:14px;}
+.footer-wordmark{font-family:'DM Sans',sans-serif;font-size:0.7rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:rgba(248,245,240,0.28);}
+.footer-links{display:flex;gap:2rem;}
+.footer-links a{font-size:0.68rem;color:rgba(248,245,240,0.18);text-decoration:none;letter-spacing:0.06em;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-copy{font-size:0.65rem;color:rgba(248,245,240,0.14);}
+
+/* MODAL OVERLAY */
+.modal-overlay{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(8,7,6,0.92);
+  backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.4s ease;
+  padding:1.5rem;
+}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+
+.modal{
+  width:100%;max-width:1280px;max-height:92vh;
+  background:#FDFBF5;
+  border:0.5px solid rgba(200,168,75,0.35);
+  border-radius:2rem;overflow:hidden;
+  display:grid;grid-template-columns:1fr 340px;
+  overflow-y:hidden;
+  transform:translateY(30px) scale(0.97);
+  transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  position:relative;
+}
+.modal-overlay.open .modal{transform:translateY(0) scale(1);}
+
+.modal-close{
+  position:absolute;top:1.5rem;right:1.5rem;z-index:10;
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(200,168,75,0.1);border:0.5px solid rgba(200,168,75,0.25);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:rgba(26,26,24,0.5);font-size:1rem;
+  transition:background 0.2s,color 0.2s;
+}
+.modal-close:hover{background:rgba(200,168,75,0.25);color:var(--gold);}
+
+/* MODAL LEFT */
+.modal-left{
+  padding:3rem;overflow-y:auto;
+  background:linear-gradient(160deg,#FDFBF5 0%,#F5EFE0 100%);
+}
+.modal-left::-webkit-scrollbar{width:4px;}
+.modal-left::-webkit-scrollbar-track{background:rgba(200,168,75,0.05);}
+.modal-left::-webkit-scrollbar-thumb{background:rgba(200,168,75,0.4);border-radius:2px;}
+
+.modal-hero{
+  position:relative;border-radius:1.25rem;overflow:hidden;
+  margin-bottom:2rem;height:260px;
+  box-shadow:0 4px 24px rgba(200,168,75,0.15);
+}
+.modal-hero-img{
+  width:100%;height:100%;
+  background:url('https://images.unsplash.com/photo-1598257006458-087169a1f08d?w=1000&q=90') center center/cover no-repeat;
+  opacity:0.85;
+}
+.modal-hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(12,10,5,0.7),rgba(200,168,75,0.1));
+  display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;
+}
+.modal-hero-tag{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+.modal-hero-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--white);line-height:1.1;}
+.modal-hero-sub{font-size:0.75rem;color:var(--muted);margin-top:0.3rem;}
+
+.modal-section-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:#1A1A18;margin-bottom:1rem;}
+.modal-desc{font-size:0.83rem;line-height:1.78;color:rgba(26,26,24,0.6);margin-bottom:2rem;font-weight:300;}
+
+/* FEATURE PILLS */
+.feature-pills{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem;}
+.feat-pill{display:flex;align-items:center;gap:0.4rem;background:rgba(200,168,75,0.1);border:0.5px solid rgba(200,168,75,0.35);border-radius:2rem;padding:0.35rem 0.85rem;font-size:0.72rem;color:rgba(26,26,24,0.7);}
+.feat-pill-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;opacity:0.7;}
+
+/* PRICING CARDS */
+.modal-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:2rem;}
+.plan-card{background:rgba(255,255,255,0.8);border:0.5px solid rgba(200,168,75,0.2);border-radius:1rem;padding:1.25rem;transition:border-color 0.2s,background 0.2s;cursor:default;box-shadow:0 2px 12px rgba(200,168,75,0.08);}
+.plan-card.featured{background:linear-gradient(160deg,#FDF8EC,#F5EDD0);border-color:rgba(200,168,75,0.5);position:relative;box-shadow:0 4px 20px rgba(200,168,75,0.15);}
+.plan-featured-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold-light),var(--gold));color:var(--black);font-size:0.55rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:0.22rem 0.75rem;border-radius:2rem;white-space:nowrap;}
+.plan-name{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(150,120,40,0.7);margin-bottom:0.5rem;}
+.plan-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:#1A1A18;line-height:1;}
+.plan-price sup{font-size:0.8rem;font-family:'DM Sans',sans-serif;font-weight:400;vertical-align:super;}
+.plan-period{font-size:0.68rem;color:rgba(26,26,24,0.4);margin-bottom:0.75rem;}
+.plan-setup{font-size:0.68rem;color:var(--gold);opacity:0.7;margin-bottom:0.85rem;}
+.plan-features-mini{list-style:none;display:flex;flex-direction:column;gap:0.35rem;}
+.plan-features-mini li{font-size:0.72rem;color:rgba(26,26,24,0.55);display:flex;align-items:flex-start;gap:0.4rem;}
+.plan-features-mini li::before{content:'·';color:var(--gold);}
+.modal-cta-row{display:flex;gap:0.75rem;}
+.modal-btn-primary{flex:1;background:linear-gradient(135deg,var(--gold-light),var(--gold));color:var(--black);border:none;border-radius:2rem;padding:0.85rem;font-size:0.82rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.03em;transition:opacity 0.2s,transform 0.2s;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;}
+.modal-btn-primary:hover{opacity:0.9;transform:translateY(-1px);}
+.modal-btn-ghost{padding:0.85rem 1.25rem;border:0.5px solid rgba(200,168,75,0.4);border-radius:2rem;font-size:0.82rem;color:var(--gold);background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s;}
+.modal-btn-ghost:hover{background:rgba(200,168,75,0.1);}
+
+/* MODAL RIGHT — CHAT */
+.modal-right{
+  background:#0A0905;
+  border-left:0.5px solid rgba(200,168,75,0.1);
+  display:flex;flex-direction:column;
+}
+.chat-header{
+  padding:1.25rem 1.5rem;
+  background:rgba(200,168,75,0.04);
+  border-bottom:0.5px solid rgba(200,168,75,0.1);
+  display:flex;align-items:center;gap:0.85rem;
+}
+.chat-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold-pale),var(--gold));display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.chat-name{font-size:0.85rem;font-weight:500;color:var(--white);}
+.chat-status{font-size:0.65rem;color:rgba(200,168,75,0.7);margin-top:0.1rem;display:flex;align-items:center;gap:0.35rem;}
+.status-dot{width:5px;height:5px;background:#4CAF50;border-radius:50%;animation:blink 2s infinite;}
+.chat-label{padding:0.6rem 1.5rem;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(200,168,75,0.5);text-align:center;border-bottom:0.5px solid rgba(200,168,75,0.08);}
+.chat-body{flex:1;padding:1.25rem;display:flex;flex-direction:column;gap:0.75rem;overflow-y:auto;}
+.chat-body::-webkit-scrollbar{width:2px;}
+.chat-body::-webkit-scrollbar-thumb{background:rgba(200,168,75,0.15);}
+.msg{max-width:88%;padding:0.65rem 0.95rem;border-radius:1rem;font-size:0.76rem;line-height:1.55;}
+.msg-in{background:rgba(255,255,255,0.07);align-self:flex-start;border-bottom-left-radius:0.2rem;color:rgba(248,245,240,0.82);}
+.msg-out{background:rgba(200,168,75,0.18);align-self:flex-end;border-bottom-right-radius:0.2rem;color:var(--gold-pale);}
+.msg-time{font-size:0.58rem;color:rgba(248,245,240,0.25);text-align:right;margin-top:0.2rem;}
+.typing{display:flex;align-items:center;gap:0.3rem;padding:0.5rem 0.95rem;background:rgba(255,255,255,0.06);border-radius:1rem;align-self:flex-start;width:56px;}
+.typing span{width:5px;height:5px;background:rgba(200,168,75,0.5);border-radius:50%;animation:dot 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:0.2s;}
+.typing span:nth-child(3){animation-delay:0.4s;}
+@keyframes dot{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-4px);}}
+.chat-footer{padding:1rem 1.25rem;border-top:0.5px solid rgba(200,168,75,0.08);display:flex;gap:0.6rem;}
+.chat-input-mock{flex:1;background:rgba(255,255,255,0.04);border:0.5px solid rgba(200,168,75,0.12);border-radius:2rem;padding:0.6rem 1rem;font-size:0.75rem;color:rgba(248,245,240,0.3);pointer-events:none;}
+.chat-send{width:34px;height:34px;background:linear-gradient(135deg,var(--gold-light),var(--gold));border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.8rem;color:var(--black);}
+
+/* FADE */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo-nav" href="#">
+    <svg class="logo-v" viewBox="0 0 40 32" fill="none">
+      <defs><linearGradient id="gN" x1="0" y1="0" x2="40" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#E8D5A0"/><stop offset="55%" stop-color="#C8A84B"/><stop offset="100%" stop-color="#8B6914"/></linearGradient></defs>
+      <polygon points="0,0 8,0 20,28 32,0 40,0 20,32" fill="url(#gN)"/>
+      <polygon points="13,0 20,14 27,0 31,0 20,22 9,0" fill="rgba(12,12,11,0.45)"/>
+    </svg>
+    <span class="logo-wordmark">Velioq</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#como-funciona">Proceso</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="https://wa.me/56932446500" class="nav-cta">Hablar con nosotros →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-img"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-grid">
+    <div class="fade-up visible">
+      <div class="hero-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Automatización con Inteligencia Artificial</span></div>
+      <h1>Tu negocio<br>trabaja<br><em>sin parar.</em></h1>
+      <div class="gold-line"></div>
+      <p class="hero-desc">Velioq automatiza la atención al cliente, calificación de leads y gestión de citas usando IA. Más ventas, menos trabajo manual.</p>
+      <div class="hero-pills">
+        <span class="pill active" onclick="openModal()">ClinicAI</span>
+        <span class="pill">WhatsApp 24/7</span>
+        <span class="pill">CRM automático</span>
+        <span class="pill">Sin código</span>
+        <span class="pill">Live en 48h</span>
+      </div>
+      <div class="hero-actions">
+        <a href="https://wa.me/56932446500?text=Hola%20Velioq,%20quiero%20una%20demo" class="btn-primary">Solicitar demo gratis →</a>
+        <a href="#productos" class="btn-ghost">Ver productos <span class="btn-circle">↓</span></a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="glass-card float-a">
+        <div class="card-tag">Pipeline activo ahora</div>
+        <div class="card-row">
+          <div class="card-icon">🤖</div>
+          <div><div class="card-title">ClinicAI respondiendo</div><div class="card-sub">Clínica en Biobío · WhatsApp activo</div></div>
+        </div>
+        <div class="metrics-row">
+          <div><div class="metric-val">24/7</div><div class="metric-label">Atención</div></div>
+          <div><div class="metric-val">&lt;3s</div><div class="metric-label">Respuesta</div></div>
+          <div><div class="metric-val">100%</div><div class="metric-label">Automático</div></div>
+        </div>
+        <div class="card-badge"><span class="live-dot"></span> En producción</div>
+      </div>
+      <div class="glass-card float-b">
+        <div class="card-row">
+          <div class="card-icon">📊</div>
+          <div><div class="card-tag">Último registro CRM</div><div class="card-title">Lead guardado en Google Sheets</div><div class="card-sub">Hace 2 minutos · automáticamente</div></div>
+        </div>
+      </div>
+      <div class="glass-card float-c">
+        <div class="card-row">
+          <div class="card-icon">⚡</div>
+          <div><div class="card-tag">Implementación</div><div class="card-title">48 horas para estar live</div><div class="card-sub">Sin necesidad de programar</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="ticker-dot"></span>Automatización WhatsApp</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Calificación de leads con IA</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>CRM automático</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Agendamiento inteligente</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Notificaciones Slack</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Sin código requerido</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Implementación en 48h</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Soporte dedicado</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Automatización WhatsApp</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Calificación de leads con IA</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>CRM automático</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Agendamiento inteligente</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Notificaciones Slack</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Sin código requerido</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Implementación en 48h</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Soporte dedicado</span>
+  </div>
+</div>
+
+<!-- PRODUCTOS -->
+<section class="section" id="productos">
+  <div class="section-header fade-up">
+    <div><div class="section-tag">Nuestros productos</div><h2 class="section-title">IA lista para<br>tu industria</h2></div>
+  </div>
+  <div class="products-grid">
+    <div class="product-card fade-up" onclick="openModal()">
+      <div class="product-icon">🦷</div>
+      <div class="product-name">ClinicAI</div>
+      <div class="product-tag">Disponible ahora</div>
+      <p class="product-desc">Automatización completa para clínicas dentales y estéticas. Asistente WhatsApp que agenda, califica leads y registra pacientes solo.</p>
+      <ul class="product-features">
+        <li>Responde WhatsApp 24/7</li>
+        <li>Agenda citas automáticamente</li>
+        <li>Califica leads con IA</li>
+        <li>Registra en Google Sheets</li>
+        <li>Notifica al equipo por Slack</li>
+      </ul>
+      <div class="product-cta">Ver demo y planes →</div>
+    </div>
+    <div class="product-card fade-up" onclick="openLegal()">
+      <div class="product-icon">⚖️</div>
+      <div class="product-name">LegalAI</div>
+      <div class="product-tag">Disponible ahora</div>
+      <p class="product-desc">Recepción inteligente para estudios jurídicos. Captura consultas, precalifica casos y agenda entrevistas sin intervención humana.</p>
+      <ul class="product-features">
+        <li>Recepción de consultas 24/7</li>
+        <li>Precalificación de casos</li>
+        <li>Agenda entrevistas</li>
+        <li>Documentación automática</li>
+        <li>Pipeline de casos en CRM</li>
+      </ul>
+      <div class="product-cta">Ver demo y planes →</div>
+    </div>
+    <div class="product-card coming fade-up">
+      <div class="coming-badge">Próximamente</div>
+      <div class="product-icon">🏪</div>
+      <div class="product-name">RetailAI</div>
+      <div class="product-tag">En desarrollo</div>
+      <p class="product-desc">Automatización para comercios y tiendas. Catálogo inteligente, seguimiento de pedidos y atención postventa por WhatsApp.</p>
+      <ul class="product-features">
+        <li>Catálogo por WhatsApp</li>
+        <li>Seguimiento de pedidos</li>
+        <li>Atención postventa</li>
+        <li>Integración con sistemas POS</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="how-section" id="como-funciona">
+  <div class="section-tag fade-up">El proceso</div>
+  <h2 class="section-title fade-up">En 48 horas estás<br>automatizado</h2>
+  <div class="steps-grid">
+    <div class="step fade-up"><div class="step-num">I</div><div class="step-title">Demo gratis</div><p class="step-desc">Conversamos por WhatsApp, entendemos tu negocio y te mostramos cómo funciona en vivo.</p></div>
+    <div class="step fade-up"><div class="step-num">II</div><div class="step-title">Configuración</div><p class="step-desc">Configuramos el bot con tus servicios, precios y flujo de atención personalizado.</p></div>
+    <div class="step fade-up"><div class="step-num">III</div><div class="step-title">Pruebas</div><p class="step-desc">Probamos contigo hasta que todo responda exactamente como quieres.</p></div>
+    <div class="step fade-up"><div class="step-num">IV</div><div class="step-title">En producción</div><p class="step-desc">Tu negocio responde leads automáticamente. Tú supervisas desde Google Sheets.</p></div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contact-section" id="contacto">
+  <div class="contact-left fade-up">
+    <div class="section-tag">Contáctanos</div>
+    <h2>¿Listo para<br>automatizar?</h2>
+    <div class="gold-line"></div>
+    <p>Escríbenos directamente o déjanos tus datos. Te respondemos en menos de 2 horas en días hábiles.</p>
+    <div class="contact-buttons">
+      <a href="https://wa.me/56932446500?text=Hola%20Velioq,%20quiero%20información" class="contact-btn">
+        <div class="contact-btn-icon">💬</div>
+        <div><div class="contact-btn-label">WhatsApp directo</div><div class="contact-btn-val">+56 9 3244 6500</div></div>
+      </a>
+      <a href="mailto:sebastiandev25@gmail.com" class="contact-btn">
+        <div class="contact-btn-icon">✉️</div>
+        <div><div class="contact-btn-label">Correo electrónico</div><div class="contact-btn-val">sebastiandev25@gmail.com</div></div>
+      </a>
+    </div>
+  </div>
+  <div class="contact-right fade-up">
+    <div class="section-tag" style="margin-bottom:1.25rem;">Solicitar demo</div>
+    <div class="form-group"><label class="form-label">Nombre</label><input class="form-input" id="inp-nombre" type="text" placeholder="Tu nombre" maxlength="100"></div>
+    <div class="form-group"><label class="form-label">Negocio</label><input class="form-input" id="inp-negocio" type="text" placeholder="Nombre de tu clínica o empresa" maxlength="150"></div>
+    <div class="form-group"><label class="form-label">WhatsApp</label><input class="form-input" id="inp-whatsapp" type="tel" placeholder="+56 9 xxxx xxxx" maxlength="20" pattern="[\+\d\s\-]{7,20}"></div>
+    <div class="form-group"><label class="form-label">Mensaje (opcional)</label><textarea class="form-input" id="inp-mensaje" placeholder="¿Qué necesitas automatizar?" maxlength="500"></textarea></div>
+    <button class="form-submit" id="btn-submit" onclick="handleFormSubmit()">Solicitar demo gratis →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg class="footer-v" viewBox="0 0 40 32" fill="none">
+      <defs><linearGradient id="gF" x1="0" y1="0" x2="40" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#E8D5A0" stop-opacity="0.35"/><stop offset="100%" stop-color="#8B6914" stop-opacity="0.35"/></linearGradient></defs>
+      <polygon points="0,0 8,0 20,28 32,0 40,0 20,32" fill="url(#gF)"/>
+    </svg>
+    <span class="footer-wordmark">Velioq</span>
+  </div>
+  <div class="footer-links"><a href="#productos">Productos</a><a href="#como-funciona">Proceso</a><a href="#contacto">Contacto</a></div>
+  <div class="footer-copy">© 2025 Velioq · Cabrero, Chile</div>
+</footer>
+
+<!-- MODAL CLINICAI -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <!-- LEFT — iframe dashboard -->
+    <div class="modal-left" style="padding:0;overflow:hidden;display:flex;flex-direction:column;">
+      <iframe 
+        src="clinicai-dashboard.html" 
+        id="clinicaiFrame"
+        style="flex:1;width:100%;border:none;min-height:85vh;"
+        title="ClinicAI Dashboard">
+      </iframe>
+    </div>
+
+    <!-- RIGHT — CHAT -->
+    <div class="modal-right">
+      <div class="chat-header">
+        <div class="chat-avatar">🦷</div>
+        <div>
+          <div class="chat-name">SmileCare · ClinicAI</div>
+          <div class="chat-status"><span class="status-dot"></span> Asistente activo</div>
+        </div>
+      </div>
+      <div class="chat-label">Preview en vivo — así verán tus pacientes</div>
+      <div class="chat-body" id="chatBody">
+      </div>
+      <div class="chat-footer">
+        <div class="chat-input-mock">Escribe un mensaje...</div>
+        <div class="chat-send">→</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL LEGALAI -->
+<div class="modal-overlay" id="modalLegal" onclick="handleLegalClick(event)">
+  <div class="modal" id="modalLegalBox">
+    <button class="modal-close" onclick="closeLegal()">✕</button>
+    <div class="modal-left">
+      <div class="modal-hero">
+        <div class="modal-hero-img" style="background:url('https://images.unsplash.com/photo-1589391886645-d51941baf7fb?w=1000&q=90') center center/cover no-repeat;opacity:0.82;"></div>
+        <div class="modal-hero-overlay">
+          <div class="modal-hero-tag">Velioq · Producto</div>
+          <div class="modal-hero-title">LegalAI</div>
+          <div class="modal-hero-sub">Automatización inteligente para estudios jurídicos</div>
+        </div>
+      </div>
+      <p class="modal-desc">Tu estudio jurídico recibe consultas, precalifica casos y agenda entrevistas automáticamente por WhatsApp. Sin secretaria disponible 24/7, sin llamadas perdidas, sin leads sin respuesta.</p>
+      <div class="modal-section-title">¿Qué hace por tu estudio?</div>
+      <div class="feature-pills">
+        <div class="feat-pill"><span class="feat-pill-dot"></span>Recibe consultas 24/7</div>
+        <div class="feat-pill"><span class="feat-pill-dot"></span>Precalifica casos con IA</div>
+        <div class="feat-pill"><span class="feat-pill-dot"></span>Agenda entrevistas</div>
+        <div class="feat-pill"><span class="feat-pill-dot"></span>Documentación automática</div>
+        <div class="feat-pill"><span class="feat-pill-dot"></span>Pipeline en Google Sheets</div>
+        <div class="feat-pill"><span class="feat-pill-dot"></span>Notifica al abogado</div>
+        <div class="feat-pill"><span class="feat-pill-dot"></span>Responde preguntas frecuentes</div>
+        <div class="feat-pill"><span class="feat-pill-dot"></span>Sin código requerido</div>
+      </div>
+      <div class="modal-section-title">Planes</div>
+      <div class="modal-plans">
+        <div class="plan-card">
+          <div class="plan-name">Starter</div>
+          <div class="plan-price"><sup>$</sup>59.990</div>
+          <div class="plan-period">setup único</div>
+          <div class="plan-setup">+ $59.990/mes</div>
+          <ul class="plan-features-mini">
+            <li>Bot WhatsApp básico</li>
+            <li>Agenda de entrevistas</li>
+            <li>CRM en Google Sheets</li>
+            <li>Soporte por email</li>
+          </ul>
+        </div>
+        <div class="plan-card featured">
+          <div class="plan-featured-badge">Más elegido</div>
+          <div class="plan-name">Growth</div>
+          <div class="plan-price"><sup>$</sup>99.990</div>
+          <div class="plan-period">setup único</div>
+          <div class="plan-setup">+ $89.990/mes</div>
+          <ul class="plan-features-mini">
+            <li>Precalificación con IA</li>
+            <li>Pipeline de casos</li>
+            <li>Notificaciones Slack</li>
+            <li>Dashboard de métricas</li>
+            <li>Soporte WhatsApp</li>
+          </ul>
+        </div>
+        <div class="plan-card">
+          <div class="plan-name">Premium</div>
+          <div class="plan-price"><sup>$</sup>199.990</div>
+          <div class="plan-period">setup único</div>
+          <div class="plan-setup">+ $149.990/mes</div>
+          <ul class="plan-features-mini">
+            <li>Todo Growth incluido</li>
+            <li>Multi-canal (IG + WA)</li>
+            <li>Reportes semanales</li>
+            <li>Soporte prioritario 24/7</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-cta-row">
+        <a href="https://wa.me/56932446500?text=Hola%20Velioq,%20quiero%20una%20demo%20de%20LegalAI" class="modal-btn-primary">Quiero una demo gratis →</a>
+        <button class="modal-btn-ghost" onclick="closeLegal()">Cerrar</button>
+      </div>
+    </div>
+    <!-- RIGHT CHAT -->
+    <div class="modal-right">
+      <div class="chat-header">
+        <div class="chat-avatar">⚖️</div>
+        <div>
+          <div class="chat-name">Estudio Jurídico · LegalAI</div>
+          <div class="chat-status"><span class="status-dot"></span> Asistente activo</div>
+        </div>
+      </div>
+      <div class="chat-label">Preview en vivo — así verán tus clientes</div>
+      <div class="chat-body" id="chatBodyLegal"></div>
+      <div class="chat-footer">
+        <div class="chat-input-mock">Escribe un mensaje...</div>
+        <div class="chat-send">→</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+// LEGAL MODAL
+function openLegal(){
+  document.getElementById('modalLegal').classList.add('open');
+  document.body.style.overflow='hidden';
+  startLegalChat();
+}
+function closeLegal(){
+  document.getElementById('modalLegal').classList.remove('open');
+  document.body.style.overflow='';
+  clearLegalChat();
+}
+function handleLegalClick(e){
+  if(e.target===document.getElementById('modalLegal')) closeLegal();
+}
+
+const legalMessages=[
+  {type:'in', text:'Hola, tengo un problema con mi arrendatario que no paga hace 3 meses. ¿Pueden ayudarme?', delay:600},
+  {type:'out', text:'Hola, bienvenido al Estudio Jurídico ⚖️ Claro que sí, entendemos su situación. Para orientarlo mejor, ¿el contrato de arriendo está firmado ante notario o es privado?', delay:1900},
+  {type:'in', text:'Es notarial, firmado hace 2 años', delay:3300},
+  {type:'out', text:'Perfecto, eso nos da mejor posición legal. Su caso califica para un procedimiento de terminación de contrato por no pago. Le podemos agendar una consulta con el abogado esta semana. ¿Prefiere martes o jueves?', delay:4700},
+  {type:'in', text:'Jueves estaría bien', delay:6100},
+  {type:'out', text:'✅ Agendado para el jueves a las 15:00. El abogado revisará su contrato y le explicará el proceso. ¿Tiene el contrato digitalizado para enviarlo antes de la reunión?', delay:7400},
+  {type:'in', text:'Sí lo tengo en PDF', delay:8700},
+  {type:'out', text:'Excelente. Envíelo a este número y lo revisaremos antes de la reunión. Recibirá una confirmación en las próximas horas 📋', delay:9700},
+];
+
+let legalTimers=[];
+function clearLegalChat(){
+  legalTimers.forEach(t=>clearTimeout(t));
+  legalTimers=[];
+  document.getElementById('chatBodyLegal').innerHTML='';
+}
+function startLegalChat(){
+  const body=document.getElementById('chatBodyLegal');
+  body.innerHTML='';
+  legalMessages.forEach((m,i)=>{
+    const t=setTimeout(()=>{
+      const typing=body.querySelector('.typing');
+      if(typing)typing.remove();
+      const div=document.createElement('div');
+      div.className='msg msg-'+(m.type==='in'?'in':'out');
+      div.innerHTML=m.text+'<div class="msg-time">'+getTime(i)+'</div>';
+      div.style.opacity='0';div.style.transform='translateY(8px)';div.style.transition='all 0.3s ease';
+      body.appendChild(div);
+      setTimeout(()=>{div.style.opacity='1';div.style.transform='translateY(0)';},30);
+      body.scrollTop=body.scrollHeight;
+      if(m.type==='out'&&i<legalMessages.length-2){
+        const tT=setTimeout(()=>{
+          const typ=document.createElement('div');
+          typ.className='typing';typ.innerHTML='<span></span><span></span><span></span>';
+          body.appendChild(typ);body.scrollTop=body.scrollHeight;
+        },400);
+        legalTimers.push(tT);
+      }
+    },m.delay);
+    legalTimers.push(t);
+  });
+  const loop=setTimeout(()=>{clearLegalChat();startLegalChat();},13000);
+  legalTimers.push(loop);
+}
+
+// INTERSECTION OBSERVER
+const obs=new IntersectionObserver((e)=>{
+  e.forEach((el,i)=>{if(el.isIntersecting)setTimeout(()=>el.target.classList.add('visible'),i*100);});
+},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+// MODAL
+function openModal(){
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  startChat();
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+  clearChat();
+}
+function handleOverlayClick(e){
+  if(e.target===document.getElementById('modalOverlay')) closeModal();
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+// CHAT ANIMATION
+const messages=[
+  {type:'in', text:'Hola! ¿Tienen hora disponible para una limpieza dental hoy? 😊', delay:600},
+  {type:'out', text:'¡Hola! Bienvenida a SmileCare 😊 Claro que sí, tenemos disponibilidad hoy a las 15:30 o mañana a las 10:00. ¿Cuál te acomoda mejor?', delay:1800},
+  {type:'in', text:'Hoy a las 15:30 perfecto 🙌', delay:3200},
+  {type:'out', text:'✅ ¡Confirmado! Tu cita es hoy 18 de mayo a las 15:30 con nuestra higienista Carla. Te enviaré un recordatorio mañana por la mañana.', delay:4600},
+  {type:'in', text:'¿Cuánto vale la limpieza?', delay:6000},
+  {type:'out', text:'La limpieza dental tiene un valor de $25.000. Incluye eliminación de sarro, pulido y revisión general 🦷 ¿Deseas confirmar o tienes alguna otra consulta?', delay:7200},
+  {type:'in', text:'Todo bien, nos vemos hoy 👋', delay:8600},
+  {type:'out', text:'¡Perfecto! Te esperamos a las 15:30. Recuerda traer tu carnet de identidad. ¡Hasta pronto! 😊✨', delay:9600},
+];
+
+let chatTimers=[];
+function clearChat(){
+  chatTimers.forEach(t=>clearTimeout(t));
+  chatTimers=[];
+  document.getElementById('chatBody').innerHTML='';
+}
+
+function startChat(){
+  const body=document.getElementById('chatBody');
+  body.innerHTML='';
+  messages.forEach((m,i)=>{
+    const t=setTimeout(()=>{
+      // Remove typing if exists
+      const typing=body.querySelector('.typing');
+      if(typing) typing.remove();
+      // Add message
+      const div=document.createElement('div');
+      div.className='msg msg-'+(m.type==='in'?'in':'out');
+      div.innerHTML=m.text+'<div class="msg-time">'+getTime(i)+'</div>';
+      div.style.opacity='0';div.style.transform='translateY(8px)';div.style.transition='all 0.3s ease';
+      body.appendChild(div);
+      setTimeout(()=>{div.style.opacity='1';div.style.transform='translateY(0)';},30);
+      body.scrollTop=body.scrollHeight;
+      // Add typing indicator after outgoing messages (except last)
+      if(m.type==='out' && i<messages.length-2){
+        const nextIn=messages[i+1];
+        const tTyping=setTimeout(()=>{
+          const typ=document.createElement('div');
+          typ.className='typing';
+          typ.innerHTML='<span></span><span></span><span></span>';
+          body.appendChild(typ);
+          body.scrollTop=body.scrollHeight;
+        }, 400);
+        chatTimers.push(tTyping);
+      }
+    }, m.delay);
+    chatTimers.push(t);
+  });
+  // Loop
+  const loop=setTimeout(()=>{clearChat();startChat();}, 12000);
+  chatTimers.push(loop);
+}
+
+function getTime(i){
+  const base=new Date();base.setHours(14,22,0,0);
+  base.setSeconds(base.getSeconds()+i*45);
+  return base.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+}
+
+// Form security: XSS sanitization + rate limiting
+function escapeHtml(str){
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#x27;')
+    .replace(/\//g,'&#x2F;');
+}
+
+function checkRateLimit(){
+  const KEY='vq_form_ts',LIMIT=3,WINDOW=3600000,now=Date.now();
+  let times;
+  try{times=JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){times=[];}
+  times=times.filter(t=>now-t<WINDOW);
+  if(times.length>=LIMIT)return false;
+  times.push(now);
+  localStorage.setItem(KEY,JSON.stringify(times));
+  return true;
+}
+
+function handleFormSubmit(){
+  if(!checkRateLimit()){
+    alert('Demasiados envíos en poco tiempo. Escríbenos directamente por WhatsApp o espera un momento.');
+    return;
+  }
+  const nombre=escapeHtml(document.getElementById('inp-nombre').value.trim());
+  const wp=document.getElementById('inp-whatsapp').value.trim();
+  escapeHtml(document.getElementById('inp-negocio').value.trim());
+  escapeHtml(document.getElementById('inp-mensaje').value.trim());
+  if(!nombre){alert('Por favor ingresa tu nombre.');return;}
+  if(wp&&!/^[\+\d\s\-]{7,20}$/.test(wp)){
+    alert('El número de WhatsApp no parece válido. Ejemplo: +56 9 1234 5678');
+    return;
+  }
+  const btn=document.getElementById('btn-submit');
+  btn.disabled=true;btn.textContent='Enviado ✓';
+  setTimeout(()=>{btn.disabled=false;btn.textContent='Solicitar demo gratis →';},5000);
+  alert('¡Gracias, '+nombre+'! Te contactaremos pronto por WhatsApp.');
+}
+</script>
+</body>
+</html>
