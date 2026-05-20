@@ -326,6 +326,9 @@ footer{padding:2.5rem 3rem;border-top:0.5px solid rgba(200,168,75,0.07);display:
 html, body { -webkit-overflow-scrolling: touch; overflow-x: hidden; }
 .modal-left, .main, .chat-body { -webkit-overflow-scrolling: touch; }
 * { touch-action: pan-y pinch-zoom; }
+iframe { -webkit-overflow-scrolling: touch; overflow-y: scroll; }
+.modal-left { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.modal-overlay { overflow-y: auto; -webkit-overflow-scrolling: touch; }
 </style>
 </head>
 <body>
@@ -533,10 +536,11 @@ html, body { -webkit-overflow-scrolling: touch; overflow-x: hidden; }
 
     <!-- LEFT — iframe dashboard -->
     <div class="modal-left" style="padding:0;overflow:hidden;display:flex;flex-direction:column;">
-      <iframe 
-        src="clinicai-dashboard.html" 
+      <iframe
+        src="clinicai-dashboard.html"
         id="clinicaiFrame"
-        style="flex:1;width:100%;border:none;min-height:85vh;"
+        scrolling="yes"
+        style="flex:1;width:100%;border:none;min-height:85vh;overflow-y:scroll;-webkit-overflow-scrolling:touch;"
         title="ClinicAI Dashboard">
       </iframe>
     </div>
@@ -567,10 +571,11 @@ html, body { -webkit-overflow-scrolling: touch; overflow-x: hidden; }
   <div class="modal" id="modalLegalBox">
     <button class="modal-close" onclick="closeLegal()">✕</button>
     <div class="modal-left" style="padding:0;overflow:hidden;display:flex;flex-direction:column;">
-      <iframe 
-        src="legalai-dashboard.html" 
+      <iframe
+        src="legalai-dashboard.html"
         id="legalaiFrame"
-        style="flex:1;width:100%;border:none;min-height:85vh;"
+        scrolling="yes"
+        style="flex:1;width:100%;border:none;min-height:85vh;overflow-y:scroll;-webkit-overflow-scrolling:touch;"
         title="LegalAI Dashboard">
       </iframe>
     </div>
