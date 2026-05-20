@@ -272,6 +272,57 @@ footer{padding:2.5rem 3rem;border-top:0.5px solid rgba(200,168,75,0.07);display:
 /* FADE */
 .fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
 .fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* ══ MOBILE RESPONSIVE ══ */
+@media(max-width:768px){
+  nav{padding:1rem 1.25rem;}
+  .logo-wordmark{font-size:0.75rem;letter-spacing:0.16em;}
+  .nav-links{gap:0;}
+  .nav-links li:not(:last-child){display:none;}
+  .nav-cta{padding:0.45rem 1rem;font-size:0.72rem;}
+
+  .hero{padding:0 1.25rem 3.5rem;min-height:100svh;}
+  .hero-grid{grid-template-columns:1fr;gap:2rem;}
+  .hero h1{font-size:clamp(3rem,12vw,4.5rem);}
+  .hero-desc{font-size:0.88rem;max-width:100%;}
+  .hero-pills{gap:0.45rem;}
+  .pill{font-size:0.68rem;padding:0.3rem 0.75rem;}
+  .hero-actions{flex-direction:column;align-items:flex-start;gap:1rem;}
+  .btn-primary{width:100%;justify-content:center;padding:0.9rem;}
+  .hero-right{display:none;}
+  .hero-glow{display:none;}
+
+  .ticker-item{font-size:0.62rem;}
+
+  .section{padding:3.5rem 1.25rem;}
+  .section-header{flex-direction:column;gap:0.75rem;margin-bottom:2rem;}
+  .products-grid{grid-template-columns:1fr;gap:1.25rem;}
+  .product-card{padding:1.5rem;}
+
+  .how-section{padding:3.5rem 1.25rem;}
+  .steps-grid{grid-template-columns:1fr 1fr;gap:1.25rem;}
+  .steps-grid::before{display:none;}
+
+  .contact-section{grid-template-columns:1fr;gap:2rem;padding:3.5rem 1.25rem;}
+  .contact-right{padding:1.75rem;}
+
+  footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem 1.25rem;}
+  .footer-links{justify-content:center;}
+
+  /* MODALES */
+  .modal{grid-template-columns:1fr;max-height:95vh;}
+  .modal-right{display:none;}
+  .modal-close{top:1rem;right:1rem;}
+  .modal-overlay{padding:0.5rem;}
+  .modal{border-radius:1.25rem;}
+}
+
+@media(max-width:480px){
+  .hero h1{font-size:clamp(2.5rem,10vw,3.5rem);}
+  .steps-grid{grid-template-columns:1fr;}
+  .plan-tabs{flex-direction:column;}
+}
+
 </style>
 </head>
 <body>

@@ -200,6 +200,215 @@ header{background:var(--white);border-bottom:1px solid rgba(200,168,75,0.15);pad
 
 .fade-in{opacity:0;transform:translateY(16px);transition:opacity 0.5s ease,transform 0.5s ease;}
 .fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* ── CRM VISUAL ── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --cream:#FDFAF4;--white:#fff;--ink:#1A1814;--stone:#8C8478;
+  --gold:#C8A84B;--gold-light:#D4B86A;--gold-pale:#EED98A;--gold-dim:rgba(200,168,75,0.1);
+  --blue:#1E5FA8;--blue-dim:rgba(30,95,168,0.1);
+  --green:#4A7C59;--green-dim:rgba(74,124,89,0.1);
+  --purple:#6B3FA0;--purple-dim:rgba(107,63,160,0.1);
+  --red:#DC2626;--red-dim:rgba(220,38,38,0.08);
+  --orange:#D97706;--orange-dim:rgba(217,119,6,0.08);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);}
+
+/* TABS */
+.page-tabs{display:flex;gap:0;background:var(--white);border-bottom:1px solid rgba(200,168,75,0.15);padding:0 2rem;position:sticky;top:0;z-index:50;}
+.page-tab{padding:1rem 1.5rem;font-size:0.82rem;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;color:var(--stone);transition:all 0.2s;letter-spacing:0.03em;}
+.page-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.page-content{display:none;padding:2rem;}
+.page-content.active{display:block;}
+
+/* SECTION TITLE */
+.sec{font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--stone);margin-bottom:1.25rem;display:flex;align-items:center;gap:0.6rem;}
+.sec::after{content:'';flex:1;height:0.5px;background:rgba(0,0,0,0.08);}
+.plan-label{display:inline-flex;align-items:center;gap:0.4rem;padding:0.25rem 0.85rem;border-radius:2rem;font-size:0.65rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.25rem;}
+.pl-green{background:var(--green-dim);color:var(--green);border:0.5px solid rgba(74,124,89,0.2);}
+.pl-gold{background:var(--gold-dim);color:var(--gold);border:0.5px solid rgba(200,168,75,0.25);}
+.pl-purple{background:var(--purple-dim);color:var(--purple);border:0.5px solid rgba(107,63,160,0.2);}
+.pl-blue{background:var(--blue-dim);color:var(--blue);border:0.5px solid rgba(30,95,168,0.2);}
+.block{background:var(--white);border:1px solid rgba(0,0,0,0.07);border-radius:1.25rem;overflow:hidden;margin-bottom:2rem;}
+.block-head{padding:0.85rem 1.25rem;background:#F8F9FA;border-bottom:1px solid #E0E0E0;display:flex;align-items:center;justify-content:space-between;}
+.block-title{font-size:0.8rem;font-weight:500;color:#202124;display:flex;align-items:center;gap:0.5rem;}
+.block-live{font-size:10px;color:#0F9D58;display:flex;align-items:center;gap:4px;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#0F9D58;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+/* ── SHEETS BÁSICO (Starter) ── */
+.sheets-table{width:100%;border-collapse:collapse;font-size:11.5px;}
+.sheets-table th{background:#E8F5E9;border:0.5px solid #BDBDBD;padding:6px 12px;text-align:left;color:#0F9D58;font-weight:500;font-size:10.5px;white-space:nowrap;}
+.sheets-table th.rn,.sheets-table td.rn{width:28px;background:#F1F3F4;border:0.5px solid #E0E0E0;text-align:center;color:#5F6368;font-size:10px;}
+.sheets-table td{border:0.5px solid #E0E0E0;padding:6px 12px;color:#202124;white-space:nowrap;}
+.sheets-table .row-new{background:#E8F5E9;animation:pulse 2s ease-in-out infinite alternate;}
+.sheets-table .row-urgent{background:#FFF8F8;}
+@keyframes pulse{from{background:#E8F5E9;}to{background:#C8E6C9;}}
+.badge{display:inline-flex;align-items:center;padding:1px 8px;border-radius:3px;font-size:10px;font-weight:500;white-space:nowrap;}
+.b-ok{background:#E8F5E9;color:#2E7D32;}
+.b-pend{background:#FFF3E0;color:#E65100;}
+.b-new{background:#E3F2FD;color:#1565C0;}
+.b-hot{background:#FDECEA;color:#C62828;}
+.b-warm{background:#FFF8E1;color:#F57F17;}
+.b-cold{background:#F3F3F3;color:#616161;}
+.b-process{background:#EDE7F6;color:#6A1B9A;}
+.b-closed{background:#F1F8E9;color:#558B2F;}
+.sheets-footer{padding:6px 16px;background:#F8F9FA;border-top:0.5px solid #E0E0E0;display:flex;justify-content:space-between;font-size:10.5px;color:#5F6368;}
+
+/* ── SHEETS VISUAL (Growth) ── */
+.growth-table{width:100%;border-collapse:collapse;font-size:11.5px;}
+.growth-table th{background:#FFF8E6;border:0.5px solid #E8D5A0;padding:7px 12px;text-align:left;color:#8B6914;font-weight:500;font-size:10.5px;white-space:nowrap;}
+.growth-table th.rn,.growth-table td.rn{width:28px;background:#F1F3F4;border:0.5px solid #E0E0E0;text-align:center;color:#5F6368;font-size:10px;}
+.growth-table td{border:0.5px solid #F0E8D0;padding:7px 12px;color:#202124;white-space:nowrap;}
+.growth-table tr:hover td{background:#FFFDF5;}
+.growth-table .row-new{background:#FFFBEC;animation:pulse-g 2s ease-in-out infinite alternate;}
+.growth-table .row-urgent{background:#FFF9F0;}
+@keyframes pulse-g{from{background:#FFFBEC;}to{background:#FFF0C0;}}
+
+/* VIABILITY BAR */
+.viab-wrap{display:flex;align-items:center;gap:6px;min-width:90px;}
+.viab-bar{flex:1;height:5px;background:#F0E8D0;border-radius:3px;overflow:hidden;}
+.viab-fill{height:100%;border-radius:3px;transition:width 0.3s;}
+.viab-fill.high{background:linear-gradient(90deg,#4A7C59,#69DB7C);}
+.viab-fill.mid{background:linear-gradient(90deg,#D97706,#FCD34D);}
+.viab-fill.low{background:linear-gradient(90deg,#9CA3AF,#D1D5DB);}
+.viab-pct{font-size:10px;font-weight:500;color:#8B6914;min-width:28px;}
+
+/* SCORE RING */
+.score-ring{width:32px;height:32px;position:relative;flex-shrink:0;}
+.score-ring svg{width:100%;height:100%;transform:rotate(-90deg);}
+.score-ring circle{fill:none;stroke-width:3;}
+.score-ring .bg{stroke:#F0E8D0;}
+.score-ring .val{stroke-dasharray:88;stroke-linecap:round;}
+.score-ring .val.s9{stroke:#C8A84B;stroke-dashoffset:9;}
+.score-ring .val.s8{stroke:#C8A84B;stroke-dashoffset:18;}
+.score-ring .val.s7{stroke:#D97706;stroke-dashoffset:26;}
+.score-ring .val.s6{stroke:#9CA3AF;stroke-dashoffset:35;}
+.score-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:600;color:var(--ink);}
+
+/* DOC CHIPS */
+.doc-chips{display:flex;gap:3px;flex-wrap:wrap;}
+.doc-chip{background:#FFF8E1;border:0.5px solid #F0D070;border-radius:2px;padding:1px 5px;font-size:9px;color:#8B6914;}
+
+/* ── KANBAN (Premium) ── */
+.kanban{display:grid;grid-template-columns:repeat(5,1fr);gap:0.85rem;padding:1.25rem;}
+.kol{background:#F8F9FA;border-radius:0.85rem;overflow:hidden;}
+.kol-head{padding:0.65rem 0.85rem;display:flex;align-items:center;justify-content:space-between;}
+.kol-title{font-size:0.7rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;}
+.kol-count{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:white;}
+.kol-body{padding:0.5rem;display:flex;flex-direction:column;gap:0.5rem;min-height:120px;}
+
+/* KANBAN COLUMN COLORS */
+.kol.k-consult .kol-head{background:#E3F2FD;}.kol.k-consult .kol-title{color:#1565C0;}.kol.k-consult .kol-count{background:#1565C0;}
+.kol.k-interview .kol-head{background:#FFF8E1;}.kol.k-interview .kol-title{color:#F57F17;}.kol.k-interview .kol-count{background:#F57F17;}
+.kol.k-process .kol-head{background:#EDE7F6;}.kol.k-process .kol-title{color:#6A1B9A;}.kol.k-process .kol-count{background:#6A1B9A;}
+.kol.k-closed .kol-head{background:#E8F5E9;}.kol.k-closed .kol-title{color:#2E7D32;}.kol.k-closed .kol-count{background:#2E7D32;}
+.kol.k-lost .kol-head{background:#FDECEA;}.kol.k-lost .kol-title{color:#C62828;}.kol.k-lost .kol-count{background:#C62828;}
+
+/* KANBAN CARD */
+.kcard{background:var(--white);border-radius:0.65rem;padding:0.75rem;border:1px solid rgba(0,0,0,0.07);cursor:default;transition:transform 0.15s,box-shadow 0.15s;}
+.kcard:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+.kcard.urgent{border-left:3px solid var(--red);}
+.kcard.high-viab{border-left:3px solid var(--green);}
+.kcard-name{font-size:0.75rem;font-weight:500;color:var(--ink);margin-bottom:0.3rem;}
+.kcard-matter{font-size:0.67rem;color:var(--stone);margin-bottom:0.5rem;line-height:1.4;}
+.kcard-meta{display:flex;align-items:center;justify-content:space-between;gap:0.35rem;}
+.kcard-channel{font-size:9px;background:#F3F4F6;border-radius:3px;padding:1px 5px;color:var(--stone);}
+.kcard-score{font-size:9px;font-weight:600;padding:1px 6px;border-radius:3px;}
+.score-a{background:#E8F5E9;color:#2E7D32;}
+.score-b{background:#FFF8E1;color:#F57F17;}
+.score-c{background:#F3F3F3;color:#616161;}
+.kcard-days{font-size:9px;color:var(--red);font-weight:500;}
+.kcard-new{font-size:9px;color:#1565C0;font-weight:500;animation:pulse-new 1.5s infinite alternate;}
+@keyframes pulse-new{from{opacity:1;}to{opacity:0.4;}}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0.85rem;padding:0.85rem 1.25rem;background:#FFFDF5;border-top:0.5px solid #F0E8D0;}
+.stat-item{text-align:center;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;line-height:1;}
+.stat-label{font-size:9px;color:var(--stone);margin-top:2px;letter-spacing:0.04em;}
+
+/* LEGAL RMC — same base, blue theme */
+.rmc-table{width:100%;border-collapse:collapse;font-size:11.5px;}
+.rmc-table th{background:#E3F2FD;border:0.5px solid #90CAF9;padding:6px 12px;text-align:left;color:#1565C0;font-weight:500;font-size:10.5px;white-space:nowrap;}
+.rmc-table th.rn,.rmc-table td.rn{width:28px;background:#F1F3F4;border:0.5px solid #E0E0E0;text-align:center;color:#5F6368;font-size:10px;}
+.rmc-table td{border:0.5px solid #E3F2FD;padding:6px 12px;color:#202124;white-space:nowrap;}
+.rmc-table .row-new{background:#E8F5E9;animation:pulse 2s ease-in-out infinite alternate;}
+.rmc-table .row-urgent{background:#FFF8F8;}
+
+.rmc-growth-table{width:100%;border-collapse:collapse;font-size:11.5px;}
+.rmc-growth-table th{background:#E8EAF6;border:0.5px solid #9FA8DA;padding:7px 12px;text-align:left;color:#283593;font-weight:500;font-size:10.5px;white-space:nowrap;}
+.rmc-growth-table th.rn,.rmc-growth-table td.rn{width:28px;background:#F1F3F4;border:0.5px solid #E0E0E0;text-align:center;color:#5F6368;font-size:10px;}
+.rmc-growth-table td{border:0.5px solid #E8EAF6;padding:7px 12px;color:#202124;white-space:nowrap;}
+.rmc-growth-table tr:hover td{background:#F5F5FF;}
+.rmc-growth-table .row-new{background:#E8F5E9;animation:pulse 2s ease-in-out infinite alternate;}
+.rmc-growth-table .row-urgent{background:#FFF8F8;}
+
+.viab-bar-blue .viab-fill.high{background:linear-gradient(90deg,#1565C0,#42A5F5);}
+.viab-bar-blue .viab-fill.mid{background:linear-gradient(90deg,#F57F17,#FFC107);}
+.score-ring .val.s9-blue{stroke:#1565C0;stroke-dashoffset:9;}
+.score-ring .val.s8-blue{stroke:#1565C0;stroke-dashoffset:18;}
+.score-ring .val.s7-blue{stroke:#F57F17;stroke-dashoffset:26;}
+
+/* LEGAL KANBAN */
+.kol.lk-consult .kol-head{background:#E8EAF6;}.kol.lk-consult .kol-title{color:#283593;}.kol.lk-consult .kol-count{background:#283593;}
+.kol.lk-interview .kol-head{background:#E3F2FD;}.kol.lk-interview .kol-title{color:#1565C0;}.kol.lk-interview .kol-count{background:#1565C0;}
+.kol.lk-process .kol-head{background:#EDE7F6;}.kol.lk-process .kol-title{color:#6A1B9A;}.kol.lk-process .kol-count{background:#6A1B9A;}
+.kol.lk-closed .kol-head{background:#E8F5E9;}.kol.lk-closed .kol-title{color:#2E7D32;}.kol.lk-closed .kol-count{background:#2E7D32;}
+.kol.lk-lost .kol-head{background:#FDECEA;}.kol.lk-lost .kol-title{color:#C62828;}.kol.lk-lost .kol-count{background:#C62828;}
+
+/* ══ MOBILE RESPONSIVE DASHBOARD ══ */
+@media(max-width:768px){
+  header{padding:0.85rem 1.25rem;}
+  .hprod{display:none;}
+  .hcta{font-size:0.72rem;padding:0.45rem 0.9rem;}
+
+  .hero{padding:2.5rem 1.25rem 2rem;}
+  .hero-title{font-size:clamp(1.8rem,8vw,2.5rem);}
+  .hero-desc{font-size:0.82rem;}
+  .plan-tabs{flex-wrap:wrap;gap:0.5rem;}
+  .plan-tab{font-size:0.7rem;padding:0.45rem 0.85rem;}
+
+  .main{padding:1.25rem 1rem 3rem;}
+
+  .plan-header{grid-template-columns:1fr;gap:1rem;padding:1.25rem;}
+  .plan-pricing{text-align:left;}
+  .plan-name-big{font-size:1.5rem;}
+
+  .flow-grid{grid-template-columns:1fr 1fr;gap:0.85rem;}
+  .flow-grid::before{display:none;}
+  .flow-step{padding:1rem;}
+
+  .features-grid{grid-template-columns:1fr;gap:1rem;}
+  .feat.full{grid-column:1;}
+
+  .preview-grid{grid-template-columns:1fr;}
+
+  .kanban{grid-template-columns:1fr 1fr;gap:0.65rem;padding:0.85rem;}
+  .kol.k-lost,.kol.lk-lost{display:none;}
+
+  .metrics-grid{grid-template-columns:1fr 1fr;gap:0.75rem;}
+
+  .cta-section{flex-direction:column;gap:1.5rem;padding:1.75rem;}
+  .cta-buttons{flex-direction:column;width:100%;}
+  .cta-btn,.cta-ghost{text-align:center;width:100%;}
+
+  .upgrade-banner{flex-direction:column;align-items:flex-start;gap:0.75rem;}
+  .upgrade-btn{margin-left:0;width:100%;text-align:center;}
+
+  .sheets-scroll{-webkit-overflow-scrolling:touch;}
+  .block{border-radius:0.85rem;}
+
+  .stats-row{grid-template-columns:1fr 1fr;}
+}
+
+@media(max-width:480px){
+  .plan-tabs{flex-direction:column;}
+  .plan-tab{text-align:center;}
+  .flow-grid{grid-template-columns:1fr;}
+  .kanban{grid-template-columns:1fr;}
+  .metrics-grid{grid-template-columns:1fr 1fr;}
+}
 </style>
 </head>
 <body>
@@ -390,36 +599,51 @@ header{background:var(--white);border-bottom:1px solid rgba(200,168,75,0.15);pad
     </div>
   </div>
 
-  <div class="sec-title">Así se verá tu Google Sheets en Growth</div>
-  <div class="sheets-wrap fade-in">
-    <div class="sheets-chrome">
-      <div class="sheets-dots"><div class="sheets-dot" style="background:#FF5F57;"></div><div class="sheets-dot" style="background:#FFBD2E;"></div><div class="sheets-dot" style="background:#28C840;"></div></div>
-      <div class="sheets-url">docs.google.com/spreadsheets — ClinicAI · Pacientes (Growth)</div>
+  <div class="sec-title">Tu CRM Growth — indicadores visuales IA</div>
+  <div class="plan-label pl-gold">🚀 Growth — CRM visual · 7 columnas con score y viabilidad</div>
+  <div class="block">
+    <div class="block-head">
+      <div class="block-title">📊 Pacientes con score IA<span style="font-size:10px;color:#8B6914;font-weight:400;margin-left:8px;">urgencia + viabilidad + documentos</span></div>
+      <div class="block-live"><span class="live-dot"></span>En vivo</div>
     </div>
-    <div class="sheets-toolbar">
-      <div class="sheets-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="1" fill="#0F9D58"/><rect x="13" y="3" width="8" height="8" rx="1" fill="#0F9D58" opacity="0.6"/><rect x="3" y="13" width="8" height="8" rx="1" fill="#0F9D58" opacity="0.4"/><rect x="13" y="13" width="8" height="8" rx="1" fill="#0F9D58" opacity="0.2"/></svg> ClinicAI — Pacientes con score IA</div>
-      <div class="sheets-live">⬤ Actualización automática · hace 2 min</div>
-    </div>
-    <div class="sheets-tabs"><div class="sheets-tab active">Todos los pacientes</div><div class="sheets-tab">Urgentes 🔴</div><div class="sheets-tab">Confirmados</div></div>
-    <div class="sheets-scroll">
-      <table class="sheets-table">
-        <colgroup><col style="width:28px;"><col style="width:120px;"><col style="width:110px;"><col style="width:130px;"><col style="width:100px;"><col style="width:85px;"><col style="width:90px;"><col style="width:160px;"></colgroup>
-        <thead>
-          <tr><th class="rn"></th><th class="col-letter">A</th><th class="col-letter">B</th><th class="col-letter">C</th><th class="col-letter">D</th><th class="col-letter">E</th><th class="col-letter">F</th><th class="col-letter" style="background:#FFF8E1;color:#F57F17;font-weight:500;">G — IA</th></tr>
-          <tr><th class="rn">1</th><th class="col-header">NOMBRE</th><th class="col-header">WHATSAPP</th><th class="col-header">SERVICIO</th><th class="col-header">FECHA CITA</th><th class="col-header">ESTADO</th><th class="col-header">URGENCIA</th><th class="col-header" style="background:#FFF3E0;color:#E65100;">RESUMEN IA</th></tr>
-        </thead>
+    <div style="overflow-x:auto;">
+      <table class="growth-table">
+        <colgroup><col style="width:26px;"><col style="width:120px;"><col style="width:130px;"><col style="width:95px;"><col style="width:80px;"><col style="width:105px;"><col style="width:100px;"><col style="width:130px;"></colgroup>
+        <thead><tr><th class="rn">1</th><th>NOMBRE</th><th>SERVICIO</th><th>FECHA</th><th>URGENCIA</th><th>VIABILIDAD IA</th><th>SCORE</th><th>DOCS RECIBIDOS</th></tr></thead>
         <tbody>
-          <tr class="row-urgent"><td class="rn">2</td><td style="font-weight:500;">Pedro Muñoz</td><td style="color:#1A73E8;">+56 9 8821 4433</td><td>Dolor molar agudo</td><td>Hoy · 16:00</td><td><span class="badge-ok">✓ Confirmada</span></td><td><span class="badge-hot">🔴 Alta</span></td><td style="color:#5F6368;font-size:11px;">Dolor intenso 24h. Urgente.</td></tr>
-          <tr><td class="rn">3</td><td style="font-weight:500;">Laura Díaz</td><td style="color:#1A73E8;">+56 9 7733 5599</td><td>Ortodoncia</td><td>Jue 22 · 11:00</td><td><span class="badge-pend">● Pendiente</span></td><td><span class="badge-warm">🟡 Media</span></td><td style="color:#5F6368;font-size:11px;">Consulta brackets. Sin urgencia.</td></tr>
-          <tr><td class="rn">4</td><td style="font-weight:500;">Ana Torres</td><td style="color:#1A73E8;">+56 9 6644 8877</td><td>Limpieza dental</td><td>Mié 21 · 15:00</td><td><span class="badge-ok">✓ Confirmada</span></td><td><span class="badge-cold">⚪ Baja</span></td><td style="color:#5F6368;font-size:11px;">Rutina anual. Paciente recurrente.</td></tr>
-          <tr class="row-new"><td class="rn">5</td><td style="font-weight:500;">Sofía Castro</td><td style="color:#1A73E8;">+56 9 5566 3322</td><td>Blanqueamiento</td><td>Vie 23 · 15:30</td><td><span class="badge-new">⬤ Nuevo</span></td><td><span class="badge-warm">🟡 Media</span></td><td style="color:#2E7D32;font-size:11px;font-weight:500;">Recién llegó · revisando</td></tr>
+          <tr class="row-urgent">
+            <td class="rn">2</td><td style="font-weight:500;">Pedro Muñoz</td><td>Dolor molar agudo</td><td>Hoy · 16:00</td>
+            <td><span class="badge b-hot">🔴 Alta</span></td>
+            <td><div class="viab-wrap"><div class="viab-bar"><div class="viab-fill high" style="width:87%;"></div></div><span class="viab-pct">87%</span></div></td>
+            <td><div style="display:flex;align-items:center;gap:4px;"><div class="score-ring"><svg viewBox="0 0 30 30"><circle class="bg" cx="15" cy="15" r="12"/><circle class="val s9" cx="15" cy="15" r="12"/></svg><div class="score-num">9.2</div></div></div></td>
+            <td><div class="doc-chips"><span class="doc-chip">📷 Foto</span></div></td>
+          </tr>
+          <tr>
+            <td class="rn">3</td><td style="font-weight:500;">Laura Díaz</td><td>Ortodoncia</td><td>Jue 22</td>
+            <td><span class="badge b-warm">🟡 Media</span></td>
+            <td><div class="viab-wrap"><div class="viab-bar"><div class="viab-fill high" style="width:76%;"></div></div><span class="viab-pct">76%</span></div></td>
+            <td><div style="display:flex;align-items:center;gap:4px;"><div class="score-ring"><svg viewBox="0 0 30 30"><circle class="bg" cx="15" cy="15" r="12"/><circle class="val s8" cx="15" cy="15" r="12"/></svg><div class="score-num">8.1</div></div></div></td>
+            <td><div class="doc-chips"><span style="font-size:10px;color:#9CA3AF;">—</span></div></td>
+          </tr>
+          <tr class="row-new">
+            <td class="rn">4</td><td style="font-weight:500;">Sofía Castro</td><td>Blanqueamiento</td><td>Vie 23</td>
+            <td><span class="badge b-warm">🟡 Media</span></td>
+            <td><div class="viab-wrap"><div class="viab-bar"><div class="viab-fill high" style="width:91%;"></div></div><span class="viab-pct">91%</span></div></td>
+            <td><div style="display:flex;align-items:center;gap:4px;"><div class="score-ring"><svg viewBox="0 0 30 30"><circle class="bg" cx="15" cy="15" r="12"/><circle class="val s9" cx="15" cy="15" r="12"/></svg><div class="score-num">9.5</div></div></div></td>
+            <td><div class="doc-chips"><span class="doc-chip">📋 Ficha</span></div></td>
+          </tr>
         </tbody>
       </table>
     </div>
-    <div class="sheets-footer"><div class="sheets-footer-left">4 pacientes · 1 urgente 🔴 · 2 confirmados · 1 nuevo</div><div class="sheets-footer-right">ClinicAI + score IA actualizando</div></div>
+    <div class="stats-row">
+      <div class="stat-item"><div class="stat-num" style="color:#4A7C59;">3</div><div class="stat-label">Pacientes activos</div></div>
+      <div class="stat-item"><div class="stat-num" style="color:#DC2626;">1</div><div class="stat-label">Urgencia alta</div></div>
+      <div class="stat-item"><div class="stat-num" style="color:#C8A84B;">85%</div><div class="stat-label">Viabilidad prom.</div></div>
+      <div class="stat-item"><div class="stat-num" style="color:#4A7C59;">2</div><div class="stat-label">Docs recibidos</div></div>
+    </div>
   </div>
 
-  <div class="sec-title">Alerta Slack + conversación con IA</div>
+<div class="sec-title">Alerta Slack + conversación con IA</div>
   <div class="preview-grid fade-in">
     <div class="prev-card">
       <div class="prev-head"><div class="prev-icon pi-g">🧠</div><div><div class="prev-name">Lead urgente detectado</div><div class="prev-sub">IA clasifica automáticamente</div></div></div>
@@ -554,37 +778,59 @@ header{background:var(--white);border-bottom:1px solid rgba(200,168,75,0.15);pad
     </div>
   </div>
 
-  <div class="sec-title">Así se verá tu Google Sheets en Premium</div>
-  <div class="sheets-wrap fade-in">
-    <div class="sheets-chrome">
-      <div class="sheets-dots"><div class="sheets-dot" style="background:#FF5F57;"></div><div class="sheets-dot" style="background:#FFBD2E;"></div><div class="sheets-dot" style="background:#28C840;"></div></div>
-      <div class="sheets-url">docs.google.com/spreadsheets — ClinicAI · Pacientes (Premium)</div>
+  <div class="sec-title">Tu CRM Premium — Pipeline Kanban interactivo</div>
+  <div class="plan-label pl-purple">👑 Premium — Pipeline Kanban · 5 etapas · multi-canal</div>
+  <div class="block">
+    <div class="block-head">
+      <div class="block-title">🎯 Pipeline de pacientes — vista Kanban<span style="font-size:10px;color:#6A1B9A;font-weight:400;margin-left:8px;">arrastra tarjetas entre etapas</span></div>
+      <div class="block-live"><span class="live-dot"></span>En vivo</div>
     </div>
-    <div class="sheets-toolbar">
-      <div class="sheets-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="1" fill="#0F9D58"/><rect x="13" y="3" width="8" height="8" rx="1" fill="#0F9D58" opacity="0.6"/><rect x="3" y="13" width="8" height="8" rx="1" fill="#0F9D58" opacity="0.4"/><rect x="13" y="13" width="8" height="8" rx="1" fill="#0F9D58" opacity="0.2"/></svg> ClinicAI — Pacientes Premium · Multi-canal</div>
-      <div class="sheets-live">⬤ Actualización automática · hace 30s</div>
+    <div class="kanban">
+      <div class="kol k-consult">
+        <div class="kol-head"><span class="kol-title">Consulta</span><span class="kol-count">2</span></div>
+        <div class="kol-body">
+          <div class="kcard"><div class="kcard-name">Roberto Pizarro</div><div class="kcard-matter">Implante dental · consulta precio</div><div class="kcard-meta"><span class="kcard-channel">💬 WA</span><span class="kcard-score score-b">7.2</span><span class="kcard-new">⬤ nuevo</span></div></div>
+          <div class="kcard"><div class="kcard-name">Valentina Cruz</div><div class="kcard-matter">Blanqueamiento · primera vez</div><div class="kcard-meta"><span class="kcard-channel">📸 IG</span><span class="kcard-score score-a">9.1</span><span class="kcard-new">⬤ nuevo</span></div></div>
+        </div>
+      </div>
+      <div class="kol k-interview">
+        <div class="kol-head"><span class="kol-title">Cita agendada</span><span class="kol-count">3</span></div>
+        <div class="kol-body">
+          <div class="kcard urgent"><div class="kcard-name">Pedro Muñoz</div><div class="kcard-matter">Dolor molar agudo · hoy 16:00</div><div class="kcard-meta"><span class="kcard-channel">💬 WA</span><span class="kcard-score score-a">9.2</span><span class="kcard-days">⚠️ urgente</span></div></div>
+          <div class="kcard"><div class="kcard-name">Laura Díaz</div><div class="kcard-matter">Ortodoncia · jue 22 · 11:00</div><div class="kcard-meta"><span class="kcard-channel">💬 WA</span><span class="kcard-score score-b">8.1</span></div></div>
+          <div class="kcard"><div class="kcard-name">Sofía Castro</div><div class="kcard-matter">Blanqueamiento · vie 23 · 15:30</div><div class="kcard-meta"><span class="kcard-channel">📸 IG</span><span class="kcard-score score-a">9.5</span></div></div>
+        </div>
+      </div>
+      <div class="kol k-process">
+        <div class="kol-head"><span class="kol-title">En tratamiento</span><span class="kol-count">2</span></div>
+        <div class="kol-body">
+          <div class="kcard high-viab"><div class="kcard-name">Ana Torres</div><div class="kcard-matter">Ortodoncia · 3ra sesión</div><div class="kcard-meta"><span class="kcard-channel">💬 WA</span><span class="kcard-score score-a">8.8</span></div></div>
+          <div class="kcard"><div class="kcard-name">Carlos Pérez</div><div class="kcard-matter">Implante · fase 2</div><div class="kcard-meta"><span class="kcard-channel">📸 IG</span><span class="kcard-score score-a">9.0</span></div></div>
+        </div>
+      </div>
+      <div class="kol k-closed">
+        <div class="kol-head"><span class="kol-title">Completado ✓</span><span class="kol-count">4</span></div>
+        <div class="kol-body">
+          <div class="kcard"><div class="kcard-name">María González</div><div class="kcard-matter">Limpieza dental · completada</div><div class="kcard-meta"><span class="kcard-channel">💬 WA</span><span class="kcard-score score-a">9.3</span></div></div>
+          <div class="kcard"><div class="kcard-name">Jorge Muñoz</div><div class="kcard-matter">Endodoncia · completada</div><div class="kcard-meta"><span class="kcard-channel">💬 WA</span><span class="kcard-score score-b">8.0</span></div></div>
+        </div>
+      </div>
+      <div class="kol k-lost">
+        <div class="kol-head"><span class="kol-title">No continúa</span><span class="kol-count">1</span></div>
+        <div class="kol-body">
+          <div class="kcard"><div class="kcard-name">Felipe Araya</div><div class="kcard-matter">Blanqueamiento · desistió</div><div class="kcard-meta"><span class="kcard-channel">📸 IG</span><span class="kcard-score score-c">5.5</span></div></div>
+        </div>
+      </div>
     </div>
-    <div class="sheets-tabs"><div class="sheets-tab active">Todos</div><div class="sheets-tab">WhatsApp 💬</div><div class="sheets-tab">Instagram 📸</div><div class="sheets-tab">Urgentes 🔴</div></div>
-    <div class="sheets-scroll">
-      <table class="sheets-table">
-        <colgroup><col style="width:26px;"><col style="width:115px;"><col style="width:110px;"><col style="width:125px;"><col style="width:95px;"><col style="width:82px;"><col style="width:82px;"><col style="width:80px;"><col style="width:155px;"></colgroup>
-        <thead>
-          <tr><th class="rn"></th><th class="col-letter">A</th><th class="col-letter">B</th><th class="col-letter">C</th><th class="col-letter">D</th><th class="col-letter">E</th><th class="col-letter">F</th><th class="col-letter" style="background:#EDE7F6;color:#6A1B9A;font-weight:500;">G — IA</th><th class="col-letter" style="background:#EDE7F6;color:#6A1B9A;font-weight:500;">H — IA</th></tr>
-          <tr><th class="rn">1</th><th class="col-header">NOMBRE</th><th class="col-header">WHATSAPP</th><th class="col-header">SERVICIO</th><th class="col-header">FECHA</th><th class="col-header">ESTADO</th><th class="col-header">CANAL</th><th class="col-header" style="background:#EDE7F6;color:#6A1B9A;">URGENCIA</th><th class="col-header" style="background:#EDE7F6;color:#6A1B9A;">RESUMEN IA</th></tr>
-        </thead>
-        <tbody>
-          <tr class="row-urgent"><td class="rn">2</td><td style="font-weight:500;">Pedro Muñoz</td><td style="color:#1A73E8;">+56 9 8821 4433</td><td>Dolor molar</td><td>Hoy · 16:00</td><td><span class="badge-ok">✓ Conf.</span></td><td style="font-size:11px;">💬 WhatsApp</td><td><span class="badge-hot">🔴 Alta</span></td><td style="color:#5F6368;font-size:10.5px;">Dolor intenso 24h.</td></tr>
-          <tr><td class="rn">3</td><td style="font-weight:500;">Laura Díaz</td><td style="color:#1A73E8;">+56 9 7733 5599</td><td>Ortodoncia</td><td>Jue 22</td><td><span class="badge-pend">● Pend.</span></td><td style="font-size:11px;">📸 Instagram</td><td><span class="badge-warm">🟡 Media</span></td><td style="color:#5F6368;font-size:10.5px;">Consulta brackets.</td></tr>
-          <tr><td class="rn">4</td><td style="font-weight:500;">Ana Torres</td><td style="color:#1A73E8;">+56 9 6644 8877</td><td>Limpieza</td><td>Mié 21</td><td><span class="badge-ok">✓ Conf.</span></td><td style="font-size:11px;">💬 WhatsApp</td><td><span class="badge-cold">⚪ Baja</span></td><td style="color:#5F6368;font-size:10.5px;">Rutina anual.</td></tr>
-          <tr><td class="rn">5</td><td style="font-weight:500;">Marcos Vega</td><td style="color:#1A73E8;">+56 9 4455 7788</td><td>Implante</td><td>Lun 26</td><td><span class="badge-ok">✓ Conf.</span></td><td style="font-size:11px;">📸 Instagram</td><td><span class="badge-warm">🟡 Media</span></td><td style="color:#5F6368;font-size:10.5px;">Interesado en costo.</td></tr>
-          <tr class="row-new"><td class="rn">6</td><td style="font-weight:500;">Sofía Castro</td><td style="color:#1A73E8;">+56 9 5566 3322</td><td>Blanqueamiento</td><td>Vie 23</td><td><span class="badge-new">⬤ Nuevo</span></td><td style="font-size:11px;">📸 Instagram</td><td><span class="badge-cold">⚪ Baja</span></td><td style="color:#2E7D32;font-size:10.5px;font-weight:500;">Recién llegó</td></tr>
-        </tbody>
-      </table>
+    <div class="stats-row">
+      <div class="stat-item"><div class="stat-num" style="color:var(--premium,#7B5EA7);">12</div><div class="stat-label">Total pipeline</div></div>
+      <div class="stat-item"><div class="stat-num" style="color:#4A7C59;">83%</div><div class="stat-label">Tasa conversión</div></div>
+      <div class="stat-item"><div class="stat-num" style="color:#C8A84B;">2</div><div class="stat-label">Canales activos</div></div>
+      <div class="stat-item"><div class="stat-num" style="color:#DC2626;">1</div><div class="stat-label">Urgentes hoy</div></div>
     </div>
-    <div class="sheets-footer"><div class="sheets-footer-left">5 pacientes · 1 urgente 🔴 · 3 WhatsApp · 2 Instagram · 1 nuevo</div><div class="sheets-footer-right">ClinicAI Premium actualizando</div></div>
   </div>
 
-  <div class="sec-title">Reporte semanal automático</div>
+<div class="sec-title">Reporte semanal automático</div>
   <div class="sheets-wrap fade-in">
     <div class="sheets-toolbar" style="border-top:none;">
       <div class="sheets-title">📊 Resumen semana 20 — generado automáticamente cada lunes</div>

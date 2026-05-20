@@ -378,11 +378,57 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);}
 .kol.lk-closed .kol-head{background:#E8F5E9;}.kol.lk-closed .kol-title{color:#2E7D32;}.kol.lk-closed .kol-count{background:#2E7D32;}
 .kol.lk-lost .kol-head{background:#FDECEA;}.kol.lk-lost .kol-title{color:#C62828;}.kol.lk-lost .kol-count{background:#C62828;}
 
+/* ══ MOBILE RESPONSIVE DASHBOARD ══ */
 @media(max-width:768px){
+  header{padding:0.85rem 1.25rem;}
+  .hprod{display:none;}
+  .hcta{font-size:0.72rem;padding:0.45rem 0.9rem;}
+
+  .hero{padding:2.5rem 1.25rem 2rem;}
+  .hero-title{font-size:clamp(1.8rem,8vw,2.5rem);}
+  .hero-desc{font-size:0.82rem;}
+  .plan-tabs{flex-wrap:wrap;gap:0.5rem;}
+  .plan-tab{font-size:0.7rem;padding:0.45rem 0.85rem;}
+
+  .main{padding:1.25rem 1rem 3rem;}
+
+  .plan-header{grid-template-columns:1fr;gap:1rem;padding:1.25rem;}
+  .plan-pricing{text-align:left;}
+  .plan-name-big{font-size:1.5rem;}
+
+  .flow-grid{grid-template-columns:1fr 1fr;gap:0.85rem;}
+  .flow-grid::before{display:none;}
+  .flow-step{padding:1rem;}
+
+  .features-grid{grid-template-columns:1fr;gap:1rem;}
+  .feat.full{grid-column:1;}
+
+  .preview-grid{grid-template-columns:1fr;}
+
   .kanban{grid-template-columns:1fr 1fr;gap:0.65rem;padding:0.85rem;}
   .kol.k-lost,.kol.lk-lost{display:none;}
+
+  .metrics-grid{grid-template-columns:1fr 1fr;gap:0.75rem;}
+
+  .cta-section{flex-direction:column;gap:1.5rem;padding:1.75rem;}
+  .cta-buttons{flex-direction:column;width:100%;}
+  .cta-btn,.cta-ghost{text-align:center;width:100%;}
+
+  .upgrade-banner{flex-direction:column;align-items:flex-start;gap:0.75rem;}
+  .upgrade-btn{margin-left:0;width:100%;text-align:center;}
+
+  .sheets-scroll{-webkit-overflow-scrolling:touch;}
+  .block{border-radius:0.85rem;}
+
   .stats-row{grid-template-columns:1fr 1fr;}
-  .page-tab{padding:0.75rem 0.85rem;font-size:0.75rem;}
+}
+
+@media(max-width:480px){
+  .plan-tabs{flex-direction:column;}
+  .plan-tab{text-align:center;}
+  .flow-grid{grid-template-columns:1fr;}
+  .kanban{grid-template-columns:1fr;}
+  .metrics-grid{grid-template-columns:1fr 1fr;}
 }
 </style>
 </head>
