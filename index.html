@@ -602,6 +602,7 @@ iframe { -webkit-overflow-scrolling: touch; overflow-y: scroll; }
 
 // LEGAL MODAL
 function openLegal(){
+  if(window.innerWidth < 768){ window.open('legalai-dashboard.html','_blank'); return; }
   document.getElementById('modalLegal').classList.add('open');
   document.body.style.overflow='hidden';
   startLegalChat();
@@ -669,6 +670,7 @@ document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
 
 // MODAL
 function openModal(){
+  if(window.innerWidth < 768){ window.open('clinicai-dashboard.html','_blank'); return; }
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
   startChat();
