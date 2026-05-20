@@ -14,11 +14,10 @@
   --gold-dim:rgba(200,168,75,0.12);--gold-border:rgba(200,168,75,0.22);
   --muted:rgba(248,245,240,0.48);
 }
-html{scroll-behavior:smooth;}
-body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);overflow-x:clip;}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 3rem;background:rgba(12,12,11,0.82);backdrop-filter:blur(28px);border-bottom:0.5px solid rgba(200,168,75,0.1);}
+nav{position:sticky;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 3rem;background:rgba(12,12,11,0.82);backdrop-filter:blur(28px);border-bottom:0.5px solid rgba(200,168,75,0.1);}
 .logo-nav{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
 .logo-v{width:28px;height:22px;}
 .logo-wordmark{font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--white);}
@@ -323,16 +322,8 @@ footer{padding:2.5rem 3rem;border-top:0.5px solid rgba(200,168,75,0.07);display:
   .plan-tabs{flex-direction:column;}
 }
 
-html { -webkit-overflow-scrolling: touch; }
-body { overflow-x: clip; -webkit-overflow-scrolling: touch; }
-.modal-left, .main, .chat-body { -webkit-overflow-scrolling: touch; }
-* { touch-action: auto; }
-iframe { -webkit-overflow-scrolling: touch; overflow-y: scroll; }
-.modal-left { overflow-y: auto; -webkit-overflow-scrolling: touch; }
-.modal-overlay { overflow-y: auto; -webkit-overflow-scrolling: touch; }
-nav { -webkit-transform: translateZ(0); transform: translateZ(0); will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-.hero, .section, .how-section, .contact-section { -webkit-transform: translateZ(0); }
-body { -webkit-font-smoothing: antialiased; overscroll-behavior: none; }
+html { scroll-behavior: smooth; }
+body { -webkit-overflow-scrolling: touch; }
 </style>
 </head>
 <body>
