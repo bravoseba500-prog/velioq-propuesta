@@ -330,9 +330,9 @@ body { overflow-x: clip; -webkit-overflow-scrolling: touch; }
 iframe { -webkit-overflow-scrolling: touch; overflow-y: scroll; }
 .modal-left { overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .modal-overlay { overflow-y: auto; -webkit-overflow-scrolling: touch; }
-nav { -webkit-transform: translateZ(0); transform: translateZ(0); }
+nav { -webkit-transform: translateZ(0); transform: translateZ(0); will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
 .hero, .section, .how-section, .contact-section { -webkit-transform: translateZ(0); }
-body { -webkit-font-smoothing: antialiased; }
+body { -webkit-font-smoothing: antialiased; overscroll-behavior: none; }
 </style>
 </head>
 <body>
