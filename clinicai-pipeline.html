@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClinicAI Pipeline — Velioq</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A1628;--navy2:#112240;--navy3:#1a2f4e;
+  --teal:#1D9E75;--teal-light:#E1F5EE;--teal-dark:#0F6E56;
+  --white:#fff;--bg:#f4f6f9;
+  --text:#0A1628;--text2:#4a5568;--text3:#8896a5;
+  --border:#e2e8f0;--border2:#c8d4e0;
+  --blue:#185FA5;--blue-bg:#E6F1FB;
+  --amber:#BA7517;--amber-bg:#FAEEDA;
+  --purple:#534AB7;--purple-bg:#EEEDFE;
+  --coral:#D85A30;--coral-bg:#FAECE7;
+  --gray:#888780;--gray-bg:#F1EFE8;
+  --red:#A32D2D;--red-bg:#FCEBEB;
+  --radius:8px;--radius-lg:12px;
+  --shadow:0 1px 3px rgba(0,0,0,0.08);
+  --shadow-lg:0 4px 16px rgba(0,0,0,0.12);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex}
+
+/* SIDEBAR */
+.sidebar{width:240px;min-height:100vh;background:var(--navy);display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;z-index:50}
+.sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.logo-mark{width:36px;height:36px;background:var(--teal);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;margin-bottom:10px}
+.logo-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:.02em}
+.logo-sub{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.sidebar-section{padding:20px 12px 6px;font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius);cursor:pointer;color:rgba(255,255,255,.55);font-size:13px;margin:1px 8px;transition:all .15s;user-select:none}
+.nav-item:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.85)}
+.nav-item.active{background:rgba(29,158,117,.2);color:#fff}
+.nav-item.active .nav-icon{color:var(--teal)}
+.nav-icon{font-size:15px;width:18px;text-align:center;flex-shrink:0}
+.nav-badge{margin-left:auto;background:var(--teal);color:#fff;font-size:10px;padding:2px 7px;border-radius:20px;font-weight:600}
+.nav-badge.muted{background:rgba(255,255,255,.15)}
+.sidebar-bottom{margin-top:auto;padding:16px;border-top:1px solid rgba(255,255,255,.08)}
+.user-card{display:flex;align-items:center;gap:10px}
+.user-avatar{width:32px;height:32px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.user-name{font-size:13px;color:#fff;font-weight:500}
+.user-role{font-size:11px;color:rgba(255,255,255,.4)}
+
+/* MAIN */
+.main{margin-left:240px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.breadcrumb{font-size:13px;color:var(--text3)}
+.breadcrumb span{color:var(--text);font-weight:500}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.date-chip{font-size:12px;color:var(--text2);background:var(--bg);border:1px solid var(--border);padding:5px 12px;border-radius:20px}
+.btn-primary{background:var(--teal);color:#fff;border:none;padding:8px 16px;border-radius:var(--radius);font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s}
+.btn-primary:hover{background:var(--teal-dark)}
+.btn-secondary{background:#fff;color:var(--text);border:1px solid var(--border2);padding:7px 14px;border-radius:var(--radius);font-size:13px;cursor:pointer;transition:all .15s}
+.btn-secondary:hover{border-color:var(--teal);color:var(--teal)}
+
+/* PAGE */
+.page{display:none;padding:24px 28px;flex:1;flex-direction:column}
+.page.active{display:flex}
+.page-title{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--text3);margin-bottom:22px}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.metric-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;position:relative;overflow:hidden}
+.metric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.metric-card.c-teal::before{background:var(--teal)}
+.metric-card.c-blue::before{background:var(--blue)}
+.metric-card.c-amber::before{background:var(--amber)}
+.metric-card.c-purple::before{background:var(--purple)}
+.metric-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;font-weight:500}
+.metric-val{font-size:26px;font-weight:700;color:var(--navy);line-height:1}
+.metric-delta{font-size:11px;margin-top:6px;color:var(--text3)}
+.metric-icon{position:absolute;top:16px;right:16px;font-size:20px;opacity:.15}
+
+/* TOOLBAR */
+.toolbar{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 16px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.search-wrap{position:relative;flex:1;min-width:180px}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px}
+.search-input{width:100%;padding:7px 12px 7px 30px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--text);outline:none;transition:border .15s}
+.search-input:focus{border-color:var(--teal)}
+.filters{display:flex;gap:5px;flex-wrap:wrap}
+.filter-pill{font-size:12px;padding:5px 11px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:#fff;color:var(--text2);font-weight:500;transition:all .15s;white-space:nowrap}
+.filter-pill:hover{border-color:var(--teal);color:var(--teal)}
+.filter-pill.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.view-toggle{display:flex;gap:4px;margin-left:auto}
+.view-btn{padding:6px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:12px;cursor:pointer;background:#fff;color:var(--text2);transition:all .15s}
+.view-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* TABLE */
+.table-wrap{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.table-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border)}
+.table-title{font-size:14px;font-weight:600;color:var(--navy)}
+.table-count{font-size:12px;color:var(--text3);margin-left:8px}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;padding:10px 16px;text-align:left;border-bottom:1px solid var(--border);background:#fafbfc}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s;cursor:default}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#fafbfc}
+td{padding:11px 16px;font-size:13px;color:var(--text)}
+.clinic-cell{display:flex;align-items:center;gap:10px}
+.clinic-avatar{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.clinic-name{font-weight:600;color:var(--navy);font-size:13px}
+.clinic-type{font-size:11px;color:var(--text3);margin-top:1px}
+.contact-name{font-weight:500}
+.contact-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.plan-badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap}
+.status-badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.date-cell{font-size:12px;color:var(--text2)}
+.date-urgent{color:var(--coral);font-weight:600}
+.date-soon{color:var(--amber);font-weight:600}
+.actions-cell{display:flex;gap:5px}
+.action-btn{width:28px;height:28px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .15s;color:var(--text2)}
+.action-btn:hover{border-color:var(--teal);color:var(--teal)}
+.action-btn.danger:hover{border-color:var(--red);color:var(--red)}
+
+/* KANBAN */
+.kanban{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;align-items:flex-start}
+.kanban-col{min-width:210px;max-width:230px;flex-shrink:0}
+.kanban-head{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.kanban-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.kanban-label{font-size:13px;font-weight:600;color:var(--navy)}
+.kanban-count{font-size:11px;background:var(--bg);border:1px solid var(--border);padding:1px 7px;border-radius:20px;color:var(--text3);font-weight:600}
+.kanban-cards{display:flex;flex-direction:column;gap:8px}
+.kanban-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px;cursor:pointer;transition:all .15s}
+.kanban-card:hover{border-color:var(--teal);box-shadow:var(--shadow)}
+.kanban-card-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:5px}
+.kanban-card-meta{font-size:11px;color:var(--text3);margin-bottom:8px}
+.kanban-card-footer{display:flex;align-items:center;justify-content:space-between}
+.kanban-empty{background:var(--bg);border:1px dashed var(--border2);border-radius:var(--radius-lg);padding:16px;text-align:center;font-size:12px;color:var(--text3)}
+
+/* EMPTY */
+.empty-state{text-align:center;padding:56px 20px}
+.empty-icon{font-size:44px;margin-bottom:14px;opacity:.3}
+.empty-title{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.empty-sub{font-size:13px;color:var(--text3);margin-bottom:18px}
+
+/* CARD GRID */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px}
+.card-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.card-title{font-size:14px;font-weight:600;color:var(--navy)}
+.card-sub{font-size:12px;color:var(--text3);margin-top:2px}
+.card-body{font-size:13px;color:var(--text2);line-height:1.6}
+.card-footer{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+
+/* CHAT BUBBLES */
+.chat-list{display:flex;flex-direction:column;gap:10px}
+.chat-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:12px}
+.chat-item:hover{border-color:var(--teal)}
+.chat-item.unread{border-left:3px solid var(--teal)}
+.chat-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.chat-name{font-size:13px;font-weight:600;color:var(--navy)}
+.chat-preview{font-size:12px;color:var(--text3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:300px}
+.chat-time{font-size:11px;color:var(--text3);margin-left:auto;white-space:nowrap}
+.unread-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex-shrink:0}
+
+/* SEGUIMIENTOS */
+.seg-list{display:flex;flex-direction:column;gap:8px}
+.seg-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;display:flex;align-items:center;gap:12px}
+.seg-item.urgent{border-left:3px solid var(--coral)}
+.seg-item.soon{border-left:3px solid var(--amber)}
+.seg-item.ok{border-left:3px solid var(--teal)}
+.seg-date{font-size:22px;font-weight:700;text-align:center;min-width:42px}
+.seg-month{font-size:10px;text-align:center;text-transform:uppercase;color:var(--text3)}
+.seg-name{font-size:13px;font-weight:600;color:var(--navy)}
+.seg-note{font-size:12px;color:var(--text3);margin-top:2px}
+.seg-actions{margin-left:auto;display:flex;gap:6px}
+
+/* REPORTES */
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.report-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px}
+.report-card-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:14px}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bar-label{font-size:12px;color:var(--text2);width:80px;flex-shrink:0}
+.bar-track{flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.bar-val{font-size:12px;color:var(--text2);width:50px;text-align:right;flex-shrink:0}
+.pie-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.pie-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.pie-label{font-size:12px;color:var(--text2);flex:1}
+.pie-val{font-size:12px;font-weight:600;color:var(--navy)}
+
+/* CONFIG */
+.config-section{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:14px}
+.config-section-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.config-section-sub{font-size:12px;color:var(--text3);margin-bottom:16px}
+.config-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+.config-row:last-child{border-bottom:none;padding-bottom:0}
+.config-label{font-size:13px;color:var(--text);font-weight:500}
+.config-desc{font-size:12px;color:var(--text3);margin-top:2px}
+.toggle{width:40px;height:22px;border-radius:11px;background:var(--border2);cursor:pointer;position:relative;transition:background .2s;flex-shrink:0}
+.toggle.on{background:var(--teal)}
+.toggle::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:3px;left:3px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle.on::after{left:21px}
+.config-input{padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;width:220px;outline:none}
+.config-input:focus{border-color:var(--teal)}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:4px 10px;border-radius:20px;background:var(--teal-light);color:var(--teal-dark);font-weight:500;margin:3px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(10,22,40,.6);z-index:100;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:16px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);transform:translateY(12px);transition:transform .2s}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-header{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:16px;font-weight:700;color:var(--navy)}
+.modal-close{width:30px;height:30px;border:none;background:var(--bg);border-radius:6px;cursor:pointer;font-size:16px;color:var(--text2);display:flex;align-items:center;justify-content:center}
+.modal-body{padding:20px 24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.05em}
+.form-label.req::after{content:' *';color:var(--coral)}
+.form-input,.form-select,.form-textarea{padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--text);outline:none;transition:border .15s;font-family:inherit;background:#fff}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(29,158,117,.1)}
+.form-input.error{border-color:var(--red)}
+.form-textarea{resize:vertical;min-height:68px}
+.form-error{font-size:11px;color:var(--red)}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:11px 16px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:var(--shadow-lg);z-index:200;transform:translateY(60px);opacity:0;transition:all .3s;display:flex;align-items:center;gap:8px}
+.toast.show{transform:translateY(0);opacity:1}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">V</div>
+    <div class="logo-name">VELIOQ</div>
+    <div class="logo-sub">ClinicAI Pipeline</div>
+  </div>
+  <div class="sidebar-section">Workspace</div>
+  <div class="nav-item" onclick="goTo('dashboard',this)"><span class="nav-icon">⊞</span> Dashboard</div>
+  <div class="nav-item active" onclick="goTo('pipeline',this)"><span class="nav-icon">◈</span> Pipeline <span class="nav-badge" id="nav-badge">0</span></div>
+  <div class="nav-item" onclick="goTo('conversaciones',this)"><span class="nav-icon">💬</span> Conversaciones <span class="nav-badge muted">3</span></div>
+  <div class="nav-item" onclick="goTo('seguimientos',this)"><span class="nav-icon">⏰</span> Seguimientos</div>
+  <div class="nav-item" onclick="goTo('clientes',this)"><span class="nav-icon">♦</span> Clientes</div>
+  <div class="nav-item" onclick="goTo('reportes',this)"><span class="nav-icon">↗</span> Reportes</div>
+  <div class="sidebar-section">Cuenta</div>
+  <div class="nav-item" onclick="goTo('configuracion',this)"><span class="nav-icon">⚙</span> Configuración</div>
+  <div class="sidebar-bottom">
+    <div class="user-card">
+      <div class="user-avatar">VB</div>
+      <div><div class="user-name">Velioq Admin</div><div class="user-role">Sebastián · Chile</div></div>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="breadcrumb">Velioq / <span id="topbar-title">Pipeline</span></div>
+    <div class="topbar-right">
+      <div class="date-chip" id="today-date"></div>
+      <button class="btn-primary" id="topbar-action" onclick="openModal()">+ Nuevo lead</button>
+    </div>
+  </div>
+
+  <!-- ═══ DASHBOARD ═══ -->
+  <div class="page" id="page-dashboard">
+    <div class="page-title">Dashboard</div>
+    <div class="page-sub">Resumen general de Velioq</div>
+    <div class="metrics">
+      <div class="metric-card c-teal"><div class="metric-label">Total leads</div><div class="metric-val" id="d-total">0</div><div class="metric-delta">en pipeline</div><div class="metric-icon">👥</div></div>
+      <div class="metric-card c-blue"><div class="metric-label">Cerrados</div><div class="metric-val" id="d-cerrados">0</div><div class="metric-delta">clientes activos</div><div class="metric-icon">✓</div></div>
+      <div class="metric-card c-amber"><div class="metric-label">Conversión</div><div class="metric-val" id="d-conv">0%</div><div class="metric-delta">meta 25%</div><div class="metric-icon">◎</div></div>
+      <div class="metric-card c-purple"><div class="metric-label">MRR</div><div class="metric-val" id="d-mrr">$0</div><div class="metric-delta">recurrente/mes</div><div class="metric-icon">$</div></div>
+    </div>
+    <div class="card-grid">
+      <div class="card"><div class="card-head"><div class="clinic-avatar" style="background:#e1f5ee;color:#1D9E75;font-size:18px">🚀</div><div><div class="card-title">Próximas acciones</div><div class="card-sub">Esta semana</div></div></div><div class="card-body" id="d-actions">Agrega leads para ver tus próximas acciones.</div></div>
+      <div class="card"><div class="card-head"><div class="clinic-avatar" style="background:#e6f1fb;color:#185FA5;font-size:18px">📊</div><div><div class="card-title">Distribución por estado</div><div class="card-sub">Pipeline actual</div></div></div><div class="card-body" id="d-dist">Sin datos aún.</div></div>
+      <div class="card"><div class="card-head"><div class="clinic-avatar" style="background:#eeedfe;color:#534AB7;font-size:18px">💡</div><div><div class="card-title">Consejo del día</div><div class="card-sub">Velioq Tips</div></div></div><div class="card-body" id="d-tip"></div></div>
+      <div class="card"><div class="card-head"><div class="clinic-avatar" style="background:#faeeda;color:#BA7517;font-size:18px">🎯</div><div><div class="card-title">Meta mensual</div><div class="card-sub">MRR objetivo: $500.000</div></div></div><div class="card-body" id="d-goal"></div></div>
+    </div>
+  </div>
+
+  <!-- ═══ PIPELINE ═══ -->
+  <div class="page active" id="page-pipeline">
+    <div class="page-title">Pipeline de leads · Clínicas dentales & estéticas</div>
+    <div class="page-sub">Gestiona tus prospectos activos</div>
+    <div class="metrics">
+      <div class="metric-card c-teal"><div class="metric-label">Total leads</div><div class="metric-val" id="m-total">0</div><div class="metric-delta" id="m-total-d">Sin leads aún</div><div class="metric-icon">👥</div></div>
+      <div class="metric-card c-blue"><div class="metric-label">Cerrados</div><div class="metric-val" id="m-cerrados">0</div><div class="metric-delta" id="m-cerrados-d">—</div><div class="metric-icon">✓</div></div>
+      <div class="metric-card c-amber"><div class="metric-label">Conversión</div><div class="metric-val" id="m-conv">0%</div><div class="metric-delta">meta 25%</div><div class="metric-icon">◎</div></div>
+      <div class="metric-card c-purple"><div class="metric-label">MRR mensual</div><div class="metric-val" id="m-mrr">$0</div><div class="metric-delta">recurrente</div><div class="metric-icon">$</div></div>
+    </div>
+    <div class="toolbar">
+      <div class="search-wrap"><span class="search-icon">⌕</span><input class="search-input" id="search-input" placeholder="Buscar clínica, contacto, ciudad..." oninput="renderPipeline()"></div>
+      <div class="filters" id="filters"></div>
+      <div class="view-toggle">
+        <button class="view-btn active" id="btn-tabla" onclick="switchView('tabla')">☰ Tabla</button>
+        <button class="view-btn" id="btn-kanban" onclick="switchView('kanban')">⊞ Kanban</button>
+      </div>
+    </div>
+    <div id="view-tabla"><div class="table-wrap"><div class="table-header"><div><span class="table-title">Leads activos</span><span class="table-count" id="table-count">0 resultados</span></div></div><div id="table-container"></div></div></div>
+    <div id="view-kanban" style="display:none"><div class="kanban" id="kanban-board"></div></div>
+  </div>
+
+  <!-- ═══ CONVERSACIONES ═══ -->
+  <div class="page" id="page-conversaciones">
+    <div class="page-title">Conversaciones</div>
+    <div class="page-sub">Mensajes de WhatsApp recibidos vía Twilio</div>
+    <div class="toolbar"><div class="search-wrap"><span class="search-icon">⌕</span><input class="search-input" placeholder="Buscar conversación..."></div></div>
+    <div class="chat-list" id="chat-list"></div>
+  </div>
+
+  <!-- ═══ SEGUIMIENTOS ═══ -->
+  <div class="page" id="page-seguimientos">
+    <div class="page-title">Seguimientos</div>
+    <div class="page-sub">Recordatorios de contacto pendientes</div>
+    <div class="seg-list" id="seg-list"></div>
+  </div>
+
+  <!-- ═══ CLIENTES ═══ -->
+  <div class="page" id="page-clientes">
+    <div class="page-title">Clientes activos</div>
+    <div class="page-sub">Clínicas con plan contratado</div>
+    <div class="table-wrap"><div class="table-header"><div><span class="table-title">Clientes Velioq</span><span class="table-count" id="clients-count">0 clientes</span></div></div><div id="clients-table"></div></div>
+  </div>
+
+  <!-- ═══ REPORTES ═══ -->
+  <div class="page" id="page-reportes">
+    <div class="page-title">Reportes</div>
+    <div class="page-sub">Análisis del pipeline de ventas</div>
+    <div class="report-grid">
+      <div class="report-card"><div class="report-card-title">Leads por estado</div><div id="rep-estados"></div></div>
+      <div class="report-card"><div class="report-card-title">Distribución de planes</div><div id="rep-planes"></div></div>
+      <div class="report-card"><div class="report-card-title">MRR potencial por etapa</div><div id="rep-mrr"></div></div>
+      <div class="report-card"><div class="report-card-title">Leads por tipo de clínica</div><div id="rep-tipos"></div></div>
+    </div>
+  </div>
+
+  <!-- ═══ CONFIGURACIÓN ═══ -->
+  <div class="page" id="page-configuracion">
+    <div class="page-title">Configuración</div>
+    <div class="page-sub">Ajustes de tu cuenta Velioq</div>
+    <div class="config-section">
+      <div class="config-section-title">Perfil</div>
+      <div class="config-section-sub">Información de tu cuenta</div>
+      <div class="config-row"><div><div class="config-label">Nombre</div><div class="config-desc">Sebastián Bravo</div></div><input class="config-input" value="Sebastián Bravo"></div>
+      <div class="config-row"><div><div class="config-label">Email</div><div class="config-desc">sebastiandev25@gmail.com</div></div><input class="config-input" value="sebastiandev25@gmail.com"></div>
+      <div class="config-row"><div><div class="config-label">WhatsApp</div><div class="config-desc">+56 9 3244 6500</div></div><input class="config-input" value="+56 9 3244 6500"></div>
+    </div>
+    <div class="config-section">
+      <div class="config-section-title">Integraciones</div>
+      <div class="config-section-sub">Servicios conectados al pipeline</div>
+      <div class="config-row"><div><div class="config-label">Google Sheets CRM</div><div class="config-desc">ID: 1Z010ClGp_1HVA9yK...</div></div><span class="tag">✓ Conectado</span></div>
+      <div class="config-row"><div><div class="config-label">Twilio WhatsApp</div><div class="config-desc">Sandbox activo</div></div><span class="tag">✓ Conectado</span></div>
+      <div class="config-row"><div><div class="config-label">n8n Workflow</div><div class="config-desc">My workflow — ID: 9TsMtTLkxy...</div></div><span class="tag">✓ Activo</span></div>
+      <div class="config-row"><div><div class="config-label">Claude API</div><div class="config-desc">claude-sonnet-4-5</div></div><span class="tag">✓ Conectado</span></div>
+    </div>
+    <div class="config-section">
+      <div class="config-section-title">Notificaciones</div>
+      <div class="config-section-sub">Cuándo quieres recibir alertas</div>
+      <div class="config-row"><div><div class="config-label">Nuevo lead por WhatsApp</div><div class="config-desc">Aviso cuando n8n registra un lead</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="config-row"><div><div class="config-label">Seguimiento pendiente</div><div class="config-desc">Recordatorio el día del seguimiento</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      <div class="config-row"><div><div class="config-label">Lead sin contactar +3 días</div><div class="config-desc">Alerta por leads inactivos</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+    </div>
+    <div class="config-section">
+      <div class="config-section-title">Plan activo</div>
+      <div class="config-section-sub">Tu suscripción ClinicAI</div>
+      <div class="config-row"><div><div class="config-label">Plan</div></div><span class="tag" style="background:var(--purple-bg);color:var(--purple)">Growth — $89.990/mes</span></div>
+      <div class="config-row"><div><div class="config-label">Funciones activas</div></div><div style="display:flex;flex-wrap:wrap;gap:4px"><span class="tag">WhatsApp bot</span><span class="tag">CRM Sheets</span><span class="tag">Dashboard</span><span class="tag">Métricas</span></div></div>
+    </div>
+  </div>
+</main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Nuevo lead</div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label class="form-label req">Nombre clínica</label><input class="form-input" id="f-nombre" placeholder="Ej: Clínica BeDental"><span class="form-error" id="e-nombre"></span></div>
+        <div class="form-group"><label class="form-label">Tipo</label><select class="form-select" id="f-tipo"><option value="">Seleccionar…</option><option>Dental</option><option>Estética</option><option>Multi-especialidad</option><option>Kinesiología</option><option>Otro</option></select></div>
+        <div class="form-group"><label class="form-label">Ciudad</label><input class="form-input" id="f-ciudad" placeholder="Ej: Cabrero, Concepción"></div>
+        <div class="form-group"><label class="form-label">Nombre contacto</label><input class="form-input" id="f-contacto" placeholder="Ej: Dra. Pamela Cid"></div>
+        <div class="form-group"><label class="form-label req">WhatsApp</label><input class="form-input" id="f-whatsapp" placeholder="+56 9 XXXX XXXX"><span class="form-error" id="e-whatsapp"></span></div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="f-email" placeholder="contacto@clinica.cl"></div>
+        <div class="form-group"><label class="form-label">Plan</label><select class="form-select" id="f-plan"><option value="">Sin plan aún</option><option>Starter — $59.990/mes</option><option>Growth — $89.990/mes</option><option>Premium — $149.990/mes</option></select></div>
+        <div class="form-group"><label class="form-label">Estado</label><select class="form-select" id="f-estado"><option>Nuevo</option><option>Contactado</option><option>Demo</option><option>Propuesta</option></select></div>
+        <div class="form-group full"><label class="form-label">Notas</label><textarea class="form-textarea" id="f-notas" placeholder="Observaciones, contexto, próximos pasos…"></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn-secondary" onclick="closeModal()">Cancelar</button><button class="btn-primary" onclick="saveLead()">Guardar lead</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="toast-msg"></span></div>
+
+<script>
+const STATUS_CFG={Nuevo:{color:"#185FA5",bg:"#E6F1FB",dot:"#185FA5"},Contactado:{color:"#BA7517",bg:"#FAEEDA",dot:"#BA7517"},Demo:{color:"#534AB7",bg:"#EEEDFE",dot:"#534AB7"},Propuesta:{color:"#D85A30",bg:"#FAECE7",dot:"#D85A30"},Cerrado:{color:"#1D9E75",bg:"#E1F5EE",dot:"#1D9E75"},Perdido:{color:"#888780",bg:"#F1EFE8",dot:"#888780"}};
+const PLAN_CFG={Starter:{color:"#1D9E75",bg:"#E1F5EE"},Growth:{color:"#185FA5",bg:"#E6F1FB"},Premium:{color:"#534AB7",bg:"#EEEDFE"}};
+const PLAN_MRR={Starter:59990,Growth:89990,Premium:149990};
+const AV_COLORS=["#1D9E75","#185FA5","#534AB7","#D85A30","#BA7517","#888780","#0F6E56"];
+const TIPS=["Contactar un lead en las primeras 2h aumenta la conversión en 7x.","Clínicas con IG activo responden mejor a outreach por DM primero.","Un video de 60s del bot funcionando vale más que cualquier PDF.","El plan Growth es tu punto dulce: margen alto, cliente comprometido.","Sigue a cada lead propuesto a los 3 días si no hay respuesta."];
+
+let leads=[];
+let activeFilter="Todos";
+let currentView="tabla";
+let currentPage="pipeline";
+
+function av(name){let h=0;for(let c of name)h=(h*31+c.charCodeAt(0))%AV_COLORS.length;return AV_COLORS[h];}
+function planKey(p){if(!p)return null;if(p.startsWith("Starter"))return"Starter";if(p.startsWith("Growth"))return"Growth";if(p.startsWith("Premium"))return"Premium";return null;}
+function mrr(p){const k=planKey(p);return k?PLAN_MRR[k]:0;}
+function fmtDate(d){return new Date(d).toLocaleDateString("es-CL",{day:"numeric",month:"short"});}
+function urgClass(d){if(!d)return"";const days=(new Date(d)-new Date())/(864e5);if(days<0)return"date-urgent";if(days<=2)return"date-soon";return"";}
+function fmtCLP(n){return"$"+n.toLocaleString("es-CL");}
+
+function statusBadge(s){const c=STATUS_CFG[s]||{color:"#888",bg:"#eee",dot:"#888"};return`<span class="status-badge" style="background:${c.bg};color:${c.color}"><span style="width:6px;height:6px;border-radius:50%;background:${c.dot};display:inline-block"></span>${s}</span>`;}
+function planBadge(p){if(!p)return'<span style="font-size:12px;color:#aaa">—</span>';const k=planKey(p);const c=k?PLAN_CFG[k]:{color:"#888",bg:"#eee"};return`<span class="plan-badge" style="background:${c.bg};color:${c.color}">${k||p}</span>`;}
+
+function updateAllMetrics(){
+  const total=leads.length,cerrados=leads.filter(l=>l.estado==="Cerrado").length;
+  const conv=total>0?Math.round(cerrados/total*100):0;
+  const mrrVal=leads.filter(l=>l.estado==="Cerrado").reduce((s,l)=>s+mrr(l.plan),0);
+  ["m-","d-"].forEach(p=>{
+    const el=id=>document.getElementById(p+(id));
+    if(el("total"))el("total").textContent=total;
+    if(el("cerrados"))el("cerrados").textContent=cerrados;
+    if(el("conv"))el("conv").textContent=conv+"%";
+    if(el("mrr"))el("mrr").textContent=mrrVal>0?fmtCLP(mrrVal):"$0";
+  });
+  document.getElementById("nav-badge").textContent=total;
+  if(document.getElementById("m-total-d"))document.getElementById("m-total-d").textContent=total>0?total+" leads en pipeline":"Sin leads aún";
+  renderDashboardWidgets(total,cerrados,conv,mrrVal);
+}
+
+function renderDashboardWidgets(total,cerrados,conv,mrrVal){
+  // Próximas acciones
+  const props=leads.filter(l=>l.estado==="Propuesta");
+  const actEl=document.getElementById("d-actions");
+  if(actEl){
+    if(total===0){actEl.textContent="Agrega tu primer lead para ver acciones pendientes.";}
+    else{actEl.innerHTML=`<ul style="list-style:none;padding:0">${props.slice(0,3).map(l=>`<li style="padding:5px 0;border-bottom:1px solid var(--border);font-size:13px">📌 Dar seguimiento a <strong>${l.nombre}</strong></li>`).join("")}${props.length===0?'<li style="font-size:13px;color:var(--text3);padding:5px 0">No hay propuestas pendientes</li>':""}</ul>`;}
+  }
+  // Distribución
+  const distEl=document.getElementById("d-dist");
+  if(distEl){
+    if(total===0){distEl.textContent="Sin datos aún.";}
+    else{
+      const counts={};leads.forEach(l=>{counts[l.estado]=(counts[l.estado]||0)+1;});
+      distEl.innerHTML=Object.entries(counts).map(([s,c])=>{const cfg=STATUS_CFG[s]||{dot:"#aaa"};return`<div class="bar-row"><span class="bar-label" style="font-size:12px">${s}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(c/total*100)}%;background:${cfg.dot}"></div></div><span class="bar-val">${c}</span></div>`;}).join("");
+    }
+  }
+  // Tip
+  const tipEl=document.getElementById("d-tip");
+  if(tipEl)tipEl.innerHTML=`<p style="font-size:13px;color:var(--text2);line-height:1.6;font-style:italic">"${TIPS[new Date().getDate()%TIPS.length]}"</p>`;
+  // Meta
+  const goalEl=document.getElementById("d-goal");
+  if(goalEl){
+    const pct=Math.min(100,Math.round(mrrVal/500000*100));
+    goalEl.innerHTML=`<div style="margin-bottom:10px"><div class="bar-track" style="height:12px;border-radius:6px"><div class="bar-fill" style="width:${pct}%;background:var(--teal)"></div></div></div><div style="font-size:13px;color:var(--text2)">${fmtCLP(mrrVal)} de $500.000 — <strong>${pct}%</strong></div>`;
+  }
+}
+
+function buildFilters(){
+  const counts={Todos:leads.length};
+  leads.forEach(l=>{counts[l.estado]=(counts[l.estado]||0)+1;});
+  const order=["Todos","Nuevo","Contactado","Demo","Propuesta","Cerrado","Perdido"];
+  document.getElementById("filters").innerHTML=order.filter(s=>s==="Todos"||counts[s]).map(s=>`<button class="filter-pill${activeFilter===s?" active":""}" onclick="setFilter('${s}',this)">${s} (${counts[s]||0})</button>`).join("");
+}
+
+function setFilter(s,btn){activeFilter=s;document.querySelectorAll(".filter-pill").forEach(p=>p.classList.remove("active"));btn.classList.add("active");renderPipeline();}
+
+function getFiltered(){
+  const q=(document.getElementById("search-input")||{value:""}).value.toLowerCase();
+  return leads.filter(l=>{
+    const mq=!q||l.nombre.toLowerCase().includes(q)||(l.contacto||"").toLowerCase().includes(q)||(l.ciudad||"").toLowerCase().includes(q);
+    const mf=activeFilter==="Todos"||l.estado===activeFilter;
+    return mq&&mf;
+  });
+}
+
+function renderPipeline(){
+  buildFilters();updateAllMetrics();
+  const filtered=getFiltered();
+  if(currentView==="tabla")renderTable(filtered);
+  else renderKanban();
+}
+
+function renderTable(filtered){
+  const el=document.getElementById("table-container");
+  document.getElementById("table-count").textContent=filtered.length+" resultado"+(filtered.length!==1?"s":"");
+  if(filtered.length===0){
+    el.innerHTML=`<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">${leads.length===0?"Aún no tienes leads":"Sin resultados"}</div><div class="empty-sub">${leads.length===0?"Haz clic en \"+ Nuevo lead\" para agregar tu primer prospecto":"Prueba con otro filtro"}</div>${leads.length===0?'<button class="btn-primary" style="margin:0 auto" onclick="openModal()">+ Agregar primer lead</button>':""}</div>`;
+    return;
+  }
+  el.innerHTML=`<table><thead><tr><th>Clínica</th><th>Contacto</th><th>Plan</th><th>Estado</th><th>Últ. contacto</th><th>Seguimiento</th><th></th></tr></thead><tbody>${filtered.map(l=>{
+    const idx=leads.indexOf(l);const ac=av(l.nombre);const uc=urgClass(l.seguimiento);
+    return`<tr><td><div class="clinic-cell"><div class="clinic-avatar" style="background:${ac}20;color:${ac}">${l.nombre[0].toUpperCase()}</div><div><div class="clinic-name">${l.nombre}</div><div class="clinic-type">${[l.tipo,l.ciudad].filter(Boolean).join(" · ")}</div></div></div></td><td><div class="contact-name">${l.contacto||"—"}</div><div class="contact-sub">${l.email||l.whatsapp||""}</div></td><td>${planBadge(l.plan)}</td><td>${statusBadge(l.estado)}</td><td><div class="date-cell">${l.fechaContacto?fmtDate(l.fechaContacto):"—"}</div></td><td><div class="date-cell ${uc}">${l.seguimiento?fmtDate(l.seguimiento):"—"}</div></td><td><div class="actions-cell"><button class="action-btn" onclick="nextStatus(${idx})" title="Avanzar estado">⇄</button><button class="action-btn danger" onclick="deleteLead(${idx})" title="Eliminar">✕</button></div></td></tr>`;
+  }).join("")}</tbody></table>`;
+}
+
+function renderKanban(){
+  const board=document.getElementById("kanban-board");
+  const order=["Nuevo","Contactado","Demo","Propuesta","Cerrado","Perdido"];
+  board.innerHTML=order.map(s=>{
+    const cols=leads.filter(l=>l.estado===s);const c=STATUS_CFG[s]||{dot:"#aaa"};
+    return`<div class="kanban-col"><div class="kanban-head"><div class="kanban-dot" style="background:${c.dot}"></div><span class="kanban-label">${s}</span><span class="kanban-count">${cols.length}</span></div><div class="kanban-cards">${cols.length===0?`<div class="kanban-empty">Sin leads</div>`:cols.map(l=>{const idx=leads.indexOf(l);const ac=av(l.nombre);return`<div class="kanban-card"><div class="kanban-card-name">${l.nombre}</div><div class="kanban-card-meta">${[l.tipo,l.ciudad].filter(Boolean).join(" · ")}</div><div class="kanban-card-footer">${planBadge(l.plan)}<button class="action-btn danger" onclick="deleteLead(${idx})" style="font-size:11px">✕</button></div></div>`;}).join("")}</div></div>`;
+  }).join("");
+}
+
+function renderConversaciones(){
+  const chatData=[
+    {nombre:"Paciente Anónimo",preview:"Hola, quisiera saber el precio de blanqueamiento dental",time:"hace 2h",unread:true,color:"#1D9E75"},
+    {nombre:"WhatsApp +56 9 1234 5678",preview:"¿Tienen disponibilidad para mañana?",time:"hace 5h",unread:true,color:"#185FA5"},
+    {nombre:"Consulta desde Twilio",preview:"Quiero una cita con la doctora para revisión",time:"ayer",unread:false,color:"#534AB7"},
+  ];
+  const el=document.getElementById("chat-list");
+  if(el)el.innerHTML=chatData.map(c=>`<div class="chat-item${c.unread?" unread":""}"><div class="chat-avatar" style="background:${c.color}20;color:${c.color}">${c.nombre[0]}</div><div style="flex:1;min-width:0"><div class="chat-name">${c.nombre}</div><div class="chat-preview">${c.preview}</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px"><div class="chat-time">${c.time}</div>${c.unread?'<div class="unread-dot"></div>':""}</div></div>`).join("");
+}
+
+function renderSeguimientos(){
+  const el=document.getElementById("seg-list");
+  const segs=leads.filter(l=>l.seguimiento).sort((a,b)=>new Date(a.seguimiento)-new Date(b.seguimiento));
+  if(!el)return;
+  if(segs.length===0){el.innerHTML=`<div class="empty-state"><div class="empty-icon">⏰</div><div class="empty-title">Sin seguimientos</div><div class="empty-sub">Agrega leads y se programarán automáticamente</div></div>`;return;}
+  el.innerHTML=segs.map(l=>{
+    const d=new Date(l.seguimiento);const days=(d-new Date())/(864e5);
+    const cls=days<0?"urgent":days<=2?"soon":"ok";
+    const label=days<0?"Vencido":days<=2?"Pronto":"Pendiente";
+    return`<div class="seg-item ${cls}"><div><div class="seg-date" style="color:${cls==="urgent"?"var(--coral)":cls==="soon"?"var(--amber)":"var(--teal)"}">${d.getDate()}</div><div class="seg-month">${d.toLocaleDateString("es-CL",{month:"short"})}</div></div><div style="flex:1"><div class="seg-name">${l.nombre}</div><div class="seg-note">${l.notas||"Seguimiento programado"} · ${statusBadge(l.estado)}</div></div><div class="seg-actions"><span style="font-size:11px;padding:4px 10px;border-radius:20px;background:${cls==="urgent"?"var(--red-bg)":cls==="soon"?"var(--amber-bg)":"var(--teal-light)"};color:${cls==="urgent"?"var(--red)":cls==="soon"?"var(--amber)":"var(--teal)"};font-weight:500">${label}</span></div></div>`;
+  }).join("");
+}
+
+function renderClientes(){
+  const cerrados=leads.filter(l=>l.estado==="Cerrado");
+  const el=document.getElementById("clients-table");
+  const cnt=document.getElementById("clients-count");
+  if(cnt)cnt.textContent=cerrados.length+" cliente"+(cerrados.length!==1?"s":"");
+  if(!el)return;
+  if(cerrados.length===0){el.innerHTML=`<div class="empty-state"><div class="empty-icon">♦</div><div class="empty-title">Sin clientes aún</div><div class="empty-sub">Cuando cierres un lead aparecerá aquí</div></div>`;return;}
+  el.innerHTML=`<table><thead><tr><th>Clínica</th><th>Contacto</th><th>Plan</th><th>MRR</th><th>Estado</th></tr></thead><tbody>${cerrados.map(l=>{const ac=av(l.nombre);return`<tr><td><div class="clinic-cell"><div class="clinic-avatar" style="background:${ac}20;color:${ac}">${l.nombre[0].toUpperCase()}</div><div><div class="clinic-name">${l.nombre}</div><div class="clinic-type">${[l.tipo,l.ciudad].filter(Boolean).join(" · ")}</div></div></div></td><td><div class="contact-name">${l.contacto||"—"}</div><div class="contact-sub">${l.whatsapp||""}</div></td><td>${planBadge(l.plan)}</td><td><strong>${fmtCLP(mrr(l.plan))}/mes</strong></td><td>${statusBadge(l.estado)}</td></tr>`;}).join("")}</tbody></table>`;
+}
+
+function renderReportes(){
+  const total=leads.length;
+  const counts={};leads.forEach(l=>{counts[l.estado]=(counts[l.estado]||0)+1;});
+  const planCounts={};leads.forEach(l=>{const k=planKey(l.plan)||"Sin plan";planCounts[k]=(planCounts[k]||0)+1;});
+  const tipoCounts={};leads.forEach(l=>{const t=l.tipo||"Otro";tipoCounts[t]=(tipoCounts[t]||0)+1;});
+  const mrrByStage={};leads.forEach(l=>{const s=l.estado;mrrByStage[s]=(mrrByStage[s]||0)+mrr(l.plan);});
+
+  const bar=(label,val,max,color)=>`<div class="bar-row"><span class="bar-label">${label}</span><div class="bar-track"><div class="bar-fill" style="width:${max>0?Math.round(val/max*100):0}%;background:${color}"></div></div><span class="bar-val">${val}</span></div>`;
+  const pie=(label,val,color)=>`<div class="pie-row"><div class="pie-dot" style="background:${color}"></div><span class="pie-label">${label}</span><span class="pie-val">${val}</span></div>`;
+
+  const ORDER=["Nuevo","Contactado","Demo","Propuesta","Cerrado","Perdido"];
+  const COLORS={"Nuevo":"#185FA5","Contactado":"#BA7517","Demo":"#534AB7","Propuesta":"#D85A30","Cerrado":"#1D9E75","Perdido":"#888780"};
+  const maxC=Math.max(1,...Object.values(counts));
+  const maxM=Math.max(1,...Object.values(mrrByStage));
+
+  const e=id=>document.getElementById(id);
+  if(total===0){
+    ["rep-estados","rep-planes","rep-mrr","rep-tipos"].forEach(id=>{const el=e(id);if(el)el.innerHTML='<div style="font-size:13px;color:var(--text3);padding:16px 0">Sin datos aún — agrega leads para ver reportes</div>';});
+    return;
+  }
+  if(e("rep-estados"))e("rep-estados").innerHTML=ORDER.filter(s=>counts[s]).map(s=>bar(s,counts[s],maxC,COLORS[s])).join("");
+  if(e("rep-planes"))e("rep-planes").innerHTML=Object.entries(planCounts).map(([k,v])=>pie(k,v,PLAN_CFG[k]?.color||"#888")).join("");
+  if(e("rep-mrr"))e("rep-mrr").innerHTML=ORDER.filter(s=>mrrByStage[s]).map(s=>bar(s,mrrByStage[s],maxM,COLORS[s])).join("").replace(/(\d+)<\/span>$/gm,m=>fmtCLP(parseInt(m)));
+  if(e("rep-tipos"))e("rep-tipos").innerHTML=Object.entries(tipoCounts).map(([t,v])=>pie(t,v,av(t))).join("");
+}
+
+function goTo(page,navEl){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
+  document.getElementById("page-"+page).classList.add("active");
+  navEl.classList.add("active");
+  currentPage=page;
+  const titles={dashboard:"Dashboard",pipeline:"Pipeline",conversaciones:"Conversaciones",seguimientos:"Seguimientos",clientes:"Clientes",reportes:"Reportes",configuracion:"Configuración"};
+  document.getElementById("topbar-title").textContent=titles[page]||page;
+  const actionBtn=document.getElementById("topbar-action");
+  actionBtn.style.display=page==="pipeline"?"flex":"none";
+  if(page==="conversaciones")renderConversaciones();
+  if(page==="seguimientos")renderSeguimientos();
+  if(page==="clientes")renderClientes();
+  if(page==="reportes")renderReportes();
+  if(page==="dashboard"){updateAllMetrics();}
+}
+
+function switchView(v){
+  currentView=v;
+  document.getElementById("view-tabla").style.display=v==="tabla"?"block":"none";
+  document.getElementById("view-kanban").style.display=v==="kanban"?"block":"none";
+  document.getElementById("btn-tabla").className="view-btn"+(v==="tabla"?" active":"");
+  document.getElementById("btn-kanban").className="view-btn"+(v==="kanban"?" active":"");
+  renderPipeline();
+}
+
+function openModal(){
+  ["f-nombre","f-ciudad","f-contacto","f-whatsapp","f-email","f-notas"].forEach(id=>document.getElementById(id).value="");
+  ["f-tipo","f-plan"].forEach(id=>document.getElementById(id).selectedIndex=0);
+  document.getElementById("f-estado").value="Nuevo";
+  ["e-nombre","e-whatsapp"].forEach(id=>document.getElementById(id).textContent="");
+  ["f-nombre","f-whatsapp"].forEach(id=>document.getElementById(id).classList.remove("error"));
+  document.getElementById("modal-overlay").classList.add("open");
+  setTimeout(()=>document.getElementById("f-nombre").focus(),200);
+}
+function closeModal(){document.getElementById("modal-overlay").classList.remove("open");}
+
+function saveLead(){
+  const nombre=document.getElementById("f-nombre").value.trim();
+  const whatsapp=document.getElementById("f-whatsapp").value.trim();
+  let ok=true;
+  if(!nombre){document.getElementById("e-nombre").textContent="Requerido";document.getElementById("f-nombre").classList.add("error");ok=false;}
+  else{document.getElementById("e-nombre").textContent="";document.getElementById("f-nombre").classList.remove("error");}
+  if(!whatsapp){document.getElementById("e-whatsapp").textContent="Requerido";document.getElementById("f-whatsapp").classList.add("error");ok=false;}
+  else{document.getElementById("e-whatsapp").textContent="";document.getElementById("f-whatsapp").classList.remove("error");}
+  if(!ok)return;
+  const today=new Date().toISOString().split("T")[0];
+  const follow=new Date(Date.now()+3*864e5).toISOString().split("T")[0];
+  leads.unshift({nombre,tipo:document.getElementById("f-tipo").value||"Clínica",ciudad:document.getElementById("f-ciudad").value.trim(),contacto:document.getElementById("f-contacto").value.trim(),whatsapp,email:document.getElementById("f-email").value.trim(),plan:document.getElementById("f-plan").value||"",estado:document.getElementById("f-estado").value,notas:document.getElementById("f-notas").value.trim(),fechaContacto:today,seguimiento:follow});
+  closeModal();renderPipeline();toast("Lead \""+nombre+"\" agregado ✓");
+}
+
+function nextStatus(idx){
+  const order=["Nuevo","Contactado","Demo","Propuesta","Cerrado","Perdido"];
+  const cur=order.indexOf(leads[idx].estado);
+  leads[idx].estado=order[(cur+1)%order.length];
+  renderPipeline();toast(leads[idx].nombre+" → "+leads[idx].estado);
+}
+
+function deleteLead(idx){
+  if(confirm("¿Eliminar \""+leads[idx].nombre+"\" del pipeline?")){const n=leads[idx].nombre;leads.splice(idx,1);renderPipeline();toast("\""+n+"\" eliminado");}}
+
+function toast(msg){const t=document.getElementById("toast");document.getElementById("toast-msg").textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800);}
+
+// Init
+document.getElementById("today-date").textContent="📅 "+new Date().toLocaleDateString("es-CL",{weekday:"long",day:"numeric",month:"long"}).replace(/^\w/,c=>c.toUpperCase());
+document.getElementById("topbar-action").style.display="flex";
+renderPipeline();
+</script>
+</body>
+</html>

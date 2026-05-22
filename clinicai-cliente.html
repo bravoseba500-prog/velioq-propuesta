@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClinicAI — Panel de tu clínica</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A1628;--teal:#1D9E75;--teal-light:#E1F5EE;--teal-dark:#0F6E56;
+  --bg:#f4f6f9;--white:#fff;
+  --text:#0A1628;--text2:#4a5568;--text3:#8896a5;
+  --border:#e2e8f0;--border2:#c8d4e0;
+  --blue:#185FA5;--blue-bg:#E6F1FB;
+  --amber:#BA7517;--amber-bg:#FAEEDA;
+  --purple:#534AB7;--purple-bg:#EEEDFE;
+  --coral:#D85A30;--coral-bg:#FAECE7;
+  --gray:#888780;--gray-bg:#F1EFE8;
+  --radius:8px;--radius-lg:12px;
+  --shadow:0 1px 4px rgba(0,0,0,0.08);
+  --shadow-lg:0 4px 18px rgba(0,0,0,0.12);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+.topbar{background:var(--navy);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20}
+.topbar-logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:30px;height:30px;background:var(--teal);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff}
+.logo-text{font-size:14px;font-weight:600;color:#fff}
+.logo-sep{color:rgba(255,255,255,.3);margin:0 6px}
+.clinic-name-top{font-size:14px;color:rgba(255,255,255,.7)}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.plan-chip{font-size:11px;padding:4px 10px;border-radius:20px;background:rgba(29,158,117,.2);color:#5DD6A8;font-weight:600;letter-spacing:.04em}
+.plan-chip.growth{background:rgba(24,95,165,.25);color:#7ab8f5}
+.plan-chip.premium{background:rgba(83,74,183,.25);color:#b0abf5}
+.user-btn{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;cursor:pointer}
+
+.tabs-nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 28px;display:flex;gap:0;position:sticky;top:56px;z-index:10}
+.tab-btn{padding:12px 18px;font-size:13px;font-weight:500;color:var(--text3);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;font-family:inherit}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--navy);border-bottom-color:var(--teal);font-weight:600}
+.tab-btn.locked{opacity:.4;cursor:not-allowed}
+.tab-badge{display:inline-block;font-size:10px;background:var(--teal-light);color:var(--teal);padding:1px 6px;border-radius:10px;margin-left:5px;font-weight:600}
+
+.content{max-width:900px;margin:0 auto;padding:24px 28px}
+.page{display:none}
+.page.active{display:block}
+.page-title{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--text3);margin-bottom:20px}
+
+.plan-locked{background:linear-gradient(135deg,#f8fafc,#eef2f7);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:28px;text-align:center;margin-bottom:20px}
+.plan-locked-icon{font-size:36px;margin-bottom:10px}
+.plan-locked-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.plan-locked-sub{font-size:13px;color:var(--text3);margin-bottom:16px;line-height:1.6}
+.btn-upgrade{background:var(--teal);color:#fff;border:none;padding:10px 22px;border-radius:var(--radius);font-size:13px;font-weight:600;cursor:pointer;transition:background .15s}
+.btn-upgrade:hover{background:var(--teal-dark)}
+
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.metric-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;position:relative;overflow:hidden}
+.metric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.metric-card.c-teal::before{background:var(--teal)}
+.metric-card.c-blue::before{background:var(--blue)}
+.metric-card.c-amber::before{background:var(--amber)}
+.metric-card.c-purple::before{background:var(--purple)}
+.metric-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;font-weight:500}
+.metric-val{font-size:26px;font-weight:700;color:var(--navy);line-height:1}
+.metric-sub{font-size:11px;color:var(--text3);margin-top:5px}
+.metric-icon{position:absolute;top:14px;right:14px;font-size:20px;opacity:.12}
+
+.table-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.table-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border)}
+.table-title-text{font-size:14px;font-weight:600;color:var(--navy)}
+.table-count-text{font-size:12px;color:var(--text3);margin-left:8px}
+.toolbar{display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.search-wrap{position:relative;flex:1;min-width:180px}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px}
+.search-input{width:100%;padding:7px 12px 7px 30px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--text);outline:none;transition:border .15s;background:#fff}
+.search-input:focus{border-color:var(--teal)}
+.filter-pill{font-size:12px;padding:5px 11px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:#fff;color:var(--text2);font-weight:500;transition:all .15s;white-space:nowrap}
+.filter-pill:hover{border-color:var(--teal);color:var(--teal)}
+.filter-pill.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;padding:10px 16px;text-align:left;border-bottom:1px solid var(--border);background:#fafbfc}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:#fafbfc}
+td{padding:11px 16px;font-size:13px}
+.pac-cell{display:flex;align-items:center;gap:10px}
+.pac-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.pac-name{font-weight:600;color:var(--navy);font-size:13px}
+.pac-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.status-badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.interes-badge{font-size:11px;font-weight:500;padding:3px 8px;border-radius:6px;white-space:nowrap;background:var(--bg);color:var(--text2)}
+
+.chat-list{display:flex;flex-direction:column;gap:8px}
+.chat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;cursor:pointer;transition:all .15s}
+.chat-card:hover{border-color:var(--teal);box-shadow:var(--shadow)}
+.chat-card.unread{border-left:3px solid var(--teal)}
+.chat-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.chat-avatar{width:36px;height:36px;border-radius:50%;background:var(--teal-light);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--teal);flex-shrink:0}
+.chat-name{font-size:13px;font-weight:600;color:var(--navy)}
+.chat-time{font-size:11px;color:var(--text3);margin-left:auto}
+.chat-preview{font-size:12px;color:var(--text3);line-height:1.5}
+.chat-bubble-wrap{margin-top:10px;display:none;flex-direction:column;gap:6px;border-top:1px solid var(--border);padding-top:10px}
+.chat-bubble-wrap.open{display:flex}
+.bubble{max-width:78%;padding:8px 12px;border-radius:12px;font-size:12px;line-height:1.5}
+.bubble.pac{background:var(--bg);color:var(--text);border-bottom-left-radius:3px;align-self:flex-start}
+.bubble.bot{background:var(--teal);color:#fff;border-bottom-right-radius:3px;align-self:flex-end}
+.bubble-label{font-size:10px;color:var(--text3);margin-bottom:2px}
+.bubble-label.right{text-align:right}
+
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px}
+.stat-card-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:14px}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bar-label{font-size:12px;color:var(--text2);width:90px;flex-shrink:0}
+.bar-track{flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px}
+.bar-val{font-size:12px;font-weight:600;color:var(--navy);width:30px;text-align:right;flex-shrink:0}
+
+/* ═══ PREMIUM EXCLUSIVO ═══ */
+.ai-insight-card{background:linear-gradient(135deg,#0A1628,#112240);border:1px solid rgba(83,74,183,.4);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:14px;position:relative;overflow:hidden}
+.ai-insight-card::before{content:'';position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(83,74,183,.15),transparent 70%);pointer-events:none}
+.ai-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;background:rgba(83,74,183,.3);color:#b0abf5;padding:4px 10px;border-radius:20px;font-weight:600;margin-bottom:12px}
+.ai-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
+.ai-body{font-size:13px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:14px}
+.ai-highlight{color:#5DD6A8;font-weight:600}
+.ai-recs{display:flex;flex-direction:column;gap:8px}
+.ai-rec{display:flex;align-items:flex-start;gap:8px;background:rgba(255,255,255,.06);border-radius:var(--radius);padding:10px 12px}
+.ai-rec-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.ai-rec-text{font-size:12px;color:rgba(255,255,255,.75);line-height:1.5}
+.ai-rec-text strong{color:#fff}
+
+.resumen-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:14px}
+.resumen-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.resumen-title{font-size:14px;font-weight:600;color:var(--navy)}
+.resumen-fecha{font-size:11px;color:var(--text3);background:var(--bg);padding:3px 10px;border-radius:20px}
+.resumen-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)}
+.resumen-row:last-child{border-bottom:none}
+.resumen-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.resumen-label{font-size:13px;color:var(--text2);flex:1}
+.resumen-val{font-size:14px;font-weight:700;color:var(--navy)}
+.resumen-delta{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500}
+.delta-up{background:var(--teal-light);color:var(--teal)}
+.delta-down{background:var(--coral-bg);color:var(--coral)}
+
+.kanban-wrap{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px}
+.k-col{min-width:160px;flex-shrink:0}
+.k-head{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.k-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.k-label{font-size:12px;font-weight:600;color:var(--navy)}
+.k-count{font-size:10px;background:var(--bg);border:1px solid var(--border);padding:1px 7px;border-radius:20px;color:var(--text3)}
+.k-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:9px 11px;margin-bottom:6px;cursor:pointer;transition:all .15s}
+.k-card:hover{border-color:var(--teal)}
+.k-card-name{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:3px}
+.k-card-sub{font-size:11px;color:var(--text3)}
+
+.empty-state{text-align:center;padding:48px 20px}
+.empty-icon{font-size:40px;margin-bottom:12px;opacity:.3}
+.empty-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.empty-sub{font-size:13px;color:var(--text3)}
+
+.footer{text-align:center;padding:24px;font-size:11px;color:var(--text3)}
+.footer a{color:var(--teal);text-decoration:none}
+
+.demo-bar{background:linear-gradient(90deg,#112240,#0A1628);padding:8px 28px;display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6)}
+.demo-bar strong{color:#fff}
+.plan-select-btns{display:flex;gap:6px;margin-left:auto}
+.plan-select-btn{font-size:11px;padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.7);cursor:pointer;transition:all .15s;font-family:inherit}
+.plan-select-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+.plan-select-btn.on{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:600}
+.plan-select-btn.on.g{background:var(--blue);border-color:var(--blue)}
+.plan-select-btn.on.p{background:var(--purple);border-color:var(--purple)}
+
+/* PLAN FEATURE COMPARE */
+.compare-row{display:flex;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);gap:10px}
+.compare-row:last-child{border-bottom:none}
+.compare-feat{font-size:13px;color:var(--text2);flex:1}
+.compare-icon{font-size:15px;width:22px;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+  <span>🎭 Demo — <strong>vista del cliente</strong> · cambia de plan para ver diferencias</span>
+  <div class="plan-select-btns">
+    <button class="plan-select-btn on" id="btn-starter" onclick="setPlan('starter',this)">Starter</button>
+    <button class="plan-select-btn g" id="btn-growth" onclick="setPlan('growth',this)">Growth</button>
+    <button class="plan-select-btn p" id="btn-premium" onclick="setPlan('premium',this)">Premium</button>
+  </div>
+</div>
+
+<div class="topbar">
+  <div class="topbar-logo">
+    <div class="logo-mark">V</div>
+    <div class="logo-text">ClinicAI</div>
+    <span class="logo-sep">/</span>
+    <span class="clinic-name-top" id="clinic-name-top">Clínica BeDental</span>
+  </div>
+  <div class="topbar-right">
+    <span class="plan-chip" id="plan-chip-top">STARTER</span>
+    <div class="user-btn" id="user-initials">PC</div>
+  </div>
+</div>
+
+<div class="tabs-nav">
+  <button class="tab-btn active" id="tab-inicio" onclick="goTab('inicio',this)">Inicio</button>
+  <button class="tab-btn" id="tab-pacientes" onclick="goTab('pacientes',this)">Pacientes <span class="tab-badge" id="tab-pac-count">5</span></button>
+  <button class="tab-btn locked" id="tab-conv" onclick="goTab('conversaciones',this)">Conversaciones</button>
+  <button class="tab-btn locked" id="tab-met" onclick="goTab('metricas',this)">Métricas</button>
+  <button class="tab-btn locked" id="tab-ia" onclick="goTab('ia',this)">✦ Análisis IA</button>
+</div>
+
+<div class="content">
+
+  <!-- ═══ INICIO ═══ -->
+  <div class="page active" id="page-inicio">
+    <div class="page-title" id="inicio-title">Bienvenida, Dra. Pamela 👋</div>
+    <div class="page-sub">Resumen de tu clínica hoy — <span id="today-str"></span></div>
+
+    <div id="starter-banner" class="plan-locked">
+      <div class="plan-locked-icon">📊</div>
+      <div class="plan-locked-title">Plan Starter activo</div>
+      <div class="plan-locked-sub">Tu bot de WhatsApp está activo 24/7 y registra cada consulta en tu Google Sheet compartido.<br>Actualiza al plan <strong>Growth</strong> para ver este panel visual con métricas en tiempo real.</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn-upgrade" onclick="setPlanBtn('growth')">Ver plan Growth →</button>
+        <button style="background:transparent;border:1px solid var(--border2);color:var(--text2);padding:10px 18px;border-radius:var(--radius);font-size:13px;cursor:pointer" onclick="window.open('#','_blank')">Abrir mi Google Sheet</button>
+      </div>
+    </div>
+
+    <div id="growth-inicio" style="display:none">
+      <div class="metrics">
+        <div class="metric-card c-teal"><div class="metric-label">Consultas este mes</div><div class="metric-val">5</div><div class="metric-sub">vía WhatsApp bot</div><div class="metric-icon">💬</div></div>
+        <div class="metric-card c-blue"><div class="metric-label">Citas agendadas</div><div class="metric-val">2</div><div class="metric-sub">confirmadas</div><div class="metric-icon">📅</div></div>
+        <div class="metric-card c-amber"><div class="metric-label">Respuesta bot</div><div class="metric-val">100%</div><div class="metric-sub">24/7 activo</div><div class="metric-icon">⚡</div></div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:10px">Últimas consultas</div>
+      <div id="recent-list"></div>
+    </div>
+
+    <div id="premium-inicio" style="display:none">
+      <div class="metrics" style="grid-template-columns:repeat(4,1fr)">
+        <div class="metric-card c-teal"><div class="metric-label">Consultas</div><div class="metric-val">5</div><div class="metric-sub">este mes</div><div class="metric-icon">💬</div></div>
+        <div class="metric-card c-blue"><div class="metric-label">Agendadas</div><div class="metric-val">2</div><div class="metric-sub">confirmadas</div><div class="metric-icon">📅</div></div>
+        <div class="metric-card c-amber"><div class="metric-label">Conversión</div><div class="metric-val">40%</div><div class="metric-sub">vs 25% meta</div><div class="metric-icon">📈</div></div>
+        <div class="metric-card c-purple"><div class="metric-label">Score IA</div><div class="metric-val">8.4</div><div class="metric-sub">rendimiento</div><div class="metric-icon">✦</div></div>
+      </div>
+      <!-- AI Weekly Summary -->
+      <div class="resumen-card">
+        <div class="resumen-header">
+          <span class="resumen-title">📋 Resumen semanal automático</span>
+          <span class="resumen-fecha">Semana 20 — Mayo 2026</span>
+        </div>
+        <div class="resumen-row"><div class="resumen-icon" style="background:var(--teal-light)">💬</div><div class="resumen-label">Consultas recibidas</div><div class="resumen-val">5</div><span class="resumen-delta delta-up">+18% vs semana anterior</span></div>
+        <div class="resumen-row"><div class="resumen-icon" style="background:var(--blue-bg)">📅</div><div class="resumen-label">Citas confirmadas</div><div class="resumen-val">2</div><span class="resumen-delta delta-up">+1 vs semana anterior</span></div>
+        <div class="resumen-row"><div class="resumen-icon" style="background:var(--amber-bg)">⏰</div><div class="resumen-label">Tiempo promedio respuesta</div><div class="resumen-val">&lt; 30 seg</div><span class="resumen-delta delta-up">Bot activo 24/7</span></div>
+        <div class="resumen-row"><div class="resumen-icon" style="background:var(--purple-bg)">🏆</div><div class="resumen-label">Servicio más consultado</div><div class="resumen-val">Blanqueamiento</div><span class="resumen-delta delta-up">40% consultas</span></div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:10px">Últimas consultas</div>
+      <div id="recent-list-premium"></div>
+    </div>
+  </div>
+
+  <!-- ═══ PACIENTES ═══ -->
+  <div class="page" id="page-pacientes">
+    <div class="page-title">Pacientes</div>
+    <div class="page-sub">Personas que escribieron a tu WhatsApp</div>
+
+    <div id="pac-starter" class="plan-locked">
+      <div class="plan-locked-icon">📋</div>
+      <div class="plan-locked-title">Tus pacientes están en Google Sheets</div>
+      <div class="plan-locked-sub">Con el plan Starter los datos se guardan en tu hoja compartida.<br>El panel visual de pacientes está disponible desde el plan <strong>Growth</strong>.</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn-upgrade" onclick="setPlanBtn('growth')">Ver panel Growth →</button>
+        <button style="background:transparent;border:1px solid var(--border2);color:var(--text2);padding:10px 18px;border-radius:var(--radius);font-size:13px;cursor:pointer">Abrir Google Sheet</button>
+      </div>
+    </div>
+
+    <div id="pac-table-section" style="display:none">
+      <div class="toolbar">
+        <div class="search-wrap"><span class="search-icon">⌕</span><input class="search-input" id="pac-search" placeholder="Buscar paciente..." oninput="renderPacientes()"></div>
+        <button class="filter-pill active" onclick="setPacFilter('Todos',this)">Todos (5)</button>
+        <button class="filter-pill" onclick="setPacFilter('Urgente',this)">Urgente (1)</button>
+        <button class="filter-pill" onclick="setPacFilter('Agendado',this)">Agendado (2)</button>
+        <button class="filter-pill" onclick="setPacFilter('Pendiente',this)">Pendiente (2)</button>
+      </div>
+      <div class="table-wrap">
+        <div class="table-header"><div><span class="table-title-text">Pacientes recibidos</span><span class="table-count-text" id="pac-count-text">5 pacientes</span></div></div>
+        <div id="pac-table-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CONVERSACIONES ═══ -->
+  <div class="page" id="page-conversaciones">
+    <div class="page-title">Conversaciones</div>
+    <div class="page-sub">Mensajes recibidos por tu bot de WhatsApp · clic para expandir</div>
+    <div id="conv-starter" class="plan-locked">
+      <div class="plan-locked-icon">💬</div>
+      <div class="plan-locked-title">Historial de conversaciones</div>
+      <div class="plan-locked-sub">Disponible desde el plan Growth.</div>
+      <button class="btn-upgrade" onclick="setPlanBtn('growth')">Ver con Growth →</button>
+    </div>
+    <div id="conv-list-section" style="display:none">
+      <div class="chat-list" id="chat-list"></div>
+    </div>
+  </div>
+
+  <!-- ═══ MÉTRICAS ═══ -->
+  <div class="page" id="page-metricas">
+    <div class="page-title">Métricas</div>
+    <div class="page-sub">Análisis de rendimiento de tu clínica</div>
+    <div id="met-starter" class="plan-locked">
+      <div class="plan-locked-icon">📈</div>
+      <div class="plan-locked-title">Métricas detalladas</div>
+      <div class="plan-locked-sub">Disponible desde el plan Growth.</div>
+      <button class="btn-upgrade" onclick="setPlanBtn('growth')">Desbloquear →</button>
+    </div>
+    <div id="met-growth" style="display:none">
+      <div class="metrics">
+        <div class="metric-card c-teal"><div class="metric-label">Total consultas</div><div class="metric-val">5</div><div class="metric-sub">este mes</div></div>
+        <div class="metric-card c-blue"><div class="metric-label">Agendados</div><div class="metric-val">2</div><div class="metric-sub">de 5 consultas</div></div>
+        <div class="metric-card c-amber"><div class="metric-label">Conversión</div><div class="metric-val">40%</div><div class="metric-sub">consulta → cita</div></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-card-title">Por tipo de consulta</div><div id="stats-tipo"></div></div>
+        <div class="stat-card"><div class="stat-card-title">Por estado</div><div id="stats-estado"></div></div>
+      </div>
+    </div>
+    <!-- Premium: Kanban + export -->
+    <div id="met-premium-extra" style="display:none">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-title">⊞ Vista Kanban de pacientes</div>
+          <div class="kanban-wrap" id="kanban-pac"></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">📁 Exportar datos</div>
+          <div style="padding:8px 0">
+            <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Descarga el historial completo de pacientes en formato CSV compatible con Excel.</div>
+            <button class="btn-upgrade" onclick="exportCSV()">⬇ Descargar CSV</button>
+            <div style="font-size:11px;color:var(--text3);margin-top:10px">Incluye: nombre, teléfono, interés, estado, fecha</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ANÁLISIS IA (PREMIUM EXCLUSIVO) ═══ -->
+  <div class="page" id="page-ia">
+    <div class="page-title">✦ Análisis IA</div>
+    <div class="page-sub">Inteligencia artificial analizando el comportamiento de tus pacientes</div>
+
+    <div id="ia-locked" class="plan-locked">
+      <div class="plan-locked-icon">✦</div>
+      <div class="plan-locked-title">Análisis IA — exclusivo Premium</div>
+      <div class="plan-locked-sub">Recibe recomendaciones inteligentes basadas en los patrones de consulta de tus pacientes.<br>Solo disponible en el plan <strong>Premium</strong>.</div>
+      <button class="btn-upgrade" onclick="setPlanBtn('premium')">Ver con Premium →</button>
+    </div>
+
+    <div id="ia-content" style="display:none">
+      <!-- Insight card principal -->
+      <div class="ai-insight-card">
+        <div class="ai-badge">✦ Claude AI · Análisis semanal</div>
+        <div class="ai-title">Resumen inteligente de tu clínica</div>
+        <div class="ai-body">
+          Esta semana recibiste <span class="ai-highlight">5 consultas</span> vía WhatsApp, un <span class="ai-highlight">+18% vs la semana anterior</span>. 
+          El servicio más consultado fue <span class="ai-highlight">blanqueamiento dental (40%)</span>, seguido de limpiezas (20%) y ortodoncia (20%).
+          Tu tasa de conversión es <span class="ai-highlight">40%</span>, superando la meta del 25%. 
+          El bot respondió el <span class="ai-highlight">100% de los mensajes en menos de 30 segundos</span>.
+        </div>
+        <div class="ai-recs">
+          <div class="ai-rec">
+            <div class="ai-rec-icon">💡</div>
+            <div class="ai-rec-text"><strong>Oportunidad de marketing:</strong> El 40% de tus consultas son sobre blanqueamiento. Publicar una promoción en Instagram esta semana podría duplicar las consultas de este servicio.</div>
+          </div>
+          <div class="ai-rec">
+            <div class="ai-rec-icon">⏰</div>
+            <div class="ai-rec-text"><strong>Seguimiento pendiente:</strong> Tienes 2 pacientes en estado "Pendiente" sin confirmar cita hace más de 24h. Te recomendamos contactarlos hoy antes de que busquen otra clínica.</div>
+          </div>
+          <div class="ai-rec">
+            <div class="ai-rec-icon">📈</div>
+            <div class="ai-rec-text"><strong>Tendencia positiva:</strong> Las consultas de ortodoncia aumentaron un 20% esta semana. Considera destacar este servicio en tu perfil de WhatsApp Business.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparativa semanas -->
+      <div class="resumen-card">
+        <div class="resumen-header">
+          <span class="resumen-title">📊 Comparativa últimas 4 semanas</span>
+          <span class="resumen-fecha">Mayo 2026</span>
+        </div>
+        <div style="padding:10px 0">
+          <div class="bar-row"><span class="bar-label">Semana 17</span><div class="bar-track"><div class="bar-fill" style="width:40%;background:var(--teal)"></div></div><span class="bar-val">2</span></div>
+          <div class="bar-row"><span class="bar-label">Semana 18</span><div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--teal)"></div></div><span class="bar-val">3</span></div>
+          <div class="bar-row"><span class="bar-label">Semana 19</span><div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--blue)"></div></div><span class="bar-val">4</span></div>
+          <div class="bar-row"><span class="bar-label" style="font-weight:600;color:var(--navy)">Semana 20</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--purple)"></div></div><span class="bar-val" style="font-weight:700;color:var(--purple)">5</span></div>
+        </div>
+      </div>
+
+      <!-- Predicción -->
+      <div class="ai-insight-card" style="background:linear-gradient(135deg,#0d1f14,#0f2a1c)">
+        <div class="ai-badge" style="background:rgba(29,158,117,.3);color:#5DD6A8">📡 Predicción IA — próxima semana</div>
+        <div class="ai-title" style="font-size:14px">Se estiman <span style="color:#5DD6A8">6–8 consultas</span> la próxima semana</div>
+        <div class="ai-body" style="font-size:12px;margin-bottom:0">Basado en la tendencia creciente de las últimas 4 semanas y el aumento de búsquedas locales de blanqueamiento dental en Cabrero. Asegúrate de tener disponibilidad en agenda.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">Powered by <a href="#">Velioq</a> · ClinicAI · <span id="footer-plan">Plan Starter</span></div>
+
+<script>
+const AV=["#1D9E75","#185FA5","#534AB7","#D85A30","#BA7517","#888780"];
+function av(n){let h=0;for(let c of n)h=(h*31+c.charCodeAt(0))%AV.length;return AV[h];}
+
+const CLINICS={
+  starter:{name:"Clínica BeDental",doc:"Dra. Pamela",initials:"PC",chip:"STARTER",chipClass:""},
+  growth:{name:"Joydent",doc:"Dra. Johana",initials:"JM",chip:"GROWTH",chipClass:"growth"},
+  premium:{name:"Estética Renova",doc:"Dra. Carolina",initials:"CS",chip:"PREMIUM",chipClass:"premium"},
+};
+
+const PACS=[
+  {nombre:"María González",tel:"+56 9 1111 2222",interes:"Blanqueamiento dental",estado:"Agendado",hora:"10:30 AM",msg:"Hola, quiero info sobre blanqueamiento",resp:"¡Hola! El blanqueamiento dental tiene valor de $120.000. ¿Te gustaría agendar evaluación gratuita?"},
+  {nombre:"Carlos Mendoza",tel:"+56 9 3333 4444",interes:"Limpieza dental",estado:"Pendiente",hora:"11:15 AM",msg:"Cuánto cuesta una limpieza?",resp:"La limpieza dental vale $35.000 e incluye examen completo. ¿Qué día te acomoda esta semana?"},
+  {nombre:"Ana Torres",tel:"+56 9 5555 6666",interes:"Dolor muela urgente",estado:"Urgente",hora:"12:00 PM",msg:"Tengo mucho dolor en una muela, es urgente",resp:"Entendemos que es urgente. Tenemos disponibilidad hoy a las 3 PM. ¿Confirmas?"},
+  {nombre:"Pedro Rojas",tel:"+56 9 7777 8888",interes:"Ortodoncia",estado:"Agendado",hora:"2:00 PM",msg:"Me interesa poner brackets, tienen ortodoncia?",resp:"¡Sí! Tenemos ortodoncia. Agenda evaluación gratuita para que la Dra. te oriente."},
+  {nombre:"Lucía Vargas",tel:"+56 9 9999 0000",interes:"Implante dental",estado:"Pendiente",hora:"3:30 PM",msg:"Cuánto vale un implante dental?",resp:"Los implantes parten desde $850.000 con corona incluida. Te agendamos evaluación sin costo."},
+];
+
+const SCFG={Agendado:{c:"#1D9E75",bg:"#E1F5EE",d:"#1D9E75"},Urgente:{c:"#D85A30",bg:"#FAECE7",d:"#D85A30"},Pendiente:{c:"#BA7517",bg:"#FAEEDA",d:"#BA7517"}};
+function sBadge(s){const c=SCFG[s]||{c:"#888",bg:"#eee",d:"#888"};return`<span class="status-badge" style="background:${c.bg};color:${c.c}"><span style="width:6px;height:6px;border-radius:50%;background:${c.d};display:inline-block"></span>${s}</span>`;}
+
+let currentPlan="starter";
+let pacFilter="Todos";
+
+function setPlan(plan,btn){
+  currentPlan=plan;
+  document.querySelectorAll(".plan-select-btn").forEach(b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  const cl=CLINICS[plan];
+  document.getElementById("clinic-name-top").textContent=cl.name;
+  const chip=document.getElementById("plan-chip-top");
+  chip.textContent=cl.chip;chip.className="plan-chip "+cl.chipClass;
+  document.getElementById("user-initials").textContent=cl.initials;
+  document.getElementById("inicio-title").textContent="Bienvenida, "+cl.doc+" 👋";
+  document.getElementById("footer-plan").textContent="Plan "+cl.chip.charAt(0)+cl.chip.slice(1).toLowerCase();
+  applyVisibility();
+  renderAll();
+}
+
+function setPlanBtn(plan){
+  const btn=document.getElementById("btn-"+plan);
+  setPlan(plan,btn);
+}
+
+function applyVisibility(){
+  const s=currentPlan==="starter";
+  const g=currentPlan==="growth"||currentPlan==="premium";
+  const p=currentPlan==="premium";
+
+  // Inicio
+  show("starter-banner",s);show("growth-inicio",currentPlan==="growth");show("premium-inicio",p);
+
+  // Pacientes
+  show("pac-starter",s);show("pac-table-section",g||p);
+
+  // Conv
+  show("conv-starter",s);show("conv-list-section",g||p);
+
+  // Métricas
+  show("met-starter",s);show("met-growth",g||p);show("met-premium-extra",p);
+
+  // IA
+  show("ia-locked",!p);show("ia-content",p);
+
+  // Tabs
+  const lockClass=(tab,locked)=>{
+    const el=document.getElementById("tab-"+tab);
+    el.classList.toggle("locked",locked&&s);
+  };
+  lockClass("conv",s);lockClass("met",s);
+  const iaTab=document.getElementById("tab-ia");
+  iaTab.classList.toggle("locked",!p);
+  if(p)iaTab.style.opacity="1"; else iaTab.style.opacity="0.4";
+}
+
+function show(id,visible){const el=document.getElementById(id);if(el)el.style.display=visible?"block":"none";}
+
+function renderAll(){renderRecent();renderPacientes();renderConversaciones();renderMetricas();renderKanban();}
+
+function renderRecent(){
+  ["recent-list","recent-list-premium"].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    el.innerHTML=PACS.slice(0,3).map(p=>{const ac=av(p.nombre);return`<div style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:11px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px"><div class="pac-avatar" style="background:${ac}20;color:${ac}">${p.nombre[0]}</div><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--navy)">${p.nombre}</div><div style="font-size:12px;color:var(--text3)">${p.interes} · ${p.hora}</div></div>${sBadge(p.estado)}</div>`;}).join("");
+  });
+}
+
+let pacFilt="Todos";
+function setPacFilter(f,btn){pacFilt=f;document.querySelectorAll(".filter-pill").forEach(b=>b.classList.remove("active"));btn.classList.add("active");renderPacientes();}
+
+function renderPacientes(){
+  const el=document.getElementById("pac-table-body");if(!el)return;
+  const q=(document.getElementById("pac-search")||{value:""}).value.toLowerCase();
+  const filtered=PACS.filter(p=>{
+    const mq=!q||p.nombre.toLowerCase().includes(q)||p.interes.toLowerCase().includes(q);
+    const mf=pacFilt==="Todos"||p.estado===pacFilt;
+    return mq&&mf;
+  });
+  const cnt=document.getElementById("pac-count-text");if(cnt)cnt.textContent=filtered.length+" paciente"+(filtered.length!==1?"s":"");
+  if(!filtered.length){el.innerHTML=`<div class="empty-state"><div class="empty-icon">👤</div><div class="empty-title">Sin resultados</div><div class="empty-sub">Prueba otro filtro</div></div>`;return;}
+  el.innerHTML=`<table><thead><tr><th>Paciente</th><th>Interés</th><th>Estado</th><th>Hora</th></tr></thead><tbody>${filtered.map(p=>{const ac=av(p.nombre);return`<tr><td><div class="pac-cell"><div class="pac-avatar" style="background:${ac}20;color:${ac}">${p.nombre[0]}</div><div><div class="pac-name">${p.nombre}</div><div class="pac-sub">${p.tel}</div></div></div></td><td><span class="interes-badge">${p.interes}</span></td><td>${sBadge(p.estado)}</td><td><div style="font-size:12px;color:var(--text2)">${p.hora}</div></td></tr>`;}).join("")}</tbody></table>`;
+}
+
+function renderConversaciones(){
+  const el=document.getElementById("chat-list");if(!el)return;
+  el.innerHTML=PACS.map((p,i)=>{const ac=av(p.nombre);return`<div class="chat-card${i<2?" unread":""}"><div class="chat-top"><div class="chat-avatar" style="background:${ac}20;color:${ac}">${p.nombre[0]}</div><div style="flex:1"><div class="chat-name">${p.nombre}</div><div style="font-size:11px;color:var(--text3)">${p.tel}</div></div><div class="chat-time">${p.hora}</div>${i<2?'<div style="width:8px;height:8px;border-radius:50%;background:var(--teal);flex-shrink:0"></div>':""}</div><div class="chat-preview">${p.msg}</div><div class="chat-bubble-wrap" id="bub-${i}"><div class="bubble-label">Paciente</div><div class="bubble pac">${p.msg}</div><div class="bubble-label right">Bot ClinicAI</div><div class="bubble bot">${p.resp}</div></div></div>`;}).join("");
+  document.querySelectorAll(".chat-card").forEach((card,i)=>{card.addEventListener("click",()=>document.getElementById("bub-"+i).classList.toggle("open"));});
+}
+
+function renderMetricas(){
+  const tipos={};PACS.forEach(p=>{tipos[p.interes]=(tipos[p.interes]||0)+1;});
+  const estados={};PACS.forEach(p=>{estados[p.estado]=(estados[p.estado]||0)+1;});
+  const TCOLORS=["#1D9E75","#185FA5","#534AB7","#D85A30","#BA7517"];
+  const maxT=Math.max(...Object.values(tipos));
+  const maxE=Math.max(...Object.values(estados));
+  const te=document.getElementById("stats-tipo");
+  if(te)te.innerHTML=Object.entries(tipos).map(([k,v],i)=>`<div class="bar-row"><span class="bar-label" style="font-size:11px;width:110px">${k.length>15?k.slice(0,14)+"…":k}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxT*100)}%;background:${TCOLORS[i%TCOLORS.length]}"></div></div><span class="bar-val">${v}</span></div>`).join("");
+  const se=document.getElementById("stats-estado");
+  if(se)se.innerHTML=Object.entries(estados).map(([k,v])=>{const c=SCFG[k]||{d:"#888"};return`<div class="bar-row"><span class="bar-label">${k}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxE*100)}%;background:${c.d}"></div></div><span class="bar-val">${v}</span></div>`;}).join("");
+}
+
+function renderKanban(){
+  const el=document.getElementById("kanban-pac");if(!el)return;
+  const order=["Urgente","Pendiente","Agendado"];
+  el.innerHTML=order.map(s=>{
+    const items=PACS.filter(p=>p.estado===s);
+    const c=SCFG[s]||{d:"#888"};
+    return`<div class="k-col"><div class="k-head"><div class="k-dot" style="background:${c.d}"></div><span class="k-label">${s}</span><span class="k-count">${items.length}</span></div>${items.map(p=>`<div class="k-card"><div class="k-card-name">${p.nombre.split(" ")[0]}</div><div class="k-card-sub">${p.interes.slice(0,18)}…</div></div>`).join("")}${items.length===0?`<div style="background:var(--bg);border:1px dashed var(--border2);border-radius:var(--radius);padding:12px;text-align:center;font-size:11px;color:var(--text3)">Sin pacientes</div>`:""}</div>`;
+  }).join("");
+}
+
+function exportCSV(){
+  const rows=[["Nombre","Teléfono","Interés","Estado","Hora"],...PACS.map(p=>[p.nombre,p.tel,p.interes,p.estado,p.hora])];
+  const a=document.createElement("a");a.href="data:text/csv;charset=utf-8,"+encodeURIComponent(rows.map(r=>r.join(",")).join("\n"));a.download="pacientes_clinicai.csv";a.click();
+}
+
+function goTab(tab,btn){
+  const s=currentPlan==="starter";const p=currentPlan==="premium";
+  if(s&&(tab==="conversaciones"||tab==="metricas"||tab==="ia"))return;
+  if(!p&&tab==="ia")return;
+  document.querySelectorAll(".page").forEach(pg=>pg.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  document.getElementById("page-"+tab).classList.add("active");
+  btn.classList.add("active");
+}
+
+// Init
+document.getElementById("today-str").textContent=new Date().toLocaleDateString("es-CL",{weekday:"long",day:"numeric",month:"long"});
+applyVisibility();renderAll();
+</script>
+</body>
+</html>
