@@ -7,310 +7,396 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0A1628;--navy2:#112240;
-  --teal:#1D9E75;--teal-light:#E1F5EE;--teal-dark:#0F6E56;
-  --gold:#C9973A;--gold-light:#FBF3E3;
-  --white:#fff;--bg:#f4f6f9;
-  --text:#0A1628;--text2:#4a5568;--text3:#8896a5;
-  --border:#e2e8f0;
-  --blue:#185FA5;--blue-bg:#E6F1FB;
-  --purple:#534AB7;--purple-bg:#EEEDFE;
-  --coral:#D85A30;--coral-bg:#FAECE7;
-  --amber:#BA7517;--amber-bg:#FAEEDA;
+  --red:#C8102E;--red-dark:#9E0D24;--red-light:#FDECEA;
+  --black:#0D0D0D;--dark:#1A1A1A;--dark2:#242424;
+  --white:#fff;--bg:#F7F7F7;
+  --text:#0D0D0D;--text2:#4a4a4a;--text3:#888;
+  --border:#E5E5E5;--border2:#D0D0D0;
+  --teal:#1D9E75;--teal-light:#E1F5EE;
+  --amber:#BA7517;
   --radius:8px;--radius-lg:14px;
   --shadow:0 1px 4px rgba(0,0,0,0.08);
-  --shadow-lg:0 6px 24px rgba(0,0,0,0.12);
+  --shadow-lg:0 6px 24px rgba(0,0,0,0.14);
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
+/* TOPBAR */
+.topbar{background:var(--black);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.tl{display:flex;align-items:center;gap:10px}
+.gf-mark{width:30px;height:30px;background:var(--red);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:#fff;flex-shrink:0}
+.tl-brand{font-size:14px;font-weight:700;color:#fff}
+.tl-sep{color:rgba(255,255,255,.25);margin:0 6px}
+.tl-sub{font-size:13px;color:rgba(255,255,255,.45)}
+.tr{display:flex;align-items:center;gap:8px}
+.date-tag{font-size:11px;color:rgba(255,255,255,.4);display:none}
+.live-tag{font-size:11px;background:var(--red);color:#fff;padding:3px 10px;border-radius:20px;font-weight:600}
+
+/* FRASE ROTATIVA */
+.quote-bar{background:var(--dark);padding:8px 20px;display:flex;align-items:center;gap:10px;overflow:hidden}
+.quote-icon{font-size:13px;color:var(--red);flex-shrink:0}
+.quote-text{font-size:12px;color:rgba(255,255,255,.55);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.quote-author{font-size:11px;color:var(--red);font-weight:600;white-space:nowrap;flex-shrink:0;margin-left:8px}
+
 /* HERO */
-.hero{background:linear-gradient(135deg,#0A1628 0%,#112240 60%,#0d1e3a 100%);padding:48px 28px 40px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(29,158,117,.15),transparent 70%);pointer-events:none}
-.hero::after{content:'';position:absolute;bottom:-60px;left:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(201,151,58,.1),transparent 70%);pointer-events:none}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);background:rgba(29,158,117,.12);border:1px solid rgba(29,158,117,.25);padding:5px 14px;border-radius:20px;margin-bottom:20px}
-.hero-title{font-size:32px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px;letter-spacing:-.02em}
-.hero-title span{color:var(--teal)}
-.hero-sub{font-size:15px;color:rgba(255,255,255,.6);max-width:520px;margin:0 auto 28px;line-height:1.6}
-.hero-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
-.hero-chip{font-size:12px;padding:5px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);background:rgba(255,255,255,.05)}
-.hero-chip.active{border-color:var(--gold);color:var(--gold);background:rgba(201,151,58,.1)}
+.hero{background:linear-gradient(135deg,var(--black) 0%,var(--dark) 65%,#1a0508 100%);padding:32px 20px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(200,16,46,.1),transparent 65%);pointer-events:none}
+.hero-inner{max-width:720px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--red);background:rgba(200,16,46,.1);border:1px solid rgba(200,16,46,.2);padding:5px 12px;border-radius:20px;margin-bottom:14px}
+.hero-title{font-size:22px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:10px;letter-spacing:-.01em}
+.hero-title .accent{color:var(--red)}
+.hero-stats{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px}
+.hero-stat-val{font-size:20px;font-weight:800;color:var(--red);line-height:1}
+.hero-stat-label{font-size:10px;color:rgba(255,255,255,.35);margin-top:3px;text-align:center}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.5);max-width:440px;margin:0 auto 14px;line-height:1.6}
+.hero-nota{font-size:11px;color:rgba(255,255,255,.3);font-style:italic;border-top:1px solid rgba(255,255,255,.08);padding-top:10px;max-width:420px;margin:0 auto}
+.hero-nota strong{color:rgba(255,255,255,.55)}
 
-/* EMPRESAS SELECTOR */
-.empresas-section{padding:28px;max-width:960px;margin:0 auto}
-.section-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
-.empresas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
-.empresa-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:14px 12px;cursor:pointer;transition:all .15s;text-align:center}
-.empresa-card:hover{border-color:var(--teal);box-shadow:var(--shadow)}
-.empresa-card.active{border-color:var(--teal);background:var(--teal-light)}
-.empresa-icon{font-size:24px;margin-bottom:8px}
-.empresa-name{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:3px}
-.empresa-rubro{font-size:11px;color:var(--text3)}
-.empresa-status{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;margin-top:6px;font-weight:600}
-.status-live{background:var(--teal-light);color:var(--teal)}
-.status-pending{background:var(--amber-bg);color:var(--amber)}
+/* MAIN */
+.main{max-width:920px;margin:0 auto;padding:16px 20px 40px}
 
-/* DEMO PANEL */
-.demo-panel{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
-.demo-tabs{display:flex;border-bottom:1px solid var(--border);background:#fafbfc}
-.demo-tab{flex:1;padding:12px 8px;font-size:12px;font-weight:500;color:var(--text3);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;font-family:inherit;text-align:center}
-.demo-tab.active{color:var(--navy);border-bottom-color:var(--teal);font-weight:600;background:var(--white)}
-.demo-content{padding:20px}
+/* EMPRESA SELECTOR */
+.sel-wrap{margin-bottom:16px}
+.sel-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;display:block}
+.emp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.emp-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 8px;border-radius:var(--radius-lg);border:2px solid var(--border);background:var(--white);cursor:pointer;transition:all .15s;font-family:inherit;text-align:center}
+.emp-btn:hover{border-color:var(--red);transform:translateY(-1px);box-shadow:var(--shadow)}
+.emp-btn.active{border-color:var(--red);background:var(--red-light)}
+.emp-btn-icon{font-size:22px}
+.emp-btn-name{font-size:11px;font-weight:700;color:var(--black)}
+.emp-btn-rubro{font-size:10px;color:var(--text3)}
+.emp-btn-count{font-size:10px;background:var(--red-light);color:var(--red);padding:2px 6px;border-radius:20px;font-weight:600;margin-top:2px}
+.emp-btn.active .emp-btn-count{background:var(--red);color:#fff}
 
-/* CHAT DEMO */
-.chat-header{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--navy);border-radius:var(--radius) var(--radius) 0 0;margin:-20px -20px 16px}
-.chat-avatar{width:34px;height:34px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.chat-clinic-name{font-size:13px;font-weight:600;color:#fff}
-.chat-status{font-size:11px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:4px}
-.chat-dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
-.chat-messages{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;min-height:200px}
-.msg{max-width:80%;padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.5}
-.msg.cliente{background:var(--bg);color:var(--text);border-bottom-left-radius:3px;align-self:flex-start}
-.msg.ia{background:var(--teal);color:#fff;border-bottom-right-radius:3px;align-self:flex-end}
-.msg.sistema{background:var(--navy2);color:rgba(255,255,255,.7);font-size:11px;align-self:center;border-radius:20px;padding:5px 12px}
-.msg-label{font-size:10px;color:var(--text3);margin-bottom:3px}
-.msg-label.right{text-align:right;color:rgba(29,158,117,.8)}
-.msg-time{font-size:10px;color:rgba(255,255,255,.5);margin-top:4px;text-align:right}
-.chat-input-demo{display:flex;gap:8px;background:var(--bg);border-radius:var(--radius);padding:8px 12px;align-items:center}
-.chat-input-text{flex:1;font-size:13px;color:var(--text3);font-style:italic}
-.send-btn{width:30px;height:30px;border-radius:50%;background:var(--teal);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+/* PANEL */
+.panel{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow-lg);overflow:hidden}
+.panel-tabs{display:flex;border-bottom:1px solid var(--border);background:#FAFAFA;overflow-x:auto}
+.ptab{flex:1;min-width:80px;padding:10px 6px;font-size:11px;font-weight:500;color:var(--text3);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;font-family:inherit;text-align:center;white-space:nowrap}
+.ptab.active{color:var(--red);border-bottom-color:var(--red);font-weight:700;background:var(--white)}
+.panel-body{padding:18px}
+
+/* CHAT */
+.chat-top{display:flex;align-items:center;gap:10px;background:var(--black);padding:11px 14px;margin:-18px -18px 14px;border-radius:var(--radius-lg) var(--radius-lg) 0 0}
+.chat-ava{width:34px;height:34px;border-radius:50%;background:var(--dark2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.chat-name-text{font-size:13px;font-weight:700;color:#fff}
+.chat-status{font-size:10px;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:4px;margin-top:2px}
+.online-dot{width:5px;height:5px;border-radius:50%;background:#4CAF50;flex-shrink:0}
+.chat-tag{font-size:10px;background:rgba(200,16,46,.25);color:#ff8899;padding:2px 8px;border-radius:20px;font-weight:600;margin-left:auto;white-space:nowrap}
+.chat-msgs{min-height:200px;max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.msg{max-width:85%;padding:8px 12px;border-radius:12px;font-size:13px;line-height:1.5}
+.msg.user{background:var(--bg);color:var(--text);border-bottom-left-radius:3px;align-self:flex-start}
+.msg.ia{background:var(--red);color:#fff;border-bottom-right-radius:3px;align-self:flex-end}
+.msg.sys{background:var(--dark);color:rgba(255,255,255,.65);font-size:11px;align-self:center;border-radius:20px;padding:5px 12px;text-align:center}
+.chat-input-row{display:flex;gap:8px;align-items:center;background:var(--bg);border-radius:var(--radius);padding:7px 11px;border:1px solid var(--border)}
+.chat-ph{flex:1;font-size:13px;color:var(--text3);font-style:italic}
+.play-btn{background:var(--red);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;transition:background .15s}
+.play-btn:hover{background:var(--red-dark)}
+.play-btn:disabled{opacity:.5;cursor:not-allowed}
+.chat-hint{font-size:11px;color:var(--text3);text-align:center;margin-top:8px}
 
 /* MÉTRICAS */
-.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
-.metric-card{background:var(--bg);border-radius:var(--radius-lg);padding:14px 16px;position:relative;overflow:hidden}
-.metric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0}
-.metric-card.c-teal::before{background:var(--teal)}
-.metric-card.c-gold::before{background:var(--gold)}
-.metric-card.c-blue::before{background:var(--blue)}
-.metric-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;font-weight:500}
-.metric-val{font-size:22px;font-weight:700;color:var(--navy);line-height:1}
-.metric-sub{font-size:11px;color:var(--text3);margin-top:4px}
+.demo-tag{display:inline-block;font-size:10px;background:#FBF3E3;color:var(--amber);border:1px solid rgba(186,117,23,.2);padding:3px 10px;border-radius:20px;font-weight:600;margin-bottom:12px}
+.met-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.met-card{background:var(--bg);border-radius:var(--radius-lg);padding:12px 14px;border-left:3px solid var(--border2)}
+.met-card.r{border-left-color:var(--red)}
+.met-card.g{border-left-color:var(--teal)}
+.met-card.a{border-left-color:var(--amber)}
+.met-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.met-val{font-size:22px;font-weight:800;color:var(--black)}
+.met-sub{font-size:10px;color:var(--text3);margin-top:3px}
+.bar-box{background:var(--bg);border-radius:var(--radius-lg);padding:12px 14px;margin-bottom:12px}
+.bar-title{font-size:12px;font-weight:700;color:var(--black);margin-bottom:10px}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.bar-ico{font-size:13px;width:18px;text-align:center;flex-shrink:0}
+.bar-lbl{font-size:11px;color:var(--text2);width:110px;flex-shrink:0}
+.bar-track{flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;background:var(--red);border-radius:4px}
+.bar-val{font-size:11px;font-weight:700;color:var(--black);width:24px;text-align:right}
+.total-box{background:var(--black);border-radius:var(--radius-lg);padding:14px;text-align:center}
+.total-label{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.total-val{font-size:26px;font-weight:800;color:var(--red)}
+.total-sub{font-size:10px;color:rgba(255,255,255,.3);margin-top:3px}
 
 /* IMPACTO */
-.impacto-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.impacto-card{background:var(--bg);border-radius:var(--radius-lg);padding:14px 16px}
-.impacto-title{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.impacto-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:12px;color:var(--text2)}
-.impacto-icon{font-size:14px;flex-shrink:0}
+.nota-comp{background:linear-gradient(135deg,var(--dark),var(--dark2));border-left:3px solid var(--red);border-radius:0 var(--radius-lg) var(--radius-lg) 0;padding:12px 14px;margin-bottom:14px}
+.nota-comp-title{font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.nota-comp-text{font-size:12px;color:rgba(255,255,255,.6);line-height:1.6}
+.nota-comp-text strong{color:#fff}
+.imp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.imp-col{background:var(--bg);border-radius:var(--radius-lg);padding:12px 14px}
+.imp-col.good{background:var(--red-light);border:1px solid rgba(200,16,46,.15)}
+.imp-head{font-size:12px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.imp-row{display:flex;align-items:flex-start;gap:6px;margin-bottom:6px;font-size:12px;color:var(--text2);line-height:1.4}
+.imp-ico{flex-shrink:0;font-size:12px;margin-top:1px}
+.flujo-wrap{background:var(--bg);border-radius:var(--radius-lg);padding:14px}
+.flujo-title{font-size:12px;font-weight:700;color:var(--black);margin-bottom:12px}
+.flujo-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;position:relative}
+.flujo-step::after{content:'';position:absolute;left:13px;top:28px;width:2px;height:100%;background:var(--border);z-index:0}
+.flujo-step:last-child::after{display:none}
+.flujo-circle{width:26px;height:26px;border-radius:50%;background:var(--red-light);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;position:relative;z-index:1}
+.flujo-t{font-size:13px;font-weight:600;color:var(--black)}
+.flujo-s{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4}
 
 /* PROPUESTA */
-.propuesta-hero{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:var(--radius-lg);padding:20px;margin-bottom:16px;text-align:center}
-.propuesta-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
-.propuesta-sub{font-size:12px;color:rgba(255,255,255,.6);line-height:1.5}
-.plan-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
-.plan-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:14px}
-.plan-card.recommended{border-color:var(--gold);background:var(--gold-light)}
-.plan-badge-rec{display:inline-block;font-size:10px;background:var(--gold);color:#fff;padding:2px 8px;border-radius:20px;font-weight:700;margin-bottom:8px}
-.plan-name{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px}
-.plan-price{font-size:20px;font-weight:800;color:var(--navy)}
-.plan-price-sub{font-size:11px;color:var(--text3);margin-bottom:10px}
-.plan-features{list-style:none;padding:0;display:flex;flex-direction:column;gap:5px}
-.plan-features li{font-size:12px;color:var(--text2);display:flex;align-items:flex-start;gap:6px}
-.feat-check{color:var(--teal);flex-shrink:0;font-size:13px}
-.feat-x{color:var(--text3);flex-shrink:0;font-size:13px}
-
-/* ROI */
-.roi-card{background:linear-gradient(135deg,#0A1628,#112240);border-radius:var(--radius-lg);padding:18px;margin-bottom:14px}
-.roi-title{font-size:13px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:14px;text-align:center}
-.roi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.prop-head{background:linear-gradient(135deg,var(--black),var(--dark));border-radius:var(--radius-lg);padding:18px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden}
+.prop-head::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(200,16,46,.1),transparent 65%)}
+.prop-eyebrow{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.09em;text-transform:uppercase;margin-bottom:6px}
+.prop-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:5px;position:relative;z-index:1}
+.prop-sub{font-size:12px;color:rgba(255,255,255,.4);line-height:1.55;position:relative;z-index:1}
+.planes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.plan{background:var(--bg);border:2px solid var(--border);border-radius:var(--radius-lg);padding:14px}
+.plan.rec{border-color:var(--red);background:var(--white)}
+.plan-badge{font-size:10px;background:var(--red);color:#fff;padding:2px 8px;border-radius:20px;font-weight:700;display:inline-block;margin-bottom:7px}
+.plan-name{font-size:13px;font-weight:800;color:var(--black);margin-bottom:3px}
+.plan-price{font-size:20px;font-weight:800;color:var(--black)}
+.plan-cycle{font-size:11px;color:var(--text3);margin-bottom:10px}
+.plan-feats{list-style:none;padding:0;display:flex;flex-direction:column;gap:5px}
+.plan-feats li{font-size:12px;color:var(--text2);display:flex;align-items:flex-start;gap:5px;line-height:1.4}
+.fc{color:var(--teal);flex-shrink:0}
+.fx{color:var(--text3);flex-shrink:0}
+.obs-box{background:var(--red-light);border:1px solid rgba(200,16,46,.2);border-radius:var(--radius-lg);padding:12px 14px;margin-bottom:12px}
+.obs-title{font-size:12px;font-weight:700;color:var(--red);margin-bottom:7px}
+.obs-row{font-size:12px;color:var(--text2);display:flex;align-items:flex-start;gap:5px;margin-bottom:5px;line-height:1.4}
+.roi-box{background:var(--black);border-radius:var(--radius-lg);padding:14px;margin-bottom:12px}
+.roi-title{font-size:10px;color:rgba(255,255,255,.3);text-align:center;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px}
+.roi-row{display:flex;justify-content:space-around}
 .roi-item{text-align:center}
-.roi-val{font-size:20px;font-weight:800;color:var(--teal);margin-bottom:4px}
-.roi-label{font-size:11px;color:rgba(255,255,255,.5)}
+.roi-val{font-size:20px;font-weight:800;color:var(--red)}
+.roi-label{font-size:10px;color:rgba(255,255,255,.3);margin-top:4px;max-width:80px;margin-left:auto;margin-right:auto}
+.cta-box{background:var(--red);border-radius:var(--radius-lg);padding:16px;text-align:center}
+.cta-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:5px}
+.cta-sub{font-size:12px;color:rgba(255,255,255,.75);margin-bottom:12px;line-height:1.5}
+.cta-btn{background:#fff;color:var(--red);border:none;padding:10px 22px;border-radius:var(--radius);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block}
+.cta-btn:hover{background:#F5F5F5}
+.piloto-note{font-size:11px;color:rgba(255,255,255,.45);margin-top:8px}
 
-/* CTA */
-.cta-section{background:var(--teal-light);border:1px solid rgba(29,158,117,.3);border-radius:var(--radius-lg);padding:16px;text-align:center}
-.cta-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px}
-.cta-sub{font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.5}
-.cta-btn{background:var(--teal);color:#fff;border:none;padding:10px 24px;border-radius:var(--radius);font-size:13px;font-weight:600;cursor:pointer;transition:background .15s}
-.cta-btn:hover{background:var(--teal-dark)}
+/* TYPING */
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.8);margin:0 2px;animation:blink 1.2s ease infinite}
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+@keyframes su{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.su{animation:su .3s ease forwards}
 
-/* TYPING ANIMATION */
-@keyframes typing{0%,100%{opacity:.3}50%{opacity:1}}
-.typing-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#fff;margin:0 2px;animation:typing 1.2s ease infinite}
-.typing-dot:nth-child(2){animation-delay:.2s}
-.typing-dot:nth-child(3){animation-delay:.4s}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.fade-in{animation:fadeIn .4s ease forwards}
-
-/* FILOSOFIA BANNER */
-.filosofia{background:linear-gradient(90deg,rgba(29,158,117,.08),rgba(201,151,58,.08));border:1px solid rgba(29,158,117,.2);border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
-.filosofia-icon{font-size:20px;flex-shrink:0}
-.filosofia-text{font-size:13px;color:var(--text2);line-height:1.5;font-style:italic}
-.filosofia-text strong{color:var(--navy)}
-
-.badge-new{display:inline-block;font-size:10px;background:var(--purple-bg);color:var(--purple);padding:2px 8px;border-radius:20px;font-weight:600;margin-left:6px}
+/* RESPONSIVE */
+@media(min-width:600px){
+  .topbar{padding:0 28px}
+  .date-tag{display:block}
+  .hero{padding:40px 28px 36px}
+  .hero-title{font-size:26px}
+  .main{padding:20px 28px 40px}
+  .met-val{font-size:24px}
+  .prop-title{font-size:18px}
+  .plan-price{font-size:22px}
+  .total-val{font-size:28px}
+}
+@media(max-width:599px){
+  .hero-stats{gap:14px}
+  .hero-stat-val{font-size:18px}
+  .emp-grid{grid-template-columns:repeat(2,1fr)}
+  .met-grid{grid-template-columns:repeat(2,1fr)}
+  .met-card:last-child{grid-column:1/-1}
+  .imp-grid{grid-template-columns:1fr}
+  .planes{grid-template-columns:1fr}
+  .roi-row{gap:10px}
+  .roi-val{font-size:18px}
+  .panel-tabs{overflow-x:auto}
+  .ptab{min-width:70px;font-size:10px;padding:9px 4px}
+  .bar-lbl{width:80px;font-size:10px}
+  .flujo-t{font-size:12px}
+  .chat-msgs{min-height:160px;max-height:220px}
+}
 </style>
 </head>
 <body>
 
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tl">
+    <div class="gf-mark" aria-label="Grupo Firma">GF</div>
+    <span class="tl-brand">Grupo Firma</span>
+    <span class="tl-sep">×</span>
+    <span class="tl-sub">Velioq IA</span>
+  </div>
+  <div class="tr">
+    <span class="date-tag">Demo · 29 Mayo 2026</span>
+    <span class="live-tag" aria-label="Demo en vivo">● EN VIVO</span>
+  </div>
+</div>
+
+<!-- FRASE ROTATIVA -->
+<div class="quote-bar" aria-live="polite">
+  <span class="quote-icon" aria-hidden="true">💬</span>
+  <span class="quote-text" id="quote-text"></span>
+  <span class="quote-author" id="quote-author"></span>
+</div>
+
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-eyebrow">✦ Velioq × Grupo Firma — Demo exclusiva</div>
-  <h1 class="hero-title">La IA de Claude gestionando<br><span>cada empresa del holding</span></h1>
-  <p class="hero-sub">Un ecosistema de inteligencia artificial que atiende, clasifica y registra cada consulta en todas tus líneas de negocio — 24/7, sin intervención humana.</p>
-  <div class="hero-chips">
-    <span class="hero-chip active">+16 empresas automatizadas</span>
-    <span class="hero-chip">5 ciudades · 1 sistema</span>
-    <span class="hero-chip">IA de Claude · Anthropic</span>
-    <span class="hero-chip">Dashboard central</span>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">✦ Preparado exclusivamente para Grupo Firma</div>
+    <h1 class="hero-title">La <span class="accent">IA Velioq</span> trabajando<br>por cada empresa del holding</h1>
+    <div class="hero-stats" role="list">
+      <div role="listitem"><div class="hero-stat-val">+16</div><div class="hero-stat-label">empresas del holding</div></div>
+      <div role="listitem"><div class="hero-stat-val">5</div><div class="hero-stat-label">ciudades activas</div></div>
+      <div role="listitem"><div class="hero-stat-val">24/7</div><div class="hero-stat-label">sin intervención</div></div>
+      <div role="listitem"><div class="hero-stat-val">&lt;30s</div><div class="hero-stat-label">respuesta IA</div></div>
+    </div>
+    <p class="hero-sub">Cada consulta que llega a cualquiera de tus empresas — a cualquier hora — es atendida, clasificada y registrada automáticamente.</p>
+    <div class="hero-nota"><strong>Nota:</strong> La IA Velioq <strong>complementa a tu equipo</strong>, no lo reemplaza. Tu equipo se enfoca en lo estratégico; la IA atiende lo repetitivo.</div>
   </div>
 </div>
 
-<!-- MAIN -->
-<div class="empresas-section">
+<div class="main">
 
-  <!-- Filosofia match -->
-  <div class="filosofia">
-    <div class="filosofia-icon">💡</div>
-    <div class="filosofia-text"><strong>"Haz que las cosas sucedan"</strong> — Mientras tu equipo descansa, la IA de Claude trabaja. Cada consulta que llega a cualquiera de tus empresas es atendida, clasificada y registrada automáticamente.</div>
+  <!-- SELECTOR -->
+  <div class="sel-wrap">
+    <span class="sel-label">Selecciona una empresa del holding</span>
+    <div class="emp-grid" id="emp-grid" role="group" aria-label="Empresas del holding"></div>
   </div>
 
-  <!-- Empresas -->
-  <div class="section-label">Selecciona una empresa del holding para ver la demo</div>
-  <div class="empresas-grid" id="empresas-grid"></div>
-
-  <!-- Demo Panel -->
-  <div class="demo-panel">
-    <div class="demo-tabs">
-      <button class="demo-tab active" onclick="switchTab('chat',this)">💬 IA en acción</button>
-      <button class="demo-tab" onclick="switchTab('metricas',this)">📊 Métricas</button>
-      <button class="demo-tab" onclick="switchTab('impacto',this)">⚡ Impacto</button>
-      <button class="demo-tab" onclick="switchTab('propuesta',this)">🏆 Propuesta Holding</button>
+  <!-- PANEL -->
+  <div class="panel">
+    <div class="panel-tabs" role="tablist">
+      <button class="ptab active" role="tab" aria-selected="true" onclick="switchTab('chat',this)">💬 IA en acción</button>
+      <button class="ptab" role="tab" aria-selected="false" onclick="switchTab('metricas',this)">📊 Métricas</button>
+      <button class="ptab" role="tab" aria-selected="false" onclick="switchTab('impacto',this)">⚡ Cómo funciona</button>
+      <button class="ptab" role="tab" aria-selected="false" onclick="switchTab('propuesta',this)">🏆 Propuesta</button>
     </div>
-    <div class="demo-content">
+    <div class="panel-body">
 
-      <!-- TAB: CHAT -->
-      <div id="tab-chat">
-        <div class="chat-header">
-          <div class="chat-avatar" id="chat-avatar">⚖️</div>
+      <!-- TAB CHAT -->
+      <div id="tab-chat" role="tabpanel">
+        <div class="chat-top">
+          <div class="chat-ava" id="chat-ava" aria-hidden="true">⚖️</div>
           <div>
-            <div class="chat-clinic-name" id="chat-name">GF Jurídico</div>
-            <div class="chat-status"><div class="chat-dot"></div> IA de Claude activa · responde en &lt;30 seg</div>
+            <div class="chat-name-text" id="chat-name">GF Jurídico · Asistente IA Velioq</div>
+            <div class="chat-status"><div class="online-dot" aria-hidden="true"></div>Activa 24/7 · responde en &lt;30 segundos</div>
           </div>
+          <div class="chat-tag">Velioq IA</div>
         </div>
-        <div class="chat-messages" id="chat-messages"></div>
-        <div class="chat-input-demo">
-          <div class="chat-input-text" id="chat-placeholder">Escribe tu consulta...</div>
-          <button class="send-btn" onclick="playDemo()">▶</button>
+        <div class="chat-msgs" id="chat-msgs" aria-live="polite" aria-label="Conversación demo">
+          <div class="msg sys">Selecciona una empresa y presiona ▶ para ver la IA en acción</div>
         </div>
-        <div style="margin-top:10px;font-size:11px;color:var(--text3);text-align:center">Presiona ▶ para ver la IA de Claude en acción · cada empresa tiene su flujo personalizado</div>
+        <div class="chat-input-row">
+          <div class="chat-ph" id="chat-ph" aria-hidden="true">Presiona ▶ para ver la demo en vivo</div>
+          <button class="play-btn" id="play-btn" onclick="playDemo()" aria-label="Reproducir demo de conversación">▶</button>
+        </div>
+        <div class="chat-hint">Cambia de empresa arriba para ver distintos flujos · cada empresa tiene su propio contexto</div>
       </div>
 
-      <!-- TAB: MÉTRICAS -->
-      <div id="tab-metricas" style="display:none">
-        <div class="metrics-grid">
-          <div class="metric-card c-teal">
-            <div class="metric-label">Consultas atendidas</div>
-            <div class="metric-val" id="met-consultas">0</div>
-            <div class="metric-sub">este mes · todas las empresas</div>
-          </div>
-          <div class="metric-card c-gold">
-            <div class="metric-label">Leads calificados</div>
-            <div class="metric-val" id="met-leads">0</div>
-            <div class="metric-sub">oportunidades detectadas</div>
-          </div>
-          <div class="metric-card c-blue">
-            <div class="metric-label">Tiempo respuesta</div>
-            <div class="metric-val">&lt;30s</div>
-            <div class="metric-sub">promedio IA de Claude</div>
-          </div>
+      <!-- TAB MÉTRICAS -->
+      <div id="tab-metricas" style="display:none" role="tabpanel">
+        <div class="demo-tag">📊 Escenario ilustrativo — datos de ejemplo para la demo</div>
+        <div class="met-grid">
+          <div class="met-card r"><div class="met-label">Consultas atendidas</div><div class="met-val">298</div><div class="met-sub">todas las empresas · mes ejemplo</div></div>
+          <div class="met-card g"><div class="met-label">Leads calificados</div><div class="met-val">145</div><div class="met-sub">oportunidades registradas</div></div>
+          <div class="met-card a"><div class="met-label">Tiempo respuesta</div><div class="met-val">&lt;30s</div><div class="met-sub">promedio IA · 24/7</div></div>
         </div>
-        <div style="background:var(--bg);border-radius:var(--radius-lg);padding:14px;margin-bottom:14px">
-          <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:12px">Consultas por empresa este mes</div>
-          <div id="bar-chart"></div>
+        <div class="bar-box">
+          <div class="bar-title">Consultas por empresa — escenario proyectado</div>
+          <div id="bars"></div>
         </div>
-        <div style="background:var(--navy);border-radius:var(--radius-lg);padding:14px;text-align:center">
-          <div style="font-size:11px;color:rgba(255,255,255,.5);margin-bottom:6px">DASHBOARD CENTRAL — Vista Miguel Vargas</div>
-          <div style="font-size:22px;font-weight:800;color:var(--teal)" id="met-mrr">$0</div>
-          <div style="font-size:11px;color:rgba(255,255,255,.4)">valor de leads calificados este mes</div>
+        <div class="total-box">
+          <div class="total-label">Valor estimado de oportunidades capturadas</div>
+          <div class="total-val">$26.100.000</div>
+          <div class="total-sub">escenario proyectado · todas las empresas del holding</div>
         </div>
       </div>
 
-      <!-- TAB: IMPACTO -->
-      <div id="tab-impacto" style="display:none">
-        <div class="impacto-grid">
-          <div class="impacto-card">
-            <div class="impacto-title">⏰ Antes de Velioq</div>
-            <div class="impacto-row"><div class="impacto-icon">❌</div>Consultas perdidas fuera de horario</div>
-            <div class="impacto-row"><div class="impacto-icon">❌</div>Secretaria atendiendo llamadas repetitivas</div>
-            <div class="impacto-row"><div class="impacto-icon">❌</div>Sin registro centralizado de consultas</div>
-            <div class="impacto-row"><div class="impacto-icon">❌</div>Cada empresa con proceso diferente</div>
-            <div class="impacto-row"><div class="impacto-icon">❌</div>Leads sin seguimiento automático</div>
+      <!-- TAB IMPACTO -->
+      <div id="tab-impacto" style="display:none" role="tabpanel">
+        <div class="nota-comp">
+          <div class="nota-comp-title">✦ Filosofía Velioq — Complementar, no reemplazar</div>
+          <div class="nota-comp-text">La IA Velioq <strong>trabaja junto a tu equipo</strong>, no en su lugar. Tu equipo se libera de tareas repetitivas y se enfoca en lo que realmente importa: <strong>cerrar negocios, construir relaciones, hacer crecer el holding</strong>.</div>
+        </div>
+        <div class="imp-grid">
+          <div class="imp-col">
+            <div class="imp-head">😔 Sin IA Velioq</div>
+            <div class="imp-row"><div class="imp-ico">❌</div>Consultas perdidas fuera de horario</div>
+            <div class="imp-row"><div class="imp-ico">❌</div>Equipo atendiendo preguntas repetitivas</div>
+            <div class="imp-row"><div class="imp-ico">❌</div>Sin registro centralizado en el holding</div>
+            <div class="imp-row"><div class="imp-ico">❌</div>Cada empresa con proceso distinto</div>
+            <div class="imp-row"><div class="imp-ico">❌</div>Sin visibilidad en tiempo real</div>
           </div>
-          <div class="impacto-card">
-            <div class="impacto-title" style="color:var(--teal)">✦ Con IA de Claude</div>
-            <div class="impacto-row"><div class="impacto-icon">✅</div>Atención 24/7 en todas las empresas</div>
-            <div class="impacto-row"><div class="impacto-icon">✅</div>Equipo enfocado en tareas estratégicas</div>
-            <div class="impacto-row"><div class="impacto-icon">✅</div>CRM unificado para todo el holding</div>
-            <div class="impacto-row"><div class="impacto-icon">✅</div>Flujo personalizado por empresa</div>
-            <div class="impacto-row"><div class="impacto-icon">✅</div>Seguimiento automático cada 3 días</div>
+          <div class="imp-col good">
+            <div class="imp-head" style="color:var(--red)">🚀 Con IA Velioq</div>
+            <div class="imp-row"><div class="imp-ico">✅</div>Atención 24/7 en todas las empresas</div>
+            <div class="imp-row"><div class="imp-ico">✅</div>Equipo enfocado en tareas de alto valor</div>
+            <div class="imp-row"><div class="imp-ico">✅</div>CRM unificado para todo el holding</div>
+            <div class="imp-row"><div class="imp-ico">✅</div>Flujo personalizado por empresa GF</div>
+            <div class="imp-row"><div class="imp-ico">✅</div>Dashboard central en tiempo real</div>
           </div>
         </div>
-        <div style="margin-top:12px;background:var(--bg);border-radius:var(--radius-lg);padding:14px">
-          <div style="font-size:12px;font-weight:600;color:var(--navy);margin-bottom:10px">¿Qué hace la IA de Claude exactamente?</div>
-          <div style="display:flex;flex-direction:column;gap:8px" id="flujo-steps"></div>
+        <div class="flujo-wrap">
+          <div class="flujo-title">¿Qué hace exactamente la IA Velioq en cada empresa?</div>
+          <div class="flujo-step"><div class="flujo-circle">📱</div><div><div class="flujo-t">El cliente escribe por WhatsApp</div><div class="flujo-s">A cualquier empresa del holding · a cualquier hora</div></div></div>
+          <div class="flujo-step"><div class="flujo-circle">🧠</div><div><div class="flujo-t">La IA analiza y clasifica el mensaje</div><div class="flujo-s">Identifica tipo de consulta, urgencia y empresa en milisegundos</div></div></div>
+          <div class="flujo-step"><div class="flujo-circle">💬</div><div><div class="flujo-t">Respuesta personalizada al instante</div><div class="flujo-s">Menos de 30 segundos · con el tono y contexto de cada empresa GF</div></div></div>
+          <div class="flujo-step"><div class="flujo-circle">📊</div><div><div class="flujo-t">Registro automático en CRM del holding</div><div class="flujo-s">Lead guardado con todos los datos · base de datos unificada</div></div></div>
+          <div class="flujo-step"><div class="flujo-circle">🎯</div><div><div class="flujo-t">Dashboard central para Miguel</div><div class="flujo-s">Vista en tiempo real de todas las empresas · métricas · oportunidades</div></div></div>
         </div>
       </div>
 
-      <!-- TAB: PROPUESTA -->
-      <div id="tab-propuesta" style="display:none">
-        <div class="propuesta-hero">
-          <div style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Propuesta exclusiva</div>
-          <div class="propuesta-title">Plan Holding Velioq × Grupo Firma</div>
-          <div class="propuesta-sub">Diseñado específicamente para un ecosistema de +16 empresas con presencia en 5 ciudades.<br>Un sistema, múltiples empresas, un solo dashboard.</div>
+      <!-- TAB PROPUESTA -->
+      <div id="tab-propuesta" style="display:none" role="tabpanel">
+        <div class="prop-head">
+          <div class="prop-eyebrow">Propuesta diseñada exclusivamente para</div>
+          <div class="prop-title">Plan Holding · Grupo Firma × Velioq</div>
+          <div class="prop-sub">Un sistema de IA unificado para múltiples empresas · un solo dashboard · escalable a todo el grupo</div>
         </div>
 
-        <div class="plan-cards">
-          <div class="plan-card">
-            <div class="plan-name">Plan Empresa</div>
+        <div class="obs-box">
+          <div class="obs-title">💡 Oportunidad detectada — GF Lubricentro</div>
+          <div class="obs-row"><div class="imp-ico">🔍</div>GF Lubricentro tiene presencia activa en Facebook pero <strong>sin reseñas en Google Maps</strong>. La IA puede invitar automáticamente a cada cliente a dejar una reseña — reputación digital sin esfuerzo del equipo.</div>
+          <div class="obs-row"><div class="imp-ico">📈</div>Aplica a <strong>todas las empresas del holding</strong> — incluido en el plan.</div>
+        </div>
+
+        <div class="planes">
+          <div class="plan">
+            <div class="plan-name">Plan por Empresa</div>
             <div class="plan-price">$199.990</div>
-            <div class="plan-price-sub">setup + $149.990/mes · por empresa</div>
-            <ul class="plan-features">
-              <li><span class="feat-check">✓</span>IA de Claude personalizada</li>
-              <li><span class="feat-check">✓</span>Panel cliente con métricas</li>
-              <li><span class="feat-check">✓</span>CRM Google Sheets</li>
-              <li><span class="feat-check">✓</span>Análisis IA semanal</li>
-              <li><span class="feat-x">—</span>Dashboard central holding</li>
-              <li><span class="feat-x">—</span>Descuento por volumen</li>
+            <div class="plan-cycle">setup + $149.990/mes · por empresa</div>
+            <ul class="plan-feats">
+              <li><span class="fc">✓</span>IA Velioq personalizada</li>
+              <li><span class="fc">✓</span>Panel cliente con métricas</li>
+              <li><span class="fc">✓</span>CRM Google Sheets</li>
+              <li><span class="fc">✓</span>Análisis IA semanal</li>
+              <li><span class="fx">—</span>Dashboard central holding</li>
+              <li><span class="fx">—</span>Descuento por volumen</li>
+              <li><span class="fx">—</span>Reputación digital automática</li>
             </ul>
           </div>
-          <div class="plan-card recommended">
-            <div class="plan-badge-rec">✦ RECOMENDADO PARA GRUPO FIRMA</div>
+          <div class="plan rec">
+            <div class="plan-badge">★ RECOMENDADO PARA GRUPO FIRMA</div>
             <div class="plan-name">Plan Holding</div>
-            <div class="plan-price">$1.490.000</div>
-            <div class="plan-price-sub">setup + $690.000/mes · 4 empresas incluidas</div>
-            <ul class="plan-features">
-              <li><span class="feat-check">✓</span>4 empresas del holding</li>
-              <li><span class="feat-check">✓</span>IA de Claude para cada una</li>
-              <li><span class="feat-check">✓</span>Dashboard central Miguel</li>
-              <li><span class="feat-check">✓</span>CRM unificado holding</li>
-              <li><span class="feat-check">✓</span>Análisis IA semanal por empresa</li>
-              <li><span class="feat-check">✓</span>Escalable a +empresas</li>
+            <div class="plan-price">$2.500.000</div>
+            <div class="plan-cycle">setup + $990.000/mes · 4 empresas piloto</div>
+            <ul class="plan-feats">
+              <li><span class="fc">✓</span>4 empresas GF automatizadas</li>
+              <li><span class="fc">✓</span>IA Velioq para cada empresa</li>
+              <li><span class="fc">✓</span>Dashboard central · vista Miguel</li>
+              <li><span class="fc">✓</span>CRM unificado del holding</li>
+              <li><span class="fc">✓</span>Reputación digital automática</li>
+              <li><span class="fc">✓</span>Análisis IA semanal por empresa</li>
+              <li><span class="fc">✓</span>Escalable al resto del grupo</li>
             </ul>
           </div>
         </div>
 
-        <div class="roi-card">
-          <div class="roi-title">📈 ROI estimado para Grupo Firma</div>
-          <div class="roi-grid">
-            <div class="roi-item">
-              <div class="roi-val">+40%</div>
-              <div class="roi-label">leads capturados fuera de horario</div>
-            </div>
-            <div class="roi-item">
-              <div class="roi-val">-60%</div>
-              <div class="roi-label">tiempo en tareas repetitivas</div>
-            </div>
-            <div class="roi-item">
-              <div class="roi-val">24/7</div>
-              <div class="roi-label">disponibilidad en todas las empresas</div>
-            </div>
+        <div class="roi-box">
+          <div class="roi-title">ROI estimado para Grupo Firma</div>
+          <div class="roi-row">
+            <div class="roi-item"><div class="roi-val">+40%</div><div class="roi-label">leads capturados fuera de horario</div></div>
+            <div class="roi-item"><div class="roi-val">-60%</div><div class="roi-label">tiempo en consultas repetitivas</div></div>
+            <div class="roi-item"><div class="roi-val">4.8★</div><div class="roi-label">reputación Google Maps automática</div></div>
           </div>
         </div>
 
-        <div class="cta-section">
+        <div class="cta-box">
           <div class="cta-title">¿Empezamos con una empresa piloto?</div>
-          <div class="cta-sub">La estrategia ideal: iniciamos con <strong>GF Jurídico o GF Rent a Car</strong> como piloto, medimos resultados en 30 días y escalamos al resto del holding.</div>
-          <button class="cta-btn">Agendar siguiente paso →</button>
+          <div class="cta-sub">Iniciamos con <strong>GF Jurídico o GF Rent a Car</strong> — sin riesgo, resultados en 30 días.<br>Si los números convencen, escalamos al holding completo.</div>
+          <a class="cta-btn" href="https://wa.me/56932446500?text=Hola%20Sebasti%C3%A1n%2C%20vi%20la%20demo%20de%20Velioq%20para%20Grupo%20Firma.%20Quiero%20definir%20la%20empresa%20piloto." target="_blank" rel="noopener" aria-label="Contactar a Velioq por WhatsApp para definir empresa piloto">Definir empresa piloto → WhatsApp</a>
+          <div class="piloto-note">Precio piloto empresa única: $199.990 setup + $149.990/mes</div>
         </div>
       </div>
 
@@ -318,165 +404,154 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<div style="text-align:center;padding:20px;font-size:11px;color:var(--text3)">
-  Velioq · IA de Claude (Anthropic) · Demo exclusiva para Grupo Firma · Mayo 2026
+<div style="text-align:center;padding:16px 20px;font-size:11px;color:var(--text3)">
+  Velioq · Automatización con IA · Demo exclusiva Grupo Firma · Mayo 2026 · <strong>sebastiandev25@gmail.com</strong> · +56 9 3244 6500 · <em>Powered by Claude (Anthropic)</em>
 </div>
 
 <script>
-const EMPRESAS = [
-  {id:"juridico", icon:"⚖️", name:"GF Jurídico", rubro:"Servicios legales", color:"#185FA5", live:true,
-   msgs:[
-     {tipo:"cliente", texto:"Buenas tardes, necesito asesoría en un contrato de arrendamiento comercial"},
-     {tipo:"ia", texto:"¡Buenas tardes! Soy el asistente de IA de GF Jurídico. Entiendo que necesita asesoría en contratos de arrendamiento comercial. ¿Puede indicarme si ya tiene el borrador del contrato o está en etapa de negociación?"},
-     {tipo:"cliente", texto:"Estoy en etapa de negociación, aún no tenemos borrador"},
-     {tipo:"ia", texto:"Perfecto. Para este tipo de asesoría les recomendamos agendar una consulta con uno de nuestros abogados especializados. Tenemos disponibilidad esta semana. ¿Prefiere la atención en Talca o en alguna de nuestras otras sucursales?"},
-     {tipo:"sistema", texto:"✓ Lead registrado en CRM · Caso: Arrendamiento Comercial · Prioridad: Media"},
-   ],
-   placeholder:"Ej: Necesito asesoría en un contrato...",
-   consultas:47, leads:23},
-
-  {id:"rentacar", icon:"🚗", name:"GF Rent a Car", rubro:"Arriendo de autos", color:"#D85A30", live:true,
-   msgs:[
-     {tipo:"cliente", texto:"Hola, quiero arrendar un auto este fin de semana, ¿qué tienen disponible?"},
-     {tipo:"ia", texto:"¡Hola! Soy la IA de GF Rent a Car. Para este fin de semana tenemos disponibles vehículos sedan, SUV y camionetas. ¿Cuántas personas viajan y prefieren algún tipo en particular?"},
-     {tipo:"cliente", texto:"Somos 4 personas, preferimos SUV"},
-     {tipo:"ia", texto:"Perfecto. Tenemos un SUV Hyundai Tucson 2024 disponible desde el viernes. Precio fin de semana (Vie-Dom): $89.000. ¿Desea hacer la reserva? Solo necesito su nombre y RUT para confirmar."},
-     {tipo:"sistema", texto:"✓ Reserva pre-confirmada · SUV Fin de Semana · Ingresada al sistema"},
-   ],
-   placeholder:"Ej: Quiero arrendar un auto para...",
-   consultas:89, leads:41},
-
-  {id:"lubricentro", icon:"🔧", name:"GF Lubricentro", rubro:"Mantención automotriz", color:"#BA7517", live:true,
-   msgs:[
-     {tipo:"cliente", texto:"Buenas, necesito un cambio de aceite para mi auto, ¿tienen hora disponible?"},
-     {tipo:"ia", texto:"¡Buenas! Soy la IA de GF Lubricentro. Claro, tenemos disponibilidad para cambio de aceite. ¿Qué modelo y año es su vehículo para cotizar correctamente?"},
-     {tipo:"cliente", texto:"Toyota Corolla 2020"},
-     {tipo:"ia", texto:"Para un Corolla 2020 el cambio de aceite sintético 5W-30 vale $42.000 e incluye filtro. Tenemos hora disponible mañana a las 10:00 AM o 15:30 PM en Talca. ¿Cuál le acomoda?"},
-     {tipo:"sistema", texto:"✓ Cita agendada · Cambio aceite Corolla 2020 · Registrada en calendario"},
-   ],
-   placeholder:"Ej: Necesito cambio de aceite para...",
-   consultas:134, leads:67},
-
-  {id:"inmobiliario", icon:"🏠", name:"GF Inmobiliario", rubro:"Propiedades", color:"#534AB7", live:false,
-   msgs:[
-     {tipo:"cliente", texto:"Hola, busco arrendar una oficina en Talca centro, ¿tienen disponible?"},
-     {tipo:"ia", texto:"¡Hola! Soy la IA de GF Inmobiliario. Actualmente tenemos 3 oficinas disponibles en el centro de Talca. ¿Cuántos metros cuadrados necesita aproximadamente?"},
-     {tipo:"cliente", texto:"Entre 30 y 50 metros, para 3 personas"},
-     {tipo:"ia", texto:"Tenemos una oficina de 45m² en 2 Norte, equipada, con estacionamiento. Arriendo $420.000/mes. ¿Le gustaría agendar una visita esta semana? Puedo coordinar para que la vea con uno de nuestros ejecutivos."},
-     {tipo:"sistema", texto:"✓ Lead inmobiliario registrado · Oficina 45m² Talca Centro · Alta prioridad"},
-   ],
-   placeholder:"Ej: Busco arrendar una propiedad...",
-   consultas:28, leads:14},
+const FRASES=[
+  {txt:"Haz que las cosas sucedan — mientras tu equipo descansa, Velioq trabaja.",autor:"Inspirado en Miguel Vargas · CEO Grupo Firma"},
+  {txt:"Hace 11 años comenzamos con un sueño: transformar industrias tradicionales. La IA es el siguiente paso.",autor:"Filosofía Grupo Firma"},
+  {txt:"El éxito empresarial está en escalar con agilidad y visión — la IA te da las dos.",autor:"Velioq para Grupo Firma"},
+  {txt:"La innovación no reemplaza a las personas: las potencia para hacer lo que solo ellas pueden hacer.",autor:"Velioq · Complementar, no reemplazar"},
+  {txt:"Un holding que nunca duerme: cada consulta atendida, cada oportunidad registrada, las 24 horas.",autor:"Velioq × Grupo Firma"},
+  {txt:"Transformar industrias tradicionales con tecnología — eso es exactamente lo que hace la IA Velioq.",autor:"Velioq para Grupo Firma"},
 ];
 
-let activeEmpresa = EMPRESAS[0];
-let demoPlaying = false;
-
-function renderEmpresas(){
-  const grid = document.getElementById("empresas-grid");
-  grid.innerHTML = EMPRESAS.map((e,i) => `
-    <div class="empresa-card ${i===0?'active':''}" id="card-${e.id}" onclick="selectEmpresa('${e.id}',this)">
-      <div class="empresa-icon">${e.icon}</div>
-      <div class="empresa-name">${e.name}</div>
-      <div class="empresa-rubro">${e.rubro}</div>
-      <span class="empresa-status ${e.live?'status-live':'status-pending'}">${e.live?'✓ Demo lista':'Próximamente'}</span>
-    </div>`).join("");
+let fraseIdx=0;
+function nextFrase(){
+  const f=FRASES[fraseIdx%FRASES.length];
+  document.getElementById("quote-text").textContent=`"${f.txt}"`;
+  document.getElementById("quote-author").textContent=`— ${f.autor}`;
+  fraseIdx++;
 }
+nextFrase();
+setInterval(nextFrase,5000);
 
-function selectEmpresa(id, el){
-  document.querySelectorAll(".empresa-card").forEach(c=>c.classList.remove("active"));
-  el.classList.add("active");
-  activeEmpresa = EMPRESAS.find(e=>e.id===id);
-  document.getElementById("chat-avatar").textContent = activeEmpresa.icon;
-  document.getElementById("chat-name").textContent = activeEmpresa.name;
-  document.getElementById("chat-placeholder").textContent = activeEmpresa.placeholder;
-  document.getElementById("chat-messages").innerHTML = "";
-  demoPlaying = false;
-  updateMetrics();
-}
+const EMPRESAS=[
+  {icon:"⚖️",name:"GF Jurídico",rubro:"Servicios legales",consultas:47,ph:"Ej: Necesito asesoría legal en...",
+   msgs:[
+    {t:"user",txt:"Buenas tardes, necesito asesoría urgente en un contrato de arrendamiento comercial"},
+    {t:"ia",txt:"¡Buenas tardes! Soy el asistente IA de GF Jurídico. Entiendo que requiere asesoría urgente en arrendamiento comercial. ¿Ya cuenta con un borrador o está en etapa de negociación?"},
+    {t:"user",txt:"Estoy en negociación, sin borrador aún"},
+    {t:"ia",txt:"Perfecto. Le recomendamos una consulta con nuestros abogados especializados. Tenemos disponibilidad esta semana en Talca y también por videollamada. ¿Qué día le acomoda mejor?"},
+    {t:"sys",txt:"✓ Lead registrado · Arrendamiento Comercial · Prioridad Alta · CRM actualizado"},
+   ]},
+  {icon:"🚗",name:"GF Rent a Car",rubro:"Arriendo de vehículos",consultas:89,ph:"Ej: Quiero arrendar un auto para...",
+   msgs:[
+    {t:"user",txt:"Hola, necesito arrendar una camioneta para la próxima semana en Talca"},
+    {t:"ia",txt:"¡Hola! Soy el asistente IA de GF Rent a Car. Para la próxima semana tenemos camionetas disponibles en Talca. ¿Cuántos días la necesita?"},
+    {t:"user",txt:"Del lunes al viernes, 5 días"},
+    {t:"ia",txt:"Tenemos una Toyota Hilux 4x4 2023 disponible. Precio: $85.000/día — total 5 días: $425.000 con seguro incluido. ¿Hago la pre-reserva? Solo necesito su nombre y RUT."},
+    {t:"sys",txt:"✓ Pre-reserva registrada · Toyota Hilux 5 días · Talca · Ejecutivo notificado"},
+   ]},
+  {icon:"🔧",name:"GF Lubricentro",rubro:"Mantención automotriz",consultas:134,ph:"Ej: Necesito cambio de aceite para...",
+   msgs:[
+    {t:"user",txt:"Buenas, necesito cambio de aceite para mi Corolla 2021, ¿tienen hora mañana?"},
+    {t:"ia",txt:"¡Buenas! Soy el asistente IA de GF Lubricentro. Para un Corolla 2021: cambio de aceite sintético 5W-30 con filtro $42.000. Tenemos hora mañana a las 10:00 AM o 15:30. ¿Cuál le acomoda?"},
+    {t:"user",txt:"Las 10 de la mañana, perfecto"},
+    {t:"ia",txt:"¡Listo! Cita confirmada mañana 10:00 AM en GF Lubricentro Talca. Le enviaré un recordatorio esta noche. Al finalizar su servicio, le invitaremos a compartir su experiencia en Google. 😊"},
+    {t:"sys",txt:"✓ Cita agendada · Corolla 2021 · 10:00 AM · Recordatorio programado · Reseña Google programada"},
+   ]},
+  {icon:"🏠",name:"GF Inmobiliario",rubro:"Propiedades y arriendos",consultas:28,ph:"Ej: Busco arrendar una propiedad...",
+   msgs:[
+    {t:"user",txt:"Hola, busco arrendar una oficina en Talca centro para 3 personas, máximo $500.000"},
+    {t:"ia",txt:"¡Hola! Soy el asistente IA de GF Inmobiliario. Tenemos una oficina de 45m² en 2 Norte, estacionamiento incluido, en $420.000/mes. Disponible de inmediato. ¿Le gustaría agendar una visita?"},
+    {t:"user",txt:"Sí, me interesa mucho"},
+    {t:"ia",txt:"Perfecto. Puedo coordinar una visita esta semana con nuestro ejecutivo. ¿Le acomoda el miércoles o el jueves por la tarde? También podemos hacer visita virtual si lo prefiere."},
+    {t:"sys",txt:"✓ Lead inmobiliario · Oficina 45m² Talca · Alta prioridad · Ejecutivo notificado"},
+   ]},
+];
 
-function switchTab(tab, btn){
-  ["chat","metricas","impacto","propuesta"].forEach(t=>{
-    document.getElementById("tab-"+t).style.display = t===tab?"block":"none";
+let activeIdx=0,playing=false,demoId=0;
+
+function initEmpresas(){
+  const grid=document.getElementById("emp-grid");
+  EMPRESAS.forEach((e,i)=>{
+    const btn=document.createElement("button");
+    btn.className="emp-btn"+(i===0?" active":"");
+    btn.id="eb-"+i;
+    btn.setAttribute("aria-label",`Ver demo de ${e.name}`);
+    btn.innerHTML=`<span class="emp-btn-icon" aria-hidden="true">${e.icon}</span><span class="emp-btn-name">${e.name}</span><span class="emp-btn-rubro">${e.rubro}</span><span class="emp-btn-count">${e.consultas}/mes</span>`;
+    btn.onclick=()=>selectEmpresa(i);
+    grid.appendChild(btn);
   });
-  document.querySelectorAll(".demo-tab").forEach(b=>b.classList.remove("active"));
+  renderBars();
+}
+
+function selectEmpresa(idx){
+  // Cancela cualquier demo corriendo — incrementa demoId para invalidar loop activo
+  demoId++;
+  activeIdx=idx;
+  playing=false;
+  document.querySelectorAll(".emp-btn").forEach((b,i)=>b.classList.toggle("active",i===idx));
+  const e=EMPRESAS[idx];
+  document.getElementById("chat-ava").textContent=e.icon;
+  document.getElementById("chat-name").textContent=e.name+" · Asistente IA Velioq";
+  document.getElementById("chat-ph").textContent=e.ph;
+  document.getElementById("chat-msgs").innerHTML='<div class="msg sys">Presiona ▶ para ver el asistente IA Velioq en acción</div>';
+  const btn=document.getElementById("play-btn");
+  btn.disabled=false;
+}
+
+function switchTab(tab,btn){
+  ["chat","metricas","impacto","propuesta"].forEach(t=>{
+    const el=document.getElementById("tab-"+t);
+    el.style.display=t===tab?"block":"none";
+  });
+  document.querySelectorAll(".ptab").forEach(b=>{
+    b.classList.remove("active");
+    b.setAttribute("aria-selected","false");
+  });
   btn.classList.add("active");
-  if(tab==="metricas") renderBarChart();
-  if(tab==="impacto") renderFlujo();
+  btn.setAttribute("aria-selected","true");
 }
 
 async function playDemo(){
-  if(demoPlaying) return;
-  demoPlaying = true;
-  const msgs = document.getElementById("chat-messages");
-  msgs.innerHTML = "";
-  for(let i=0; i<activeEmpresa.msgs.length; i++){
-    const m = activeEmpresa.msgs[i];
-    await sleep(i===0?300:900);
-    if(m.tipo==="ia"){
-      const typing = document.createElement("div");
-      typing.className = "msg ia fade-in";
-      typing.style.opacity="0.7";
-      typing.innerHTML = `<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>`;
-      msgs.appendChild(typing);
-      msgs.scrollTop=msgs.scrollHeight;
-      await sleep(1200);
-      typing.remove();
+  if(playing)return;
+  playing=true;
+  const myId=++demoId;
+  const btn=document.getElementById("play-btn");
+  btn.disabled=true;
+  const msgs=document.getElementById("chat-msgs");
+  msgs.innerHTML="";
+  for(const m of EMPRESAS[activeIdx].msgs){
+    if(myId!==demoId)return; // empresa cambió — cancela
+    await sleep(m.t==="sys"?500:700);
+    if(myId!==demoId)return;
+    if(m.t==="ia"){
+      const t=document.createElement("div");
+      t.className="msg ia su";t.style.opacity=".7";
+      t.innerHTML='<span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span><span class="dot" aria-hidden="true"></span>';
+      t.setAttribute("aria-label","Asistente escribiendo...");
+      msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;
+      await sleep(1400);
+      if(myId!==demoId){t.remove();return;}
+      t.remove();
     }
-    const div = document.createElement("div");
-    div.className = `msg ${m.tipo} fade-in`;
-    div.textContent = m.texto;
+    const div=document.createElement("div");
+    div.className=`msg ${m.t} su`;
+    div.textContent=m.txt;
     msgs.appendChild(div);
     msgs.scrollTop=msgs.scrollHeight;
   }
-  demoPlaying = false;
+  playing=false;
+  btn.disabled=false;
+}
+
+function renderBars(){
+  const max=Math.max(...EMPRESAS.map(e=>e.consultas));
+  document.getElementById("bars").innerHTML=EMPRESAS.map(e=>`
+    <div class="bar-row">
+      <span class="bar-ico" aria-hidden="true">${e.icon}</span>
+      <span class="bar-lbl">${e.name}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(e.consultas/max*100)}%" role="progressbar" aria-valuenow="${e.consultas}" aria-valuemax="${max}"></div></div>
+      <span class="bar-val">${e.consultas}</span>
+    </div>`).join("");
 }
 
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-
-function updateMetrics(){
-  const total = EMPRESAS.reduce((s,e)=>s+e.consultas,0);
-  const leads = EMPRESAS.reduce((s,e)=>s+e.leads,0);
-  const mrr = leads * 180000;
-  document.getElementById("met-consultas").textContent = total;
-  document.getElementById("met-leads").textContent = leads;
-  document.getElementById("met-mrr").textContent = "$"+mrr.toLocaleString("es-CL");
-}
-
-function renderBarChart(){
-  const max = Math.max(...EMPRESAS.map(e=>e.consultas));
-  const colors = ["#185FA5","#D85A30","#BA7517","#534AB7"];
-  document.getElementById("bar-chart").innerHTML = EMPRESAS.map((e,i)=>`
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-      <span style="font-size:14px;width:20px">${e.icon}</span>
-      <span style="font-size:11px;color:var(--text2);width:110px;flex-shrink:0">${e.name}</span>
-      <div style="flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden">
-        <div style="width:${Math.round(e.consultas/max*100)}%;height:100%;background:${colors[i]};border-radius:4px;transition:width .6s ease"></div>
-      </div>
-      <span style="font-size:12px;font-weight:600;color:var(--navy);width:30px;text-align:right">${e.consultas}</span>
-    </div>`).join("");
-}
-
-function renderFlujo(){
-  const pasos = [
-    {icon:"📱", color:"#185FA5", titulo:"Cliente escribe por WhatsApp", desc:"A cualquier empresa del holding, a cualquier hora"},
-    {icon:"🧠", color:"#534AB7", titulo:"IA de Claude analiza y clasifica", desc:"Identifica el tipo de consulta, urgencia y empresa correspondiente"},
-    {icon:"💬", color:"#1D9E75", titulo:"Respuesta personalizada al instante", desc:"Menos de 30 segundos, con el tono de cada empresa del holding"},
-    {icon:"📊", color:"#BA7517", titulo:"Registro automático en CRM", desc:"Lead guardado en Google Sheets con todos los datos"},
-    {icon:"🎯", color:"#D85A30", titulo:"Dashboard central para Miguel", desc:"Vista unificada de todas las empresas en tiempo real"},
-  ];
-  document.getElementById("flujo-steps").innerHTML = pasos.map(p=>`
-    <div style="display:flex;align-items:flex-start;gap:10px">
-      <div style="width:32px;height:32px;border-radius:50%;background:${p.color}20;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">${p.icon}</div>
-      <div>
-        <div style="font-size:13px;font-weight:600;color:var(--navy)">${p.titulo}</div>
-        <div style="font-size:12px;color:var(--text3);margin-top:2px">${p.desc}</div>
-      </div>
-    </div>`).join("");
-}
-
-renderEmpresas();
-updateMetrics();
+initEmpresas();
 </script>
 </body>
 </html>
