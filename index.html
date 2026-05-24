@@ -324,6 +324,114 @@ footer{padding:2.5rem 3rem;border-top:0.5px solid rgba(200,168,75,0.07);display:
 
 html { scroll-behavior: smooth; }
 body { -webkit-overflow-scrolling: touch; }
+
+/* ══ ACCESS SECTION ══ */
+.access-section{
+  padding:5rem 3rem;
+  border-top:0.5px solid rgba(200,168,75,0.07);
+  text-align:center;
+  background:rgba(10,22,40,0.35);
+}
+.access-eyebrow{display:flex;align-items:center;gap:0.85rem;justify-content:center;margin-bottom:1.25rem;}
+.access-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;color:var(--white);margin-bottom:0.75rem;}
+.access-desc{font-size:0.85rem;color:var(--muted);max-width:420px;margin:0 auto 2.5rem;font-weight:300;line-height:1.72;}
+.access-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.access-btn{
+  display:flex;align-items:center;gap:0.9rem;
+  padding:1rem 1.4rem;border-radius:1rem;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all 0.25s;
+  text-align:left;min-width:230px;
+}
+.access-btn-admin{background:rgba(10,22,40,0.75);border:0.5px solid rgba(29,158,117,0.22);color:var(--white);}
+.access-btn-admin:hover{background:rgba(10,22,40,0.98);border-color:rgba(29,158,117,0.52);transform:translateY(-3px);box-shadow:0 8px 32px rgba(29,158,117,0.1);}
+.access-btn-client{background:rgba(29,158,117,0.09);border:0.5px solid rgba(29,158,117,0.28);color:var(--white);}
+.access-btn-client:hover{background:rgba(29,158,117,0.17);border-color:rgba(29,158,117,0.52);transform:translateY(-3px);box-shadow:0 8px 32px rgba(29,158,117,0.14);}
+.access-btn-icon{width:40px;height:40px;border-radius:0.75rem;background:rgba(29,158,117,0.1);border:0.5px solid rgba(29,158,117,0.18);display:flex;align-items:center;justify-content:center;color:rgba(29,158,117,0.8);flex-shrink:0;}
+.access-btn-label{font-size:0.58rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(29,158,117,0.6);margin-bottom:0.15rem;}
+.access-btn-name{font-size:0.86rem;font-weight:500;color:var(--white);}
+.access-btn-text{flex:1;}
+.access-btn-arrow{font-size:0.88rem;color:rgba(29,158,117,0.45);transition:transform 0.2s,color 0.2s;flex-shrink:0;}
+.access-btn:hover .access-btn-arrow{transform:translateX(4px);color:rgba(29,158,117,0.8);}
+
+/* ══ AUTH MODAL ══ */
+.auth-overlay{
+  position:fixed;inset:0;z-index:600;
+  background:rgba(4,8,18,0.94);
+  backdrop-filter:blur(18px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s ease;
+  padding:1.5rem;
+}
+.auth-overlay.open{opacity:1;pointer-events:all;}
+.auth-card{
+  width:100%;max-width:400px;
+  background:#0A1628;
+  border:0.5px solid rgba(29,158,117,0.28);
+  border-radius:1.5rem;padding:2.5rem;position:relative;
+  transform:translateY(22px) scale(0.97);
+  transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  box-shadow:0 32px 80px rgba(0,0,0,0.7),0 0 0 0.5px rgba(29,158,117,0.08),inset 0 0.5px 0 rgba(255,255,255,0.04);
+}
+.auth-overlay.open .auth-card{transform:translateY(0) scale(1);}
+.auth-close{
+  position:absolute;top:1.25rem;right:1.25rem;
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.08);
+  color:rgba(248,245,240,0.3);cursor:pointer;font-size:0.8rem;
+  display:flex;align-items:center;justify-content:center;transition:all 0.2s;
+}
+.auth-close:hover{background:rgba(255,255,255,0.1);color:rgba(248,245,240,0.8);}
+.auth-logo{
+  width:46px;height:46px;
+  background:rgba(29,158,117,0.12);border:0.5px solid rgba(29,158,117,0.22);
+  border-radius:0.9rem;display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.4rem;
+}
+.auth-title{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:600;color:#F8F5F0;margin-bottom:0.35rem;}
+.auth-subtitle{font-size:0.78rem;color:rgba(248,245,240,0.38);margin-bottom:1.85rem;font-weight:300;}
+.auth-label{display:block;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(29,158,117,0.62);margin-bottom:0.5rem;}
+.auth-input-wrap{position:relative;margin-bottom:0.65rem;}
+.auth-input{
+  width:100%;background:rgba(255,255,255,0.03);
+  border:0.5px solid rgba(29,158,117,0.18);border-radius:0.75rem;
+  padding:0.82rem 2.8rem 0.82rem 1rem;
+  color:#F8F5F0;font-family:'DM Sans',sans-serif;font-size:0.9rem;
+  outline:none;transition:border-color 0.2s,background 0.2s;
+}
+.auth-input:focus{border-color:rgba(29,158,117,0.45);background:rgba(29,158,117,0.04);}
+.auth-input::placeholder{color:rgba(248,245,240,0.13);}
+.auth-eye{
+  position:absolute;right:0.9rem;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;
+  color:rgba(248,245,240,0.25);transition:color 0.2s;
+  display:flex;align-items:center;padding:0;
+}
+.auth-eye:hover{color:rgba(29,158,117,0.8);}
+.auth-error{
+  font-size:0.74rem;color:#E74C3C;margin-bottom:0.9rem;display:none;
+  background:rgba(231,76,60,0.08);border:0.5px solid rgba(231,76,60,0.18);
+  border-radius:0.5rem;padding:0.5rem 0.8rem;
+}
+.auth-error.visible{display:block;}
+.auth-submit{
+  width:100%;margin-top:0.35rem;
+  background:linear-gradient(135deg,#26B585,#1D9E75);
+  color:#fff;border:none;border-radius:2rem;
+  padding:0.88rem;font-size:0.85rem;font-weight:500;
+  cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.04em;
+  transition:opacity 0.2s,transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 4px 16px rgba(29,158,117,0.28);
+}
+.auth-submit:hover{opacity:0.92;transform:translateY(-1px);box-shadow:0 6px 24px rgba(29,158,117,0.38);}
+@keyframes shake{0%,100%{transform:translateX(0);}20%,60%{transform:translateX(-5px);}40%,80%{transform:translateX(5px);}}
+
+@media(max-width:768px){
+  .access-section{padding:3.5rem 1.25rem;}
+  .access-buttons{flex-direction:column;align-items:center;}
+  .access-btn{min-width:0;width:100%;max-width:320px;}
+  .auth-card{padding:2rem 1.5rem;}
+}
 </style>
 </head>
 <body>
@@ -342,6 +450,7 @@ body { -webkit-overflow-scrolling: touch; }
     <li><a href="#productos">Productos</a></li>
     <li><a href="#como-funciona">Proceso</a></li>
     <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#acceso">Acceso</a></li>
     <li><a href="https://wa.me/56932446500" class="nav-cta">Hablar con nosotros →</a></li>
   </ul>
 </nav>
@@ -511,6 +620,41 @@ body { -webkit-overflow-scrolling: touch; }
   </div>
 </section>
 
+<!-- ACCESO -->
+<section class="access-section fade-up" id="acceso">
+  <div class="access-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">Acceso privado</span></div>
+  <h2 class="access-title">Portales de acceso</h2>
+  <p class="access-desc">Ingresa con tus credenciales para acceder al panel de administración o al portal de cliente.</p>
+  <div class="access-buttons">
+    <button class="access-btn access-btn-admin" onclick="openAuthModal('admin')">
+      <div class="access-btn-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <div class="access-btn-text">
+        <div class="access-btn-label">Administración</div>
+        <div class="access-btn-name">Panel Admin Velioq</div>
+      </div>
+      <span class="access-btn-arrow">→</span>
+    </button>
+    <button class="access-btn access-btn-client" onclick="openAuthModal('client')">
+      <div class="access-btn-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <div class="access-btn-text">
+        <div class="access-btn-label">Clientes</div>
+        <div class="access-btn-name">Portal Cliente</div>
+      </div>
+      <span class="access-btn-arrow">→</span>
+    </button>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">
@@ -590,6 +734,33 @@ body { -webkit-overflow-scrolling: touch; }
         <div class="chat-send">→</div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authOverlay" onclick="handleAuthOverlayClick(event)">
+  <div class="auth-card">
+    <button class="auth-close" onclick="closeAuthModal()">✕</button>
+    <div class="auth-logo"><span id="authIconEmoji" style="font-size:1.4rem;">⚙️</span></div>
+    <div class="auth-title" id="authTitle">Panel Admin Velioq</div>
+    <div class="auth-subtitle" id="authSubtitle">Ingresa tu contraseña para continuar</div>
+    <label class="auth-label">Contraseña</label>
+    <div class="auth-input-wrap">
+      <input type="password" id="authPassword" class="auth-input" placeholder="••••••••••"
+             onkeydown="if(event.key==='Enter')checkAuth()" autocomplete="current-password">
+      <button type="button" class="auth-eye" id="authEye" onclick="toggleAuthEye()">
+        <svg id="eyeIconOpen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        <svg id="eyeIconClosed" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="auth-error" id="authError">Contraseña incorrecta. Intenta de nuevo.</div>
+    <button class="auth-submit" onclick="checkAuth()">Acceder →</button>
   </div>
 </div>
 
@@ -740,6 +911,68 @@ function getTime(i){
   base.setSeconds(base.getSeconds()+i*45);
   return base.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
 }
+
+// AUTH MODAL
+const AUTH_CFG={
+  admin:  {title:'Panel Admin Velioq',  subtitle:'Acceso para administradores',    redirect:'/clinicai-pipeline.html', icon:'⚙️'},
+  client: {title:'Portal Cliente',      subtitle:'Acceso exclusivo para clientes', redirect:'/clinicai-cliente.html',  icon:'👤'}
+};
+const AUTH_PASS='SebastianKS23./';
+let authType=null;
+
+function openAuthModal(type){
+  authType=type;
+  const c=AUTH_CFG[type];
+  document.getElementById('authTitle').textContent    =c.title;
+  document.getElementById('authSubtitle').textContent =c.subtitle;
+  document.getElementById('authIconEmoji').textContent=c.icon;
+  document.getElementById('authPassword').value='';
+  document.getElementById('authPassword').type='password';
+  document.getElementById('eyeIconOpen').style.display='';
+  document.getElementById('eyeIconClosed').style.display='none';
+  document.getElementById('authError').classList.remove('visible');
+  document.getElementById('authOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('authPassword').focus(),350);
+}
+function closeAuthModal(){
+  document.getElementById('authOverlay').classList.remove('open');
+  document.body.style.overflow='';
+  document.getElementById('authPassword').value='';
+  document.getElementById('authError').classList.remove('visible');
+}
+function handleAuthOverlayClick(e){
+  if(e.target===document.getElementById('authOverlay')) closeAuthModal();
+}
+function toggleAuthEye(){
+  const inp=document.getElementById('authPassword');
+  const open=document.getElementById('eyeIconOpen');
+  const cls=document.getElementById('eyeIconClosed');
+  if(inp.type==='password'){inp.type='text';open.style.display='none';cls.style.display='';}
+  else{inp.type='password';open.style.display='';cls.style.display='none';}
+}
+function checkAuth(){
+  const inp=document.getElementById('authPassword');
+  const err=document.getElementById('authError');
+  if(inp.value===AUTH_PASS){
+    err.classList.remove('visible');
+    closeAuthModal();
+    window.location.href=AUTH_CFG[authType].redirect;
+  } else {
+    err.classList.add('visible');
+    inp.value='';
+    inp.focus();
+    const wrap=inp.parentElement;
+    wrap.style.animation='';
+    void wrap.offsetWidth;
+    wrap.style.animation='shake 0.4s ease';
+    setTimeout(()=>{wrap.style.animation='';},400);
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&document.getElementById('authOverlay').classList.contains('open'))
+    closeAuthModal();
+});
 </script>
 </body>
 </html>
