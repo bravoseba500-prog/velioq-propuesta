@@ -218,7 +218,8 @@ section { padding:6rem 6%; }
 .plan-cur { font-size:.95rem; font-weight:600; color:var(--gray); }
 .plan-amt { font-family:var(--serif); font-size:2.625rem; font-weight:700; letter-spacing:-.04em; color:var(--black); transition:transform .2s ease,opacity .2s ease; }
 .plan-per { font-size:.78rem; color:var(--gray); }
-.plan-save { font-size:.72rem; color:var(--teal); font-weight:600; min-height:1.1em; margin:.3rem 0 1.25rem; }
+.plan-save { font-size:.72rem; color:var(--teal); font-weight:600; min-height:1.1em; margin:.3rem 0 .4rem; }
+.plan-setup { font-size:.72rem; color:var(--gray-lt); margin-bottom:1.25rem; }
 .plan-div { height:1px; background:rgba(0,0,0,.07); margin-bottom:1.375rem; }
 .plan-feats { list-style:none; display:flex; flex-direction:column; gap:.65rem; margin-bottom:1.75rem; }
 .plan-feats li { font-size:.7875rem; color:#2a2a28; display:flex; align-items:flex-start; gap:.45rem; line-height:1.4; }
@@ -607,8 +608,9 @@ footer { background:var(--black); padding:3.5rem 6%; }
     <div class="plan">
       <p class="plan-name">Starter</p>
       <p class="plan-note">Para empresas que quieren dar sus primeros pasos con IA.</p>
-      <div class="plan-price"><span class="plan-cur">$</span><span class="plan-amt" data-m="49" data-a="39">49</span><span class="plan-per">/mes</span></div>
+      <div class="plan-price"><span class="plan-cur">$</span><span class="plan-amt" data-m="59.990" data-a="47.990">59.990</span><span class="plan-per">/mes</span></div>
       <p class="plan-save" data-id="s">&nbsp;</p>
+      <p class="plan-setup">+ $49.990 de setup</p>
       <div class="plan-div"></div>
       <ul class="plan-feats">
         <li><svg viewBox="0 0 15 15" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L12.5 3.5"/></svg>1 canal (WhatsApp o web)</li>
@@ -624,8 +626,9 @@ footer { background:var(--black); padding:3.5rem 6%; }
     <div class="plan">
       <p class="plan-name">Growth</p>
       <p class="plan-note">Para negocios en expansión que necesitan más automatización.</p>
-      <div class="plan-price"><span class="plan-cur">$</span><span class="plan-amt" data-m="99" data-a="79">99</span><span class="plan-per">/mes</span></div>
+      <div class="plan-price"><span class="plan-cur">$</span><span class="plan-amt" data-m="89.990" data-a="71.990">89.990</span><span class="plan-per">/mes</span></div>
       <p class="plan-save" data-id="g">&nbsp;</p>
+      <p class="plan-setup">+ $99.990 de setup</p>
       <div class="plan-div"></div>
       <ul class="plan-feats">
         <li><svg viewBox="0 0 15 15" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L12.5 3.5"/></svg>3 canales integrados</li>
@@ -642,8 +645,9 @@ footer { background:var(--black); padding:3.5rem 6%; }
       <div class="plan-star">Más popular</div>
       <p class="plan-name">Premium</p>
       <p class="plan-note">La solución completa para empresas que quieren liderar.</p>
-      <div class="plan-price"><span class="plan-cur">$</span><span class="plan-amt" data-m="199" data-a="159">199</span><span class="plan-per">/mes</span></div>
+      <div class="plan-price"><span class="plan-cur">$</span><span class="plan-amt" data-m="149.990" data-a="119.990">149.990</span><span class="plan-per">/mes</span></div>
       <p class="plan-save" data-id="p">&nbsp;</p>
+      <p class="plan-setup">+ $199.990 de setup</p>
       <div class="plan-div"></div>
       <ul class="plan-feats">
         <li><svg viewBox="0 0 15 15" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5L5.5 10.5L12.5 3.5"/></svg>Canales ilimitados</li>
@@ -888,7 +892,7 @@ const lblM = document.getElementById('lbl-m');
 const lblA = document.getElementById('lbl-a');
 const amts = document.querySelectorAll('.plan-amt[data-m]');
 const saveEls = document.querySelectorAll('.plan-save[data-id]');
-const savingsMap = { s:[49,39], g:[99,79], p:[199,159] };
+const savingsMap = { s:'Ahorras $144.000 al año', g:'Ahorras $216.000 al año', p:'Ahorras $360.000 al año' };
 
 tgl.addEventListener('change', () => {
   const annual = tgl.checked;
@@ -906,8 +910,7 @@ tgl.addEventListener('change', () => {
   saveEls.forEach(el => {
     const id = el.dataset.id;
     if(!savingsMap[id]) return;
-    const [m, a] = savingsMap[id];
-    el.textContent = annual ? `Ahorras $${(m-a)*12} USD al año` : ' ';
+    el.textContent = annual ? savingsMap[id] : ' ';
   });
 });
 amts.forEach(el => el.style.transition = 'transform .18s ease, opacity .18s ease');
