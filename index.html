@@ -239,22 +239,23 @@ section { padding:6rem 6%; }
 .timeline { display:grid; grid-template-columns:repeat(4,1fr); gap:2rem; position:relative; margin-top:2.5rem; }
 .timeline::after {
   content:''; position:absolute; top:40px; z-index:0;
-  left:calc(12.5% + 20px); right:calc(12.5% + 20px);
+  left:calc(12.5% + 20px);
+  width:var(--tl-w,0px);
   height:1.5px;
-  background:linear-gradient(90deg, var(--gold) 0%, rgba(200,168,75,.2) 100%);
+  background:linear-gradient(90deg, var(--gold) 0%, var(--sky) 100%);
+  transition:width .9s cubic-bezier(.25,.46,.45,.94);
 }
-.tstep { display:flex; flex-direction:column; align-items:flex-start; opacity:0; transform:translateY(30px); transition:opacity .65s ease,transform .65s cubic-bezier(.16,1,.3,1); }
-.tstep.in { opacity:1; transform:translateY(0); }
-.tstep:nth-child(2){transition-delay:.12s}
-.tstep:nth-child(3){transition-delay:.24s}
-.tstep:nth-child(4){transition-delay:.36s}
-.tstep-icon { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:1.5rem; position:relative; z-index:1; flex-shrink:0; }
+.tstep { display:flex; flex-direction:column; align-items:flex-start; }
+.tstep-label { font-family:var(--serif); font-size:2.25rem; font-weight:700; letter-spacing:-.04em; color:var(--sky); opacity:0; transform:translateX(-32px); line-height:1; margin-bottom:.5rem; }
+.tstep-label.pop { opacity:1; transform:translateX(0); transition:opacity .4s ease,transform .45s cubic-bezier(.16,1,.3,1); }
+.tstep-icon { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; margin-bottom:1.25rem; position:relative; z-index:1; flex-shrink:0; }
 .tstep-icon.g { background:rgba(200,168,75,.1); border:1.5px solid rgba(200,168,75,.22); }
 .tstep-icon.t { background:rgba(29,158,117,.09); border:1.5px solid rgba(29,158,117,.18); }
 .tstep-icon svg { width:22px; height:22px; }
 .step-num { position:absolute; top:-8px; right:-8px; width:22px; height:22px; background:var(--gold); color:var(--white); border-radius:50%; font-size:.6rem; font-weight:800; display:flex; align-items:center; justify-content:center; }
-.tstep-h { font-family:var(--serif); font-size:1.25rem; font-weight:600; letter-spacing:-.015em; color:var(--black); margin-bottom:.5rem; }
-.tstep-p { font-size:.84rem; color:var(--gray); line-height:1.65; }
+.tstep-h { font-family:var(--serif); font-size:1.25rem; font-weight:600; letter-spacing:-.015em; color:var(--black); margin-bottom:.5rem; min-height:1.55em; }
+.tstep-p { font-size:.84rem; color:var(--gray); line-height:1.65; opacity:0; transform:translateY(14px); }
+.tstep-p.pop { opacity:1; transform:translateY(0); transition:opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1); }
 
 /* ── DEMO ── */
 #demo { background:var(--black); padding:6rem 6%; position:relative; overflow:hidden; }
@@ -443,6 +444,23 @@ footer { background:var(--black); padding:3.5rem 6%; }
 /* ── Scroll reveal base (already exists, kept for completeness) ── */
 .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1); }
 .reveal.in { opacity:1; transform:translateY(0); }
+
+/* ── POR QUÉ VELIOQ ── */
+#pq { background:#0C0C0B; padding:7rem 6%; }
+.pq-inner { max-width:1100px; margin:0 auto; }
+.pq-head { margin-bottom:4.5rem; }
+.pq-head .s-tag { color:rgba(56,189,248,.75); }
+.pq-title { font-family:var(--serif); font-size:clamp(2.4rem,4.5vw,3.75rem); font-weight:600; line-height:1.06; letter-spacing:-.03em; color:var(--white); }
+.pq-title em { font-style:italic; color:var(--sky); }
+.pq-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+.pq-stat { text-align:center; padding:3.5rem 2rem; border:1px solid rgba(255,255,255,.06); border-radius:20px; background:rgba(255,255,255,.025); opacity:0; transform:translateY(24px); transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1); }
+.pq-stat.in { opacity:1; transform:translateY(0); }
+.pq-stat:nth-child(2){transition-delay:.14s}
+.pq-stat:nth-child(3){transition-delay:.28s}
+.pq-num-wrap { font-family:var(--serif); font-size:clamp(3.5rem,6.5vw,5.5rem); font-weight:700; color:var(--sky); letter-spacing:-.05em; line-height:1; margin-bottom:.875rem; }
+.pq-prefix,.pq-suf { font-size:.6em; vertical-align:.1em; }
+.pq-lbl { font-size:.78rem; color:rgba(255,255,255,.45); font-weight:500; letter-spacing:.1em; text-transform:uppercase; }
+@media(max-width:768px){ .pq-stats{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -610,6 +628,30 @@ footer { background:var(--black); padding:3.5rem 6%; }
   </div>
 </section>
 
+<!-- POR QUÉ VELIOQ -->
+<section id="pq">
+  <div class="pq-inner">
+    <div class="pq-head reveal">
+      <p class="s-tag" style="color:rgba(56,189,248,.75)">Por qué Velioq</p>
+      <h2 class="pq-title">Números que<br><em>hablan solos.</em></h2>
+    </div>
+    <div class="pq-stats">
+      <div class="pq-stat">
+        <div class="pq-num-wrap"><span class="pq-prefix">&lt;</span><span class="pq-cnt" data-to="30">0</span><span class="pq-suf">s</span></div>
+        <p class="pq-lbl">Tiempo de respuesta</p>
+      </div>
+      <div class="pq-stat">
+        <div class="pq-num-wrap" style="font-size:clamp(3rem,5.5vw,4.5rem);">24/7</div>
+        <p class="pq-lbl">Sin interrupciones</p>
+      </div>
+      <div class="pq-stat">
+        <div class="pq-num-wrap"><span class="pq-cnt" data-to="90">0</span><span class="pq-suf">%</span></div>
+        <p class="pq-lbl">Margen operacional</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PLANES -->
 <section id="planes">
   <div class="s-head center reveal">
@@ -711,6 +753,7 @@ footer { background:var(--black); padding:3.5rem 6%; }
   </div>
   <div class="timeline">
     <div class="tstep">
+      <div class="tstep-label">01</div>
       <div class="tstep-icon g">
         <svg viewBox="0 0 22 22" fill="none"><path d="M11 2L13.59 8.26L20.5 8.27L15.07 12.14L17.15 18.5L11 14.77L4.85 18.5L6.93 12.14L1.5 8.27L8.41 8.26L11 2Z" stroke="#C8A84B" stroke-width="1.4" stroke-linejoin="round"/></svg>
         <div class="step-num">1</div>
@@ -719,6 +762,7 @@ footer { background:var(--black); padding:3.5rem 6%; }
       <p class="tstep-p">En una llamada de 30 min nos cuentas cómo funciona tu negocio y configuramos la personalidad de tu IA.</p>
     </div>
     <div class="tstep">
+      <div class="tstep-label">02</div>
       <div class="tstep-icon t">
         <svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#1D9E75" stroke-width="1.4"/><path d="M7.5 11L10 13.5L14.5 8.5" stroke="#1D9E75" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div class="step-num">2</div>
@@ -727,6 +771,7 @@ footer { background:var(--black); padding:3.5rem 6%; }
       <p class="tstep-p">Entrenamos la IA con tu información, productos y estilo de comunicación. En 48 h está lista.</p>
     </div>
     <div class="tstep">
+      <div class="tstep-label">03</div>
       <div class="tstep-icon g">
         <svg viewBox="0 0 22 22" fill="none"><path d="M12 2L4 11.5A1 1 0 004.5 13H10L8.5 20L18 10.5A1 1 0 0017.5 9H12L13.5 2H12Z" stroke="#C8A84B" stroke-width="1.4" stroke-linejoin="round"/></svg>
         <div class="step-num">3</div>
@@ -735,6 +780,7 @@ footer { background:var(--black); padding:3.5rem 6%; }
       <p class="tstep-p">Conectamos tu IA a WhatsApp, web y otros canales. Monitoreamos las primeras conversaciones juntos.</p>
     </div>
     <div class="tstep">
+      <div class="tstep-label">04</div>
       <div class="tstep-icon t">
         <svg viewBox="0 0 22 22" fill="none"><path d="M17 19V9M11 19V3M5 19v-5" stroke="#1D9E75" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div class="step-num">4</div>
@@ -921,7 +967,109 @@ setInterval(() => {
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
 }, { threshold: 0.14, rootMargin:'0px 0px -50px 0px' });
-document.querySelectorAll('.reveal, .tstep').forEach(el => obs.observe(el));
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* ── COMO FUNCIONA — Scroll Storytelling ── */
+(function(){
+  const comoEl = document.getElementById('como');
+  if(!comoEl) return;
+  const steps = Array.from(comoEl.querySelectorAll('.tstep'));
+  const timelineEl = comoEl.querySelector('.timeline');
+
+  /* Store & clear title text for typewriter */
+  steps.forEach(s => {
+    const h = s.querySelector('.tstep-h');
+    h.dataset.title = h.textContent.trim();
+    h.textContent = '';
+  });
+
+  function typewrite(el, text, ms, cb){
+    let i = 0;
+    (function tick(){
+      el.textContent += text[i++];
+      if(i < text.length) setTimeout(tick, ms);
+      else if(cb) setTimeout(cb, 80);
+    })();
+  }
+
+  function getTLFull(){
+    const w = timelineEl.offsetWidth;
+    return Math.max(0, w - 2 * (w * 0.125 + 20));
+  }
+
+  function triggerStep(idx){
+    const s     = steps[idx];
+    const label = s.querySelector('.tstep-label');
+    const title = s.querySelector('.tstep-h');
+    const para  = s.querySelector('.tstep-p');
+
+    label.classList.add('pop');
+    setTimeout(() => {
+      typewrite(title, title.dataset.title, 40, () => {
+        para.classList.add('pop');
+      });
+    }, 440);
+
+    /* Progressive line: draw after each step > 0 */
+    if(idx > 0){
+      setTimeout(() => {
+        const full = getTLFull();
+        timelineEl.style.setProperty('--tl-w', (full * idx / (steps.length - 1)) + 'px');
+      }, 200);
+    }
+  }
+
+  const delays = [0, 1150, 2250, 3350];
+  let triggered = false;
+
+  const storyObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(!e.isIntersecting || triggered) return;
+      triggered = true;
+      delays.forEach((d, i) => setTimeout(() => triggerStep(i), d));
+      storyObs.unobserve(e.target);
+    });
+  }, { threshold: 0.3 });
+  storyObs.observe(timelineEl);
+
+  /* Background color scroll: #FDFBF5 → #F0F9FF */
+  window.addEventListener('scroll', () => {
+    const rect = comoEl.getBoundingClientRect();
+    const winH = window.innerHeight;
+    const p    = Math.max(0, Math.min(1, (winH - rect.top) / (rect.height + winH)));
+    const r = Math.round(253 + (240 - 253) * p);
+    const g = Math.round(251 + (249 - 251) * p);
+    const b = Math.round(245 + (255 - 245) * p);
+    comoEl.style.background = `rgb(${r},${g},${b})`;
+  }, { passive:true });
+})();
+
+/* ── POR QUÉ VELIOQ — Count up ── */
+(function(){
+  const pqEl = document.getElementById('pq');
+  if(!pqEl) return;
+  const pqObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(!e.isIntersecting) return;
+      e.target.querySelectorAll('.pq-stat').forEach(s => s.classList.add('in'));
+      e.target.querySelectorAll('[data-to]').forEach(el => {
+        const target = parseInt(el.dataset.to);
+        const dur = 1800;
+        let t0 = null;
+        function cStep(ts){
+          if(!t0) t0 = ts;
+          const p = Math.min((ts - t0) / dur, 1);
+          const ease = 1 - Math.pow(1 - p, 2.5);
+          el.textContent = Math.round(ease * target);
+          if(p < 1) requestAnimationFrame(cStep);
+        }
+        requestAnimationFrame(cStep);
+      });
+      pqObs.unobserve(e.target);
+    });
+  }, { threshold: 0.3 });
+  pqObs.observe(pqEl);
+})();
 
 /* ── PRICING TOGGLE ── */
 const tgl = document.getElementById('tgl');
