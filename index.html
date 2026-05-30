@@ -21,6 +21,8 @@
   --gray: #6B6B68;
   --gray-lt: #B8B8B4;
   --white: #FFFFFF;
+  --sky: #38BDF8;
+  --sky-dk: #0EA5E9;
   --serif: 'Cormorant', Georgia, serif;
   --sans: 'DM Sans', system-ui, sans-serif;
 }
@@ -43,7 +45,7 @@ nav.scrolled { box-shadow:0 4px 30px rgba(0,0,0,0.07); }
 .nav-logo span { color:var(--gold); }
 .nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
 .nav-links a { font-size:.875rem; font-weight:500; color:#3a3a38; text-decoration:none; transition:color .2s; }
-.nav-links a:hover { color:var(--gold); }
+.nav-links a:hover { color:var(--sky); }
 .nav-links .nav-cta {
   background:var(--gold); color:var(--white) !important;
   padding:.55rem 1.4rem; border-radius:6px; font-weight:600 !important;
@@ -111,7 +113,7 @@ nav.scrolled { box-shadow:0 4px 30px rgba(0,0,0,0.07); }
 }
 .btn-gold:hover { background:var(--gold-dk); transform:translateY(-2px); box-shadow:0 8px 32px rgba(200,168,75,.48); }
 .btn-ghost { display:inline-flex; align-items:center; gap:.4rem; font-size:.9375rem; font-weight:500; color:var(--black); text-decoration:none; transition:color .2s; cursor:pointer; background:none; border:none; font-family:var(--sans); }
-.btn-ghost:hover { color:var(--gold); }
+.btn-ghost:hover { color:var(--sky); }
 .btn-ghost svg,.btn-gold svg { transition:transform .2s; }
 .btn-ghost:hover svg { transform:translateX(3px); }
 
@@ -132,7 +134,7 @@ nav.scrolled { box-shadow:0 4px 30px rgba(0,0,0,0.07); }
   transform:translate(-50%,-50%);
 }
 .orbit-outer span { color:rgba(200,168,75,.65); text-shadow:0 0 12px rgba(200,168,75,.5); }
-.orbit-inner span { color:rgba(29,158,117,.6);  text-shadow:0 0 10px rgba(29,158,117,.4); }
+.orbit-inner span { color:rgba(56,189,248,.75); text-shadow:0 0 12px rgba(56,189,248,.55); }
 .float-card {
   position:absolute; background:var(--white); border-radius:12px;
   padding:.8rem 1.2rem; box-shadow:0 12px 40px rgba(0,0,0,.11);
@@ -168,7 +170,7 @@ section { padding:6rem 6%; }
   transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s,border-color .4s;
   cursor:pointer;
 }
-.prod-card:hover { transform:translateY(-8px); box-shadow:0 30px 60px rgba(0,0,0,.11); border-color:rgba(200,168,75,.22); }
+.prod-card:hover { transform:translateY(-8px); box-shadow:0 30px 60px rgba(0,0,0,.11); border-color:rgba(56,189,248,.4); box-shadow:0 30px 60px rgba(0,0,0,.11), 0 0 0 1px rgba(56,189,248,.15); }
 .prod-img-wrap { overflow:hidden; position:relative; }
 .prod-img { width:100%; height:220px; object-fit:cover; transition:transform .6s cubic-bezier(.16,1,.3,1); display:block; }
 .prod-card:hover .prod-img { transform:scale(1.07); }
@@ -191,7 +193,7 @@ section { padding:6rem 6%; }
   border-radius:50%;
 }
 .prod-link { display:inline-flex; align-items:center; gap:.4rem; font-size:.875rem; font-weight:600; color:var(--gold); text-decoration:none; transition:gap .2s; }
-.prod-link:hover { gap:.65rem; }
+.prod-link:hover { gap:.65rem; color:var(--sky); }
 
 /* ── PLANS ── */
 #planes { background:var(--bg2); }
@@ -302,7 +304,7 @@ section { padding:6rem 6%; }
   cursor:pointer;
   transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s,border-color .4s;
 }
-.acc-card:hover { transform:translateY(-6px); box-shadow:0 28px 60px rgba(0,0,0,.1); border-color:rgba(200,168,75,.3); }
+.acc-card:hover { transform:translateY(-6px); box-shadow:0 28px 60px rgba(0,0,0,.1), 0 0 0 1px rgba(56,189,248,.15); border-color:rgba(56,189,248,.4); }
 .acc-icon { width:70px; height:70px; border-radius:18px; display:flex; align-items:center; justify-content:center; margin:0 auto 1.375rem; }
 .acc-icon.g { background:rgba(200,168,75,.1); border:1.5px solid rgba(200,168,75,.22); }
 .acc-icon.t { background:rgba(29,158,117,.09); border:1.5px solid rgba(29,158,117,.18); }
@@ -424,6 +426,23 @@ footer { background:var(--black); padding:3.5rem 6%; }
   .foot-inner{flex-direction:column;gap:1.5rem;text-align:center}
   .cf-row{grid-template-columns:1fr}
 }
+
+/* ── SKY ACCENT extras ── */
+.prod-feats li.sky::before {
+  background:rgba(56,189,248,.12) url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L3.5 6.5L9 1' stroke='%2338BDF8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center;
+}
+.plan-feats li.sky > svg { stroke:var(--sky) !important; }
+.foot-links a:hover { color:var(--sky); }
+
+/* ── ClinicAI image ── */
+.prod-clinic-img { border-radius:10px; overflow:hidden; margin:.1rem 0 1rem; position:relative; }
+.prod-clinic-img img { width:100%; height:128px; object-fit:cover; display:block; transition:transform .5s cubic-bezier(.16,1,.3,1); }
+.prod-card:hover .prod-clinic-img img { transform:scale(1.04); }
+.prod-clinic-img::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom, transparent 50%, rgba(12,12,11,.22)); pointer-events:none; }
+
+/* ── Scroll reveal base (already exists, kept for completeness) ── */
+.reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1); }
+.reveal.in { opacity:1; transform:translateY(0); }
 </style>
 </head>
 <body>
@@ -536,10 +555,13 @@ footer { background:var(--black); padding:3.5rem 6%; }
         <p class="prod-tag">ClinicAI</p>
         <h3 class="prod-name">Tu clínica, siempre disponible</h3>
         <p class="prod-desc">Agenda horas, responde dudas y recuerda citas automáticamente. Sin personal adicional.</p>
+        <div class="prod-clinic-img">
+          <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80" alt="Sala dental moderna" loading="lazy">
+        </div>
         <ul class="prod-feats">
-          <li>Agendamiento automático 24/7</li>
+          <li class="sky">Agendamiento automático 24/7</li>
           <li>Recordatorios por WhatsApp</li>
-          <li>Confirmación y reagendamiento</li>
+          <li class="sky">Confirmación y reagendamiento</li>
           <li>CRM propio incluido</li>
         </ul>
         <a href="/clinicai-dashboard.html" target="_blank" rel="noopener" class="prod-link">Ver ClinicAI <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M11 6.5L7.5 3M11 6.5L7.5 10" stroke="#C8A84B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -726,7 +748,7 @@ footer { background:var(--black); padding:3.5rem 6%; }
 <!-- DEMO EN VIVO -->
 <section id="demo">
   <div class="demo-inner">
-    <div>
+    <div class="reveal">
       <p class="s-tag demo-s-tag">Demo en vivo</p>
       <h2 class="demo-title">Así responde<br>tu nueva IA</h2>
       <p class="demo-sub">Mira cómo ClinicAI agenda una cita sin intervención humana, en menos de 30 segundos.</p>
@@ -737,7 +759,7 @@ footer { background:var(--black); padding:3.5rem 6%; }
         <li><div class="dfi g"><svg viewBox="0 0 15 15" fill="none"><path d="M7.5 1.5L9.25 6.25H14.25L10.25 9.25L11.75 14L7.5 11L3.25 14L4.75 9.25L0.75 6.25H5.75L7.5 1.5Z" stroke="#C8A84B" stroke-width="1" stroke-linejoin="round"/></svg></div>Escala sin límite de conversaciones</li>
       </ul>
     </div>
-    <div class="wa-wrap">
+    <div class="wa-wrap reveal">
       <div class="wa-phone">
         <div class="wa-head">
           <div class="wa-av">V</div>
@@ -870,14 +892,28 @@ const WA_NUMBER = '56932446500';
 const navEl = document.getElementById('nav');
 window.addEventListener('scroll', () => navEl.classList.toggle('scrolled', window.scrollY > 20), {passive:true});
 
-/* ── COUNTER ── */
-let count = 2847;
+/* ── COUNTER — animate from 0 ── */
+let count = 0;
 const ctrEl = document.getElementById('ctr');
 function fmt(n){ return n.toLocaleString('es-CL'); }
+(function(){
+  let t0 = null;
+  const target = 2847, dur = 1600;
+  function step(ts){
+    if(!t0) t0 = ts;
+    const p = Math.min((ts - t0) / dur, 1);
+    const e = 1 - Math.pow(1 - p, 3);
+    count = Math.round(e * target);
+    ctrEl.textContent = fmt(count);
+    if(p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+})();
 setInterval(() => {
+  if(count < 2847) return;
   count += Math.floor(Math.random() * 3) + 1;
   ctrEl.textContent = fmt(count);
-  ctrEl.style.color = '#1D9E75';
+  ctrEl.style.color = '#38BDF8';
   setTimeout(() => ctrEl.style.color = '', 350);
 }, 2600 + Math.random() * 1200);
 
@@ -1053,6 +1089,9 @@ function submitContact(e){
   const pLight = new THREE.PointLight(0xC8A84B, 1.4, 10);
   pLight.position.set(2.5, 2, 3.5);
   scene.add(pLight);
+  const skyLight = new THREE.PointLight(0x38BDF8, 0.9, 12);
+  skyLight.position.set(-2, 1, 3);
+  scene.add(skyLight);
 
   /* ── Core glow (warm inner light) ── */
   const coreGeo = new THREE.SphereGeometry(0.62, 24, 18);
@@ -1114,6 +1153,7 @@ function submitContact(e){
   const pCol   = new Float32Array(pCount * 3);
   const goldC  = new THREE.Color(0xC8A84B);
   const tealC  = new THREE.Color(0x1D9E75);
+  const skyC   = new THREE.Color(0x38BDF8);
   for(let i = 0; i < pCount; i++){
     const r   = 1.85 + Math.random() * 0.7;
     const th  = Math.random() * Math.PI * 2;
@@ -1121,7 +1161,8 @@ function submitContact(e){
     pPos[i*3]   = r * Math.sin(ph) * Math.cos(th);
     pPos[i*3+1] = r * Math.sin(ph) * Math.sin(th);
     pPos[i*3+2] = r * Math.cos(ph);
-    const c = Math.random() > 0.5 ? goldC : tealC;
+    const rv = Math.random();
+    const c  = rv > 0.6 ? goldC : (rv > 0.28 ? tealC : skyC);
     pCol[i*3] = c.r; pCol[i*3+1] = c.g; pCol[i*3+2] = c.b;
   }
   const pGeo = new THREE.BufferGeometry();
@@ -1130,6 +1171,29 @@ function submitContact(e){
   const pMat = new THREE.PointsMaterial({ size: 0.045, vertexColors: true, transparent: true, opacity: 0.85 });
   const particles = new THREE.Points(pGeo, pMat);
   scene.add(particles);
+
+  /* ── Outer sky shell (aggressive mouse) ── */
+  const osCount = 90;
+  const osArr   = new Float32Array(osCount * 3);
+  for(let i = 0; i < osCount; i++){
+    const ro = 2.05 + Math.random() * 0.5;
+    const to = Math.random() * Math.PI * 2;
+    const po = Math.acos(2 * Math.random() - 1);
+    osArr[i*3]   = ro * Math.sin(po) * Math.cos(to);
+    osArr[i*3+1] = ro * Math.sin(po) * Math.sin(to);
+    osArr[i*3+2] = ro * Math.cos(po);
+  }
+  const osGeo = new THREE.BufferGeometry();
+  osGeo.setAttribute('position', new THREE.BufferAttribute(osArr, 3));
+  const osMat = new THREE.PointsMaterial({ size:0.065, color:0x38BDF8, transparent:true, opacity:0.7 });
+  const outerShell = new THREE.Points(osGeo, osMat);
+  scene.add(outerShell);
+
+  /* ── Force field sphere (celeste glow on mouse) ── */
+  const ffGeo = new THREE.SphereGeometry(2.0, 32, 24);
+  const ffMat = new THREE.MeshBasicMaterial({ color:0x38BDF8, transparent:true, opacity:0.0, side:THREE.BackSide });
+  const forcefield = new THREE.Mesh(ffGeo, ffMat);
+  scene.add(forcefield);
 
   /* ── 6 Orbital dots ── */
   const dotData = [
@@ -1179,6 +1243,20 @@ function submitContact(e){
       d.mesh.position.y = Math.cos(d.phi) * d.r * 0.5 + Math.sin(d.angle * 0.6) * 0.25;
       d.mesh.position.z = Math.sin(d.phi) * Math.sin(d.angle) * d.r;
     });
+
+    /* sky light tracks mouse */
+    skyLight.position.x = -2 + mx * 1.8;
+    skyLight.position.y =  1 + my * 1.4;
+
+    /* outer shell: aggressive mouse response */
+    outerShell.rotation.y += (mx * 1.6 - outerShell.rotation.y) * 0.12;
+    outerShell.rotation.x += (my * 1.1 - outerShell.rotation.x) * 0.12;
+    outerShell.rotation.z  = t * 0.022;
+
+    /* force field: glows when mouse moves away from center */
+    const mDist = Math.sqrt(mx * mx + my * my);
+    const ffTarget = Math.min(0.2, mDist * 0.16) + 0.007 * Math.sin(t * 5);
+    ffMat.opacity += (ffTarget - ffMat.opacity) * 0.07;
 
     renderer.render(scene, camera);
   }
