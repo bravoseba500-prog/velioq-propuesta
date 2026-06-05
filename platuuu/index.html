@@ -700,18 +700,28 @@
   <div class="pm-layout">
     <nav class="pm-sidebar" id="pm-sb-ahorro">
       <button class="pm-sidebar-item active" onclick="closePath()"><span class="pm-sb-icon">🏠</span>Mis caminos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-sb-icon">📖</span>Conceptos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('conceptos','ahorro')"><span class="pm-sb-icon">📊</span>Conceptos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('ligas','ahorro')"><span class="pm-sb-icon">🏆</span>Ligas</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('desafios','ahorro')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
       <button class="pm-sidebar-item" onclick="openShop('ahorro')"><span class="pm-sb-icon">🛒</span>Tienda</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('perfil','ahorro')"><span class="pm-sb-icon">👤</span>Perfil</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('mas','ahorro')"><span class="pm-sb-icon">⋯</span>Más</button>
       <div class="pm-sidebar-divider"></div>
       <div class="pm-sidebar-profile">
-        <div class="pm-sb-profile-name">Tu progreso</div>
+        <div class="pm-sb-avatar"><span class="pm-sb-avatar-letter">S</span></div>
+        <div class="pm-sb-profile-name">Sebastián</div>
         <div class="pm-sb-stat-row">
           <div class="pm-sb-chip">🪙 <span class="pm-sb-coins">0</span></div>
           <div class="pm-sb-chip">🔥 <span class="pm-sb-streak">0</span></div>
           <div class="pm-sb-chip">❤️ <span class="pm-sb-lives">5/5</span></div>
         </div>
+      </div>
+      <div class="pm-cmf-widget">
+        <div class="pm-cmf-title">📊 Indicadores hoy</div>
+        <div class="pm-cmf-row"><span>UF</span><span class="pm-cmf-uf pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>UTM</span><span class="pm-cmf-utm pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>IPC</span><span class="pm-cmf-ipc pm-cmf-val">—</span></div>
+        <div class="pm-cmf-updated">Fuente: CMF Chile</div>
       </div>
     </nav>
     <div class="pm-main">
@@ -724,10 +734,10 @@
   </div>
   <div class="pm-bottomnav">
     <button class="pm-bottomnav-item active" onclick="closePath()"><span class="pm-bn-icon">🏠</span>Caminos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-bn-icon">📖</span>Conceptos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
-    <button class="pm-bottomnav-item" onclick="openShop('ahorro')"><span class="pm-bn-icon">🛒</span>Tienda</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('conceptos','ahorro')"><span class="pm-bn-icon">📊</span>Conceptos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('ligas','ahorro')"><span class="pm-bn-icon">🏆</span>Ligas</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('desafios','ahorro')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('perfil','ahorro')"><span class="pm-bn-icon">👤</span>Perfil</button>
   </div>
 </div>
 
@@ -745,18 +755,28 @@
   <div class="pm-layout">
     <nav class="pm-sidebar">
       <button class="pm-sidebar-item active" onclick="closePath()"><span class="pm-sb-icon">🏠</span>Mis caminos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-sb-icon">📖</span>Conceptos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('conceptos','deudas')"><span class="pm-sb-icon">📊</span>Conceptos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('ligas','deudas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('desafios','deudas')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
       <button class="pm-sidebar-item" onclick="openShop('deudas')"><span class="pm-sb-icon">🛒</span>Tienda</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('perfil','deudas')"><span class="pm-sb-icon">👤</span>Perfil</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('mas','deudas')"><span class="pm-sb-icon">⋯</span>Más</button>
       <div class="pm-sidebar-divider"></div>
       <div class="pm-sidebar-profile">
-        <div class="pm-sb-profile-name">Tu progreso</div>
+        <div class="pm-sb-avatar"><span class="pm-sb-avatar-letter">S</span></div>
+        <div class="pm-sb-profile-name">Sebastián</div>
         <div class="pm-sb-stat-row">
           <div class="pm-sb-chip">🪙 <span class="pm-sb-coins">0</span></div>
           <div class="pm-sb-chip">🔥 <span class="pm-sb-streak">0</span></div>
           <div class="pm-sb-chip">❤️ <span class="pm-sb-lives">5/5</span></div>
         </div>
+      </div>
+      <div class="pm-cmf-widget">
+        <div class="pm-cmf-title">📊 Indicadores hoy</div>
+        <div class="pm-cmf-row"><span>UF</span><span class="pm-cmf-uf pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>UTM</span><span class="pm-cmf-utm pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>IPC</span><span class="pm-cmf-ipc pm-cmf-val">—</span></div>
+        <div class="pm-cmf-updated">Fuente: CMF Chile</div>
       </div>
     </nav>
     <div class="pm-main">
@@ -769,10 +789,10 @@
   </div>
   <div class="pm-bottomnav">
     <button class="pm-bottomnav-item active" onclick="closePath()"><span class="pm-bn-icon">🏠</span>Caminos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-bn-icon">📖</span>Conceptos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
-    <button class="pm-bottomnav-item" onclick="openShop('deudas')"><span class="pm-bn-icon">🛒</span>Tienda</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('conceptos','deudas')"><span class="pm-bn-icon">📊</span>Conceptos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('ligas','deudas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('desafios','deudas')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('perfil','deudas')"><span class="pm-bn-icon">👤</span>Perfil</button>
   </div>
 </div>
 
@@ -790,18 +810,28 @@
   <div class="pm-layout">
     <nav class="pm-sidebar">
       <button class="pm-sidebar-item active" onclick="closePath()"><span class="pm-sb-icon">🏠</span>Mis caminos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-sb-icon">📖</span>Conceptos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('conceptos','inversion')"><span class="pm-sb-icon">📊</span>Conceptos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('ligas','inversion')"><span class="pm-sb-icon">🏆</span>Ligas</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('desafios','inversion')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
       <button class="pm-sidebar-item" onclick="openShop('inversion')"><span class="pm-sb-icon">🛒</span>Tienda</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('perfil','inversion')"><span class="pm-sb-icon">👤</span>Perfil</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('mas','inversion')"><span class="pm-sb-icon">⋯</span>Más</button>
       <div class="pm-sidebar-divider"></div>
       <div class="pm-sidebar-profile">
-        <div class="pm-sb-profile-name">Tu progreso</div>
+        <div class="pm-sb-avatar"><span class="pm-sb-avatar-letter">S</span></div>
+        <div class="pm-sb-profile-name">Sebastián</div>
         <div class="pm-sb-stat-row">
           <div class="pm-sb-chip">🪙 <span class="pm-sb-coins">0</span></div>
           <div class="pm-sb-chip">🔥 <span class="pm-sb-streak">0</span></div>
           <div class="pm-sb-chip">❤️ <span class="pm-sb-lives">5/5</span></div>
         </div>
+      </div>
+      <div class="pm-cmf-widget">
+        <div class="pm-cmf-title">📊 Indicadores hoy</div>
+        <div class="pm-cmf-row"><span>UF</span><span class="pm-cmf-uf pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>UTM</span><span class="pm-cmf-utm pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>IPC</span><span class="pm-cmf-ipc pm-cmf-val">—</span></div>
+        <div class="pm-cmf-updated">Fuente: CMF Chile</div>
       </div>
     </nav>
     <div class="pm-main">
@@ -814,10 +844,10 @@
   </div>
   <div class="pm-bottomnav">
     <button class="pm-bottomnav-item active" onclick="closePath()"><span class="pm-bn-icon">🏠</span>Caminos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-bn-icon">📖</span>Conceptos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
-    <button class="pm-bottomnav-item" onclick="openShop('inversion')"><span class="pm-bn-icon">🛒</span>Tienda</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('conceptos','inversion')"><span class="pm-bn-icon">📊</span>Conceptos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('ligas','inversion')"><span class="pm-bn-icon">🏆</span>Ligas</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('desafios','inversion')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('perfil','inversion')"><span class="pm-bn-icon">👤</span>Perfil</button>
   </div>
 </div>
 
@@ -835,18 +865,28 @@
   <div class="pm-layout">
     <nav class="pm-sidebar">
       <button class="pm-sidebar-item active" onclick="closePath()"><span class="pm-sb-icon">🏠</span>Mis caminos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-sb-icon">📖</span>Conceptos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('conceptos','presupuesto')"><span class="pm-sb-icon">📊</span>Conceptos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('ligas','presupuesto')"><span class="pm-sb-icon">🏆</span>Ligas</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('desafios','presupuesto')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
       <button class="pm-sidebar-item" onclick="openShop('presupuesto')"><span class="pm-sb-icon">🛒</span>Tienda</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('perfil','presupuesto')"><span class="pm-sb-icon">👤</span>Perfil</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('mas','presupuesto')"><span class="pm-sb-icon">⋯</span>Más</button>
       <div class="pm-sidebar-divider"></div>
       <div class="pm-sidebar-profile">
-        <div class="pm-sb-profile-name">Tu progreso</div>
+        <div class="pm-sb-avatar"><span class="pm-sb-avatar-letter">S</span></div>
+        <div class="pm-sb-profile-name">Sebastián</div>
         <div class="pm-sb-stat-row">
           <div class="pm-sb-chip">🪙 <span class="pm-sb-coins">0</span></div>
           <div class="pm-sb-chip">🔥 <span class="pm-sb-streak">0</span></div>
           <div class="pm-sb-chip">❤️ <span class="pm-sb-lives">5/5</span></div>
         </div>
+      </div>
+      <div class="pm-cmf-widget">
+        <div class="pm-cmf-title">📊 Indicadores hoy</div>
+        <div class="pm-cmf-row"><span>UF</span><span class="pm-cmf-uf pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>UTM</span><span class="pm-cmf-utm pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>IPC</span><span class="pm-cmf-ipc pm-cmf-val">—</span></div>
+        <div class="pm-cmf-updated">Fuente: CMF Chile</div>
       </div>
     </nav>
     <div class="pm-main">
@@ -859,10 +899,10 @@
   </div>
   <div class="pm-bottomnav">
     <button class="pm-bottomnav-item active" onclick="closePath()"><span class="pm-bn-icon">🏠</span>Caminos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-bn-icon">📖</span>Conceptos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
-    <button class="pm-bottomnav-item" onclick="openShop('presupuesto')"><span class="pm-bn-icon">🛒</span>Tienda</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('conceptos','presupuesto')"><span class="pm-bn-icon">📊</span>Conceptos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('ligas','presupuesto')"><span class="pm-bn-icon">🏆</span>Ligas</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('desafios','presupuesto')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('perfil','presupuesto')"><span class="pm-bn-icon">👤</span>Perfil</button>
   </div>
 </div>
 

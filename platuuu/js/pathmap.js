@@ -1925,17 +1925,54 @@ function pmSidebarPlaceholder(section) {
 /* ── CMF API — datos en tiempo real ── */
 window.CMF_DATA = { uf: null, ipc: null, utm: null };
 
+function pmUpdateCMFWidget() {
+  const today = new Date().toLocaleDateString('es-CL', { day:'2-digit', month:'short' });
+  document.querySelectorAll('.pm-cmf-uf').forEach(el => el.textContent = window.CMF_DATA.uf || '—');
+  document.querySelectorAll('.pm-cmf-utm').forEach(el => el.textContent = window.CMF_DATA.utm || '—');
+  document.querySelectorAll('.pm-cmf-ipc').forEach(el => el.textContent = window.CMF_DATA.ipc ? window.CMF_DATA.ipc + '%' : '—');
+  document.querySelectorAll('.pm-cmf-updated').forEach(el => el.textContent = 'Actualizado: ' + today);
+}
+
 (async () => {
-  try {
-    const res = await fetch(
-      'https://api.cmfchile.cl/api-sbifv3/recursos_api/uf?apikey=' + CMF_API_KEY + '&formato=json'
-    );
-    const json = await res.json();
-    const val = json?.UFs?.[0]?.Valor;
-    if (val) {
-      window.CMF_DATA.uf = '$' + val.replace('.', '.').replace(',', '.');
-    }
-  } catch (e) {
-    window.CMF_DATA.uf = '$38.408'; // fallback
+  const CMF_CACHE_KEY = 'pm_cmf_cache';
+  const CMF_CACHE_TTL = 86400000; // 24h
+  const cached = JSON.parse(localStorage.getItem(CMF_CACHE_KEY) || 'null');
+  if (cached && Date.now() - cached.ts < CMF_CACHE_TTL) {
+    window.CMF_DATA = cached.data;
+    pmUpdateCMFWidget();
+    return;
   }
+  const base = 'https://api.cmfchile.cl/api-sbifv3/recursos_api/';
+  const key = '?apikey=' + CMF_API_KEY + '&formato=json';
+  try {
+    const [rUF, rUTM, rIPC] = await Promise.all([
+      fetch(base + 'uf' + key).then(r => r.json()).catch(() => null),
+      fetch(base + 'utm' + key).then(r => r.json()).catch(() => null),
+      fetch(base + 'ipc' + key).then(r => r.json()).catch(() => null),
+    ]);
+    const ufVal  = rUF?.UFs?.[0]?.Valor;
+    const utmVal = rUTM?.UTMs?.[0]?.Valor;
+    const ipcVal = rIPC?.IPCs?.[0]?.Valor;
+    if (ufVal)  window.CMF_DATA.uf  = '$' + ufVal.replace(',','.');
+    if (utmVal) window.CMF_DATA.utm = '$' + utmVal.replace(',','.');
+    if (ipcVal) window.CMF_DATA.ipc = ipcVal.replace(',','.');
+    localStorage.setItem(CMF_CACHE_KEY, JSON.stringify({ ts: Date.now(), data: window.CMF_DATA }));
+  } catch (_) {
+    window.CMF_DATA.uf  = window.CMF_DATA.uf  || '$38.408';
+    window.CMF_DATA.utm = window.CMF_DATA.utm  || '$65.832';
+    window.CMF_DATA.ipc = window.CMF_DATA.ipc  || '0,2';
+  }
+  pmUpdateCMFWidget();
 })();
+
+/* ── SCREEN DISPATCHER — sidebar nav ── */
+function pmOpenScreen(screen, pathId) {
+  const labels = {
+    conceptos: 'Conceptos 📊',
+    ligas:     'Ligas 🏆',
+    desafios:  'Desafíos ⚡',
+    perfil:    'Perfil 👤',
+    mas:       'Más ⋯',
+  };
+  _shopToast('🚧 ' + (labels[screen] || screen) + ' — próximamente', '#374151', '#fff');
+}
