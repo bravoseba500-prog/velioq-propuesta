@@ -1647,6 +1647,10 @@ function pmShowCertificate(pathId) {
 
   document.getElementById('pmCertScreen').classList.add('open');
   pmMarkLandingBadge(pathId);
+  if (!localStorage.getItem('pm_cert_date_' + pathId)) {
+    localStorage.setItem('pm_cert_date_' + pathId,
+      new Date().toLocaleDateString('es-CL', { year:'numeric', month:'long', day:'numeric' }));
+  }
 }
 
 function pmCertShare() {
@@ -1967,12 +1971,169 @@ function pmUpdateCMFWidget() {
 
 /* ── SCREEN DISPATCHER — sidebar nav ── */
 function pmOpenScreen(screen, pathId) {
+  if (screen === 'perfil') { pmOpenPerfil(pathId); return; }
   const labels = {
     conceptos: 'Conceptos 📊',
     ligas:     'Ligas 🏆',
     desafios:  'Desafíos ⚡',
-    perfil:    'Perfil 👤',
     mas:       'Más ⋯',
   };
   _shopToast('🚧 ' + (labels[screen] || screen) + ' — próximamente', '#374151', '#fff');
+}
+
+/* ════════════════════════════════════════════════════
+   👤 PERFIL SCREEN
+════════════════════════════════════════════════════ */
+const PM_PATHS_META = [
+  { id:'ahorro',      icon:'💰', name:'Aprende a guardar tu plata' },
+  { id:'deudas',      icon:'💳', name:'Aplasta tus deudas' },
+  { id:'inversion',   icon:'📈', name:'Haz crecer tu dinero' },
+  { id:'presupuesto', icon:'📊', name:'Ordena tus gastos' },
+];
+
+const PM_BADGE_HINTS = {
+  primer_paso:    'Completa tu primer nodo en cualquier camino.',
+  ahorra_10k:     'Acumula 10.000 fichas 🪙 en total.',
+  racha_7:        'Usa Platuuu 7 días consecutivos.',
+  experto:        'Completa un camino entero hasta el certificado.',
+  maestro:        'Completa los 4 caminos hasta el certificado.',
+  habito_formado: 'Completa la Etapa 3 del camino Ahorro (nodo 35).',
+};
+
+function pmOpenPerfil(pathId) {
+  pmRenderPerfil();
+  document.getElementById('pmPerfilScreen').classList.add('open');
+}
+
+function pmClosePerfil() {
+  document.getElementById('pmPerfilScreen').classList.remove('open');
+  document.querySelectorAll('.pm-pf-badge-tip').forEach(t => t.remove());
+}
+
+function pmRenderPerfil() {
+  const earnedBadges = pmGetBadges();
+  const badgeCount   = earnedBadges.length;
+
+  // Mascot expression + frase
+  let mascot, frase;
+  if      (badgeCount === 0) { mascot = '🤔'; frase = '¡Empieza tu primer camino! Cada lección te acerca a la libertad financiera.'; }
+  else if (badgeCount <= 2)  { mascot = '😊'; frase = '¡Bien hecho, Sebastián! Vas por buen camino — sigue aprendiendo.'; }
+  else if (badgeCount <= 4)  { mascot = '🤩'; frase = '¡Eres increíble! Ya dominas las finanzas personales de Chile.'; }
+  else                       { mascot = '🥰'; frase = '¡Maestro del ahorro! Lo lograste — eres un referente financiero.'; }
+  document.getElementById('pmPfMascot').textContent = mascot;
+  document.getElementById('pmPfFrase').textContent  = frase;
+
+  // XP = total nodos completados × 10
+  let totalDone = 0;
+  PM_PATHS_META.forEach(p => {
+    const prog = JSON.parse(localStorage.getItem('pm_progress_' + p.id) || '{}');
+    totalDone += Object.values(prog).filter(v => v === 'done').length;
+  });
+  document.getElementById('pmPfStreak').textContent = pmState.streak;
+  document.getElementById('pmPfCoins').textContent  = pmState.coins.toLocaleString('es-CL');
+  document.getElementById('pmPfLives').textContent  = pmState.lives;
+  document.getElementById('pmPfXP').textContent     = (totalDone * 10).toLocaleString('es-CL');
+
+  // Badges
+  const badgeWrap = document.getElementById('pmPfBadges');
+  badgeWrap.innerHTML = '';
+  PM_BADGES_DEF.forEach(def => {
+    const earned = earnedBadges.includes(def.id);
+    const div = document.createElement('div');
+    div.className = 'pm-pf-badge' + (earned ? ' earned' : ' locked');
+    div.innerHTML = `
+      <span class="pm-pf-badge-icon">${def.icon}</span>
+      <span class="pm-pf-badge-name">${def.name}</span>
+      ${!earned ? '<span class="pm-pf-badge-lock">🔒</span>' : ''}
+    `;
+    div.addEventListener('click', e => pmPfBadgeTip(e, def, earned));
+    badgeWrap.appendChild(div);
+  });
+
+  // Caminos
+  const pathWrap = document.getElementById('pmPfPaths');
+  pathWrap.innerHTML = '';
+  PM_PATHS_META.forEach(p => {
+    const prog    = JSON.parse(localStorage.getItem('pm_progress_' + p.id) || '{}');
+    const total   = PATH_DATA[p.id].nodes.length;
+    const done    = Object.values(prog).filter(v => v === 'done').length;
+    const hasCert = localStorage.getItem('pm_cert_' + p.id) === 'true';
+    const pct     = total > 0 ? Math.round(done / total * 100) : 0;
+    const started = done > 0;
+
+    const card = document.createElement('div');
+    card.className = 'pm-pf-path-card' + (!started ? ' unstarted' : '');
+    card.innerHTML = `
+      <span class="pm-pf-path-icon">${p.icon}</span>
+      <div class="pm-pf-path-info">
+        <div class="pm-pf-path-name">${p.name}</div>
+        <div class="pm-pf-path-bar-wrap">
+          <div class="pm-pf-path-bar" style="width:${pct}%"></div>
+        </div>
+        <div class="pm-pf-path-pct">${started ? pct + '% completado · ' + done + '/' + total + ' nodos' : 'Sin empezar'}</div>
+      </div>
+      <span class="pm-pf-path-status">${hasCert ? '✅' : started ? '🔓' : '🔒'}</span>
+    `;
+    pathWrap.appendChild(card);
+  });
+
+  // Certificados
+  const certIds = PM_PATHS_META.map(p => p.id).filter(id => localStorage.getItem('pm_cert_' + id) === 'true');
+  const certsSection = document.getElementById('pmPfCertsSection');
+  const certsWrap    = document.getElementById('pmPfCerts');
+  certsWrap.innerHTML = '';
+  if (certIds.length > 0) {
+    certsSection.style.display = '';
+    certIds.forEach(id => {
+      const meta = PM_CERT_META[id];
+      const date = localStorage.getItem('pm_cert_date_' + id) || 'Obtenido recientemente';
+      const card = document.createElement('div');
+      card.className = 'pm-pf-cert-card';
+      card.innerHTML = `
+        <span class="pm-pf-cert-badge">${meta.badge}</span>
+        <div class="pm-pf-cert-info">
+          <div class="pm-pf-cert-name">${meta.name}</div>
+          <div class="pm-pf-cert-date">${date}</div>
+          <div class="pm-pf-cert-btns">
+            <button class="pm-pf-cert-btn primary" onclick="pmPfViewCert('${id}')">Ver certificado</button>
+            <button class="pm-pf-cert-btn secondary" onclick="pmPfShareCert('${id}')">Compartir</button>
+          </div>
+        </div>
+      `;
+      certsWrap.appendChild(card);
+    });
+  } else {
+    certsSection.style.display = 'none';
+  }
+}
+
+function pmPfBadgeTip(e, def, earned) {
+  document.querySelectorAll('.pm-pf-badge-tip').forEach(t => t.remove());
+  const tip = document.createElement('div');
+  tip.className = 'pm-pf-badge-tip';
+  tip.textContent = earned
+    ? def.icon + ' ' + def.name + ' — ' + def.desc
+    : '🔒 Para obtenerlo: ' + (PM_BADGE_HINTS[def.id] || def.desc);
+  document.body.appendChild(tip);
+  const rect = e.currentTarget.getBoundingClientRect();
+  const W = 220;
+  let left = rect.left + rect.width / 2 - W / 2;
+  left = Math.max(12, Math.min(left, window.innerWidth - W - 12));
+  tip.style.cssText += `;left:${left}px;top:${rect.bottom + 8}px;width:${W}px`;
+  setTimeout(() => document.addEventListener('click', () => tip.remove(), { once:true }), 80);
+}
+
+function pmPfViewCert(pathId) {
+  pmClosePerfil();
+  pmShowCertificate(pathId);
+}
+
+function pmPfShareCert(pathId) {
+  const meta = PM_CERT_META[pathId] || {};
+  const text = meta.shareMsg || '¡Completé un camino en Platuuu! 🪙 #Platuuu';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => _shopToast('📋 Mensaje copiado', '#22C55E', '#fff'));
+  } else {
+    _shopToast('📋 ' + text.slice(0,40) + '…', '#374151', '#fff');
+  }
 }
