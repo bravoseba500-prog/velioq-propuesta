@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Platuuu — Aprende sobre tu plata. Nivel a nivel.</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@rive-app/canvas@2.23.7/rive.js"></script>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/pathmap.css">
+<link rel="stylesheet" href="css/games.css">
+</head>
+<body>
+
+<!-- SPLASH SCREEN -->
+<div id="splashScreen">
+  <div id="splashMascotWrap">
+    <svg viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="spRingGrad" cx="40%" cy="30%">
+          <stop offset="0%"   stop-color="#FFF5B0"/>
+          <stop offset="55%"  stop-color="#FFD93D"/>
+          <stop offset="100%" stop-color="#FFC700"/>
+        </radialGradient>
+        <radialGradient id="spBodyGrad" cx="38%" cy="28%">
+          <stop offset="0%"   stop-color="#FFD45A"/>
+          <stop offset="55%"  stop-color="#FFC000"/>
+          <stop offset="100%" stop-color="#E09400"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="130" cy="252" rx="55" ry="8" fill="rgba(255,199,0,.12)"/>
+      <!-- Brazo saludando (izquierdo, arriba) -->
+      <ellipse cx="52" cy="88" rx="18" ry="12" fill="#FFD45A" transform="rotate(-55 52 88)"/>
+      <ellipse cx="40" cy="66" rx="11" ry="8"  fill="#FFC000" transform="rotate(-40 40 66)"/>
+      <!-- Brazo derecho (abajo) -->
+      <ellipse cx="210" cy="158" rx="18" ry="12" fill="#FFD45A" transform="rotate(28 210 158)"/>
+      <!-- Cuerpo -->
+      <circle cx="130" cy="124" r="104" fill="url(#spRingGrad)"/>
+      <circle cx="130" cy="124" r="84"  fill="url(#spBodyGrad)"/>
+      <!-- Brillo -->
+      <ellipse cx="98" cy="78" rx="28" ry="13" fill="rgba(255,255,255,.28)" transform="rotate(-22 98 78)"/>
+      <!-- Mejillas -->
+      <ellipse cx="88"  cy="142" rx="13" ry="8" fill="rgba(255,120,50,.18)"/>
+      <ellipse cx="172" cy="142" rx="13" ry="8" fill="rgba(255,120,50,.18)"/>
+      <!-- Ojos -->
+      <ellipse cx="95"  cy="112" rx="16" ry="17" fill="white"/>
+      <circle  cx="95"  cy="114" r="10" fill="#0F1321"/>
+      <circle  cx="100" cy="108" r="3.5" fill="white"/>
+      <!-- Ojo derecho — guiño animado (parpadea con CSS) -->
+      <g id="spEyeR">
+        <ellipse cx="165" cy="112" rx="16" ry="17" fill="white"/>
+        <circle  cx="165" cy="114" r="10" fill="#0F1321"/>
+        <circle  cx="170" cy="108" r="3.5" fill="white"/>
+      </g>
+      <ellipse id="spWink" cx="165" cy="112" rx="16" ry="3" fill="#E09400" opacity="0"/>
+      <!-- Cejas -->
+      <path d="M78 93 Q95 85 112 90"  stroke="#0F1321" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <path d="M148 90 Q165 85 182 93" stroke="#0F1321" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <!-- Boca -->
+      <path d="M95 156 Q130 178 165 156" stroke="#0F1321" stroke-width="5" stroke-linecap="round" fill="none"/>
+    </svg>
+  </div>
+  <div class="splash-bubble" id="splashBubble">¡Hola! Bienvenido/a a Platuuu 🪙</div>
+  <div class="splash-logo">Platuu<em>u</em></div>
+  <div class="splash-sub">Aprende hoy, ahorra mejor mañana.</div>
+  <div class="splash-bar-wrap">
+    <div class="splash-bar-fill" id="splashBar"></div>
+  </div>
+</div>
+
+<!-- XP BAR -->
+<div class="xp-wrap"><div class="xp-fill" id="xpFill"></div></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    Platuu<em>u</em>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#quiz">Test</a></li>
+    <li><a href="#caminos">Caminos</a></li>
+    <li><a href="#precios">Precios</a></li>
+  </ul>
+  <button class="nav-cta" onclick="coins(event)">Jugar gratis →</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-deco">
+    <div class="deco-circle deco1"></div>
+    <div class="deco-circle deco2"></div>
+    <div class="deco-circle deco3"></div>
+  </div>
+
+  <div class="hero-left">
+    <div class="hero-tag">🇨🇱 Chile primero · Latam después</div>
+    <h1>
+      Aprende hoy,<br>
+      <span class="accent">ahorra mejor</span><br>
+      <span class="light">mañana.</span>
+    </h1>
+    <p class="hero-sub">La app que convierte las finanzas personales en un juego que no puedes parar. Rachas diarias, lecciones de 5 min y datos reales de Chile.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'});coins(event)">🎮 Haz el test gratis</button>
+      <button class="btn-outline" onclick="document.getElementById('caminos').scrollIntoView({behavior:'smooth'})">Ver cómo funciona</button>
+    </div>
+    <div class="trust-row">
+      <div class="trust-chip"><span class="check">✓</span> Sin tarjeta</div>
+      <div class="trust-chip"><span class="check">✓</span> 5 min al día</div>
+      <div class="trust-chip"><span class="check">✓</span> 2 meses gratis</div>
+      <div class="trust-chip"><span class="check">✓</span> Cancela cuando quieras</div>
+    </div>
+  </div>
+
+  <!-- MASCOTA INTERACTIVA -->
+  <div class="hero-right">
+    <div class="mascot-container">
+
+      <!-- Moneditas flotantes alrededor -->
+      <span class="float-coin">🪙</span>
+      <span class="float-coin">💛</span>
+      <span class="float-coin">⭐</span>
+      <span class="float-coin">✨</span>
+
+      <!-- Burbuja de diálogo -->
+      <div class="speech-bubble" id="bubble">¡Hola! Soy Platín 🪙<br>¿Cuánto sabís de tu plata?</div>
+
+      <!-- SVG MASCOTA -->
+      <div class="mascot-svg-wrap" id="mascotWrap" onclick="mascotClick()" onmouseenter="mascotHover(true)" onmouseleave="mascotHover(false)">
+        <svg id="mascotSVG" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="shadowGrad" cx="50%" cy="50%">
+              <stop offset="0%" stop-color="#FFC700" stop-opacity=".22"/>
+              <stop offset="100%" stop-color="#FFC700" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="ringGrad" cx="40%" cy="30%">
+              <stop offset="0%"   stop-color="#FFF5B0"/>
+              <stop offset="55%"  stop-color="#FFD93D"/>
+              <stop offset="100%" stop-color="#FFC700"/>
+            </radialGradient>
+            <radialGradient id="bodyGrad" cx="38%" cy="28%">
+              <stop offset="0%"   stop-color="#FFD45A"/>
+              <stop offset="55%"  stop-color="#FFC000"/>
+              <stop offset="100%" stop-color="#E09400"/>
+            </radialGradient>
+            <radialGradient id="armGrad" cx="50%" cy="20%">
+              <stop offset="0%"   stop-color="#FFD45A"/>
+              <stop offset="100%" stop-color="#E09400"/>
+            </radialGradient>
+            <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#E09400" flood-opacity=".18"/>
+            </filter>
+          </defs>
+
+          <!-- Sombra suave -->
+          <ellipse cx="130" cy="252" rx="62" ry="10" fill="url(#shadowGrad)"/>
+
+          <!-- Brazo derecho (abajo) -->
+          <ellipse cx="212" cy="158" rx="20" ry="14" fill="url(#armGrad)" transform="rotate(30 212 158)"/>
+
+          <!-- Cuerpo + anillo 3D -->
+          <circle cx="130" cy="124" r="106" fill="url(#ringGrad)" filter="url(#softShadow)"/>
+          <circle cx="130" cy="124" r="86" fill="url(#bodyGrad)" id="mascotBody"/>
+
+          <!-- Brazo izquierdo (saludando hacia arriba) -->
+          <g id="armWave">
+            <ellipse cx="50" cy="96" rx="20" ry="13" fill="url(#armGrad)" transform="rotate(-45 50 96)"/>
+            <ellipse cx="38" cy="74" rx="12" ry="9" fill="url(#armGrad)" transform="rotate(-30 38 74)"/>
+          </g>
+
+          <!-- Brillo superior más pronunciado -->
+          <ellipse cx="98" cy="76" rx="30" ry="14" fill="rgba(255,255,255,.30)" transform="rotate(-22 98 76)"/>
+          <ellipse cx="108" cy="84" rx="14" ry="6" fill="rgba(255,255,255,.18)" transform="rotate(-18 108 84)"/>
+
+          <!-- Mejillas -->
+          <ellipse cx="86"  cy="144" rx="14" ry="9" fill="rgba(255,120,50,.18)" id="cheekL"/>
+          <ellipse cx="174" cy="144" rx="14" ry="9" fill="rgba(255,120,50,.18)" id="cheekR"/>
+
+          <!-- OJO IZQUIERDO — simétrico, centro cuerpo cx:130 -->
+          <g id="eyeL">
+            <ellipse cx="95"  cy="112" rx="17" ry="18" fill="white"/>
+            <circle id="pupilL" cx="95"  cy="114" r="11" fill="#0F1321"/>
+            <circle id="glintL" cx="100" cy="108" r="4"  fill="white"/>
+          </g>
+
+          <!-- OJO DERECHO -->
+          <g id="eyeR">
+            <ellipse cx="165" cy="112" rx="17" ry="18" fill="white"/>
+            <circle id="pupilR" cx="165" cy="114" r="11" fill="#0F1321"/>
+            <circle id="glintR" cx="170" cy="108" r="4"  fill="white"/>
+          </g>
+
+          <!-- MEJILLAS (recalibradas) -->
+          <!-- CEJAS -->
+          <g id="browGroup">
+            <path id="browL" d="M78 93 Q95 85 112 90"  stroke="#0F1321" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <path id="browR" d="M148 90 Q165 85 182 93" stroke="#0F1321" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          </g>
+
+          <!-- BOCA — sonrisa amplia amigable -->
+          <path id="mouth" d="M95 156 Q130 178 165 156" stroke="#0F1321" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+          <!-- CORAZONES (expresión enamorado, ocultos por defecto) -->
+          <g id="heartGroup" opacity="0">
+            <text x="58"  y="72" font-size="16" fill="#EF4444">❤️</text>
+            <text x="188" y="68" font-size="12" fill="#EF4444">❤️</text>
+          </g>
+
+          <!-- PARPADEO -->
+          <g id="blinkGroup" opacity="0">
+            <ellipse cx="95"  cy="112" rx="17" ry="4" fill="#E09400"/>
+            <ellipse cx="165" cy="112" rx="17" ry="4" fill="#E09400"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Racha badge -->
+      <div class="streak-badge">🔥 14 días de racha</div>
+
+      <!-- Stats laterales -->
+      <div class="mascot-stats">
+        <div class="mstat">
+          <div class="mstat-num">4</div>
+          <div class="mstat-lbl">Caminos</div>
+        </div>
+        <div class="mstat">
+          <div class="mstat-num" style="color:var(--gold)">120+</div>
+          <div class="mstat-lbl">Lecciones</div>
+        </div>
+        <div class="mstat">
+          <div class="mstat-num" style="color:var(--green)">5min</div>
+          <div class="mstat-lbl">Al día</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="st"><div class="st-num"><span class="count g" data-to="18400">0</span><span class="g">+</span></div><div class="st-lbl">Usuarios activos</div></div>
+  <div class="st"><div class="st-num"><span class="count g" data-to="94">0</span><span class="g">%</span></div><div class="st-lbl">Siguen su racha <canvas class="rive-emoji-sm" id="rive-fire" width="32" height="32"></canvas></div></div>
+  <div class="st"><div class="st-num"><span class="count" data-to="120" style="color:white">0</span><span style="color:white">+</span></div><div class="st-lbl">Lecciones</div></div>
+  <div class="st"><div class="st-num"><span class="count" data-to="4" style="color:white">0</span></div><div class="st-lbl">Caminos <canvas class="rive-emoji-sm" id="rive-bullseye" width="32" height="32"></canvas></div></div>
+  <p class="stats-note">Datos ilustrativos — escenario de demo</p>
+</div>
+
+<!-- QUIZ -->
+<section class="quiz-section" id="quiz">
+  <div class="sec-eye reveal">NIVEL 0 — TEST RÁPIDO</div>
+  <h2 class="sec-h reveal">¿Cuánto sabís<br>de tu plata?</h2>
+  <p class="sec-sub reveal">8 preguntas. Menos de 3 minutos. Descubre tu nivel financiero ahora.</p>
+
+  <div class="quiz-card reveal" id="qCard">
+    <div class="quiz-hdr">
+      <div class="qhdr-left">
+        <div class="q-lbl" id="qLbl">Pregunta 1 de 8</div>
+        <div class="q-xp-bg"><div class="q-xp-fill" id="qXP"></div></div>
+      </div>
+      <div class="q-lives" id="qLives">
+        <span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span>
+      </div>
+    </div>
+    <div class="quiz-body" id="qBody">
+      <div class="q-text" id="qText"></div>
+      <div class="q-opts" id="qOpts"></div>
+      <div class="q-fb" id="qFb"></div>
+      <button class="q-next" id="qNext" onclick="nextQ()">Siguiente →</button>
+    </div>
+    <div class="q-result" id="qResult">
+      <!-- Rive emoji celebración -->
+      <canvas class="rive-emoji-lg" id="rive-result" width="80" height="80"></canvas>
+      <div class="r-score" id="rScore">0/8</div>
+      <div class="r-lbl">Tu resultado</div>
+      <div class="r-badge" id="rBadge"></div>
+      <p class="r-msg" id="rMsg"></p>
+      <button class="btn-primary" style="margin:0 auto" onclick="coins(event)">🚀 Empezar Platuuu gratis</button>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps-section">
+  <div class="sec-eye reveal">NIVEL 1 — CÓMO FUNCIONA</div>
+  <h2 class="sec-h reveal">Así se aprende<br>en Platuuu.</h2>
+  <p class="sec-sub reveal" style="max-width:500px">Sin aburrición. Sin PDFs eternos. Solo tú, tu racha y tu plata.</p>
+  <div class="steps-grid">
+    <div class="step reveal"><div class="step-n">01</div><span class="step-i">🎯</span><h3>Elige tu meta</h3><p>¿Ahorrar, invertir, salir de deudas o presupuestar? Platuuu construye tu camino.</p></div>
+    <div class="step reveal"><div class="step-n">02</div><span class="step-i">⚡</span><h3>Lecciones de 5 min</h3><p>Cada día, una lección corta con preguntas y datos reales que aplican en Chile.</p></div>
+    <div class="step reveal"><div class="step-n">03</div><span class="step-i">🏆</span><h3>Sube de nivel</h3><p>Acumula XP, protege tu racha y compite en la liga semanal con otros usuarios.</p></div>
+    <div class="step reveal"><div class="step-n">04</div><span class="step-i">💰</span><h3>Cambia tus hábitos</h3><p>Lo que aprendes lo usas. Retos reales cada semana que impactan tu billetera.</p></div>
+  </div>
+</section>
+
+<!-- PATHS -->
+<section class="paths-section" id="caminos">
+  <div class="paths-inner">
+    <div class="sec-eye reveal">NIVEL 2 — CAMINOS</div>
+    <h2 class="sec-h reveal">Cuatro caminos.<br>Un solo objetivo.</h2>
+    <p class="sec-sub reveal">Cada camino tiene su mini-juego. Aprende jugando, de verdad.</p>
+    <div class="paths-grid">
+
+      <!-- AHORRO -->
+      <div class="pcard reveal" style="--pcolor:#F5B800" onclick="openPath('ahorro')">
+        <span class="pcard-icon">💰</span>
+        <div class="pcard-tag" style="background:var(--goldbg);color:var(--gold2)">Ahorro</div>
+        <h3>Aprende a guardar plata</h3>
+        <p>Atrapa ingresos con tu alcancía. Cada moneda que guardas es un hábito real.</p>
+        <div class="pcard-pills">
+          <span class="pill">🐷 CoinCatch</span>
+          <span class="pill">Regla 50/30/20</span>
+          <span class="pill" style="background:rgba(245,184,0,.15);color:var(--gold2);border-color:rgba(245,184,0,.3)">▶ Jugar ahora</span>
+        </div>
+      </div>
+
+      <!-- INVERSIÓN -->
+      <div class="pcard reveal" style="--pcolor:#2ECC71" onclick="openPath('inversion')">
+        <span class="pcard-icon">📈</span>
+        <div class="pcard-tag" style="background:var(--greenbg);color:var(--green)">Inversión</div>
+        <h3>Haz crecer tu dinero</h3>
+        <p>Compra y vende acciones IPSA reales. Decide en 15 segundos con noticias reales.</p>
+        <div class="pcard-pills">
+          <span class="pill">📊 TradeChile</span>
+          <span class="pill">AFP · APV · IPSA</span>
+          <span class="pill" style="background:rgba(46,204,113,.15);color:var(--green);border-color:rgba(46,204,113,.3)">▶ Jugar ahora</span>
+        </div>
+      </div>
+
+      <!-- DEUDAS -->
+      <div class="pcard reveal" style="--pcolor:#E74C3C" onclick="openPath('deudas')">
+        <span class="pcard-icon">💳</span>
+        <div class="pcard-tag" style="background:var(--redbg);color:var(--red)">Deudas</div>
+        <h3>Aplasta tus deudas</h3>
+        <p>Candy Crush con deudas reales CMF. Haz combos para liquidar VISA, CAE y Tiendas.</p>
+        <div class="pcard-pills">
+          <span class="pill">💥 DebtCrusher</span>
+          <span class="pill">Tasa 52% tiendas</span>
+          <span class="pill" style="background:rgba(231,76,60,.15);color:var(--red);border-color:rgba(231,76,60,.3)">▶ Jugar ahora</span>
+        </div>
+      </div>
+
+      <!-- PRESUPUESTO -->
+      <div class="pcard reveal" style="--pcolor:#7C6FFF" onclick="openPath('presupuesto')">
+        <span class="pcard-icon">📊</span>
+        <div class="pcard-tag" style="background:var(--purplebg);color:var(--purple)">Presupuesto</div>
+        <h3>Ordena tus gastos</h3>
+        <p>Arrastra gastos reales chilenos a sus categorías. Domina la regla 50/30/20.</p>
+        <div class="pcard-pills">
+          <span class="pill">🃏 Budget Swipe</span>
+          <span class="pill">CMF Educa</span>
+          <span class="pill" style="background:rgba(124,111,255,.15);color:var(--purple);border-color:rgba(124,111,255,.3)">▶ Jugar ahora</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     MINI-JUEGOS OVERLAY — diseño del platuuu.html original
+══════════════════════════════════════════════ -->
+
+<!-- ──── OVERLAY: COINSPÍN ──── -->
+<div class="game-overlay-wrap" id="go-ahorro">
+  <div class="go-bar">
+    <button class="go-close" onclick="closePathGame('ahorro')">✕</button>
+    <div class="go-title">🎰 CoinSpín — Ahorro</div>
+    <div class="go-stats">
+      <div class="go-stat" style="color:var(--gold);">🪙 <span id="cm-coins">$0</span></div>
+      <div class="go-stat">🎰 <span id="cm-spins">5</span> giros</div>
+      <div class="go-stat" style="color:#2ECC71;">🛡️ <span id="cm-shield">0</span></div>
+    </div>
+  </div>
+  <div class="go-prog-bg"><div class="go-prog-fill" id="cm-xp" style="width:0%;background:linear-gradient(90deg,var(--gold),var(--orange));"></div></div>
+  <div class="go-body" style="overflow-y:auto;position:relative;">
+    <div style="padding:10px 14px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+      <canvas id="cmCanvas" style="display:block;border-radius:14px;"></canvas>
+
+      <!-- Upgrade button (shown when enough XP) -->
+      <div id="cm-upgrade-wrap" style="display:none;width:100%;">
+        <button class="dc-consol-btn" style="border-color:rgba(46,204,113,.35);color:#2ECC71;background:rgba(46,204,113,.08);" onclick="cmUpgrade()">
+          🏦 Subir nivel alcancía — <span id="cm-upgrade-cost"></span>
+        </button>
+      </div>
+
+      <!-- Spin button -->
+      <button id="cm-spin-btn" onclick="cmDoSpin()" style="width:100%;padding:16px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--gold),var(--orange));color:var(--ink);font-family:'Poppins',sans-serif;font-weight:800;font-size:16px;cursor:pointer;transition:opacity .2s;letter-spacing:-.3px;">
+        🎰 Girar (5 giros)
+      </button>
+
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,.28);text-align:center;line-height:1.55;">
+        💰 Ingreso 50% · 💸 Gasto 20% · 🛡️ Ahorro 15% · ⭐ Bono 15%
+      </div>
+    </div>
+
+    <!-- Lección / resultado de upgrade -->
+    <div class="go-result" id="cm-result">
+      <div class="go-res-icon" id="cm-res-icon">🎰</div>
+      <div class="go-res-title" id="cm-res-title">¡Nivel superado!</div>
+      <div class="go-res-sub" id="cm-res-sub"></div>
+      <div id="cm-lesson" style="display:none;width:100%;max-width:360px;text-align:left;margin:10px auto 0;">
+        <div class="dc-lesson-eyebrow">🎓 LECCIÓN DEL NIVEL</div>
+        <div id="cm-lesson-q" class="dc-lesson-q"></div>
+        <div id="cm-lesson-opts" class="dc-lesson-opts"></div>
+        <div id="cm-lesson-fb" class="dc-lesson-fb" style="display:none;"></div>
+      </div>
+      <div class="go-res-btns">
+        <button class="go-res-btn primary" id="cm-main-btn" onclick="cmConfirmUpgrade(cm.alcLevel)" style="display:none;">Confirmar subida →</button>
+        <button class="go-res-btn secondary" onclick="closePathGame('ahorro')">Salir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ──── OVERLAY: TRADECHILE ──── -->
+<div class="game-overlay-wrap" id="go-inversion">
+  <div class="go-bar">
+    <button class="go-close" onclick="closePathGame('inversion')">✕</button>
+    <div class="go-title">📈 TradeChile — Inversión</div>
+    <div class="go-stats">
+      <div class="go-stat" style="color:var(--gold);">💼 <span id="tc-port">$1.000.000</span></div>
+      <div class="go-stat" style="color:#2ECC71;"><span id="tc-ret">+0%</span></div>
+      <div class="go-stat"><span id="tc-rnd">1</span>/8</div>
+    </div>
+  </div>
+  <div class="go-prog-bg"><div class="go-prog-fill" id="tc-prog" style="width:0%;background:linear-gradient(90deg,#2ECC71,var(--gold));"></div></div>
+  <div class="go-body" style="overflow-y:auto;">
+    <div class="tc-body">
+      <div class="tc-timer-bar"><div class="tc-timer-fill" id="tc-tfill" style="width:100%"></div></div>
+      <div class="tc-company">
+        <div class="tc-co-left">
+          <div class="tc-logo" id="tc-logo">🏦</div>
+          <div><div class="tc-name" id="tc-name">Banco de Chile</div><div class="tc-ticker" id="tc-ticker">BCH · IPSA</div></div>
+        </div>
+        <div class="tc-price-right">
+          <div class="tc-price" id="tc-price">$9.840</div>
+          <div class="tc-chg up" id="tc-chg">▲ +2.3%</div>
+        </div>
+      </div>
+      <canvas id="tcChart" height="140"></canvas>
+      <div class="tc-news" id="tc-news">
+        <div class="tc-news-src">El Mercurio · Economía</div>
+        <div class="tc-news-txt" id="tc-ntxt">Cargando noticia...</div>
+        <div class="tc-news-hint" id="tc-nhint"></div>
+      </div>
+      <div class="tc-portfolio">
+        <span>Acciones: <strong id="tc-shares">0</strong></span>
+        <span>Efectivo: <strong id="tc-cash">$1.000.000</strong></span>
+      </div>
+      <div style="height:10px"></div>
+      <div class="tc-actions">
+        <button class="tc-action-btn tc-buy" onclick="tcTrade('buy')">📈 COMPRAR<small>Precio actual</small></button>
+        <button class="tc-action-btn tc-sell" onclick="tcTrade('sell')">📉 VENDER<small>Si tienes acciones</small></button>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:10px 12px;font-size:11px;color:rgba(255,255,255,.45);line-height:1.55;" id="tc-fact">📚 Dato CMF real...</div>
+    </div>
+    <div class="go-result" id="tc-result">
+      <div class="go-res-icon" id="tc-res-icon">🏆</div>
+      <div class="go-res-title" id="tc-res-title">¡Gran inversión!</div>
+      <div class="go-res-sub" id="tc-res-sub"></div>
+      <div class="go-res-fact"><strong>¿Sabías?</strong> En Chile puedes invertir en acciones del IPSA con tan solo $1.000 CLP a través de corredores de bolsa regulados por la CMF.</div>
+      <div class="go-res-btns">
+        <button class="go-res-btn primary" onclick="initTC()">🔄 Nueva partida</button>
+        <button class="go-res-btn secondary" onclick="closePathGame('inversion')">Salir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ──── OVERLAY: DEBTCRUSHER ──── -->
+<div class="game-overlay-wrap" id="go-deudas">
+  <div class="go-bar">
+    <button class="go-close" onclick="closePathGame('deudas')">✕</button>
+    <div class="go-title">💳 DebtCrusher — Deudas</div>
+    <div class="go-stats">
+      <div class="go-stat" style="color:#E74C3C;">💳 <span id="dc-paid">$0</span></div>
+      <div class="go-stat">🎯 <span id="dc-moves">20</span> mov.</div>
+      <div class="go-stat" style="color:var(--orange);">x<span id="dc-combo">1</span></div>
+    </div>
+  </div>
+  <div class="go-prog-bg"><div class="go-prog-fill" id="dc-prog" style="width:0%;background:linear-gradient(90deg,#E74C3C,var(--orange));"></div></div>
+
+  <!-- Timer bar — niveles 16-20 -->
+  <div id="dc-timer-wrap" style="display:none;padding:4px 14px 0;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.5);">⏱</span>
+      <div style="flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;">
+        <div id="dc-timer-fill" style="height:100%;background:linear-gradient(90deg,#2ECC71,var(--gold));border-radius:3px;transition:width .5s linear;width:100%;"></div>
+      </div>
+      <span id="dc-timer-lbl" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.5);min-width:28px;text-align:right;">90s</span>
+    </div>
+  </div>
+
+  <div class="go-body" style="overflow-y:auto;position:relative;">
+    <div class="dc-body">
+      <div class="dc-legend">
+        <div class="dc-leg-item d-visa">💳 VISA 18%</div>
+        <div class="dc-leg-item d-cae">🎓 CAE UF+2%</div>
+        <div class="dc-leg-item d-consumo">🏦 35%</div>
+        <div class="dc-leg-item d-auto">🚗 12%</div>
+        <div class="dc-leg-item d-casa">🏠 4%</div>
+        <div class="dc-leg-item d-tienda">🛍️ 52%!</div>
+      </div>
+      <div class="dc-goal-bar-bg"><div class="dc-goal-bar-fill" id="dc-goal-fill" style="width:0%"></div></div>
+      <div class="dc-goal-label">Meta: <span id="dc-goal-text">$0 / $1.000.000</span> · <span id="dc-level-txt">Nivel 1</span></div>
+      <canvas id="dcCanvas" style="display:block;border-radius:14px;touch-action:none;margin:0 auto;"></canvas>
+
+      <!-- Consolidación button — niveles 6-10 -->
+      <div id="dc-consol-wrap" style="display:none;padding:6px 0 2px;">
+        <button id="dc-consol-btn" class="dc-consol-btn" onclick="dcConsolidacion()">
+          🔱 Consolidar fila <span id="dc-consol-cd" style="font-size:10px;opacity:.6;"></span>
+        </button>
+      </div>
+
+      <div class="dc-hint" id="dc-hint-txt">Toca un bloque y luego uno adyacente para intercambiar · 3+ iguales = ¡aplastados!</div>
+    </div>
+
+    <!-- Resultado / Lección post-nivel -->
+    <div class="go-result" id="dc-result">
+      <canvas class="go-rive-emoji" id="dc-rive" width="80" height="80"></canvas>
+      <div class="go-res-icon" id="dc-res-icon">💥</div>
+      <div class="go-res-title" id="dc-res-title">¡Deudas aplastadas!</div>
+      <div class="go-res-sub" id="dc-res-sub"></div>
+
+      <!-- Lección (solo al ganar) -->
+      <div id="dc-lesson" style="display:none;width:100%;max-width:360px;text-align:left;margin:10px auto 0;">
+        <div class="dc-lesson-eyebrow">🎓 LECCIÓN DEL NIVEL</div>
+        <div id="dc-lesson-q" class="dc-lesson-q"></div>
+        <div id="dc-lesson-opts" class="dc-lesson-opts"></div>
+        <div id="dc-lesson-fb" class="dc-lesson-fb" style="display:none;"></div>
+      </div>
+
+      <div id="dc-res-fact" class="go-res-fact" style="display:none;"></div>
+      <div class="go-res-btns">
+        <button class="go-res-btn primary" id="dc-main-btn" onclick="dcMainAction()">🔄 Nuevo tablero</button>
+        <button class="go-res-btn secondary" onclick="closePathGame('deudas')">Salir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="game-overlay-wrap" id="go-presupuesto">
+  <div class="go-bar">
+    <button class="go-close" onclick="closePathGame('presupuesto')">✕</button>
+    <div class="go-title">📊 Ordena tus gastos</div>
+    <div class="go-stats">
+      <div class="go-stat" style="color:var(--purple);">⭐ <span id="bs-score">0</span></div>
+      <div class="go-stat" style="color:var(--orange);">🔥 <span id="bs-streak">0</span></div>
+      <div class="go-stat"><span id="bs-left">15</span> restantes</div>
+    </div>
+  </div>
+  <div class="go-prog-bg"><div class="go-prog-fill" id="bs-prog" style="width:100%;background:linear-gradient(90deg,var(--purple),var(--blue));"></div></div>
+  <!-- Timer bar -->
+  <div class="bs-timer-wrap">
+    <div class="bs-timer-bg"><div class="bs-timer-fill" id="bs-timer-fill" style="width:100%;background:var(--green);"></div></div>
+  </div>
+  <div class="go-body" style="display:flex;flex-direction:column;">
+    <div class="bs-arena" id="bsArena">
+      <!-- Drop zones con contadores -->
+      <div class="bs-zone bsz-needs" id="bsz-needs">
+        <div class="bs-zone-count" id="bsc-needs">0</div>
+        <div class="bs-zone-icon">🏠</div>
+        <div class="bs-zone-lbl">Necesidad</div>
+        <div class="bs-zone-pct">50%</div>
+      </div>
+      <div class="bs-zone bsz-wants" id="bsz-wants">
+        <div class="bs-zone-count" id="bsc-wants">0</div>
+        <div class="bs-zone-icon">🎮</div>
+        <div class="bs-zone-lbl">Gusto</div>
+        <div class="bs-zone-pct">30%</div>
+      </div>
+      <div class="bs-zone bsz-savings" id="bsz-savings">
+        <div class="bs-zone-count" id="bsc-savings">0</div>
+        <div class="bs-zone-icon">🏦</div>
+        <div class="bs-zone-lbl">Ahorro</div>
+        <div class="bs-zone-pct">20%</div>
+      </div>
+      <!-- Card draggable con indicadores de dirección -->
+      <div class="bs-card" id="bsCard">
+        <div class="bs-dir-indicator bs-dir-left" id="bsd-left">🏠 Necesidad</div>
+        <div class="bs-dir-indicator bs-dir-right" id="bsd-right">🏦 Ahorro</div>
+        <div class="bs-dir-indicator bs-dir-up" id="bsd-up">🎮 Gusto</div>
+        <div class="bs-card-counter" id="bs-counter">1/15</div>
+        <div class="bs-card-icon" id="bs-icon">🏠</div>
+        <div class="bs-card-name" id="bs-name">Arriendo</div>
+        <div class="bs-card-amt" id="bs-amt">$350.000/mes</div>
+        <div class="bs-card-hint" id="bs-hint">¿Es necesidad o gusto?</div>
+      </div>
+    </div>
+    <div class="bs-btns">
+      <button class="bs-btn bs-needs-btn" onclick="bsSwipe('needs')">🏠<span style="font-size:10px">Necesidad</span></button>
+      <button class="bs-btn bs-wants-btn" onclick="bsSwipe('wants')">🎮<span style="font-size:10px">Gusto</span></button>
+      <button class="bs-btn bs-savings-btn" onclick="bsSwipe('savings')">🏦<span style="font-size:10px">Ahorro</span></button>
+    </div>
+  </div>
+  <div class="go-result" id="bs-result" style="position:fixed;">
+    <canvas class="go-rive-emoji" id="bs-rive" width="80" height="80"></canvas>
+    <div class="go-res-icon" id="bs-res-icon">📊</div>
+    <div class="go-res-title" id="bs-res-title">¡Maestro del presupuesto!</div>
+    <div class="go-res-sub" id="bs-res-sub"></div>
+    <div class="go-res-fact"><strong>Regla 50/30/20 — CMF Educa:</strong> Necesidades = 50%, Gustos = 30%, Ahorro = 20%. Aplícala este mes y en 6 meses tendrás tu fondo de emergencia.</div>
+    <div class="go-res-btns">
+      <button class="go-res-btn primary" onclick="initBS()">🔄 Jugar de nuevo</button>
+      <button class="go-res-btn secondary" onclick="closePathGame('presupuesto')">Salir</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- PLANS -->
+<section class="plans-section" id="precios">
+  <div class="plans-inner">
+    <div class="sec-eye reveal">ELIGE TU PLAN</div>
+    <h2 class="sec-h reveal">Gratis para siempre.<br>Mejor si pagas.</h2>
+    <p class="sec-sub reveal">Empieza gratis hoy. Actualiza cuando quieras — o no.</p>
+    <div class="plans-grid">
+      <div class="plan reveal">
+        <div class="plan-body">
+          <span class="plan-icon">🎮</span>
+          <div class="plan-n">Modo libre</div>
+          <div class="plan-p">$0</div>
+          <div class="plan-per">para siempre gratis</div>
+          <div class="plan-div"></div>
+          <div class="plan-feats">
+            <div class="pf"><span class="yes">✓</span> 5 lecciones por día</div>
+            <div class="pf"><span class="yes">✓</span> Racha básica</div>
+            <div class="pf"><span class="yes">✓</span> 3 vidas por sesión</div>
+            <div class="pf"><span class="no">✗</span> <span>Sin publicidad</span></div>
+            <div class="pf"><span class="no">✗</span> <span>IA personalizada</span></div>
+          </div>
+          <button class="plan-btn plan-btn-dk" onclick="coins(event)">Empezar gratis</button>
+        </div>
+      </div>
+      <div class="plan featured reveal">
+        <div class="plan-popular">⭐ MÁS POPULAR</div>
+        <div class="plan-body">
+          <span class="plan-icon">🚀</span>
+          <div class="plan-n">Platuuu Plus</div>
+          <div class="plan-p gold">$2.990</div>
+          <div class="plan-per">CLP / mes · 2 meses gratis al inicio</div>
+          <div class="plan-div"></div>
+          <div class="plan-feats">
+            <div class="pf"><span class="yes">✓</span> Lecciones ilimitadas</div>
+            <div class="pf"><span class="yes">✓</span> Sin publicidad nunca</div>
+            <div class="pf"><span class="yes">✓</span> Racha protegida</div>
+            <div class="pf"><span class="yes">✓</span> Los 4 caminos</div>
+            <div class="pf"><span class="yes">✓</span> Ligas semanales</div>
+          </div>
+          <button class="plan-btn plan-btn-gd" onclick="coins(event)">Activar Plus →</button>
+        </div>
+      </div>
+      <div class="plan reveal">
+        <div class="plan-body">
+          <span class="plan-icon">💎</span>
+          <div class="plan-n">Platuuu Pro</div>
+          <div class="plan-p">$5.990</div>
+          <div class="plan-per">CLP / mes · todo incluido</div>
+          <div class="plan-div"></div>
+          <div class="plan-feats">
+            <div class="pf"><span class="yes">✓</span> Todo de Plus</div>
+            <div class="pf"><span class="yes">✓</span> IA financiera personal</div>
+            <div class="pf"><span class="yes">✓</span> Retos reales semanales</div>
+            <div class="pf"><span class="yes">✓</span> Certificados oficiales</div>
+            <div class="pf"><span class="yes">✓</span> Comunidad Pro</div>
+          </div>
+          <button class="plan-btn plan-btn-dk" onclick="coins(event)">Activar Pro</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Tu racha<br>empieza <em>hoy.</em></h2>
+    <p>Miles de chilenos mejorando su relación con el dinero. 5 minutos al día es todo lo que necesitas.</p>
+    <button class="btn-primary" style="font-size:17px;padding:17px 44px;margin:0 auto" onclick="coins(event)">🔥 Empezar mi racha gratis</button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Platuuu</span> — Chile. Hecho con 💛</p>
+  <p>Términos · Privacidad · <span>sebastiandev25@gmail.com</span></p>
+</footer>
+
+
+<!-- PATH MAP: AHORRO -->
+<div class="path-overlay path-ahorro" id="pm-ahorro">
+  <div class="pm-header">
+    <button class="pm-back" onclick="closePath()">←</button>
+    <div class="pm-title">💰 Guardar tu plata</div>
+    <div class="pm-stats">
+      <div class="pm-stat">🪙 <span id="pm-coins-ahorro">0</span></div>
+      <div class="pm-stat">🔥 <span id="pm-streak">0</span></div>
+      <div class="pm-stat pm-lives" id="pm-lives-ahorro"></div>
+    </div>
+  </div>
+  <div class="pm-layout">
+    <nav class="pm-sidebar" id="pm-sb-ahorro">
+      <button class="pm-sidebar-item active" onclick="closePath()"><span class="pm-sb-icon">🏠</span>Mis caminos</button>
+      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-sb-icon">📖</span>Conceptos</button>
+      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
+      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
+      <button class="pm-sidebar-item" onclick="openShop('ahorro')"><span class="pm-sb-icon">🛒</span>Tienda</button>
+      <div class="pm-sidebar-divider"></div>
+      <div class="pm-sidebar-profile">
+        <div class="pm-sb-profile-name">Tu progreso</div>
+        <div class="pm-sb-stat-row">
+          <div class="pm-sb-chip">🪙 <span class="pm-sb-coins">0</span></div>
+          <div class="pm-sb-chip">🔥 <span class="pm-sb-streak">0</span></div>
+          <div class="pm-sb-chip">❤️ <span class="pm-sb-lives">5/5</span></div>
+        </div>
+      </div>
+    </nav>
+    <div class="pm-main">
+      <div class="pm-no-lives-banner" id="pm-nolives-ahorro">
+        <strong>❤️ Sin vidas</strong>
+        <span>Juega un mini-juego para recuperar una vida</span>
+      </div>
+      <div class="pm-scroll" id="pm-scroll-ahorro"></div>
+    </div>
+  </div>
+  <div class="pm-bottomnav">
+    <button class="pm-bottomnav-item active" onclick="closePath()"><span class="pm-bn-icon">🏠</span>Caminos</button>
+    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-bn-icon">📖</span>Conceptos</button>
+    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
+    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
+    <button class="pm-bottomnav-item" onclick="openShop('ahorro')"><span class="pm-bn-icon">🛒</span>Tienda</button>
+  </div>
+</div>
+
+<!-- PATH MAP: DEUDAS -->
+<div class="path-overlay path-deudas" id="pm-deudas">
+  <div class="pm-header">
+    <button class="pm-back" onclick="closePath()">←</button>
+    <div class="pm-title">💳 Aplasta tus deudas</div>
+    <div class="pm-stats">
+      <div class="pm-stat">🪙 <span id="pm-coins-deudas">0</span></div>
+      <div class="pm-stat">🔥 <span id="pm-streak-d">0</span></div>
+      <div class="pm-stat pm-lives" id="pm-lives-deudas"></div>
+    </div>
+  </div>
+  <div class="pm-layout">
+    <nav class="pm-sidebar">
+      <button class="pm-sidebar-item active" onclick="closePath()"><span class="pm-sb-icon">🏠</span>Mis caminos</button>
+      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-sb-icon">📖</span>Conceptos</button>
+      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
+      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
+      <button class="pm-sidebar-item" onclick="openShop('deudas')"><span class="pm-sb-icon">🛒</span>Tienda</button>
+      <div class="pm-sidebar-divider"></div>
+      <div class="pm-sidebar-profile">
+        <div class="pm-sb-profile-name">Tu progreso</div>
+        <div class="pm-sb-stat-row">
+          <div class="pm-sb-chip">🪙 <span class="pm-sb-coins">0</span></div>
+          <div class="pm-sb-chip">🔥 <span class="pm-sb-streak">0</span></div>
+          <div class="pm-sb-chip">❤️ <span class="pm-sb-lives">5/5</span></div>
+        </div>
+      </div>
+    </nav>
+    <div class="pm-main">
+      <div class="pm-no-lives-banner" id="pm-nolives-deudas">
+        <strong>❤️ Sin vidas</strong>
+        <span>Juega un mini-juego para recuperar una vida</span>
+      </div>
+      <div class="pm-scroll" id="pm-scroll-deudas"></div>
+    </div>
+  </div>
+  <div class="pm-bottomnav">
+    <button class="pm-bottomnav-item active" onclick="closePath()"><span class="pm-bn-icon">🏠</span>Caminos</button>
+    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-bn-icon">📖</span>Conceptos</button>
+    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
+    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
+    <button class="pm-bottomnav-item" onclick="openShop('deudas')"><span class="pm-bn-icon">🛒</span>Tienda</button>
+  </div>
+</div>
+
+<!-- PATH MAP: INVERSION -->
+<div class="path-overlay path-inversion" id="pm-inversion">
+  <div class="pm-header">
+    <button class="pm-back" onclick="closePath()">←</button>
+    <div class="pm-title">📈 Haz crecer tu dinero</div>
+    <div class="pm-stats">
+      <div class="pm-stat">🪙 <span id="pm-coins-inv">0</span></div>
+      <div class="pm-stat">🔥 <span id="pm-streak-i">0</span></div>
+      <div class="pm-stat pm-lives" id="pm-lives-inversion"></div>
+    </div>
+  </div>
+  <div class="pm-layout">
+    <nav class="pm-sidebar">
+      <button class="pm-sidebar-item active" onclick="closePath()"><span class="pm-sb-icon">🏠</span>Mis caminos</button>
+      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-sb-icon">📖</span>Conceptos</button>
+      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
+      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
+      <button class="pm-sidebar-item" onclick="openShop('inversion')"><span class="pm-sb-icon">🛒</span>Tienda</button>
+      <div class="pm-sidebar-divider"></div>
+      <div class="pm-sidebar-profile">
+        <div class="pm-sb-profile-name">Tu progreso</div>
+        <div class="pm-sb-stat-row">
+          <div class="pm-sb-chip">🪙 <span class="pm-sb-coins">0</span></div>
+          <div class="pm-sb-chip">🔥 <span class="pm-sb-streak">0</span></div>
+          <div class="pm-sb-chip">❤️ <span class="pm-sb-lives">5/5</span></div>
+        </div>
+      </div>
+    </nav>
+    <div class="pm-main">
+      <div class="pm-no-lives-banner" id="pm-nolives-inversion">
+        <strong>❤️ Sin vidas</strong>
+        <span>Juega un mini-juego para recuperar una vida</span>
+      </div>
+      <div class="pm-scroll" id="pm-scroll-inversion"></div>
+    </div>
+  </div>
+  <div class="pm-bottomnav">
+    <button class="pm-bottomnav-item active" onclick="closePath()"><span class="pm-bn-icon">🏠</span>Caminos</button>
+    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-bn-icon">📖</span>Conceptos</button>
+    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
+    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
+    <button class="pm-bottomnav-item" onclick="openShop('inversion')"><span class="pm-bn-icon">🛒</span>Tienda</button>
+  </div>
+</div>
+
+<!-- PATH MAP: PRESUPUESTO -->
+<div class="path-overlay path-presupuesto" id="pm-presupuesto">
+  <div class="pm-header">
+    <button class="pm-back" onclick="closePath()">←</button>
+    <div class="pm-title">📊 Ordena tus gastos</div>
+    <div class="pm-stats">
+      <div class="pm-stat">🪙 <span id="pm-coins-pre">0</span></div>
+      <div class="pm-stat">🔥 <span id="pm-streak-p">0</span></div>
+      <div class="pm-stat pm-lives" id="pm-lives-presupuesto"></div>
+    </div>
+  </div>
+  <div class="pm-layout">
+    <nav class="pm-sidebar">
+      <button class="pm-sidebar-item active" onclick="closePath()"><span class="pm-sb-icon">🏠</span>Mis caminos</button>
+      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-sb-icon">📖</span>Conceptos</button>
+      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
+      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
+      <button class="pm-sidebar-item" onclick="openShop('presupuesto')"><span class="pm-sb-icon">🛒</span>Tienda</button>
+      <div class="pm-sidebar-divider"></div>
+      <div class="pm-sidebar-profile">
+        <div class="pm-sb-profile-name">Tu progreso</div>
+        <div class="pm-sb-stat-row">
+          <div class="pm-sb-chip">🪙 <span class="pm-sb-coins">0</span></div>
+          <div class="pm-sb-chip">🔥 <span class="pm-sb-streak">0</span></div>
+          <div class="pm-sb-chip">❤️ <span class="pm-sb-lives">5/5</span></div>
+        </div>
+      </div>
+    </nav>
+    <div class="pm-main">
+      <div class="pm-no-lives-banner" id="pm-nolives-presupuesto">
+        <strong>❤️ Sin vidas</strong>
+        <span>Juega un mini-juego para recuperar una vida</span>
+      </div>
+      <div class="pm-scroll" id="pm-scroll-presupuesto"></div>
+    </div>
+  </div>
+  <div class="pm-bottomnav">
+    <button class="pm-bottomnav-item active" onclick="closePath()"><span class="pm-bn-icon">🏠</span>Caminos</button>
+    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-bn-icon">📖</span>Conceptos</button>
+    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
+    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
+    <button class="pm-bottomnav-item" onclick="openShop('presupuesto')"><span class="pm-bn-icon">🛒</span>Tienda</button>
+  </div>
+</div>
+
+<!-- ACHIEVEMENT TOAST -->
+<div id="achieveToast">
+  <div id="achieveIcon">🎉</div>
+  <div id="achieveTitle">¡Bien hecho!</div>
+  <div id="achieveDesc">Completaste la lección</div>
+  <div id="achieveCoins">🪙 +100 monedas</div>
+</div>
+
+<!-- CERTIFICATE SCREEN -->
+<div class="pm-cert-screen" id="pmCertScreen">
+  <div class="pm-cert-card">
+    <!-- Encabezado del diploma -->
+    <div class="pm-cert-header">
+      <div class="pm-cert-logo-top">Platuu<span>u</span></div>
+      <div class="pm-cert-logo-sub">Educación Financiera Chile</div>
+    </div>
+
+    <div class="pm-cert-divider"></div>
+
+    <!-- Badge animado con brillo -->
+    <div class="pm-cert-seal-wrap">
+      <div class="pm-cert-seal" id="pmCertBadge">💰</div>
+      <div class="pm-cert-seal-ring"></div>
+    </div>
+
+    <div class="pm-cert-title">Certificado de Logro</div>
+
+    <div class="pm-cert-sub">Este certificado se otorga a</div>
+    <div class="pm-cert-student" id="pmCertStudent">Sebastián</div>
+
+    <div class="pm-cert-body">
+      Por haber completado exitosamente el camino
+    </div>
+    <div class="pm-cert-path" id="pmCertName">💰 Aprende a guardar tu plata</div>
+
+    <div class="pm-cert-divider" style="margin:20px auto"></div>
+
+    <div class="pm-cert-footer">
+      <div class="pm-cert-date-wrap">
+        <div class="pm-cert-date-lbl">Fecha</div>
+        <div class="pm-cert-date" id="pmCertDate"></div>
+      </div>
+      <div class="pm-cert-sig-wrap">
+        <div class="pm-cert-sig">Platuuu</div>
+        <div class="pm-cert-date-lbl">Plataforma</div>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="pm-cert-btns">
+      <button class="pm-cert-share" onclick="pmCertShare()">📤 Compartir logro</button>
+      <button class="pm-cert-home" onclick="pmCertClose()">🏠 Volver a mis caminos</button>
+    </div>
+  </div>
+</div>
+
+<!-- PLATÍN MODAL (welcome + tips) -->
+<div class="platin-modal" id="platinModal">
+  <div class="platin-modal-card" id="platinModalCard">
+    <div class="platin-tip-label" id="platinModalLabel">Platín dice</div>
+    <div class="platin-modal-mascot">
+      <svg viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="pmRing" cx="40%" cy="30%"><stop offset="0%" stop-color="#FFF5B0"/><stop offset="55%" stop-color="#FFD93D"/><stop offset="100%" stop-color="#FFC700"/></radialGradient>
+          <radialGradient id="pmBody" cx="38%" cy="28%"><stop offset="0%" stop-color="#FFD45A"/><stop offset="55%" stop-color="#FFC000"/><stop offset="100%" stop-color="#E09400"/></radialGradient>
+        </defs>
+        <ellipse cx="130" cy="252" rx="55" ry="8" fill="rgba(255,199,0,.12)"/>
+        <!-- Brazo saludo izq -->
+        <ellipse cx="52" cy="88" rx="18" ry="12" fill="#FFD45A" transform="rotate(-55 52 88)"/>
+        <ellipse cx="40" cy="66" rx="11" ry="8"  fill="#FFC000" transform="rotate(-40 40 66)"/>
+        <!-- Brazo derecho -->
+        <ellipse cx="210" cy="158" rx="18" ry="12" fill="#FFD45A" transform="rotate(28 210 158)"/>
+        <circle cx="130" cy="124" r="104" fill="url(#pmRing)"/>
+        <circle cx="130" cy="124" r="84"  fill="url(#pmBody)"/>
+        <ellipse cx="98" cy="78" rx="28" ry="13" fill="rgba(255,255,255,.28)" transform="rotate(-22 98 78)"/>
+        <ellipse cx="88"  cy="142" rx="13" ry="8" fill="rgba(255,120,50,.18)"/>
+        <ellipse cx="172" cy="142" rx="13" ry="8" fill="rgba(255,120,50,.18)"/>
+        <ellipse cx="95"  cy="112" rx="16" ry="17" fill="white"/>
+        <circle  cx="95"  cy="114" r="10" fill="#0F1321"/>
+        <circle  cx="100" cy="108" r="3.5" fill="white"/>
+        <ellipse cx="165" cy="112" rx="16" ry="17" fill="white"/>
+        <circle  cx="165" cy="114" r="10" fill="#0F1321"/>
+        <circle  cx="170" cy="108" r="3.5" fill="white"/>
+        <path d="M78 87 Q95 79 112 84"  stroke="#0F1321" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <path d="M148 84 Q165 79 182 87" stroke="#0F1321" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <path d="M86 154 Q130 184 174 154" stroke="#0F1321" stroke-width="5" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+    <div class="platin-modal-bubble" id="platinModalText">¡Hola!</div>
+    <button class="platin-modal-btn" id="platinModalBtn" onclick="closePlatinModal()">¡Vamos! →</button>
+  </div>
+</div>
+
+<!-- ONBOARDING -->
+<div class="pm-onboard" id="pmOnboard">
+  <div class="pm-onboard-card">
+    <div class="pm-onboard-icon" id="pmOnboardIcon">🎯</div>
+    <div class="pm-onboard-title" id="pmOnboardTitle">¿Cuánto sabes?</div>
+    <div class="pm-onboard-sub" id="pmOnboardSub">Elige tu nivel para personalizar el camino</div>
+    <div class="pm-onboard-opts">
+      <button class="pm-onboard-opt" onclick="pmOnboardSelect(0)">🔰 Estoy empezando desde cero <span>Comenzar desde el principio</span></button>
+      <button class="pm-onboard-opt" onclick="pmOnboardSelect(3)">📊 Sé lo básico <span>Desbloquear hasta el nodo 3</span></button>
+      <button class="pm-onboard-opt" onclick="pmOnboardSelect(6)">💡 Nivel intermedio <span>Desbloquear hasta el nodo 6</span></button>
+      <button class="pm-onboard-opt" onclick="pmOnboardSelect(8)">🎓 Soy avanzado <span>Desbloquear hasta el nodo 8</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- TIENDA DE FICHAS -->
+<div class="shop-overlay" id="shopOverlay" onclick="closeShop(event)">
+  <div class="shop-card" onclick="event.stopPropagation()">
+    <div class="shop-header">
+      <div class="shop-title">🛍️ Tienda</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="shop-fichas">🪙 <span id="shop-fichas-count">0</span> fichas</div>
+        <button class="shop-close-btn" onclick="closeShop()">✕</button>
+      </div>
+    </div>
+
+    <div class="shop-section-lbl">General</div>
+
+    <div class="shop-item">
+      <div class="shop-item-icon">❤️</div>
+      <div class="shop-item-info">
+        <div class="shop-item-name">Vida extra</div>
+        <div class="shop-item-desc">Recupera una vida perdida</div>
+      </div>
+      <button class="shop-item-btn" id="shop-btn-vida" onclick="shopBuyExtraLife()">5 🪙</button>
+    </div>
+
+    <div class="shop-item">
+      <div class="shop-item-icon">🛡️</div>
+      <div class="shop-item-info">
+        <div class="shop-item-name">Proteger racha</div>
+        <div class="shop-item-desc" id="shop-racha-desc">Tu próxima racha no se rompe</div>
+      </div>
+      <button class="shop-item-btn" id="shop-btn-racha" onclick="shopBuyProtectStreak()">10 🪙</button>
+    </div>
+
+    <div id="shop-powerup-section" style="display:none;">
+      <div class="shop-section-lbl">Power-up — juego activo</div>
+      <div class="shop-item">
+        <div class="shop-item-icon" id="shop-pu-icon">⚡</div>
+        <div class="shop-item-info">
+          <div class="shop-item-name" id="shop-pu-name">Power-up</div>
+          <div class="shop-item-desc" id="shop-pu-desc">Descripción</div>
+        </div>
+        <button class="shop-item-btn" id="shop-pu-btn" onclick="shopActivePowerup()">3 🪙</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LESSON SCREEN — 5 pasos con Platín -->
+<div class="pm-lesson" id="pmLesson">
+  <div class="ls-hdr">
+    <button class="ls-back" onclick="closePMLesson()">←</button>
+    <div class="ls-dots" id="lsDots"></div>
+    <div class="ls-coins-badge">🪙 <span id="lsCoinsBadge">0</span></div>
+  </div>
+  <div class="ls-main">
+    <div class="ls-platin-col" id="lsPlatinCol">
+      <!-- Mascot adoptado dinámicamente al abrir la lección -->
+    </div>
+    <div class="ls-content-col" id="lsContentCol"></div>
+  </div>
+</div>
+
+<!-- MODAL NODO -->
+<div class="pm-modal" id="pmModal" onclick="closePMModal(event)">
+  <div class="pm-modal-card">
+    <div class="pm-modal-icon" id="pmModalIcon">📚</div>
+    <div class="pm-modal-title" id="pmModalTitle">Lección</div>
+    <div class="pm-modal-desc" id="pmModalDesc"></div>
+    <div class="pm-modal-cost" id="pmModalCost">🪙 3 fichas</div>
+    <button class="pm-modal-btn" id="pmModalBtn" onclick="pmStartNode()">Empezar →</button>
+  </div>
+</div>
+
+<!-- ── Scripts — orden: games → main → mascot → quiz → pathmap ── -->
+<script src="js/games/coinspin.js"></script>
+<script src="js/games/tradechile.js"></script>
+<script src="js/games/debtcrusher.js"></script>
+<script src="js/games/budgetswipe.js"></script>
+<script src="js/main.js"></script>
+<script src="js/mascot.js"></script>
+<script src="js/cmf-api.js"></script>
+<script src="js/pathmap.js"></script>
+
+</body>
+</html>
