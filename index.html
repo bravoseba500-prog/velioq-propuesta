@@ -138,91 +138,87 @@
     color: var(--ink);
   }
 
-  /* ── STARTUP CARD ── */
-  .startup-section {
+  /* ── PRODUCTOS ── */
+  .products-section {
     width: 100%;
-    max-width: 440px;
+    max-width: 520px;
   }
 
-  .startup-label {
+  .products-label {
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--muted);
     margin-bottom: 12px;
+    text-align: left;
   }
 
-  .startup-card {
+  .products-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .product-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 24px 28px;
+    border-radius: 18px;
+    padding: 20px 24px;
     text-decoration: none;
     color: inherit;
     transition: box-shadow 0.2s, transform 0.2s;
-    cursor: pointer;
   }
 
-  .startup-card:hover {
-    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  .product-card:hover {
+    box-shadow: 0 10px 36px rgba(0,0,0,0.09);
     transform: translateY(-2px);
   }
 
-  .startup-card-left {
+  .product-left {
     display: flex;
     align-items: center;
     gap: 16px;
   }
 
-  .startup-icon {
-    width: 52px;
-    height: 52px;
-    background: linear-gradient(135deg, #FFC700, #FF9D00);
-    border-radius: 14px;
+  .product-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 13px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 26px;
+    font-size: 22px;
     flex-shrink: 0;
   }
 
-  .startup-info-name {
-    font-size: 18px;
+  .product-icon.clinic  { background: linear-gradient(135deg, #E0F2FE, #BAE6FD); }
+  .product-icon.legal   { background: linear-gradient(135deg, #EDE9FE, #DDD6FE); }
+
+  .product-name {
+    font-size: 16px;
     font-weight: 700;
     color: var(--ink);
     margin-bottom: 2px;
   }
 
-  .startup-info-desc {
+  .product-desc {
     font-size: 12px;
     color: var(--muted);
   }
 
-  .startup-badge {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #22C55E;
-    background: #F0FDF4;
-    border: 1px solid #BBF7D0;
-    border-radius: 999px;
-    padding: 4px 10px;
+  .product-arrow {
+    font-size: 18px;
+    color: #CBD5E1;
+    transition: transform 0.2s, color 0.2s;
   }
 
-  .startup-arrow {
-    font-size: 20px;
-    color: var(--muted);
-    margin-left: 12px;
-    transition: transform 0.2s;
-  }
-
-  .startup-card:hover .startup-arrow {
+  .product-card:hover .product-arrow {
     transform: translateX(4px);
+    color: var(--ink2);
   }
 
   /* ── FOOTER ── */
@@ -246,13 +242,13 @@
 
 <nav>
   <a class="nav-logo" href="/">Velioq</a>
-  <span class="nav-tag">Startup Studio</span>
+  <span class="nav-tag">Empresa de tecnología</span>
 </nav>
 
 <main class="hero">
-  <p class="hero-label">Startup Studio · Chile</p>
+  <p class="hero-label">Empresa de tecnología · Chile</p>
   <h1 class="hero-title">Velioq</h1>
-  <p class="hero-sub">Construimos startups de tecnología con impacto real. Desde la idea hasta el producto.</p>
+  <p class="hero-sub">Automatización con inteligencia artificial para empresas. Desde la idea hasta el producto.</p>
 
   <div class="team">
     <div class="team-chip">
@@ -265,21 +261,30 @@
     </div>
   </div>
 
-  <div class="startup-section">
-    <p class="startup-label">Startup activa</p>
-    <a class="startup-card" href="/platuuu/">
-      <div class="startup-card-left">
-        <div class="startup-icon">🪙</div>
-        <div>
-          <div class="startup-info-name">Platuuu</div>
-          <div class="startup-info-desc">Educación financiera gamificada · Chile</div>
+  <div class="products-section">
+    <p class="products-label">Productos</p>
+    <div class="products-grid">
+      <a class="product-card" href="/clinicai-dashboard.html" target="_blank">
+        <div class="product-left">
+          <div class="product-icon clinic">🦷</div>
+          <div>
+            <div class="product-name">ClinicAI</div>
+            <div class="product-desc">Automatización con IA para clínicas dentales</div>
+          </div>
         </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-        <span class="startup-badge">En desarrollo</span>
-        <span class="startup-arrow">→</span>
-      </div>
-    </a>
+        <span class="product-arrow">→</span>
+      </a>
+      <a class="product-card" href="/legalai-dashboard.html" target="_blank">
+        <div class="product-left">
+          <div class="product-icon legal">⚖️</div>
+          <div>
+            <div class="product-name">LegalAI</div>
+            <div class="product-desc">Automatización con IA para estudios jurídicos</div>
+          </div>
+        </div>
+        <span class="product-arrow">→</span>
+      </a>
+    </div>
   </div>
 </main>
 
