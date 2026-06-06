@@ -559,22 +559,37 @@ footer span { color:var(--gold); }
 .pm-node { width:72px; height:72px; border-radius:50%;
   display:flex; align-items:center; justify-content:center;
   font-size:28px; cursor:pointer; position:relative;
-  transition:transform .2s; border:3px solid rgba(0,0,0,.1);
-  box-shadow:0 4px 12px rgba(0,0,0,.1); }
-.pm-node:hover { transform:scale(1.08); }
-.pm-node.locked { background:#E5E7EB; cursor:not-allowed;
-  filter:grayscale(1); opacity:.6; }
+  border:none; border-bottom:4px solid rgba(0,0,0,.25);
+  background:linear-gradient(145deg,rgba(255,255,255,.25) 0%,transparent 60%);
+  box-shadow:0 8px 0 rgba(0,0,0,.25), 0 12px 20px rgba(0,0,0,.2),
+             inset 0 1px 0 rgba(255,255,255,.3);
+  transition:transform .1s, box-shadow .1s, border-bottom-width .1s; }
+.pm-node:hover  { transform:translateY(-2px);
+  box-shadow:0 10px 0 rgba(0,0,0,.25), 0 14px 24px rgba(0,0,0,.2),
+             inset 0 1px 0 rgba(255,255,255,.3); }
+.pm-node:active { transform:translateY(4px);
+  box-shadow:0 2px 0 rgba(0,0,0,.25), 0 4px 8px rgba(0,0,0,.15);
+  border-bottom-width:1px; }
+.pm-node.locked { background:linear-gradient(145deg,#9CA3AF,#6B7280);
+  cursor:not-allowed; opacity:.6;
+  box-shadow:0 6px 0 rgba(0,0,0,.2), 0 8px 16px rgba(0,0,0,.15); }
 .pm-node.available { background:white;
-  box-shadow:0 0 0 4px rgba(255,199,0,.3),
-  0 4px 20px rgba(255,199,0,.2);
+  box-shadow:0 8px 0 rgba(0,0,0,.15), 0 0 0 4px rgba(255,199,0,.45),
+             0 12px 24px rgba(255,199,0,.25), inset 0 1px 0 rgba(255,255,255,.8);
   animation:node-pulse 2s infinite; }
-.pm-node.done { background:#22C55E; border-color:#16A34A; }
-.pm-node.current { background:#FFC700; border-color:#FF9D00;
-  box-shadow:0 0 0 6px rgba(255,199,0,.25),
-  0 8px 24px rgba(255,199,0,.3); }
+.pm-node.done { background:linear-gradient(145deg,#22C55E,#16A34A);
+  box-shadow:0 8px 0 rgba(15,100,50,.4), 0 12px 20px rgba(34,197,94,.3),
+             inset 0 1px 0 rgba(255,255,255,.3); }
+.pm-node.current { background:linear-gradient(145deg,#FFC700,#FF9D00);
+  box-shadow:0 8px 0 rgba(200,120,0,.5), 0 12px 28px rgba(255,199,0,.4),
+             inset 0 1px 0 rgba(255,255,255,.4);
+  animation:node-pulse-3d 2s infinite; }
 @keyframes node-pulse {
-  0%,100%{ box-shadow:0 0 0 4px rgba(255,199,0,.3); }
-  50%{ box-shadow:0 0 0 8px rgba(255,199,0,.15); } }
+  0%,100%{ box-shadow:0 8px 0 rgba(0,0,0,.15), 0 0 0 4px rgba(255,199,0,.45), 0 12px 24px rgba(255,199,0,.25), inset 0 1px 0 rgba(255,255,255,.8); }
+  50%    { box-shadow:0 8px 0 rgba(0,0,0,.15), 0 0 0 8px rgba(255,199,0,.2),  0 12px 24px rgba(255,199,0,.15), inset 0 1px 0 rgba(255,255,255,.8); } }
+@keyframes node-pulse-3d {
+  0%,100%{ box-shadow:0 8px 0 rgba(200,120,0,.5), 0 12px 28px rgba(255,199,0,.4), inset 0 1px 0 rgba(255,255,255,.4); }
+  50%    { box-shadow:0 8px 0 rgba(200,120,0,.5), 0 16px 36px rgba(255,199,0,.6), inset 0 1px 0 rgba(255,255,255,.4); } }
 
 .pm-node-wrap { display:flex; flex-direction:column;
   align-items:center; gap:6px; }
@@ -585,17 +600,34 @@ footer span { color:var(--gold); }
   font-size:10px; color:#9CA3AF; }
 
 .pm-chest { width:80px; height:80px; border-radius:16px;
-  background:linear-gradient(135deg,#FFC700,#FF9D00);
+  background:linear-gradient(145deg,#FFD740,#E6A800);
   display:flex; align-items:center; justify-content:center;
-  font-size:36px; box-shadow:0 6px 20px rgba(255,199,0,.35);
-  cursor:pointer; transition:transform .2s; }
-.pm-chest:hover { transform:scale(1.06) rotate(-3deg); }
+  font-size:36px; cursor:pointer;
+  transition:transform .1s, box-shadow .1s, border-bottom-width .1s;
+  border-bottom:4px solid rgba(0,0,0,.2);
+  box-shadow:0 8px 0 rgba(180,120,0,.5), 0 12px 24px rgba(255,199,0,.35),
+             inset 0 1px 0 rgba(255,255,255,.4); }
+.pm-chest:hover  { transform:translateY(-2px) rotate(-3deg);
+  box-shadow:0 10px 0 rgba(180,120,0,.5), 0 14px 28px rgba(255,199,0,.4),
+             inset 0 1px 0 rgba(255,255,255,.4); }
+.pm-chest:active { transform:translateY(4px);
+  box-shadow:0 2px 0 rgba(180,120,0,.4), 0 4px 10px rgba(255,199,0,.2);
+  border-bottom-width:1px; }
+.pm-chest.locked { filter:grayscale(1); opacity:.5; cursor:not-allowed; }
 
 .pm-cert { width:90px; height:90px; border-radius:50%;
-  background:linear-gradient(135deg,#FFC700,#FF6B35);
+  background:linear-gradient(135deg,#FFC700,#FF9D00,#FF6B35);
   display:flex; align-items:center; justify-content:center;
-  font-size:40px; box-shadow:0 8px 28px rgba(255,199,0,.4);
-  cursor:pointer; border:4px solid white; }
+  font-size:40px; cursor:pointer; border:4px solid white;
+  transition:transform .1s, box-shadow .1s;
+  box-shadow:0 10px 0 rgba(180,80,0,.4), 0 14px 32px rgba(255,199,0,.4),
+             inset 0 2px 0 rgba(255,255,255,.4); }
+.pm-cert:hover  { transform:translateY(-3px);
+  box-shadow:0 12px 0 rgba(180,80,0,.4), 0 16px 36px rgba(255,199,0,.5),
+             inset 0 2px 0 rgba(255,255,255,.4); }
+.pm-cert:active { transform:translateY(4px);
+  box-shadow:0 3px 0 rgba(180,80,0,.35), 0 6px 14px rgba(255,199,0,.2); }
+.pm-cert.locked { filter:grayscale(1); opacity:.5; cursor:not-allowed; }
 
 .pm-modal { position:fixed; inset:0; z-index:700;
   background:rgba(0,0,0,.4); display:none;
@@ -931,6 +963,101 @@ footer span { color:var(--gold); }
   border:1.5px solid #86EFAC; }
 .pm-lesson-feedback.wrong { background:#FEF2F2; color:#B91C1C;
   border:1.5px solid #FCA5A5; }
+
+/* ── LESSON RICH STEPS (MEJORA 1) ── */
+.pm-ls-step { display:flex; flex-direction:column; gap:14px; width:100%; }
+.pm-ls-badge { display:inline-flex; align-items:center; gap:5px;
+  background:rgba(0,0,0,.06); border-radius:999px;
+  padding:4px 12px; font-size:11px; font-weight:700;
+  font-family:'Poppins',sans-serif; color:#374151;
+  letter-spacing:.04em; width:fit-content; }
+.pm-ls-intro { border-radius:18px; padding:20px 16px;
+  display:flex; align-items:center; gap:14px; }
+.pm-ls-mascot-sm { width:100px; height:100px; flex-shrink:0; }
+.pm-ls-mascot-sm svg { width:100px; height:100px; }
+.pm-ls-intro-right { display:flex; flex-direction:column; gap:8px; flex:1; }
+.pm-ls-bubble { font-family:'Poppins',sans-serif; font-size:15px;
+  font-weight:600; color:#0F1321; line-height:1.5;
+  background:white; border-radius:14px; padding:12px 14px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08); position:relative; }
+.pm-ls-bubble::before { content:''; position:absolute;
+  left:-9px; top:18px;
+  border:7px solid transparent; border-right-color:white; border-left:0; }
+.pm-ls-thinking-row { display:flex; align-items:center; gap:10px; }
+.pm-ls-mascot-xs { width:60px; height:60px; flex-shrink:0; display:inline-block; }
+.pm-ls-mascot-xs svg { width:60px; height:60px; }
+.pm-ls-thinking-lbl { font-family:'Poppins',sans-serif;
+  font-size:11px; font-weight:700; color:#9CA3AF;
+  letter-spacing:.07em; text-transform:uppercase; }
+.pm-ls-cards { display:flex; flex-direction:column; gap:10px; }
+.pm-ls-card { background:white; border-radius:14px;
+  border:1.5px solid #F3F4F6;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+  padding:12px 14px; display:flex; align-items:flex-start; gap:12px; }
+.pm-ls-card-icon { font-size:22px; flex-shrink:0; margin-top:1px; }
+.pm-ls-card-body { flex:1; }
+.pm-ls-card-title { font-family:'Poppins',sans-serif;
+  font-size:13px; font-weight:700; color:#0F1321; margin-bottom:3px; }
+.pm-ls-card-text { font-size:13px; color:#4B5563; line-height:1.6; }
+.pm-ls-stat-wrap { display:flex; align-items:stretch; gap:12px; }
+.pm-ls-stat-card { flex:1; background:#0F1321; border-radius:18px;
+  padding:24px 16px; display:flex; flex-direction:column;
+  align-items:center; gap:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,.25); }
+.pm-ls-stat-num { font-family:'Poppins',sans-serif;
+  font-size:42px; font-weight:900; line-height:1;
+  color:#FFC700; letter-spacing:-.02em; text-align:center; }
+.pm-ls-stat-desc { font-family:'Poppins',sans-serif;
+  font-size:13px; font-weight:600; color:rgba(255,255,255,.80);
+  text-align:center; line-height:1.4; }
+.pm-ls-stat-source { font-size:10px; color:rgba(255,255,255,.4);
+  letter-spacing:.06em; margin-top:4px; text-align:center; }
+.pm-ls-stat-mascot { width:86px; flex-shrink:0;
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:6px; }
+.pm-ls-stat-mascot svg { width:86px; height:86px; }
+.pm-ls-stat-bubble { background:#FFF8DC; border:1.5px solid #FFC700;
+  border-radius:10px; padding:5px 7px; font-size:11px;
+  font-weight:700; color:#92400E; text-align:center;
+  font-family:'Poppins',sans-serif; }
+.pm-ls-q-label { font-family:'Poppins',sans-serif;
+  font-weight:800; font-size:16px; color:#0F1321; line-height:1.35; }
+.pm-ls-opt-card { display:flex; align-items:center; gap:12px;
+  padding:13px 15px; border-radius:13px; cursor:pointer;
+  border:2px solid #E5E7EB; background:white;
+  transition:border-color .15s, background .15s, transform .1s;
+  text-align:left; width:100%; font-family:'Poppins',sans-serif;
+  font-size:14px; color:#374151; font-weight:500; }
+.pm-ls-opt-card:hover:not(:disabled) { border-color:var(--ls-color,#FFC700);
+  background:var(--ls-bg-hover,#FFFBEB); transform:translateX(2px); }
+.pm-ls-opt-letter { width:30px; height:30px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:800; flex-shrink:0;
+  background:#F3F4F6; color:#6B7280; transition:all .15s; }
+.pm-ls-opt-card:hover:not(:disabled) .pm-ls-opt-letter {
+  background:var(--ls-color,#FFC700); color:white; }
+.pm-ls-opt-card.correct { border-color:#22C55E; background:#F0FDF4;
+  animation:lsOptBounce .4s ease; }
+.pm-ls-opt-card.correct .pm-ls-opt-letter { background:#22C55E; color:white; }
+.pm-ls-opt-card.wrong { border-color:#EF4444; background:#FEF2F2;
+  animation:lsOptShake .4s ease; }
+.pm-ls-opt-card.wrong .pm-ls-opt-letter { background:#EF4444; color:white; }
+.pm-ls-opt-card:disabled { cursor:not-allowed; }
+.pm-ls-inline-correct { background:#F0FDF4; border:1.5px solid #86EFAC;
+  border-radius:12px; padding:12px 14px; font-size:13px;
+  color:#15803D; line-height:1.5; }
+.pm-ls-inline-wrong { background:#FEF2F2; border:1.5px solid #FCA5A5;
+  border-radius:12px; padding:12px 14px; font-size:13px;
+  color:#B91C1C; line-height:1.5; }
+@keyframes lsOptBounce {
+  0%{ transform:scale(1) } 30%{ transform:scale(1.04) }
+  65%{ transform:scale(.97) } 100%{ transform:scale(1) } }
+@keyframes lsOptShake {
+  0%,100%{ transform:translateX(0) }
+  20%{ transform:translateX(-6px) } 60%{ transform:translateX(5px) } }
+@keyframes lsVictory {
+  0%{ transform:scale(.7) rotate(-8deg) } 55%{ transform:scale(1.12) rotate(3deg) }
+  100%{ transform:scale(1) rotate(0) } }
 .pm-lesson-continue { width:100%; padding:15px; border:none;
   border-radius:14px; font-family:'Poppins',sans-serif;
   font-weight:800; font-size:16px; cursor:pointer;
@@ -940,6 +1067,263 @@ footer span { color:var(--gold); }
 .pm-lesson-continue.show { display:block; animation:fadeUp .2s ease; }
 .pm-lesson-continue:active { transform:translateY(2px);
   border-bottom-width:2px; }
+
+/* ── SIDEBAR v2 — Duolingo style ── */
+.path-ahorro      { --sb-color:#D97706; --sb-color-bg:rgba(255,199,0,.13); --sb-border:rgba(255,199,0,.4); }
+.path-deudas      { --sb-color:#DC2626; --sb-color-bg:rgba(239,68,68,.10); --sb-border:rgba(239,68,68,.35); }
+.path-inversion   { --sb-color:#16A34A; --sb-color-bg:rgba(34,197,94,.10); --sb-border:rgba(34,197,94,.35); }
+.path-presupuesto { --sb-color:#6D28D9; --sb-color-bg:rgba(124,111,255,.10); --sb-border:rgba(124,111,255,.35); }
+.pm-sidebar { width:252px; padding:20px 14px; gap:2px; }
+.pm-sidebar-item { padding:12px 14px; gap:14px; font-size:14px; border-radius:14px; border:1.5px solid transparent; }
+.pm-sidebar-item .pm-sb-icon { font-size:26px; width:34px; text-align:center; }
+.pm-sidebar-item.active { background:var(--sb-color-bg,#F3F4F6); color:var(--sb-color,#374151); border-color:var(--sb-border,#E5E7EB); }
+.pm-sidebar-item:hover:not(.active) { background:#F3F4F6; color:#374151; }
+.pm-sidebar-profile { padding:14px 16px; margin-top:auto; display:flex; flex-direction:column; gap:0; }
+.pm-sb-avatar { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,#FFC700,#FF9D00); display:flex; align-items:center; justify-content:center; margin-bottom:10px; }
+.pm-sb-avatar-letter { font-family:'Poppins',sans-serif; font-weight:800; font-size:20px; color:white; line-height:1; }
+.pm-sb-profile-name { font-size:14px; margin-bottom:10px; }
+.pm-sb-stat-row { gap:6px; }
+.pm-sb-chip { font-size:11.5px; padding:4px 10px; }
+.pm-cmf-widget { margin-top:10px; background:#F8FAFC; border:1px solid #E5E7EB; border-radius:12px; padding:11px 13px; }
+.pm-cmf-title { font-family:'Poppins',sans-serif; font-size:9.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#6B7280; margin-bottom:7px; }
+.pm-cmf-row { display:flex; justify-content:space-between; align-items:center; padding:4px 0; border-bottom:1px solid #F1F5F9; font-family:'Poppins',sans-serif; font-size:12px; font-weight:600; color:#374151; }
+.pm-cmf-row:last-of-type { border-bottom:none; }
+.pm-cmf-val { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:#0F1321; }
+.pm-cmf-updated { font-family:'Poppins',sans-serif; font-size:9px; color:#9CA3AF; margin-top:5px; text-align:right; }
+@media (max-width:640px) {
+  .pm-bottomnav-item { font-size:9.5px; gap:3px; }
+  .pm-bottomnav-item .pm-bn-icon { font-size:22px; }
+  .pm-bottomnav-item.active { color:var(--sb-color,#0F1321); }
+}
+
+/* ── PERFIL SCREEN ── */
+.pm-pf-overlay { position:fixed; inset:0; z-index:810; background:#F8F6F1; display:none; flex-direction:column; font-family:'Poppins',sans-serif; }
+.pm-pf-overlay.open { display:flex; }
+.pm-pf-inner { display:flex; flex-direction:column; height:100%; max-width:680px; margin:0 auto; width:100%; }
+.pm-pf-header { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; background:white; border-bottom:1px solid rgba(0,0,0,.07); flex-shrink:0; }
+.pm-pf-back { width:40px; height:40px; border-radius:12px; border:none; background:#F3F4F6; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; transition:background .15s; }
+.pm-pf-back:hover { background:#E5E7EB; }
+.pm-pf-header-title { font-weight:800; font-size:17px; color:#0F1321; }
+.pm-pf-scroll { flex:1; overflow-y:auto; padding:24px 20px 100px; display:flex; flex-direction:column; gap:28px; }
+.pm-pf-hero { display:flex; flex-direction:column; align-items:center; gap:10px; padding:20px 0 4px; }
+.pm-pf-mascot { font-size:60px; line-height:1; animation:pmPfFloat 3s ease-in-out infinite; }
+@keyframes pmPfFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+.pm-pf-avatar { width:76px; height:76px; border-radius:50%; background:linear-gradient(135deg,#FFC700,#FF9D00); display:flex; align-items:center; justify-content:center; font-size:34px; font-weight:800; color:white; box-shadow:0 6px 24px rgba(255,199,0,.4); }
+.pm-pf-username { font-weight:800; font-size:22px; color:#0F1321; }
+.pm-pf-frase { font-size:13px; color:#6B7280; text-align:center; max-width:280px; line-height:1.6; }
+.pm-pf-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.pm-pf-stat-card { background:white; border:1px solid #E5E7EB; border-radius:16px; padding:14px 8px; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.pm-pf-stat-icon { font-size:22px; }
+.pm-pf-stat-val { font-family:'JetBrains Mono',monospace; font-weight:800; font-size:18px; color:#0F1321; }
+.pm-pf-stat-lbl { font-size:9.5px; font-weight:600; color:#9CA3AF; text-transform:uppercase; letter-spacing:.06em; }
+.pm-pf-section { display:flex; flex-direction:column; gap:12px; }
+.pm-pf-section-title { font-weight:800; font-size:15px; color:#0F1321; border-bottom:2.5px solid #FFC700; padding-bottom:6px; display:inline-block; }
+.pm-pf-badges { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.pm-pf-badge { background:white; border:1.5px solid #E5E7EB; border-radius:16px; padding:16px 10px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; transition:transform .15s; position:relative; user-select:none; }
+.pm-pf-badge:hover { transform:scale(1.04); }
+.pm-pf-badge.earned { border-color:rgba(255,199,0,.55); background:linear-gradient(135deg,#FFFDF0,#FFF8DC); animation:pmBadgeShimmer 3.5s ease-in-out infinite; }
+@keyframes pmBadgeShimmer { 0%,100%{box-shadow:0 0 0 0 rgba(255,199,0,0)} 50%{box-shadow:0 0 18px 5px rgba(255,199,0,.28)} }
+.pm-pf-badge.locked { opacity:.4; filter:grayscale(1); }
+.pm-pf-badge-icon { font-size:32px; }
+.pm-pf-badge-name { font-size:10.5px; font-weight:700; color:#374151; text-align:center; line-height:1.3; }
+.pm-pf-badge-lock { position:absolute; top:7px; right:8px; font-size:11px; color:#9CA3AF; }
+.pm-pf-badge-tip { position:fixed; z-index:820; background:#1F2937; color:white; border-radius:12px; padding:10px 14px; font-family:'Poppins',sans-serif; font-size:12px; font-weight:500; line-height:1.5; max-width:220px; box-shadow:0 8px 28px rgba(0,0,0,.28); pointer-events:none; }
+.pm-pf-paths { display:flex; flex-direction:column; gap:10px; }
+.pm-pf-path-card { background:white; border:1.5px solid #E5E7EB; border-radius:16px; padding:14px 16px; display:flex; align-items:center; gap:14px; }
+.pm-pf-path-card.unstarted { opacity:.55; }
+.pm-pf-path-icon { font-size:28px; flex-shrink:0; }
+.pm-pf-path-info { flex:1; min-width:0; }
+.pm-pf-path-name { font-weight:700; font-size:14px; color:#0F1321; margin-bottom:6px; }
+.pm-pf-path-bar-wrap { height:7px; background:#F3F4F6; border-radius:999px; overflow:hidden; margin-bottom:4px; }
+.pm-pf-path-bar { height:100%; border-radius:999px; background:linear-gradient(90deg,#FFC700,#FF9D00); transition:width .6s ease; }
+.pm-pf-path-pct { font-size:10.5px; font-weight:600; color:#6B7280; }
+.pm-pf-path-status { font-size:22px; flex-shrink:0; }
+.pm-pf-certs { display:flex; flex-direction:column; gap:10px; }
+.pm-pf-cert-card { background:linear-gradient(135deg,#FFFDF0,#FFF8DC); border:1.5px solid rgba(255,199,0,.4); border-radius:16px; padding:16px; display:flex; align-items:flex-start; gap:14px; }
+.pm-pf-cert-badge { font-size:34px; flex-shrink:0; margin-top:2px; }
+.pm-pf-cert-info { flex:1; }
+.pm-pf-cert-name { font-weight:700; font-size:14px; color:#0F1321; }
+.pm-pf-cert-date { font-size:11px; color:#9CA3AF; margin-top:2px; }
+.pm-pf-cert-btns { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+.pm-pf-cert-btn { font-family:'Poppins',sans-serif; font-size:11px; font-weight:700; padding:7px 14px; border-radius:999px; cursor:pointer; border:1.5px solid; transition:all .15s; }
+.pm-pf-cert-btn.primary { background:#FFC700; border-color:#FFC700; color:#0F1321; }
+.pm-pf-cert-btn.secondary { background:transparent; border-color:rgba(255,199,0,.55); color:#D97706; }
+@media (max-width:500px) {
+  .pm-pf-stats { grid-template-columns:repeat(2,1fr); }
+  .pm-pf-badges { grid-template-columns:repeat(2,1fr); }
+}
+
+/* ── CONCEPTOS SCREEN ── */
+.pm-cx-overlay { position:fixed; inset:0; z-index:810; background:#F8F6F1; display:none; flex-direction:column; font-family:'Poppins',sans-serif; }
+.pm-cx-overlay.open { display:flex; }
+.pm-cx-inner { display:flex; flex-direction:column; height:100%; max-width:860px; margin:0 auto; width:100%; position:relative; }
+.pm-cx-header { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; background:white; border-bottom:1px solid rgba(0,0,0,.07); flex-shrink:0; }
+.pm-cx-back { width:40px; height:40px; border-radius:12px; border:none; background:#F3F4F6; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; transition:background .15s; }
+.pm-cx-back:hover { background:#E5E7EB; }
+.pm-cx-header-title { font-weight:800; font-size:17px; color:#0F1321; }
+.pm-cx-search-wrap { padding:14px 20px 10px; background:white; border-bottom:1px solid rgba(0,0,0,.05); flex-shrink:0; }
+.pm-cx-search { width:100%; border:1.5px solid #E5E7EB; border-radius:14px; padding:11px 16px; font-family:'Poppins',sans-serif; font-size:14px; color:#0F1321; outline:none; background:#F8FAFC; transition:border-color .2s; }
+.pm-cx-search:focus { border-color:#FFC700; background:white; }
+.pm-cx-scroll { flex:1; overflow-y:auto; padding:16px 20px 100px; }
+.pm-cx-empty { text-align:center; padding:48px 20px; color:#9CA3AF; font-size:14px; }
+.pm-cx-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; }
+.pm-cx-card { background:white; border:1.5px solid #E5E7EB; border-radius:16px; padding:14px; cursor:pointer; transition:transform .15s,box-shadow .15s; }
+.pm-cx-card:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.08); }
+.pm-cx-card-top { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.pm-cx-icon { width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+.pm-cx-icon.cat-ahorro    { background:rgba(255,199,0,.15); }
+.pm-cx-icon.cat-deudas    { background:rgba(239,68,68,.10); }
+.pm-cx-icon.cat-inversion { background:rgba(34,197,94,.10); }
+.pm-cx-icon.cat-general   { background:rgba(59,130,246,.10); }
+.pm-cx-card-right { flex:1; min-width:0; }
+.pm-cx-name { font-weight:800; font-size:14px; color:#0F1321; }
+.pm-cx-cmf-badge { font-size:9.5px; font-weight:700; color:#D97706; background:rgba(255,199,0,.12); border-radius:999px; padding:2px 7px; }
+.pm-cx-short { font-size:12px; color:#6B7280; line-height:1.5; margin-bottom:8px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.pm-cx-tag { display:inline-flex; align-items:center; gap:3px; font-size:10px; font-weight:700; padding:3px 9px; border-radius:999px; }
+.pm-cx-tag.cat-ahorro    { background:rgba(255,199,0,.15); color:#B45309; }
+.pm-cx-tag.cat-deudas    { background:rgba(239,68,68,.10); color:#DC2626; }
+.pm-cx-tag.cat-inversion { background:rgba(34,197,94,.10); color:#16A34A; }
+.pm-cx-tag.cat-general   { background:rgba(59,130,246,.10); color:#2563EB; }
+.pm-cx-platin { position:fixed; bottom:90px; right:24px; font-size:44px; animation:pmPfFloat 3s ease-in-out infinite; pointer-events:none; opacity:.75; z-index:811; }
+
+/* Conceptos modal */
+.pm-cx-modal { position:fixed; inset:0; z-index:820; background:rgba(0,0,0,.45); display:none; align-items:flex-end; justify-content:center; }
+.pm-cx-modal.open { display:flex; }
+.pm-cx-modal-card { background:white; border-radius:24px 24px 0 0; padding:28px 24px 48px; width:100%; max-width:680px; max-height:82vh; overflow-y:auto; position:relative; }
+.pm-cx-modal-close { position:absolute; top:18px; right:18px; width:32px; height:32px; border-radius:50%; border:none; background:#F3F4F6; cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center; }
+.pm-cx-modal-icon { font-size:38px; margin-bottom:10px; }
+.pm-cx-modal-name { font-weight:800; font-size:22px; color:#0F1321; }
+.pm-cx-modal-fullname { font-size:13px; color:#6B7280; margin-bottom:16px; margin-top:2px; }
+.pm-cx-modal-def { font-size:14px; color:#374151; line-height:1.75; margin-bottom:14px; }
+.pm-cx-modal-example { background:#F8FAFC; border-left:3px solid #FFC700; border-radius:0 12px 12px 0; padding:12px 16px; font-size:13px; color:#374151; line-height:1.65; margin-bottom:14px; }
+.pm-cx-modal-cmf { background:rgba(255,199,0,.08); border:1px solid rgba(255,199,0,.35); border-radius:12px; padding:12px 16px; margin-bottom:20px; }
+.pm-cx-modal-cmf-label { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#D97706; margin-bottom:4px; }
+.pm-cx-modal-cmf-val { font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:800; color:#0F1321; }
+.pm-cx-modal-btn { display:block; width:100%; background:#FFC700; border:2px solid #E6B000; border-radius:14px; padding:14px; font-family:'Poppins',sans-serif; font-weight:800; font-size:14px; color:#0F1321; cursor:pointer; text-align:center; transition:background .15s; }
+.pm-cx-modal-btn:hover { background:#FFD740; }
+@media (max-width:480px) { .pm-cx-grid { grid-template-columns:repeat(2,1fr); } }
+
+/* ── DESAFÍOS SCREEN ── */
+.pm-df-overlay { position:fixed; inset:0; z-index:810; background:#FFFBF0; display:none; flex-direction:column; font-family:'Poppins',sans-serif; overflow-y:auto; }
+.pm-df-overlay.open { display:flex; }
+.pm-df-header { display:flex; align-items:center; gap:12px; padding:18px 20px 14px; background:white; border-bottom:1.5px solid #F3E8C0; position:sticky; top:0; z-index:5; }
+.pm-df-back { background:none; border:none; font-size:22px; cursor:pointer; padding:4px 8px; border-radius:10px; color:#374151; transition:background .15s; }
+.pm-df-back:hover { background:#F3F4F6; }
+.pm-df-header-text { flex:1; }
+.pm-df-title { font-size:18px; font-weight:800; color:#0F1321; }
+.pm-df-countdown { font-size:12px; color:#D97706; font-weight:600; margin-top:1px; }
+.pm-df-body { padding:20px 16px 40px; max-width:500px; width:100%; margin:0 auto; display:flex; flex-direction:column; gap:20px; }
+.pm-df-mascot { text-align:center; font-size:52px; line-height:1; animation:pm-df-bounce .9s ease-in-out infinite alternate; }
+@keyframes pm-df-bounce { from{transform:translateY(0)} to{transform:translateY(-8px)} }
+.pm-df-mascot-msg { text-align:center; font-size:13px; color:#6B7280; font-weight:500; margin-top:4px; }
+.pm-df-section-title { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#D97706; margin-bottom:2px; }
+.pm-df-card { background:white; border:2px solid #F3E8C0; border-radius:18px; padding:16px 18px; display:flex; flex-direction:column; gap:10px; transition:border-color .2s,box-shadow .2s; }
+.pm-df-card.done { border-color:#22C55E; background:#F0FDF4; }
+.pm-df-card-top { display:flex; align-items:flex-start; gap:12px; }
+.pm-df-card-icon { font-size:26px; flex-shrink:0; margin-top:2px; }
+.pm-df-card-info { flex:1; }
+.pm-df-card-name { font-size:14px; font-weight:700; color:#0F1321; margin-bottom:2px; }
+.pm-df-card-name.done { color:#16A34A; }
+.pm-df-card-reward { font-size:12px; color:#D97706; font-weight:600; }
+.pm-df-card-badge { font-size:20px; flex-shrink:0; }
+.pm-df-bar-wrap { background:#F3F4F6; border-radius:999px; height:8px; overflow:hidden; }
+.pm-df-bar { height:100%; border-radius:999px; background:linear-gradient(90deg,#FFC700,#D97706); transition:width .4s ease; }
+.pm-df-bar.done { background:linear-gradient(90deg,#4ADE80,#16A34A); }
+.pm-df-bar-label { font-size:11px; color:#9CA3AF; font-weight:600; margin-top:4px; text-align:right; }
+.pm-df-bonus { background:linear-gradient(135deg,#FFF8DC,#FFE8A0); border:2px solid #FFC700; border-radius:18px; padding:16px 18px; display:flex; align-items:center; gap:14px; }
+.pm-df-bonus-icon { font-size:32px; }
+.pm-df-bonus-text { flex:1; }
+.pm-df-bonus-title { font-size:14px; font-weight:800; color:#92400E; }
+.pm-df-bonus-sub { font-size:12px; color:#B45309; }
+.pm-df-bonus.earned { background:linear-gradient(135deg,#F0FDF4,#DCFCE7); border-color:#22C55E; }
+.pm-df-bonus.earned .pm-df-bonus-title { color:#14532D; }
+.pm-df-bonus.earned .pm-df-bonus-sub { color:#16A34A; }
+.pm-df-history { display:flex; flex-direction:column; gap:10px; }
+.pm-df-hist-row { display:flex; align-items:center; gap:8px; }
+.pm-df-hist-dots { display:flex; gap:6px; flex:1; flex-wrap:wrap; }
+.pm-df-hist-dot { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; border:2px solid transparent; flex-shrink:0; }
+.pm-df-hist-dot.full    { background:#FFF3CD; border-color:#FFC700; }
+.pm-df-hist-dot.partial { background:#F0F0F0; border-color:#D1D5DB; }
+.pm-df-hist-dot.empty   { background:#F9FAFB; border-color:#E5E7EB; color:#D1D5DB; }
+.pm-df-hist-streak { font-size:13px; font-weight:700; color:#D97706; white-space:nowrap; }
+
+/* ── LIGAS SCREEN ── */
+.pm-lg-overlay { position:fixed; inset:0; z-index:810; background:#0F1321; display:none; flex-direction:column; font-family:'Poppins',sans-serif; overflow-y:auto; }
+.pm-lg-overlay.open { display:flex; }
+.pm-lg-header { display:flex; align-items:center; gap:12px; padding:18px 20px 14px; background:#191E32; border-bottom:1.5px solid rgba(255,199,0,.2); position:sticky; top:0; z-index:5; }
+.pm-lg-back { background:none; border:none; font-size:22px; cursor:pointer; padding:4px 8px; border-radius:10px; color:#94A3B8; transition:background .15s; }
+.pm-lg-back:hover { background:rgba(255,255,255,.08); }
+.pm-lg-header-text { flex:1; }
+.pm-lg-title { font-size:18px; font-weight:800; color:#F8FAFC; }
+.pm-lg-countdown { font-size:12px; color:#FFC700; font-weight:600; margin-top:1px; }
+.pm-lg-body { padding:20px 16px 40px; max-width:500px; width:100%; margin:0 auto; display:flex; flex-direction:column; gap:18px; }
+/* Badge de liga */
+.pm-lg-badge-wrap { display:flex; flex-direction:column; align-items:center; gap:6px; }
+.pm-lg-badge-icon { font-size:56px; line-height:1; filter:drop-shadow(0 4px 16px rgba(255,199,0,.35)); animation:pm-lg-pulse 2s ease-in-out infinite; }
+@keyframes pm-lg-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.07)} }
+.pm-lg-badge-name { font-size:13px; font-weight:700; color:#FFC700; letter-spacing:.08em; text-transform:uppercase; }
+.pm-lg-tabs { display:flex; gap:6px; }
+.pm-lg-tab { flex:1; padding:8px 4px; border-radius:10px; border:1.5px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04); font-size:11px; font-weight:700; color:#6B7280; cursor:pointer; text-align:center; transition:all .15s; }
+.pm-lg-tab.active { background:rgba(255,199,0,.15); border-color:rgba(255,199,0,.4); color:#FFC700; }
+/* Mascot */
+.pm-lg-mascot-card { background:#191E32; border:1.5px solid rgba(255,199,0,.18); border-radius:16px; padding:14px 16px; display:flex; align-items:center; gap:12px; }
+.pm-lg-mascot-emoji { font-size:36px; flex-shrink:0; animation:pm-df-bounce .9s ease-in-out infinite alternate; }
+.pm-lg-mascot-msg { font-size:13px; color:#CBD5E1; font-weight:500; line-height:1.5; }
+/* Ranking */
+.pm-lg-section-title { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#64748B; margin-bottom:4px; }
+.pm-lg-list { display:flex; flex-direction:column; gap:4px; }
+.pm-lg-row { display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:14px; background:#191E32; border:1.5px solid rgba(255,255,255,.05); transition:background .15s; }
+.pm-lg-row.zone-up   { background:rgba(34,197,94,.08);  border-color:rgba(34,197,94,.2);  }
+.pm-lg-row.zone-down { background:rgba(239,68,68,.07);  border-color:rgba(239,68,68,.18); }
+.pm-lg-row.me        { background:rgba(255,199,0,.12);  border-color:rgba(255,199,0,.4);  }
+.pm-lg-pos { width:26px; text-align:center; font-size:13px; font-weight:800; color:#64748B; flex-shrink:0; }
+.pm-lg-pos.gold   { color:#FFC700; font-size:16px; }
+.pm-lg-pos.silver { color:#94A3B8; font-size:16px; }
+.pm-lg-pos.bronze { color:#B45309; font-size:16px; }
+.pm-lg-avatar { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; flex-shrink:0; }
+.pm-lg-avatar.me-av { background:linear-gradient(135deg,#FFC700,#FF9D00); color:#0F1321; }
+.pm-lg-avatar.npc   { background:#2D3655; color:#94A3B8; }
+.pm-lg-name { flex:1; font-size:13px; font-weight:600; color:#E2E8F0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pm-lg-name.me-name { color:#FFC700; font-weight:800; }
+.pm-lg-xp { font-size:13px; font-weight:700; color:#94A3B8; white-space:nowrap; }
+.pm-lg-xp.me-xp { color:#FFC700; }
+.pm-lg-zone-label { font-size:10px; font-weight:700; letter-spacing:.06em; padding:2px 8px; border-radius:999px; flex-shrink:0; }
+.pm-lg-zone-label.up   { background:rgba(34,197,94,.15);  color:#4ADE80; }
+.pm-lg-zone-label.down { background:rgba(239,68,68,.15);  color:#F87171; }
+/* XP semanal card */
+.pm-lg-xp-card { background:#191E32; border:1.5px solid rgba(255,199,0,.18); border-radius:16px; padding:14px 16px; display:flex; align-items:center; gap:12px; }
+.pm-lg-xp-icon { font-size:28px; }
+.pm-lg-xp-info { flex:1; }
+.pm-lg-xp-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:#64748B; }
+.pm-lg-xp-val { font-size:22px; font-weight:800; color:#FFC700; }
+.pm-lg-xp-sub { font-size:11px; color:#475569; margin-top:1px; }
+
+/* ── PATHMAP ZIGZAG (reglas faltantes de pathmap.css) ── */
+.pm-scroll-zigzag { align-items:stretch; max-width:560px; }
+.pm-node-wrap.pm-pos-left  { padding-left:calc(20% - 40px); align-items:flex-start; }
+.pm-node-wrap.pm-pos-right { padding-left:calc(60% - 40px); align-items:flex-start; }
+.pm-node-wrap.pm-pos-center { align-self:center; }
+.pm-curve { height:56px; }
+.pm-curve-rl { width:40%; align-self:flex-end; margin-right:40%; border-right:4px solid #E5E7EB; border-bottom:4px solid #E5E7EB; border-bottom-right-radius:56px; }
+.pm-curve-lr { width:40%; align-self:flex-start; margin-left:20%; border-left:4px solid #E5E7EB; border-bottom:4px solid #E5E7EB; border-bottom-left-radius:56px; }
+.pm-curve.done { border-color:#22C55E; }
+.pm-connector { width:4px; height:48px; background:#E5E7EB; border-radius:2px; align-self:center; }
+.pm-connector.done { background:#22C55E; }
+.pm-platín-here { display:flex; flex-direction:column; align-items:center; gap:2px; margin-bottom:6px; animation:platín-float 1.4s ease-in-out infinite; }
+.pm-platín-coin { font-size:22px; }
+.pm-platín-lbl  { font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; color:#FFC700; background:rgba(255,199,0,.12); border:1px solid rgba(255,199,0,.35); border-radius:999px; padding:1px 7px; letter-spacing:.08em; }
+@keyframes platín-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.pm-skip-btn { margin-top:8px; background:rgba(239,68,68,.08); border:1.5px solid rgba(239,68,68,.35); border-radius:999px; font-family:'Poppins',sans-serif; font-size:11px; font-weight:700; color:#EF4444; padding:5px 14px; cursor:pointer; transition:all .2s; display:inline-flex; align-items:center; gap:4px; }
+.pm-skip-btn:hover { background:rgba(239,68,68,.16); border-color:rgba(239,68,68,.6); }
+.pm-stage-banner { width:100%; border-radius:16px; padding:14px 18px; display:flex; align-items:center; gap:14px; margin:20px 0 6px; border:1.5px solid rgba(0,0,0,.06); }
+.pm-stage-icon { font-size:26px; flex-shrink:0; }
+.pm-stage-num  { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:#92400E; opacity:.75; margin-bottom:2px; }
+.pm-stage-name { font-family:'Poppins',sans-serif; font-weight:800; font-size:14px; color:#0F1321; }
+.pm-section-banner { width:100%; background:white; border:1.5px solid rgba(0,0,0,.08); border-radius:14px; padding:14px 16px; margin:4px 0 10px; box-shadow:0 2px 8px rgba(0,0,0,.05); }
+.pm-section-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+.pm-section-icon { font-size:18px; }
+.pm-section-label { font-family:'Poppins',sans-serif; font-weight:800; font-size:14px; color:#0F1321; margin-bottom:4px; }
+.pm-section-desc { font-size:12px; color:#6B7280; line-height:1.55; }
 </style>
 </head>
 <body>
@@ -1937,6 +2321,8 @@ function closePathGame(id) {
     pmGainLife(pathId);
     pmCheckBadges(pathId);
     showAchievement('🏆', '¡Nivel superado!', 'Sigue así', 150);
+    if (typeof pmDfOnGameComplete === 'function') pmDfOnGameComplete();
+    if (typeof pmLgAwardXp === 'function') pmLgAwardXp(25);
     openPath(pathId);
   } else {
     // Salió sin ganar: volver al mapa sin marcar nodo
@@ -4581,101 +4967,170 @@ const PATH_DATA = {
   ahorro: {
     name: '💰 Guardar tu plata',
     color: '#FFC700',
+    sections: [
+      { firstNodeId:'a1',  stageNum:'1.1', stageId:1, stageName:'Primeros pasos del ahorro', stageIcon:'🌱', stageBg:'linear-gradient(135deg,#F0FFF4,#DCFCE7)', icon:'💡', label:'¿Qué es ahorrar?',           desc:'Aprende los fundamentos del ahorro y pon en práctica la regla 50/30/20' },
+      { firstNodeId:'a6',  stageNum:'1.2', stageId:1, icon:'🛠️', label:'Herramientas de ahorro',      desc:'Descubre el APV y el fondo de emergencia para proteger tu futuro' },
+      { firstNodeId:'a11', stageNum:'2.1', stageId:2, stageName:'Ahorro avanzado',             stageIcon:'🚀', stageBg:'linear-gradient(135deg,#FFFDF0,#FEF9C3)', icon:'📈', label:'Instrumentos financieros',    desc:'Cuenta Vista vs Corriente y fondos mutuos para hacer crecer tu dinero' },
+      { firstNodeId:'a16', stageNum:'2.2', stageId:2, icon:'🤖', label:'Hábitos que cambian tu vida', desc:'Ahorro automático e inversión para construir tu libertad financiera' },
+      { firstNodeId:'a21', stageNum:'3.1', stageId:3, stageName:'Hábitos que duran',           stageIcon:'💪', stageBg:'linear-gradient(135deg,#EFF6FF,#DBEAFE)', icon:'🤖', label:'Págate a ti primero',        desc:'Ahorro automático y transferencias programadas — el sistema que funciona solo' },
+      { firstNodeId:'a24', stageNum:'3.2', stageId:3, icon:'🐜', label:'Gastos hormiga',               desc:'Identifica y elimina los gastos pequeños que destruyen tu presupuesto' },
+      { firstNodeId:'a27', stageNum:'3.3', stageId:3, icon:'✨', label:'El interés compuesto',         desc:'El octavo milagro del mundo — cómo el tiempo multiplica tu dinero' },
+      { firstNodeId:'a29', stageNum:'3.4', stageId:3, icon:'🎯', label:'Metas de ahorro',              desc:'Corto y largo plazo — define metas concretas con fecha y monto' },
+      { firstNodeId:'a32', stageNum:'3.5', stageId:3, icon:'🏅', label:'Cierre Etapa 3',              desc:'Repaso de hábitos, desafío real y cofre grande — ¡hábito formado!' },
+    ],
     nodes: [
-      { id:'a1',  type:'lesson', icon:'📚', label:'¿Qué es ahorrar?',
-        desc:'Aprende por qué ahorrar es el primer paso hacia la libertad financiera.', cost:0 },
-      { id:'a2',  type:'game',   icon:'🎰', label:'CoinSpín',
-        desc:'Gira la ruleta y acumula fichas de ahorro.', cost:0, game:'ahorro', level:1 },
-      { id:'a3',  type:'lesson', icon:'📚', label:'Regla 50/30/20',
-        desc:'El método más simple para ordenar tu sueldo desde hoy.', cost:0 },
-      { id:'a4',  type:'game',   icon:'🎰', label:'CoinSpín nivel 2',
-        desc:'Pon a prueba tus hábitos de ahorro.', cost:3, game:'ahorro', level:2 },
-      { id:'a5',  type:'chest',  icon:'🎁', label:'Cofre', desc:'¡Recompensa desbloqueada! +50 XP', cost:0 },
-      { id:'a6',  type:'lesson', icon:'📚', label:'¿Qué es el APV?',
-        desc:'El APV te da beneficios tributarios para ahorrar más.', cost:0 },
-      { id:'a7',  type:'game',   icon:'🎰', label:'CoinSpín nivel 3',
-        desc:'Sube de nivel en tu alcancía.', cost:3, game:'ahorro', level:3 },
-      { id:'a8',  type:'lesson', icon:'📚', label:'Fondo de emergencia',
-        desc:'¿Cuánto debes tener guardado para imprevistos?', cost:0 },
-      { id:'a9',  type:'game',   icon:'🎰', label:'CoinSpín nivel 4',
-        desc:'Ronda final del camino ahorro.', cost:3, game:'ahorro', level:4 },
-      { id:'a10', type:'cert',   icon:'🏆', label:'Certificado Ahorro',
-        desc:'¡Completaste el camino! Eres un/a experto/a en ahorro.', cost:0 }
+      /* ── Etapa 1 · Sección 1.1 ── */
+      { id:'a1',  type:'lesson', icon:'📚', label:'¿Qué es ahorrar?',           desc:'Aprende por qué ahorrar es el primer paso hacia la libertad financiera.', cost:0 },
+      { id:'a2',  type:'game',   icon:'🎰', label:'CoinSpín',                    desc:'Gira la ruleta y acumula fichas de ahorro.', cost:0, game:'ahorro', level:1 },
+      { id:'a3',  type:'lesson', icon:'📚', label:'Regla 50/30/20',              desc:'El método más simple para ordenar tu sueldo desde hoy.', cost:0 },
+      { id:'a4',  type:'game',   icon:'🎰', label:'CoinSpín nivel 2',            desc:'Pon a prueba tus hábitos de ahorro.', cost:3, game:'ahorro', level:2 },
+      { id:'a5',  type:'chest',  icon:'🎁', label:'Cofre',                       desc:'¡Recompensa desbloqueada! +50 XP +10 fichas', cost:0, coins:10 },
+      /* ── Etapa 1 · Sección 1.2 ── */
+      { id:'a6',  type:'lesson', icon:'📚', label:'¿Qué es el APV?',             desc:'El APV te da beneficios tributarios para ahorrar más.', cost:0 },
+      { id:'a7',  type:'game',   icon:'🎰', label:'CoinSpín nivel 3',            desc:'Sube de nivel en tu alcancía.', cost:3, game:'ahorro', level:3 },
+      { id:'a8',  type:'lesson', icon:'📚', label:'Fondo de emergencia',         desc:'¿Cuánto debes tener guardado para imprevistos?', cost:0 },
+      { id:'a9',  type:'game',   icon:'🎰', label:'CoinSpín nivel 4',            desc:'Domina el ahorro disciplinado.', cost:3, game:'ahorro', level:4 },
+      { id:'a10', type:'chest',  icon:'🎁', label:'Cofre',                       desc:'¡Recompensa desbloqueada! +75 XP +15 fichas', cost:0, coins:15 },
+      /* ── Etapa 2 · Sección 2.1 ── */
+      { id:'a11', type:'lesson', icon:'📚', label:'Cuenta Vista vs Corriente',   desc:'Una mala elección puede costarte miles al año en comisiones.', cost:0 },
+      { id:'a12', type:'game',   icon:'🎰', label:'CoinSpín nivel 5',            desc:'Sube al siguiente nivel de ahorro.', cost:3, game:'ahorro', level:5 },
+      { id:'a13', type:'lesson', icon:'📚', label:'¿Qué son los fondos mutuos?', desc:'Invierte junto a miles de personas desde $1.000 CLP.', cost:0 },
+      { id:'a14', type:'game',   icon:'🎰', label:'CoinSpín nivel 6',            desc:'Pon a prueba tus conocimientos de inversión.', cost:3, game:'ahorro', level:6 },
+      { id:'a15', type:'chest',  icon:'🎁', label:'Cofre',                       desc:'¡Recompensa desbloqueada! +100 XP +20 fichas', cost:0, coins:20 },
+      /* ── Etapa 2 · Sección 2.2 ── */
+      { id:'a16', type:'lesson', icon:'📚', label:'Ahorro automático',           desc:'El secreto de los mejores ahorradores.', cost:0 },
+      { id:'a17', type:'game',   icon:'🎰', label:'CoinSpín nivel 7',            desc:'Automatiza tu ahorro con práctica.', cost:3, game:'ahorro', level:7 },
+      { id:'a18', type:'lesson', icon:'📚', label:'Inversión vs Ahorro',         desc:'¿Sabes la diferencia? Confundirlos puede costarte años.', cost:0 },
+      { id:'a19', type:'game',   icon:'🎰', label:'CoinSpín nivel 8',            desc:'Ronda final del camino avanzado.', cost:3, game:'ahorro', level:8 },
+      { id:'a20', type:'cert',   icon:'🏆', label:'Certificado Etapa 2',         desc:'¡Completaste Etapa 2! Eres experto/a en ahorro.', cost:0 },
+      /* ── Etapa 3 · Sección 3.1 ── */
+      { id:'a21', type:'lesson', icon:'📚', label:'Págate a ti primero',         desc:'El mejor truco de los grandes ahorradores: guardar ANTES de gastar.', cost:0 },
+      { id:'a22', type:'lesson', icon:'📚', label:'Transferencias programadas',  desc:'Todos los bancos chilenos permiten programar transferencias automáticas gratis.', cost:0 },
+      { id:'a23', type:'game',   icon:'🎰', label:'CoinSpín nivel 9',            desc:'¡Igual que el ahorro automático — constancia da resultados!', cost:3, game:'ahorro', level:9 },
+      /* ── Etapa 3 · Sección 3.2 ── */
+      { id:'a24', type:'lesson', icon:'📚', label:'¿Qué son los gastos hormiga?',desc:'¿Sabes cuánto gastas en café, delivery y suscripciones al mes?', cost:0 },
+      { id:'a25', type:'lesson', icon:'📚', label:'Cómo eliminar gastos hormiga',desc:'Identificar el problema es el primer paso — atacarlo sin sufrir.', cost:0 },
+      { id:'a26', type:'chest',  icon:'🎁', label:'Cofre Hábitos',               desc:'¡Recompensa desbloqueada! +50 fichas', cost:0, coins:50 },
+      /* ── Etapa 3 · Sección 3.3 ── */
+      { id:'a27', type:'lesson', icon:'📚', label:'El 8vo milagro del mundo',    desc:'Einstein llamó al interés compuesto el octavo milagro del mundo.', cost:0 },
+      { id:'a28', type:'game',   icon:'🎰', label:'CoinSpín nivel 10',           desc:'El interés compuesto en acción — cada ficha te acerca más.', cost:3, game:'ahorro', level:10 },
+      /* ── Etapa 3 · Sección 3.4 ── */
+      { id:'a29', type:'lesson', icon:'📚', label:'Ahorro a corto plazo',        desc:'Las metas cortas te mantienen motivado con resultados visibles.', cost:0 },
+      { id:'a30', type:'lesson', icon:'📚', label:'Ahorro a largo plazo',        desc:'Casa, educación, jubilación — el tiempo es tu mayor ventaja.', cost:0 },
+      { id:'a31', type:'chest',  icon:'🎁', label:'Cofre Metas',                 desc:'¡Recompensa desbloqueada! +60 fichas', cost:0, coins:60 },
+      /* ── Etapa 3 · Sección 3.5 ── */
+      { id:'a32', type:'lesson', icon:'📚', label:'Repaso: hábitos clave',       desc:'Los 5 hábitos más importantes del ahorro en Chile.', cost:0 },
+      { id:'a33', type:'game',   icon:'🎰', label:'CoinSpín nivel 11',           desc:'Constancia y hábito — sigue girando.', cost:3, game:'ahorro', level:11 },
+      { id:'a34', type:'lesson', icon:'📚', label:'Desafío de la semana',        desc:'Platín te propone un reto real: anota todos tus gastos esta semana.', cost:0 },
+      { id:'a35', type:'chest',  icon:'🎁', label:'Cofre Grande Etapa 3',        desc:'¡Completaste Etapa 3! +200 fichas + badge 💪 Hábito Formado', cost:0, coins:200, badge:'habito_formado' },
     ]
   },
   deudas: {
     name: '💳 Aplasta tus deudas',
     color: '#EF4444',
+    sections: [
+      { firstNodeId:'d1',  stageNum:'1.1', stageId:1, stageName:'Entiende tus deudas', stageIcon:'🔴', stageBg:'linear-gradient(135deg,#FFF5F5,#FFE4E4)', icon:'📋', label:'Las reglas del juego',       desc:'TMC, método avalancha y las bases para tomar el control de tus deudas' },
+      { firstNodeId:'d6',  stageNum:'1.2', stageId:1, icon:'📊', label:'Registros e historial',        desc:'DICOM, consolidación y cómo limpiar tu historial crediticio en Chile' },
+      { firstNodeId:'d11', stageNum:'2.1', stageId:2, stageName:'Liquida tus deudas',   stageIcon:'🏆', stageBg:'linear-gradient(135deg,#FFF0EE,#FFE8E6)', icon:'⚡', label:'Estrategias avanzadas',      desc:'Interés compuesto, tarjetas de crédito y cómo negociar con bancos' },
+      { firstNodeId:'d16', stageNum:'2.2', stageId:2, icon:'🎯', label:'El camino a la libertad',      desc:'Plan de salida de deudas y pasos concretos para ser libre financieramente' },
+    ],
     nodes: [
-      { id:'d1',  type:'lesson', icon:'📚', label:'¿Qué es la TMC?',
-        desc:'La Tasa Máxima Convencional es el límite legal de interés en Chile.', cost:0 },
-      { id:'d2',  type:'game',   icon:'💥', label:'DebtCrusher',
-        desc:'Aplasta grupos de deuda y gana fichas.', cost:0, game:'deudas', level:1 },
-      { id:'d3',  type:'lesson', icon:'📚', label:'Método avalancha',
-        desc:'Paga primero la deuda con mayor tasa — ahorra más dinero.', cost:0 },
-      { id:'d4',  type:'game',   icon:'💥', label:'DebtCrusher nivel 2',
-        desc:'Nuevos tipos de deuda, más combos.', cost:3, game:'deudas', level:2 },
-      { id:'d5',  type:'chest',  icon:'🎁', label:'Cofre', desc:'¡Recompensa! +50 XP', cost:0 },
-      { id:'d6',  type:'lesson', icon:'📚', label:'¿Qué es el DICOM?',
-        desc:'Cómo funciona el registro de deudas en Chile y cómo salir.', cost:0 },
-      { id:'d7',  type:'game',   icon:'💥', label:'DebtCrusher nivel 3',
-        desc:'Modo con celdas bloqueadas.', cost:3, game:'deudas', level:3 },
-      { id:'d8',  type:'lesson', icon:'📚', label:'Consolidar deudas',
-        desc:'¿Cuándo conviene juntar todas las deudas en una sola?', cost:0 },
-      { id:'d9',  type:'game',   icon:'💥', label:'DebtCrusher nivel 4',
-        desc:'Ronda final con timer.', cost:3, game:'deudas', level:4 },
-      { id:'d10', type:'cert',   icon:'🏆', label:'Certificado Deudas',
-        desc:'¡Completaste el camino! Dominas el manejo de deudas.', cost:0 }
+      /* ── Etapa 1 · Sección 1.1 ── */
+      { id:'d1',  type:'lesson', icon:'📚', label:'¿Qué es la TMC?',           desc:'La Tasa Máxima Convencional es el límite legal de interés en Chile.', cost:0 },
+      { id:'d2',  type:'game',   icon:'💥', label:'DebtCrusher',                desc:'Aplasta grupos de deuda y gana fichas.', cost:0, game:'deudas', level:1 },
+      { id:'d3',  type:'lesson', icon:'📚', label:'Método avalancha',           desc:'Paga primero la deuda con mayor tasa — ahorra más dinero.', cost:0 },
+      { id:'d4',  type:'game',   icon:'💥', label:'DebtCrusher nivel 2',        desc:'Nuevos tipos de deuda, más combos.', cost:3, game:'deudas', level:2 },
+      { id:'d5',  type:'chest',  icon:'🎁', label:'Cofre',                      desc:'¡Recompensa desbloqueada! +50 XP +10 fichas', cost:0, coins:10 },
+      /* ── Etapa 1 · Sección 1.2 ── */
+      { id:'d6',  type:'lesson', icon:'📚', label:'¿Qué es el DICOM?',          desc:'Cómo funciona el registro de deudas en Chile y cómo salir.', cost:0 },
+      { id:'d7',  type:'game',   icon:'💥', label:'DebtCrusher nivel 3',        desc:'Modo con celdas bloqueadas.', cost:3, game:'deudas', level:3 },
+      { id:'d8',  type:'lesson', icon:'📚', label:'Consolidar deudas',          desc:'¿Cuándo conviene juntar todas las deudas en una sola?', cost:0 },
+      { id:'d9',  type:'game',   icon:'💥', label:'DebtCrusher nivel 4',        desc:'Ronda final con timer.', cost:3, game:'deudas', level:4 },
+      { id:'d10', type:'chest',  icon:'🎁', label:'Cofre',                      desc:'¡Recompensa desbloqueada! +75 XP +15 fichas', cost:0, coins:15 },
+      /* ── Etapa 2 · Sección 2.1 ── */
+      { id:'d11', type:'lesson', icon:'📚', label:'Interés compuesto',          desc:'La bola de nieve que hace crecer tus deudas sin control.', cost:0 },
+      { id:'d12', type:'game',   icon:'💥', label:'DebtCrusher nivel 5',        desc:'Deudas con interés compuesto — más difícil.', cost:3, game:'deudas', level:5 },
+      { id:'d13', type:'lesson', icon:'📚', label:'Tarjetas de crédito',        desc:'Cómo evitar que tu tarjeta se convierta en una trampa.', cost:0 },
+      { id:'d14', type:'game',   icon:'💥', label:'DebtCrusher nivel 6',        desc:'Nuevos combos y estrategias de consolidación.', cost:3, game:'deudas', level:6 },
+      { id:'d15', type:'chest',  icon:'🎁', label:'Cofre',                      desc:'¡Recompensa desbloqueada! +100 XP +20 fichas', cost:0, coins:20 },
+      /* ── Etapa 2 · Sección 2.2 ── */
+      { id:'d16', type:'lesson', icon:'📚', label:'Negociar con bancos',        desc:'Los bancos prefieren que pagues — eso te da poder para negociar.', cost:0 },
+      { id:'d17', type:'game',   icon:'💥', label:'DebtCrusher nivel 7',        desc:'Tablero avanzado con timer y bloqueadas.', cost:3, game:'deudas', level:7 },
+      { id:'d18', type:'lesson', icon:'📚', label:'Plan de salida de deudas',   desc:'Un plan concreto para ser libre de deudas en 18 meses.', cost:0 },
+      { id:'d19', type:'game',   icon:'💥', label:'DebtCrusher nivel 8',        desc:'Ronda final — demuestra que aplastas cualquier deuda.', cost:3, game:'deudas', level:8 },
+      { id:'d20', type:'cert',   icon:'🏆', label:'Certificado Final',          desc:'¡Aplastaste todas las deudas! Eres experto/a en finanzas personales.', cost:0 },
     ]
   },
   inversion: {
     name: '📈 Haz crecer tu dinero',
     color: '#22C55E',
+    sections: [
+      { firstNodeId:'i1',  stageNum:'1.1', stageId:1, stageName:'Bases de la inversión', stageIcon:'🌱', stageBg:'linear-gradient(135deg,#F0FFF8,#DCFCE7)', icon:'📊', label:'Qué es y cómo funciona',      desc:'Inversión, IPSA y los conceptos clave para empezar a hacer crecer tu dinero' },
+      { firstNodeId:'i6',  stageNum:'1.2', stageId:1, icon:'🏦', label:'AFP y ahorro previsional',       desc:'Fondos AFP, APV y cómo maximizar tu pensión desde hoy' },
+      { firstNodeId:'i11', stageNum:'2.1', stageId:2, stageName:'Inversión avanzada',    stageIcon:'🚀', stageBg:'linear-gradient(135deg,#F0FFF4,#BBF7D0)', icon:'💹', label:'Instrumentos del mercado',    desc:'ETFs, renta fija y cómo construir una cartera diversificada' },
+      { firstNodeId:'i16', stageNum:'2.2', stageId:2, icon:'🎯', label:'Estrategia a largo plazo',       desc:'Horizonte de inversión, riesgo vs retorno y tu plan de independencia financiera' },
+    ],
     nodes: [
-      { id:'i1',  type:'lesson', icon:'📚', label:'¿Qué es invertir?',
-        desc:'La diferencia entre ahorrar e invertir, explicada simple.', cost:0 },
-      { id:'i2',  type:'game',   icon:'📈', label:'TradeChile',
-        desc:'Compra y vende acciones del IPSA en tiempo real.', cost:0, game:'inversion', level:1 },
-      { id:'i3',  type:'lesson', icon:'📚', label:'¿Qué es el IPSA?',
-        desc:'El índice bursátil más importante de Chile.', cost:0 },
-      { id:'i4',  type:'game',   icon:'📈', label:'TradeChile ronda 2',
-        desc:'Más empresas, más noticias, más decisiones.', cost:3, game:'inversion', level:2 },
-      { id:'i5',  type:'chest',  icon:'🎁', label:'Cofre', desc:'¡Recompensa! +50 XP', cost:0 },
-      { id:'i6',  type:'lesson', icon:'📚', label:'AFP y fondos',
-        desc:'Cómo funciona tu AFP y qué fondo conviene según tu edad.', cost:0 },
-      { id:'i7',  type:'game',   icon:'📈', label:'TradeChile ronda 3',
-        desc:'Invierte con noticias económicas reales.', cost:3, game:'inversion', level:3 },
-      { id:'i8',  type:'lesson', icon:'📚', label:'Fondos mutuos',
-        desc:'Invierte en fondos colectivos desde $1.000 CLP.', cost:0 },
-      { id:'i9',  type:'game',   icon:'📈', label:'TradeChile ronda 4',
-        desc:'Ronda final — demuestra tu talento inversor.', cost:3, game:'inversion', level:4 },
-      { id:'i10', type:'cert',   icon:'🏆', label:'Certificado Inversión',
-        desc:'¡Completaste el camino! Eres un/a inversor/a hábil.', cost:0 }
+      /* ── Etapa 1 · Sección 1.1 ── */
+      { id:'i1',  type:'lesson', icon:'📚', label:'¿Qué es invertir?',          desc:'La diferencia entre ahorrar e invertir, explicada simple.', cost:0 },
+      { id:'i2',  type:'game',   icon:'📈', label:'TradeChile',                  desc:'Compra y vende acciones del IPSA en tiempo real.', cost:0, game:'inversion', level:1 },
+      { id:'i3',  type:'lesson', icon:'📚', label:'¿Qué es el IPSA?',            desc:'El índice bursátil más importante de Chile.', cost:0 },
+      { id:'i4',  type:'game',   icon:'📈', label:'TradeChile ronda 2',          desc:'Más empresas, más noticias, más decisiones.', cost:3, game:'inversion', level:2 },
+      { id:'i5',  type:'chest',  icon:'🎁', label:'Cofre',                       desc:'¡Recompensa desbloqueada! +50 XP +10 fichas', cost:0, coins:10 },
+      /* ── Etapa 1 · Sección 1.2 ── */
+      { id:'i6',  type:'lesson', icon:'📚', label:'AFP y fondos',                desc:'Cómo funciona tu AFP y qué fondo conviene según tu edad.', cost:0 },
+      { id:'i7',  type:'game',   icon:'📈', label:'TradeChile ronda 3',          desc:'Invierte con noticias económicas reales.', cost:3, game:'inversion', level:3 },
+      { id:'i8',  type:'lesson', icon:'📚', label:'Fondos mutuos',               desc:'Invierte en fondos colectivos desde $1.000 CLP.', cost:0 },
+      { id:'i9',  type:'game',   icon:'📈', label:'TradeChile ronda 4',          desc:'Ronda final — demuestra tu talento inversor.', cost:3, game:'inversion', level:4 },
+      { id:'i10', type:'chest',  icon:'🎁', label:'Cofre',                       desc:'¡Recompensa desbloqueada! +75 XP +15 fichas', cost:0, coins:15 },
+      /* ── Etapa 2 · Sección 2.1 ── */
+      { id:'i11', type:'lesson', icon:'📚', label:'ETFs en Chile',               desc:'Fondos indexados de bajo costo accesibles desde $5.000 CLP.', cost:0 },
+      { id:'i12', type:'game',   icon:'📈', label:'TradeChile ronda 5',          desc:'ETFs y renta fija — nuevos instrumentos.', cost:3, game:'inversion', level:5 },
+      { id:'i13', type:'lesson', icon:'📚', label:'Renta fija vs variable',      desc:'Bonos del Banco Central vs acciones — cuándo elegir cada uno.', cost:0 },
+      { id:'i14', type:'game',   icon:'📈', label:'TradeChile ronda 6',          desc:'Cartera diversificada — múltiples activos.', cost:3, game:'inversion', level:6 },
+      { id:'i15', type:'chest',  icon:'🎁', label:'Cofre',                       desc:'¡Recompensa desbloqueada! +100 XP +20 fichas', cost:0, coins:20 },
+      /* ── Etapa 2 · Sección 2.2 ── */
+      { id:'i16', type:'lesson', icon:'📚', label:'Riesgo vs retorno',           desc:'La relación fundamental que todo inversor debe entender.', cost:0 },
+      { id:'i17', type:'game',   icon:'📈', label:'TradeChile ronda 7',          desc:'Gestión de riesgo — stop loss y diversificación.', cost:3, game:'inversion', level:7 },
+      { id:'i18', type:'lesson', icon:'📚', label:'Tu plan de inversión',        desc:'Cómo construir un portafolio según tu edad y objetivos.', cost:0 },
+      { id:'i19', type:'game',   icon:'📈', label:'TradeChile ronda 8',          desc:'Simulación final de portafolio.', cost:3, game:'inversion', level:8 },
+      { id:'i20', type:'cert',   icon:'🏆', label:'Certificado Final',           desc:'¡Completaste el camino! Eres un/a inversor/a hábil.', cost:0 },
     ]
   },
   presupuesto: {
     name: '📊 Ordena tus gastos',
     color: '#7C3AED',
+    sections: [
+      { firstNodeId:'p1',  stageNum:'1.1', stageId:1, stageName:'Fundamentos del presupuesto', stageIcon:'📋', stageBg:'linear-gradient(135deg,#FAF5FF,#EDE9FE)', icon:'💡', label:'Qué es y por qué importa',     desc:'Presupuesto, gastos hormiga y las bases para controlar tu plata' },
+      { firstNodeId:'p6',  stageNum:'1.2', stageId:1, icon:'⚖️', label:'Métodos de control',             desc:'Presupuesto base cero y ahorro automático para ordenar cada peso' },
+      { firstNodeId:'p11', stageNum:'2.1', stageId:2, stageName:'Presupuesto avanzado',         stageIcon:'🚀', stageBg:'linear-gradient(135deg,#F5F3FF,#DDD6FE)', icon:'📱', label:'Categorías y herramientas',      desc:'Categorías de gastos, apps de presupuesto y datos reales de la CMF' },
+      { firstNodeId:'p16', stageNum:'2.2', stageId:2, icon:'🏆', label:'Libertad financiera',             desc:'Independencia financiera, objetivos a largo plazo y tu plan de vida' },
+    ],
     nodes: [
-      { id:'p1',  type:'lesson', icon:'📚', label:'¿Qué es presupuestar?',
-        desc:'Controlar tus gastos es el primer paso para no llegar pelado a fin de mes.', cost:0 },
-      { id:'p2',  type:'game',   icon:'🃏', label:'BudgetSwipe',
-        desc:'Arrastra tus gastos a la categoría correcta.', cost:0, game:'presupuesto', level:1 },
-      { id:'p3',  type:'lesson', icon:'📚', label:'Gastos hormiga',
-        desc:'Los gastos pequeños y frecuentes que destruyen tu presupuesto.', cost:0 },
-      { id:'p4',  type:'game',   icon:'🃏', label:'BudgetSwipe ronda 2',
-        desc:'Gastos más difíciles de categorizar.', cost:3, game:'presupuesto', level:2 },
-      { id:'p5',  type:'chest',  icon:'🎁', label:'Cofre', desc:'¡Recompensa! +50 XP', cost:0 },
-      { id:'p6',  type:'lesson', icon:'📚', label:'Presupuesto base cero',
-        desc:'Asigna cada peso a una categoría — nada queda sin destino.', cost:0 },
-      { id:'p7',  type:'game',   icon:'🃏', label:'BudgetSwipe ronda 3',
-        desc:'Modo contrarreloj.', cost:3, game:'presupuesto', level:3 },
-      { id:'p8',  type:'lesson', icon:'📚', label:'Ahorro automático',
-        desc:'Configura transferencias automáticas para ahorrar sin pensar.', cost:0 },
-      { id:'p9',  type:'game',   icon:'🃏', label:'BudgetSwipe ronda 4',
-        desc:'Ronda final del presupuesto.', cost:3, game:'presupuesto', level:4 },
-      { id:'p10', type:'cert',   icon:'🏆', label:'Certificado Presupuesto',
-        desc:'¡Completaste el camino! Eres maestro/a del presupuesto.', cost:0 }
+      /* ── Etapa 1 · Sección 1.1 ── */
+      { id:'p1',  type:'lesson', icon:'📚', label:'¿Qué es presupuestar?',      desc:'Controlar tus gastos es el primer paso para no llegar pelado a fin de mes.', cost:0 },
+      { id:'p2',  type:'game',   icon:'🃏', label:'BudgetSwipe',                desc:'Arrastra tus gastos a la categoría correcta.', cost:0, game:'presupuesto', level:1 },
+      { id:'p3',  type:'lesson', icon:'📚', label:'Gastos hormiga',             desc:'Los gastos pequeños y frecuentes que destruyen tu presupuesto.', cost:0 },
+      { id:'p4',  type:'game',   icon:'🃏', label:'BudgetSwipe ronda 2',        desc:'Gastos más difíciles de categorizar.', cost:3, game:'presupuesto', level:2 },
+      { id:'p5',  type:'chest',  icon:'🎁', label:'Cofre',                      desc:'¡Recompensa desbloqueada! +50 XP +10 fichas', cost:0, coins:10 },
+      /* ── Etapa 1 · Sección 1.2 ── */
+      { id:'p6',  type:'lesson', icon:'📚', label:'Presupuesto base cero',      desc:'Asigna cada peso a una categoría — nada queda sin destino.', cost:0 },
+      { id:'p7',  type:'game',   icon:'🃏', label:'BudgetSwipe ronda 3',        desc:'Modo contrarreloj.', cost:3, game:'presupuesto', level:3 },
+      { id:'p8',  type:'lesson', icon:'📚', label:'Ahorro automático',          desc:'Configura transferencias automáticas para ahorrar sin pensar.', cost:0 },
+      { id:'p9',  type:'game',   icon:'🃏', label:'BudgetSwipe ronda 4',        desc:'Ronda final del presupuesto.', cost:3, game:'presupuesto', level:4 },
+      { id:'p10', type:'chest',  icon:'🎁', label:'Cofre',                      desc:'¡Recompensa desbloqueada! +75 XP +15 fichas', cost:0, coins:15 },
+      /* ── Etapa 2 · Sección 2.1 ── */
+      { id:'p11', type:'lesson', icon:'📚', label:'Categorías de gastos',       desc:'Necesidades, gustos y ahorro — la trinidad del presupuesto.', cost:0 },
+      { id:'p12', type:'game',   icon:'🃏', label:'BudgetSwipe ronda 5',        desc:'Categorías avanzadas — gastos mixtos.', cost:3, game:'presupuesto', level:5 },
+      { id:'p13', type:'lesson', icon:'📚', label:'El 60% de los chilenos',     desc:'Por qué la mayoría llega justo a fin de mes — y cómo evitarlo.', cost:0 },
+      { id:'p14', type:'game',   icon:'🃏', label:'BudgetSwipe ronda 6',        desc:'Presupuesto con ingresos variables.', cost:3, game:'presupuesto', level:6 },
+      { id:'p15', type:'chest',  icon:'🎁', label:'Cofre',                      desc:'¡Recompensa desbloqueada! +100 XP +20 fichas', cost:0, coins:20 },
+      /* ── Etapa 2 · Sección 2.2 ── */
+      { id:'p16', type:'lesson', icon:'📚', label:'Regla del 1%',               desc:'Cómo pequeños cambios diarios generan grandes resultados anuales.', cost:0 },
+      { id:'p17', type:'game',   icon:'🃏', label:'BudgetSwipe ronda 7',        desc:'Modo experto — presupuesto anual.', cost:3, game:'presupuesto', level:7 },
+      { id:'p18', type:'lesson', icon:'📚', label:'Tu plan de independencia',   desc:'Los pasos concretos hacia la libertad financiera en Chile.', cost:0 },
+      { id:'p19', type:'game',   icon:'🃏', label:'BudgetSwipe ronda 8',        desc:'Ronda final del maestro del presupuesto.', cost:3, game:'presupuesto', level:8 },
+      { id:'p20', type:'cert',   icon:'🏆', label:'Certificado Final',          desc:'¡Completaste el camino! Eres maestro/a del presupuesto.', cost:0 },
     ]
   }
 };
@@ -4781,8 +5236,22 @@ function pmRenderNodes(pathId) {
   const container = document.getElementById('pm-scroll-' + pathId);
   const progress = JSON.parse(localStorage.getItem('pm_progress_' + pathId) || '{}');
   container.innerHTML = '';
+  container.classList.add('pm-scroll-zigzag');
+
+  /* Mapa firstNodeId → sección, con flag isNewStage */
+  const sectionMap = {};
+  if (path.sections) {
+    let lastStageId = -1;
+    path.sections.forEach(sec => {
+      sectionMap[sec.firstNodeId] = { ...sec, isNewStage: sec.stageId !== lastStageId };
+      if (sec.stageId) lastStageId = sec.stageId;
+    });
+  }
 
   const firstAvailable = path.nodes.findIndex(n => progress[n.id] !== 'done');
+  const ZIGZAG = ['left', 'right', 'left', 'right', 'center'];
+  let secNodeIdx = 0;
+  let prevPos = null;
 
   path.nodes.forEach((node, idx) => {
     let state = 'locked';
@@ -4791,33 +5260,83 @@ function pmRenderNodes(pathId) {
     if (idx > 0 && progress[path.nodes[idx - 1].id] === 'done' && state !== 'done') state = 'available';
     if (idx === firstAvailable) state = 'current';
 
-    const wrap = document.createElement('div');
-    wrap.className = 'pm-node-wrap';
+    /* ── Banners de etapa + sección ── */
+    const sec = sectionMap[node.id];
+    if (sec) {
+      secNodeIdx = 0;
+      prevPos = null;
+      if (sec.isNewStage && sec.stageName) {
+        const stageBan = document.createElement('div');
+        stageBan.className = 'pm-stage-banner';
+        stageBan.style.background = sec.stageBg || 'rgba(0,0,0,.04)';
+        stageBan.innerHTML =
+          '<span class="pm-stage-icon">' + (sec.stageIcon || '📘') + '</span>' +
+          '<div><div class="pm-stage-num">ETAPA ' + sec.stageId + '</div>' +
+          '<div class="pm-stage-name">' + sec.stageName + '</div></div>';
+        container.appendChild(stageBan);
+      }
+      const secBan = document.createElement('div');
+      secBan.className = 'pm-section-banner';
+      secBan.innerHTML =
+        '<div class="pm-section-hdr">' +
+          '<span class="pm-section-num">Sección ' + (sec.stageNum || '') + '</span>' +
+          '<span class="pm-section-icon">' + (sec.icon || '') + '</span>' +
+        '</div>' +
+        '<div class="pm-section-label">' + sec.label + '</div>' +
+        '<div class="pm-section-desc">' + sec.desc + '</div>';
+      container.appendChild(secBan);
+    }
 
-    if (idx > 0) {
+    /* ── Posición zigzag ── */
+    const isCenter = node.type === 'chest' || node.type === 'cert';
+    const curPos = isCenter ? 'center' : ZIGZAG[secNodeIdx % 4];
+    if (!isCenter) secNodeIdx++;
+
+    /* ── Curva/conector entre nodos ── */
+    if (prevPos !== null) {
+      const prevDone = progress[path.nodes[idx - 1]?.id] === 'done';
+      const dc = prevDone ? ' done' : '';
       const conn = document.createElement('div');
-      conn.className = 'pm-connector' + (progress[path.nodes[idx - 1].id] === 'done' ? ' done' : '');
-      wrap.appendChild(conn);
+      if (prevPos === 'left' && curPos === 'right') {
+        conn.className = 'pm-curve pm-curve-lr' + dc;
+      } else if (prevPos === 'right' && curPos === 'left') {
+        conn.className = 'pm-curve pm-curve-rl' + dc;
+      } else {
+        conn.className = 'pm-connector' + dc;
+      }
+      container.appendChild(conn);
+    }
+    prevPos = curPos;
+
+    /* ── Wrap ── */
+    const wrap = document.createElement('div');
+    wrap.className = 'pm-node-wrap pm-pos-' + curPos;
+
+    if (state === 'current') {
+      const pip = document.createElement('div');
+      pip.className = 'pm-platín-here';
+      pip.innerHTML = '<div class="pm-platín-coin">🐷</div><div class="pm-platín-lbl">TÚ</div>';
+      wrap.appendChild(pip);
     }
 
     if (node.type === 'chest') {
-      const chest = document.createElement('div');
-      chest.className = 'pm-chest' + (state === 'locked' ? ' locked' : '');
-      chest.textContent = state === 'done' ? '✅' : '🎁';
-      chest.onclick = () => pmClickNode(node, state, pathId);
-      wrap.appendChild(chest);
+      const el = document.createElement('div');
+      el.className = 'pm-chest' + (state === 'locked' ? ' locked' : '');
+      el.textContent = state === 'done' ? '✅' : '🎁';
+      el.onclick = () => pmClickNode(node, state, pathId);
+      wrap.appendChild(el);
     } else if (node.type === 'cert') {
-      const cert = document.createElement('div');
-      cert.className = 'pm-cert' + (state === 'locked' ? ' locked' : '');
-      cert.textContent = state === 'done' ? '🏆' : '🔒';
-      cert.onclick = () => pmClickNode(node, state, pathId);
-      wrap.appendChild(cert);
+      const el = document.createElement('div');
+      el.className = 'pm-cert' + (state === 'locked' ? ' locked' : '');
+      el.textContent = state === 'done' ? '🏆' : '🔒';
+      el.onclick = () => pmClickNode(node, state, pathId);
+      wrap.appendChild(el);
     } else {
-      const nodeEl = document.createElement('div');
-      nodeEl.className = 'pm-node ' + state;
-      nodeEl.textContent = state === 'done' ? '✅' : node.icon;
-      nodeEl.onclick = () => pmClickNode(node, state, pathId);
-      wrap.appendChild(nodeEl);
+      const el = document.createElement('div');
+      el.className = 'pm-node ' + state;
+      el.textContent = state === 'done' ? '✅' : node.icon;
+      el.onclick = () => pmClickNode(node, state, pathId);
+      wrap.appendChild(el);
     }
 
     const label = document.createElement('div');
@@ -4832,8 +5351,35 @@ function pmRenderNodes(pathId) {
       wrap.appendChild(sub);
     }
 
+    if (state === 'locked' && idx > firstAvailable + 1) {
+      const skip = document.createElement('button');
+      skip.className = 'pm-skip-btn';
+      skip.textContent = '⏩ ¿Saltar aquí?';
+      skip.onclick = () => pmSkipToNode(node, pathId);
+      wrap.appendChild(skip);
+    }
+
     container.appendChild(wrap);
   });
+}
+
+function pmSkipToNode(node, pathId) {
+  const skipCost = 20;
+  if (pmState.coins < skipCost) {
+    pmSidebarPlaceholder('🪙 Necesitas ' + skipCost + ' fichas para saltar');
+    return;
+  }
+  const path = PATH_DATA[pathId];
+  const progress = JSON.parse(localStorage.getItem('pm_progress_' + pathId) || '{}');
+  const nodeIdx = path.nodes.findIndex(n => n.id === node.id);
+  for (let i = 0; i < nodeIdx; i++) {
+    progress[path.nodes[i].id] = 'done';
+  }
+  localStorage.setItem('pm_progress_' + pathId, JSON.stringify(progress));
+  pmState.coins -= skipCost;
+  pmSaveCoins();
+  pmUpdateStats(pathId);
+  pmRenderNodes(pathId);
 }
 
 let pmPendingNode = null;
@@ -5093,11 +5639,380 @@ const LESSON_CONTENT = {
     opts: ['Al final del mes con lo que sobre', 'El mismo día que recibes el sueldo', 'Solo cuando tienes objetivo específico'],
     correct: 1,
     explain: 'Págate a ti primero. El ahorro automático el día de pago elimina la tentación de gastar antes.'
+  },
+  a11: {
+    paragraphs: [
+      'La Cuenta Vista es gratuita en todos los bancos chilenos — así lo exige la CMF. No tiene comisión de mantención y funciona como tarjeta de débito. La Cuenta Corriente, en cambio, puede costar hasta $10.000 al mes en comisiones.',
+      'La gran diferencia: con Cuenta Corriente tienes cheques, sobregiro y crédito asociado. Con Cuenta Vista solo gastas lo que tienes. Para la mayoría de los chilenos, la Vista es suficiente y mucho más barata.',
+      'Los bancos tienen incentivos para venderte la Cuenta Corriente — tiene más comisiones. Antes de cambiar, compara los costos reales en el Comparador de Cuentas de la CMF en cmfchile.cl.'
+    ],
+    fact: '💡 Una Cuenta Corriente puede costarte hasta $120.000 al año en comisiones vs $0 de la Cuenta Vista.',
+    q: '¿Cuál cuenta cobra comisión de mantención en Chile?',
+    opts: ['Cuenta Vista', 'Cuenta Corriente', 'Ambas por igual'],
+    correct: 1,
+    explain: 'La Cuenta Vista es gratuita por ley en Chile. La Corriente tiene costos mensuales variables. Compara antes de cambiar.'
+  },
+  a13: {
+    paragraphs: [
+      'Un fondo mutuo es un vehículo de inversión colectiva: cientos o miles de personas aportan dinero y un administrador lo invierte en activos financieros (bonos, acciones, depósitos). En Chile, están regulados por la CMF.',
+      'La ventaja principal es la diversificación desde montos pequeños. Con $1.000 CLP tienes exposición a docenas de empresas o bonos del Estado. Fintual, LarrainVial y Banchile son las gestoras más usadas por jóvenes chilenos.',
+      'El retorno no está garantizado — depende de cómo se desempeñen los activos. Elige un fondo cuyo perfil de riesgo (conservador, moderado, agresivo) se ajuste a tu horizonte: corto, mediano o largo plazo.'
+    ],
+    fact: '💡 En Chile existen más de 2.000 fondos mutuos registrados en la CMF. Fintual es el más popular entre millennials.',
+    q: '¿Cuál es la principal ventaja de un fondo mutuo?',
+    opts: ['Garantiza retorno fijo', 'Permite diversificar desde montos pequeños', 'Está respaldado por el Banco Central'],
+    correct: 1,
+    explain: 'Los fondos mutuos dan acceso a carteras diversificadas desde muy poco capital — democratizan la inversión.'
+  },
+  a16: {
+    paragraphs: [
+      'El ahorro automático es el hábito más poderoso que puedes adoptar: programar una transferencia el día que recibes tu sueldo hacia tu cuenta de ahorro, antes de que puedas gastarlo.',
+      'Todos los bancos chilenos permiten programar transferencias automáticas sin costo. Puedes setear $50.000 el día 5 de cada mes a tu CAV, APV o cuenta vista de ahorro. Se configura una vez y el sistema lo hace solo.',
+      'La fuerza del ahorro automático es que elimina la decisión. Ya no tienes que "decidir ahorrar". Estudios del BID muestran que quienes automatizan ahorran hasta 3 veces más que quienes ahorran lo que sobra.'
+    ],
+    fact: '💡 El 72% de los chilenos que automatizaron el ahorro declara no extrañar el dinero que no ven pasar por su cuenta principal.',
+    q: '¿Por qué el ahorro automático funciona mejor que el ahorro manual?',
+    opts: ['Porque rinde más intereses', 'Porque elimina la decisión de ahorrar', 'Porque está exento de impuestos'],
+    correct: 1,
+    explain: 'Al no ver pasar el dinero, no lo gastas. La automatización convierte el ahorro en algo invisible y constante.'
+  },
+  a18: {
+    paragraphs: [
+      'Ahorrar es guardar dinero en un lugar seguro y líquido — cuenta vista, CAV, depósito a plazo. La rentabilidad es baja pero el riesgo es mínimo. Invertir es poner ese dinero a trabajar con el objetivo de hacerlo crecer, aceptando cierto riesgo.',
+      'La diferencia clave es el tiempo: el ahorro es para el corto plazo (emergencias, vacaciones). La inversión es para el largo plazo (jubilación, casa, educación). Confundirlos es un error frecuente y costoso.',
+      'No se trata de elegir uno u otro — se trata de usar cada herramienta en su contexto. Primero construye tu fondo de emergencia. Una vez que tienes 3-6 meses guardados, empieza a invertir el excedente.'
+    ],
+    fact: '💡 Un depósito a plazo rinde 0,4%-0,9% mensual. Un fondo mutuo agresivo puede rendir 7-14% anual histórico.',
+    q: '¿Para qué sirve principalmente el ahorro (vs la inversión)?',
+    opts: ['Para hacer crecer el dinero a largo plazo', 'Para emergencias y metas de corto plazo', 'Para pagar menos impuestos'],
+    correct: 1,
+    explain: 'El ahorro cubre emergencias e imprevistos. La inversión hace crecer el patrimonio en el largo plazo con mayor riesgo.'
+  },
+  a21: {
+    paragraphs: [
+      '"Págate a ti primero" es el principio más importante de las finanzas personales: cuando recibes tu sueldo, lo primero que haces es transferir tu meta de ahorro. Después, gastas lo que queda.',
+      'La mayoría hace lo contrario — gasta primero y ahorra lo que sobra. El problema: casi nunca sobra. Con el método inverso, el ahorro ocurre siempre, sin importar cuánto gastaste en el mes.',
+      'No requiere disciplina de hierro — requiere configurar una transferencia automática el día de pago. Empieza con $20.000 o $30.000. Lo que importa no es el monto inicial, sino instalar el hábito.'
+    ],
+    fact: '💡 El autor David Bach acuñó este principio en "The Automatic Millionaire". En Chile aplica igual: automatiza antes de gastar.',
+    q: '¿Cuándo deberías hacer tu transferencia de ahorro?',
+    opts: ['Al final del mes, con lo que sobra', 'El mismo día que recibes el sueldo', 'Cuando hay ofertas o descuentos'],
+    correct: 1,
+    explain: 'Pagarte a ti primero significa ahorrar ANTES de gastar. Lo que no ves, no lo gastas. El orden importa.'
+  },
+  a22: {
+    paragraphs: [
+      'Todos los bancos chilenos ofrecen transferencias automáticas sin costo adicional. Desde BancoEstado, Santander, BCI, Banco de Chile hasta Banco Falabella: puedes programar una transferencia mensual en 5 minutos desde la app o web.',
+      'El proceso: entra al banco → Transferencias → Transferencia Programada → elige destino, monto, día y frecuencia. Listo. El banco lo hace solo cada mes sin que tengas que recordarlo.',
+      'El destino puede ser tu CAV (Cuenta de Ahorro Voluntario), una cuenta en otro banco, tu APV o una cuenta de inversión en Fintual. La automatización elimina la fricción del ahorro manual.'
+    ],
+    fact: '💡 Desde agosto de 2022, las transferencias electrónicas entre bancos son gratuitas y sin límite en Chile por ley.',
+    q: '¿Cuál es el costo de las transferencias electrónicas entre distintos bancos en Chile?',
+    opts: ['$890 cada una', '$0 — son gratuitas desde 2022', 'Depende del banco emisor'],
+    correct: 1,
+    explain: 'Las transferencias son gratuitas por ley desde 2022. No hay excusa para no automatizar tu ahorro mensual.'
+  },
+  a24: {
+    paragraphs: [
+      'Los gastos hormiga son pequeños desembolsos que parecen insignificantes pero que, sumados, representan una cantidad importante: café de $2.500, delivery de $5.000, suscripción de $4.990. Una pequeña hormiga. Muchas hormigas = problema grande.',
+      'El cerebro humano no está diseñado para acumular gastos pequeños. Sentimos que "$2.500 en café" no importa, pero hacerlo 20 días al mes son $50.000. Multiplicado por 12, son $600.000 al año solo en café.',
+      'Los gastos hormiga más comunes en Chile: apps de streaming (Netflix, Spotify, Disney+), delivery (Rappi, Uber Eats), transporte casual (Uber), café en puntos de venta y snacks en el trabajo.'
+    ],
+    fact: '💡 El gasto promedio en gastos hormiga en Chile supera los $180.000 mensuales según encuestas de la CMF.',
+    q: '¿Por qué los gastos hormiga son difíciles de detectar?',
+    opts: ['Porque son gastos obligatorios', 'Porque son montos pequeños que no parecen importantes', 'Porque no aparecen en el extracto bancario'],
+    correct: 1,
+    explain: 'El cerebro subestima los gastos pequeños. La suma de muchos gastos de $2.000-$5.000 puede superar tu meta de ahorro mensual.'
+  },
+  a25: {
+    paragraphs: [
+      'El primer paso es registrar: durante 7 días, anota TODOS tus gastos, sin excepciones. Puedes usar una libreta, un Excel o apps como Monefy. Sin datos, no hay diagnóstico y no puedes cambiar nada.',
+      'Una vez que ves el patrón, aplica la regla: si no puedes recordar cuánto gastaste exactamente en algo la semana pasada, era un gasto hormiga. Decide cuáles vale la pena mantener y cuáles eliminar.',
+      'No se trata de eliminar todo placer — se trata de ser intencional. ¿Vale ese café del martes? Quizás sí. ¿Vale esa suscripción que no usas? Probablemente no. Elige conscientemente, no reacciones automáticamente.'
+    ],
+    fact: '💡 Eliminar 3 gastos hormiga de $3.000/día genera $90.000 al mes — $1.080.000 al año. Exactamente para un fondo de emergencia.',
+    q: '¿Cuál es el primer paso para controlar los gastos hormiga?',
+    opts: ['Eliminar todas las tarjetas de crédito', 'Registrar todos los gastos durante 7 días', 'Cancelar Netflix y Spotify'],
+    correct: 1,
+    explain: 'Sin registro, no hay diagnóstico. Anotar todos los gastos por una semana revela patrones que el cerebro subestima.'
+  },
+  a27: {
+    paragraphs: [
+      'El interés compuesto es cuando tus ganancias generan más ganancias. Si inviertes $100.000 al 7% anual: el primer año tienes $107.000. El segundo año, el 7% se aplica sobre $107.000 — no sobre el original. Con el tiempo, el crecimiento se acelera.',
+      'Lo que hace magia no es la tasa — es el tiempo. Invertir $50.000 al mes desde los 25 años vs desde los 35 años hace una diferencia de millones a los 65. Cada año que esperas para empezar tiene un costo enorme.',
+      'El interés compuesto también actúa en tu contra con deudas. Un préstamo al 52% anual duplica la deuda en menos de 2 años. El mismo principio que puede enriquecerte puede hundirte si estás al otro lado.'
+    ],
+    fact: '💡 Invertir $100.000/mes desde los 25 años al 7% real = $300 millones a los 65. Empezar a los 35 = solo $130 millones.',
+    q: '¿Qué hace que el interés compuesto sea tan poderoso?',
+    opts: ['Las tasas muy altas del mercado', 'Las ganancias que generan más ganancias con el tiempo', 'Los beneficios tributarios del Estado'],
+    correct: 1,
+    explain: 'El interés compuesto multiplica ganancias sobre ganancias. El tiempo es el ingrediente secreto — cuanto antes empiezas, más poderoso es.'
+  },
+  a29: {
+    paragraphs: [
+      'El ahorro de corto plazo es para metas entre 1 y 12 meses: vacaciones, fondo de emergencia, electrodoméstico. Debe estar en un instrumento líquido — puedes sacarlo rápido sin perder dinero ni esperar plazos.',
+      'Las mejores opciones en Chile para ahorro de corto plazo: Cuenta de Ahorro Vista (0% riesgo, líquida), Depósito a Plazo en 30-180 días (0,4-0,9% mensual), o fondos mutuos de deuda de corto plazo.',
+      'El secreto es tener una meta específica: "Fondo de emergencia de $600.000 para el 30 de junio" en lugar de "quiero ahorrar". Las metas concretas activan la motivación y permiten medir el progreso.'
+    ],
+    fact: '💡 BancoEstado ofrece CAV con $0 de mantención, se abre en 5 minutos desde la app. Es el instrumento de ahorro más usado en Chile.',
+    q: '¿Cuál instrumento es más adecuado para el fondo de emergencia?',
+    opts: ['Fondo mutuo de acciones (renta variable)', 'Cuenta de ahorro vista o depósito a plazo corto', 'APV para la jubilación'],
+    correct: 1,
+    explain: 'El fondo de emergencia debe ser líquido y sin riesgo. Un fondo de acciones puede bajar justo cuando más lo necesitas.'
+  },
+  a30: {
+    paragraphs: [
+      'El ahorro de largo plazo es para metas de más de 3 años: casa, educación de los hijos, jubilación, independencia financiera. El horizonte largo permite tomar más riesgo — y capturar mayor rentabilidad histórica.',
+      'En Chile, los principales instrumentos son el APV (con beneficio tributario), los fondos mutuos de renta variable y las acciones en bolsa. La AFP también es una forma de ahorro forzado de largo plazo.',
+      'La regla de oro: a mayor plazo, mayor tolerancia al riesgo. Si tu meta está a 20 años, una caída de mercado hoy no importa — tienes tiempo de recuperarte. Si está a 1 año, no puedes permitirte esa volatilidad.'
+    ],
+    fact: '💡 Históricamente, el Fondo A de las AFP chilenas ha rentado ~7% real anual desde 2002. El largo plazo premia la paciencia.',
+    q: '¿Por qué el largo plazo permite aceptar más riesgo en inversiones?',
+    opts: ['Porque el riesgo desaparece después de 10 años', 'Porque hay tiempo para recuperarse de caídas temporales', 'Porque el Estado garantiza las inversiones'],
+    correct: 1,
+    explain: 'Con 20+ años de horizonte, las caídas del mercado son ruido temporal. El largo plazo históricamente premia a los inversores pacientes.'
+  },
+  a32: {
+    paragraphs: [
+      'Los 5 hábitos que transforman las finanzas personales: 1) Págate primero (automatiza el ahorro antes de gastar). 2) Registra tus gastos (lo que no se mide no se controla). 3) Elimina gastos hormiga intencionales.',
+      '4) Construye tu fondo de emergencia antes de invertir (3-6 meses de gastos en lugar líquido). 5) Invierte con horizonte largo (APV, fondos mutuos) una vez que tienes el colchón de emergencia. Estos 5 pasos son el 80% de lo que necesitas.',
+      'La consistencia supera al conocimiento. No necesitas saber todo sobre finanzas — necesitas aplicar estos 5 hábitos durante 12 meses. El compuesto del tiempo hace el resto.'
+    ],
+    fact: '💡 El 90% de la diferencia entre quienes acumulan patrimonio y quienes no se explica por hábitos — no por ingresos ni por suerte.',
+    q: '¿Cuál es el primer hábito que debes establecer antes de invertir?',
+    opts: ['Aprender sobre acciones y criptomonedas', 'Construir un fondo de emergencia de 3-6 meses', 'Abrir una cuenta APV'],
+    correct: 1,
+    explain: 'Sin fondo de emergencia, cualquier imprevisto te obliga a vender inversiones en pérdida. Es la base de todo lo demás.'
+  },
+  a34: {
+    paragraphs: [
+      'El reto final de Platín: durante los próximos 7 días, anota TODOS tus gastos. No juzgues — solo registra. Al final de la semana, suma por categoría y busca el gasto hormiga más grande que puedas reducir sin sufrir.',
+      'Cuando tengas la suma, calcula cuánto ahorrarías al año si reduces ese gasto a la mitad. Un café menos al día = $50.000/mes = $600.000/año. Una suscripción cancelada = $4.990/mes = $59.880/año.',
+      'El objetivo no es sufrir — es tomar control. Cada peso que desvías de un gasto que no te importa hacia una meta que sí te importa es un paso hacia la libertad financiera. Platín te acompaña en cada uno.'
+    ],
+    fact: '💡 El 78% de los usuarios que hicieron este ejercicio redujeron sus gastos hormiga en más de $50.000 al primer mes.',
+    q: '¿Cuál es el objetivo del desafío de registro de gastos?',
+    opts: ['Sentirse culpable por lo que gastas', 'Identificar oportunidades de ahorro sin sufrimiento', 'Demostrar que gastas poco'],
+    correct: 1,
+    explain: 'El registro no es para juzgar — es para conocer. Lo que conoces, puedes controlarlo. La conciencia es el primer paso al cambio.'
+  },
+  d11: {
+    paragraphs: [
+      'El interés compuesto en las deudas trabaja EN TU CONTRA. Cada mes que no pagas el total, los intereses se suman al capital y en el siguiente mes pagas intereses sobre esa suma mayor. La deuda crece sola.',
+      'Con una tarjeta al 52% anual: si tienes $200.000 de deuda y pagas solo el mínimo, en 12 meses debes $312.000. En 3 años: $620.000 — sobre la misma deuda original. El interés compuesto multiplicó tu deuda por 3.',
+      'La única forma de vencer el interés compuesto en deudas es pagar más del mínimo. Cada peso extra que pagas hoy evita que se multiplique por la tasa en los meses siguientes. El tiempo es el arma — úsala a tu favor.'
+    ],
+    fact: '💡 Una deuda de $500.000 al 52% anual pagando solo el mínimo ($15.000) puede tardar 8 años y costar $1,2 millones en intereses.',
+    q: '¿Qué ocurre cuando solo pagas el mínimo en una tarjeta al 52% anual?',
+    opts: ['La deuda desaparece en 12 meses', 'Los intereses se suman al capital y la deuda crece', 'El banco te exonera el exceso'],
+    correct: 1,
+    explain: 'Pagar el mínimo solo cubre los intereses. El capital no baja — sigue generando más intereses. La deuda crece hasta que pagas de más.'
+  },
+  d13: {
+    paragraphs: [
+      'Una tarjeta de crédito no es dinero — es deuda futura. Cuando la usas, comprometes tu sueldo del próximo mes. Si no pagas el total cada mes, pagas intereses. En Chile, las tarjetas pueden cobrar hasta la TMC (~52% anual).',
+      'Las tarjetas de tiendas (CMR, Ripley, La Polar) suelen tener las tasas más altas. La regla: usa la tarjeta como medio de pago, no como crédito. Solo gasta lo que puedes pagar en el extracto mensual completo.',
+      'Los seguros y cargos adicionales de las tarjetas son optativos en Chile — puedes cancelarlos. Lee el estado de cuenta completo: los cargos automáticos invisibles son frecuentes y pueden costarte miles al mes.'
+    ],
+    fact: '💡 El 62% de los chilenos que tienen deuda de tarjeta solo pagan el mínimo. Eso significa que la mayoría está atrapada en interés compuesto.',
+    q: '¿Cuándo una tarjeta de crédito NO cobra intereses?',
+    opts: ['Cuando tienes más de 2 años como cliente', 'Cuando pagas el monto total antes del vencimiento', 'Cuando usas menos de 3 cuotas'],
+    correct: 1,
+    explain: 'Las tarjetas son gratuitas si pagas el total cada mes. El interés solo se aplica cuando dejas saldo pendiente. Esa es la trampa.'
+  },
+  d16: {
+    paragraphs: [
+      'Los bancos prefieren que pagues tu deuda a ejecutar el cobro judicial, que es caro y lento. Eso te da poder de negociación. Si estás en dificultades, contacta al banco ANTES de caer en mora — en ese punto tienes más opciones.',
+      'Lo que puedes negociar: rebaja de tasa, extensión del plazo, condonación de intereses por mora, prepago con descuento. Los bancos tienen departamentos de "gestión de cartera" cuya función es llegar a acuerdos con deudores.',
+      'Antes de llamar: prepara tus números (cuánto debes, cuánto puedes pagar), sé específico ("puedo pagar $80.000 al mes por 18 meses") y no aceptes el primer ofrecimiento. Pide la propuesta por escrito antes de firmar.'
+    ],
+    fact: '💡 La CMF tiene mediación gratuita: si el banco rechaza una propuesta razonable, puedes reclamar y el banco tiene 10 días hábiles para responder.',
+    q: '¿Cuándo es el mejor momento para negociar con un banco?',
+    opts: ['Cuando ya estás en cobranza judicial', 'Antes de atrasarte, cuando anticipas dificultades', 'Solo si tienes un abogado'],
+    correct: 1,
+    explain: 'Negociar antes de caer en mora te da más opciones y evita DICOM. Los bancos prefieren un acuerdo a un proceso legal largo.'
+  },
+  d18: {
+    paragraphs: [
+      'Un plan de salida de deudas tiene 4 pasos: 1) Lista todas tus deudas (monto, tasa, cuota mínima). 2) Elige método: avalancha (mayor tasa primero) o bola de nieve (menor saldo primero). 3) Paga el mínimo a todas y destina todo el dinero extra al foco. 4) Cuando eliminas una, redirige esa cuota a la siguiente.',
+      'El "dinero extra" puede venir de: reducir gastos hormiga, vender cosas que no usas, ingresos extras (freelance, turno extra) o renegociar tasas. No esperes a tener dinero extra — créalo activamente.',
+      'La clave psicológica: celebra cada deuda eliminada. Cierra la tarjeta, llama al banco, escribe el número cero en tu lista. Cada victoria refuerza el hábito y acelera el plan — el momentum es real.'
+    ],
+    fact: '💡 Con $50.000 extra al mes en la deuda de mayor tasa, una persona con 3 deudas promedio puede salir en 18-24 meses en lugar de 5+ años.',
+    q: '¿Qué haces con el dinero de una cuota eliminada en el método avalancha?',
+    opts: ['Lo usas como premio', 'Lo destinas a la siguiente deuda de mayor tasa', 'Lo divides entre todas las deudas restantes'],
+    correct: 1,
+    explain: 'Cuando eliminas una deuda, su cuota se suma al ataque de la siguiente. El plan se acelera solo — efecto bola de nieve positivo.'
+  },
+  i11: {
+    paragraphs: [
+      'Un ETF (Exchange Traded Fund) es un fondo que cotiza en bolsa como si fuera una acción. Un ETF que replica el S&P 500 te permite invertir en las 500 empresas más grandes de EE.UU. desde Chile, con una sola operación y desde $5.000 CLP.',
+      'La gran ventaja de los ETFs frente a los fondos mutuos activos: comisiones menores (a veces 0,03% anual vs 1-2% en fondos activos) y transparencia total — sabes exactamente qué tienen.',
+      'En Chile puedes comprar ETFs a través de corredoras como Banchile Inversiones, LarrainVial y Renta4. Algunos fondos mutuos de Fintual también replican índices a bajo costo — son el equivalente nacional.'
+    ],
+    fact: '💡 Warren Buffett recomienda que los inversores promedio compren ETFs del S&P 500 en lugar de intentar elegir acciones individuales.',
+    q: '¿Cuál es la principal ventaja de los ETFs frente a los fondos mutuos activos?',
+    opts: ['Garantizan retornos más altos', 'Tienen comisiones más bajas y mayor transparencia', 'Están asegurados por el Banco Central'],
+    correct: 1,
+    explain: 'Los ETFs replican índices con costos muy bajos. La evidencia histórica muestra que pocas gestoras activas superan al índice neto de comisiones.'
+  },
+  i13: {
+    paragraphs: [
+      'Renta fija es cualquier instrumento donde el retorno está predeterminado: depósitos a plazo, bonos del Banco Central, bonos corporativos. Sabes cuánto recibirás. El riesgo es bajo, el retorno también.',
+      'Renta variable son activos donde el retorno depende del mercado: acciones, fondos mutuos de acciones, ETFs. El precio sube y baja. El riesgo es mayor, pero históricamente el retorno a largo plazo también es mayor.',
+      'La regla práctica: el porcentaje de renta fija en tu portafolio debería ser aproximadamente igual a tu edad. A los 30: 30% fija, 70% variable. A los 60: 60% fija, 40% variable. Ajusta según tu tolerancia al riesgo.'
+    ],
+    fact: '💡 El Fondo A de la AFP (máxima renta variable) ha rentado ~7% real anual histórico. El Fondo E (máxima renta fija) ~2%. La diferencia compuesta en 30 años es enorme.',
+    q: '¿Cuál instrumento pertenece a la renta fija?',
+    opts: ['Acciones de empresas en bolsa', 'Depósito a plazo a 90 días', 'ETF del S&P 500'],
+    correct: 1,
+    explain: 'Un depósito a plazo tiene retorno conocido de antemano — es renta fija. Las acciones y ETFs fluctúan según el mercado.'
+  },
+  i16: {
+    paragraphs: [
+      'En inversiones, riesgo y retorno están directamente relacionados: mayor retorno esperado implica mayor riesgo. No existe inversión de alto retorno y bajo riesgo. Si alguien te ofrece eso, es una estafa.',
+      'El riesgo no es solo "perder dinero" — también es liquidez (¿puedo sacar el dinero cuando lo necesite?), inflación (¿mi inversión le gana al IPC?) y divisa (¿estoy expuesto a cambios en el tipo de cambio?).',
+      'Tu tolerancia al riesgo depende de: tiempo (cuántos años tienes para recuperar pérdidas), objetivo (¿cuándo necesitas el dinero?) y psicología (¿puedes ver tu portafolio bajar 30% sin vender en pánico?). Conocerte es clave.'
+    ],
+    fact: '💡 El peor error del inversor chileno promedio: vender en crisis (2020, 2022) y comprar cuando el mercado sube. Exactamente al revés de lo óptimo.',
+    q: '¿Qué relación existe entre riesgo y retorno en inversiones?',
+    opts: ['A menor riesgo, mayor retorno', 'A mayor riesgo, mayor retorno esperado', 'No tienen relación — depende del banco'],
+    correct: 1,
+    explain: 'El retorno esperado siempre va de la mano del riesgo. Promesas de alto retorno sin riesgo son señal de fraude. No hay almuerzo gratis.'
+  },
+  i18: {
+    paragraphs: [
+      'Un plan de inversión tiene tres componentes: objetivo (¿para qué?), horizonte (¿en cuánto tiempo?) y riesgo (¿cuánta volatilidad toleras?). Sin estos tres claros, no puedes elegir los instrumentos correctos.',
+      'Ejemplo: "Quiero $30 millones para el pie de un departamento en 7 años. Puedo invertir $150.000 al mes. Tolero caídas del 20-25% sin vender." → Esto sugiere 60-70% renta variable, 30-40% renta fija.',
+      'Revisa tu plan una vez al año, no más. Quienes revisan cada semana reaccionan a las noticias en lugar de mantener la estrategia. La constancia y el no-hacer suelen superar al trading activo.'
+    ],
+    fact: '💡 Un estudio de Fidelity encontró que las cuentas con mejor desempeño pertenecían a clientes que "olvidaron" que tenían una cuenta de inversión.',
+    q: '¿Cuál es el primer paso para diseñar un plan de inversión?',
+    opts: ['Elegir el fondo con mejor rentabilidad del último año', 'Definir objetivo, horizonte de tiempo y tolerancia al riesgo', 'Invertir todo en el Fondo A de la AFP'],
+    correct: 1,
+    explain: 'Sin objetivo claro, cualquier instrumento puede ser incorrecto. El plan define los instrumentos — no al revés.'
+  },
+  p11: {
+    paragraphs: [
+      'Para presupuestar bien necesitas categorizar tus gastos. El sistema más simple usa 3 categorías: Necesidades (arriendo, comida, luz, transporte, salud), Gustos (restaurantes, streaming, ropa, entretención) y Ahorro/Deuda.',
+      'La regla 50/30/20 aplica exactamente estas categorías: 50% a necesidades, 30% a gustos, 20% a ahorro. Si no te alcanza para el 50% en necesidades, tienes un problema de estructura que requiere cambios más profundos.',
+      'No todas las categorías son iguales para todos. Una persona con hijos tiene más gastos en "necesidades" que alguien soltero. Personaliza según tu realidad — lo importante es que cada peso tenga un destino claro antes de gastarlo.'
+    ],
+    fact: '💡 La CMF recomienda revisar el presupuesto mensual en no más de 10 minutos. El objetivo es control, no obsesión. Simplicidad = constancia.',
+    q: '¿A qué categoría pertenece el arriendo según la regla 50/30/20?',
+    opts: ['Gustos (30%)', 'Necesidades (50%)', 'Ahorro (20%)'],
+    correct: 1,
+    explain: 'El arriendo es una necesidad básica — va en el 50%. Si solo el arriendo supera el 30% de tu ingreso, tienes un problema estructural.'
+  },
+  p13: {
+    paragraphs: [
+      'Estudios de la CMF muestran que más del 60% de los chilenos llega justo o con dificultades a fin de mes — independiente del ingreso. El problema no siempre es el sueldo; muchas veces es la falta de estructura en los gastos.',
+      'Las razones más comunes: gastos fijos demasiado altos (arriendo, cuotas), ausencia de registro, compras impulsivas y el efecto "mes corto" (cuando el sueldo alcanza para 25 días pero el mes tiene 30).',
+      'La solución no es ganar más (aunque ayuda) — es tener un presupuesto que funcione con el ingreso actual. Muchas personas con buen sueldo llegan igual de apretadas porque sus gastos crecieron con el ingreso.'
+    ],
+    fact: '💡 El 40% de los chilenos no ahorra nada regularmente. De los que sí ahorran, el monto promedio es $68.000 al mes — menos del 10% del sueldo mediano.',
+    q: '¿Por qué muchas personas con buen sueldo igual llegan apretadas a fin de mes?',
+    opts: ['Porque pagan demasiados impuestos', 'Porque sus gastos crecieron al mismo ritmo que el ingreso', 'Porque no tienen crédito bancario'],
+    correct: 1,
+    explain: 'Es la "trampa del estilo de vida": cuando el sueldo sube, los gastos suben igual. Sin estructura, el problema se repite en cualquier nivel de ingreso.'
+  },
+  p16: {
+    paragraphs: [
+      'La regla del 1%: busca reducir cada categoría de gasto en 1% al mes. No es heroico — es acumulativo. Si gastas $80.000 en supermercado, 1% son $800. Fácil de lograr. En 12 meses, el 1% mensual equivale a 12% de reducción acumulada.',
+      'Aplicado a varias categorías con $400.000 de gastos totales: ahorras $4.000 el primer mes, $8.000 el segundo, y así sucesivamente. Al año: más de $50.000 extra sin sacrificio visible en ninguna categoría.',
+      'La psicología del 1% es poderosa: es tan pequeño que el cerebro no lo registra como sacrificio. No sientes que te privas de nada. Pero compuesto en el tiempo produce resultados significativos y sostenibles.'
+    ],
+    fact: '💡 James Clear (autor de "Hábitos Atómicos") documenta que el 1% de mejora diaria resulta en ser 37 veces mejor en un año. Aplica igual al presupuesto.',
+    q: '¿Por qué la regla del 1% funciona mejor que los recortes drásticos?',
+    opts: ['Porque ahorra más dinero al instante', 'Porque es tan pequeña que no genera resistencia psicológica', 'Porque aplica automáticamente a todos los gastos'],
+    correct: 1,
+    explain: 'Los cambios drásticos generan rebelión mental. El 1% es invisible para el cerebro — pero compuesto en el tiempo genera grandes resultados.'
+  },
+  p18: {
+    paragraphs: [
+      'La independencia financiera no es ser millonario — es tener suficiente patrimonio para que sus retornos cubran tus gastos sin necesitar trabajar. Con la regla del 4%, necesitas acumular 25 veces tus gastos anuales.',
+      'Ejemplo: si gastas $600.000 al mes ($7.200.000 al año), necesitas $180.000.000 invertidos generando 4% real anual. Parece imposible, pero con consistencia no lo es: $200.000 mensuales al 7% real llegan ahí en 25 años.',
+      'Los pasos concretos: 1) Presupuestar y conocer tu número de gastos. 2) Fondo de emergencia. 3) Eliminar deudas de alto interés. 4) Maximizar APV. 5) Invertir el excedente en fondos de bajo costo. 6) Ser consistente por años.'
+    ],
+    fact: '💡 La regla del 4% viene del estudio Trinity (1998): retirar el 4% anual de un portafolio mixto no lo agota en 30 años históricamente.',
+    q: '¿Cuánto necesitas acumular para independencia financiera con gastos de $600.000/mes?',
+    opts: ['$72.000.000 (10× gastos anuales)', '$180.000.000 (25× gastos anuales)', '$360.000.000 (50× gastos anuales)'],
+    correct: 1,
+    explain: 'Regla del 4%: divide tus gastos anuales por 0,04 (= multiplica por 25). Ese es tu "número de libertad financiera".'
   }
 };
 
 let pmLessonCtx = null;
+let pmLsMascotCtr = 0;
 
+function pmLessonPathVars(pathId) {
+  const MAP = {
+    ahorro:      { color:'#D97706', bg1:'rgba(255,199,0,.13)', bg2:'rgba(255,199,0,.06)', hover:'#FFFBEB' },
+    deudas:      { color:'#DC2626', bg1:'rgba(239,68,68,.10)', bg2:'rgba(239,68,68,.05)', hover:'#FEF2F2' },
+    inversion:   { color:'#16A34A', bg1:'rgba(34,197,94,.10)', bg2:'rgba(34,197,94,.05)', hover:'#F0FDF4' },
+    presupuesto: { color:'#7C3AED', bg1:'rgba(124,58,237,.10)', bg2:'rgba(124,58,237,.05)', hover:'#F5F3FF' }
+  };
+  return MAP[pathId] || MAP.ahorro;
+}
+
+function pmLessonMascotSVG(expr, w, h) {
+  const W = w || 100, H = h || 100;
+  const uid = 'plsG' + (++pmLsMascotCtr);
+  const EXPR = {
+    happy:     { bL:'M78 87 Q95 79 112 84', bR:'M148 84 Q165 79 182 87',
+                 mouth:'<path d="M86 154 Q130 184 174 154" stroke="#0F1321" stroke-width="5" stroke-linecap="round" fill="none"/>' },
+    thinking:  { bL:'M78 93 Q95 87 112 91', bR:'M148 83 Q165 76 182 81',
+                 mouth:'<path d="M100 160 Q122 168 150 162" stroke="#0F1321" stroke-width="5" stroke-linecap="round" fill="none"/>' },
+    surprised: { bL:'M78 82 Q95 74 112 79', bR:'M148 79 Q165 74 182 82',
+                 mouth:'<ellipse cx="130" cy="162" rx="16" ry="13" fill="#0F1321"/>' },
+    victory:   { bL:'M76 80 Q95 70 114 77', bR:'M146 77 Q165 70 184 80',
+                 mouth:'<path d="M80 152 Q130 192 180 152" stroke="#0F1321" stroke-width="5" stroke-linecap="round" fill="none"/>' },
+    sad:       { bL:'M78 84 Q95 92 112 88', bR:'M148 88 Q165 92 182 84',
+                 mouth:'<path d="M95 170 Q122 154 158 168" stroke="#0F1321" stroke-width="5" stroke-linecap="round" fill="none"/>' }
+  };
+  const f = EXPR[expr] || EXPR.happy;
+  return `<svg viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
+    <defs>
+      <radialGradient id="${uid}R" cx="38%" cy="30%" r="70%"><stop offset="0%" stop-color="#FFF5B0"/><stop offset="55%" stop-color="#FFD93D"/><stop offset="100%" stop-color="#FFC700"/></radialGradient>
+      <radialGradient id="${uid}B" cx="36%" cy="26%" r="72%"><stop offset="0%" stop-color="#FFD45A"/><stop offset="55%" stop-color="#FFC000"/><stop offset="100%" stop-color="#E09400"/></radialGradient>
+    </defs>
+    <ellipse cx="130" cy="252" rx="55" ry="8" fill="rgba(255,199,0,.12)"/>
+    <ellipse cx="52" cy="88" rx="18" ry="12" fill="#FFD45A" transform="rotate(-55 52 88)"/>
+    <ellipse cx="40" cy="66" rx="11" ry="8" fill="#FFC000" transform="rotate(-40 40 66)"/>
+    <ellipse cx="210" cy="158" rx="18" ry="12" fill="#FFD45A" transform="rotate(28 210 158)"/>
+    <circle cx="130" cy="124" r="104" fill="url(#${uid}R)"/>
+    <circle cx="130" cy="124" r="84" fill="url(#${uid}B)"/>
+    <ellipse cx="98" cy="78" rx="28" ry="13" fill="rgba(255,255,255,.28)" transform="rotate(-22 98 78)"/>
+    <ellipse cx="88" cy="142" rx="13" ry="8" fill="rgba(255,120,50,.18)"/>
+    <ellipse cx="172" cy="142" rx="13" ry="8" fill="rgba(255,120,50,.18)"/>
+    <ellipse cx="95" cy="112" rx="16" ry="17" fill="white"/>
+    <circle cx="95" cy="114" r="10" fill="#0F1321"/>
+    <circle cx="100" cy="108" r="3.5" fill="white"/>
+    <ellipse cx="165" cy="112" rx="16" ry="17" fill="white"/>
+    <circle cx="165" cy="114" r="10" fill="#0F1321"/>
+    <circle cx="170" cy="108" r="3.5" fill="white"/>
+    <path d="${f.bL}" stroke="#0F1321" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    <path d="${f.bR}" stroke="#0F1321" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    ${f.mouth}
+  </svg>`;
+}
+
+function pmLessonExtractStat(fact) {
+  const text = fact.replace(/^💡\s*/, '');
+  const pct = text.match(/\b(\d+(?:[.,]\d+)?%)\b/);
+  if (pct) return { num: pct[1], desc: text };
+  const clp = text.match(/\$[\d.,]+/);
+  if (clp) return { num: clp[0], desc: text };
+  const rng = text.match(/(\d+\s+a\s+\d+\s+meses)/);
+  if (rng) return { num: rng[1], desc: text };
+  const mult = text.match(/\b(\d+x)\b/);
+  if (mult) return { num: mult[1], desc: text };
+  const plain = text.match(/\b(\d{2,})\b/);
+  if (plain) return { num: plain[1], desc: text };
+  return { num: '💡', desc: text };
+}
+
+// 5 pasos: 0=intro  1=desarrollo  2=dato CMF  3=pregunta  4=resumen (post-respuesta)
 function pmShowLesson(node, pathId) {
   const data = LESSON_CONTENT[node.id];
   if (!data) {
@@ -5106,78 +6021,174 @@ function pmShowLesson(node, pathId) {
     pmAwardCoins(2, pathId);
     return;
   }
-  pmLessonCtx = { node, pathId, answered: false, correct: false };
-
+  pmLessonCtx = { node, pathId, step: 0, answered: false, correct: false };
   document.getElementById('pmLessonIcon').textContent = node.icon;
   document.getElementById('pmLessonTitle').textContent = node.label;
-
-  const content = document.getElementById('pmLessonContent');
-  content.innerHTML = '';
-  data.paragraphs.forEach(p => {
-    const el = document.createElement('p');
-    el.className = 'pm-lesson-text';
-    el.textContent = p;
-    content.appendChild(el);
-  });
-  const fact = document.createElement('div');
-  fact.className = 'pm-lesson-fact';
-  fact.textContent = data.fact;
-  content.appendChild(fact);
-
-  document.getElementById('pmLessonQ').textContent = data.q;
-
-  const optsEl = document.getElementById('pmLessonOpts');
-  optsEl.innerHTML = '';
-  data.opts.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'pm-lesson-opt';
-    btn.textContent = opt;
-    btn.onclick = () => pmLessonAnswer(i);
-    optsEl.appendChild(btn);
-  });
-
-  const fb = document.getElementById('pmLessonFeedback');
-  fb.className = 'pm-lesson-feedback';
-  fb.textContent = '';
-  document.getElementById('pmLessonContinue').className = 'pm-lesson-continue';
-  document.getElementById('pmLessonBar').style.width = '50%';
-
   document.getElementById('pmLesson').classList.add('open');
+  pmLessonShowStep(0);
+}
+
+function pmLessonShowStep(step) {
+  if (!pmLessonCtx) return;
+  pmLessonCtx.step = step;
+  pmLessonCtx.answered = false;
+  pmLessonCtx.correct = false;
+
+  const data    = LESSON_CONTENT[pmLessonCtx.node.id];
+  const pv      = pmLessonPathVars(pmLessonCtx.pathId);
+  const content = document.getElementById('pmLessonContent');
+  const divider = document.querySelector('#pmLesson .pm-lesson-divider');
+  const qEl     = document.getElementById('pmLessonQ');
+  const optsEl  = document.getElementById('pmLessonOpts');
+  const fb      = document.getElementById('pmLessonFeedback');
+  const btn     = document.getElementById('pmLessonContinue');
+  const bar     = document.getElementById('pmLessonBar');
+
+  content.innerHTML = '';
+  qEl.textContent   = '';
+  optsEl.innerHTML  = '';
+  fb.className      = 'pm-lesson-feedback';
+  fb.textContent    = '';
+  btn.style.background = '';
+  btn.style.borderBottomColor = '';
+  if (divider) divider.style.display = 'none';
+
+  const STEPS = 5;
+  bar.style.width = ((step + 1) / STEPS * 100) + '%';
+
+  if (step === 0) {
+    // ── PASO 1: INTRO ───────────────────────────────────────
+    content.innerHTML = `
+      <div class="pm-ls-step">
+        <div class="pm-ls-badge">💡 ${pmLessonCtx.node.label}</div>
+        <div class="pm-ls-intro" style="background:linear-gradient(135deg,${pv.bg1},${pv.bg2})">
+          <div class="pm-ls-mascot-sm">${pmLessonMascotSVG('happy', 100, 100)}</div>
+          <div class="pm-ls-intro-right">
+            <div class="pm-ls-bubble">${data.paragraphs[0]}</div>
+          </div>
+        </div>
+      </div>`;
+    btn.textContent = 'Siguiente →';
+    btn.onclick = () => pmLessonShowStep(1);
+    btn.className = 'pm-lesson-continue show';
+
+  } else if (step === 1) {
+    // ── PASO 2: DESARROLLO ──────────────────────────────────
+    const ICONS = ['📖','🎯','💡'];
+    const paras = data.paragraphs.slice(1);
+    const cards = paras.map((para, i) => {
+      const m = para.match(/^(.{15,75}[^.])(?:\.\s)/);
+      const title = m ? m[1] : para.substring(0, 52) + (para.length > 52 ? '…' : '');
+      const bodyStart = m ? para.indexOf(m[0]) + m[0].length : 0;
+      const body = bodyStart > 0 ? para.substring(bodyStart) : para;
+      return `<div class="pm-ls-card">
+        <div class="pm-ls-card-icon">${ICONS[i] || '📖'}</div>
+        <div class="pm-ls-card-body">
+          <div class="pm-ls-card-title">${title}</div>
+          <div class="pm-ls-card-text">${body || para}</div>
+        </div>
+      </div>`;
+    }).join('');
+    content.innerHTML = `
+      <div class="pm-ls-step">
+        <div class="pm-ls-thinking-row">
+          <div class="pm-ls-mascot-xs">${pmLessonMascotSVG('thinking', 60, 60)}</div>
+          <span class="pm-ls-thinking-lbl">Platín explica…</span>
+        </div>
+        <div class="pm-ls-cards">${cards}</div>
+      </div>`;
+    btn.textContent = 'Siguiente →';
+    btn.onclick = () => pmLessonShowStep(2);
+    btn.className = 'pm-lesson-continue show';
+
+  } else if (step === 2) {
+    // ── PASO 3: DATO CMF ────────────────────────────────────
+    const st = pmLessonExtractStat(data.fact);
+    content.innerHTML = `
+      <div class="pm-ls-step">
+        <div class="pm-ls-stat-wrap">
+          <div class="pm-ls-stat-card">
+            <div class="pm-ls-stat-num">${st.num}</div>
+            <div class="pm-ls-stat-desc">${st.desc}</div>
+            <div class="pm-ls-stat-source">Fuente: CMF Chile 2026</div>
+          </div>
+          <div class="pm-ls-stat-mascot">
+            ${pmLessonMascotSVG('surprised', 86, 86)}
+            <div class="pm-ls-stat-bubble">¡Wow!</div>
+          </div>
+        </div>
+      </div>`;
+    btn.textContent = 'Entendido →';
+    btn.onclick = () => pmLessonShowStep(3);
+    btn.className = 'pm-lesson-continue show';
+
+  } else if (step === 3) {
+    // ── PASO 4: PREGUNTA ─────────────────────────────────────
+    const LETTERS = ['A','B','C','D'];
+    const optCards = data.opts.map((opt, i) =>
+      `<button class="pm-ls-opt-card" style="--ls-color:${pv.color};--ls-bg-hover:${pv.hover}" onclick="pmLessonAnswer(${i})" data-idx="${i}">
+        <div class="pm-ls-opt-letter">${LETTERS[i]}</div>
+        <span>${opt}</span>
+      </button>`
+    ).join('');
+    content.innerHTML = `
+      <div class="pm-ls-step">
+        <div class="pm-ls-q-label">${data.q}</div>
+        <div style="display:flex;flex-direction:column;gap:10px" id="pm-ls-opts">${optCards}</div>
+        <div id="pm-ls-inline-fb" style="display:none;margin-top:12px"></div>
+        <div id="pm-ls-reaction" style="display:none;text-align:center;margin-top:8px"></div>
+      </div>`;
+    btn.className = 'pm-lesson-continue'; // hidden until answered
+  }
 }
 
 function pmLessonAnswer(idx) {
   if (!pmLessonCtx || pmLessonCtx.answered) return;
   pmLessonCtx.answered = true;
   const data = LESSON_CONTENT[pmLessonCtx.node.id];
-  const opts = document.querySelectorAll('.pm-lesson-opt');
-  const fb = document.getElementById('pmLessonFeedback');
+  const pv   = pmLessonPathVars(pmLessonCtx.pathId);
+  const btn  = document.getElementById('pmLessonContinue');
+  const bar  = document.getElementById('pmLessonBar');
 
-  opts.forEach(b => b.disabled = true);
+  const opts     = document.querySelectorAll('.pm-ls-opt-card');
+  const inlineFb = document.getElementById('pm-ls-inline-fb');
+  const reaction = document.getElementById('pm-ls-reaction');
+  opts.forEach(b => { b.disabled = true; b.onclick = null; });
 
   if (idx === data.correct) {
     pmLessonCtx.correct = true;
     opts[idx].classList.add('correct');
-    fb.className = 'pm-lesson-feedback correct show';
-    fb.innerHTML = '✅ ' + data.explain;
-    document.getElementById('pmLessonBar').style.width = '100%';
-    const continueBtn = document.getElementById('pmLessonContinue');
-    continueBtn.textContent = 'Continuar →';
-    continueBtn.style.background = '';
-    continueBtn.style.borderBottomColor = '';
-    continueBtn.onclick = pmLessonFinish;
-    continueBtn.className = 'pm-lesson-continue show';
-    return;
+    if (typeof pmDfOnCorrectAnswer === 'function') pmDfOnCorrectAnswer();
+    bar.style.width = '100%';
+    if (inlineFb) {
+      inlineFb.style.display = 'block';
+      inlineFb.innerHTML = `<div class="pm-ls-inline-correct">✅ ${data.explain}</div>`;
+    }
+    if (reaction) {
+      reaction.style.display = 'block';
+      reaction.innerHTML = `<div class="pm-ls-mascot-xs" style="display:inline-block;animation:lsVictory .5s ease">${pmLessonMascotSVG('victory', 60, 60)}</div>`;
+    }
+    btn.textContent = '¡Completar! →';
+    btn.style.background = '';
+    btn.style.borderBottomColor = '';
+    btn.onclick = pmLessonFinish;
+    btn.className = 'pm-lesson-continue show';
   } else {
     opts[idx].classList.add('wrong');
-    fb.className = 'pm-lesson-feedback wrong show';
-    fb.innerHTML = '❌ Incorrecto. ' + data.explain;
-    document.getElementById('pmLessonBar').style.width = '50%';
+    if (inlineFb) {
+      inlineFb.style.display = 'block';
+      inlineFb.innerHTML = `<div class="pm-ls-inline-wrong">❌ Incorrecto. ${data.explain}</div>`;
+    }
+    if (reaction) {
+      reaction.style.display = 'block';
+      reaction.innerHTML = `<div class="pm-ls-mascot-xs" style="display:inline-block">${pmLessonMascotSVG('sad', 60, 60)}</div>`;
+    }
+    bar.style.width = (4 / 5 * 100) + '%';
     if (!pmLessonCtx.lifeLost) {
       pmLessonCtx.lifeLost = true;
       pmLoseLife(pmLessonCtx.pathId);
     }
     if (PM_LIVES_ENABLED && pmState.lives === 0) {
-      // Sin vidas: cerrar lección y mostrar banner
       const pathId = pmLessonCtx.pathId;
       setTimeout(() => {
         document.getElementById('pmLesson').classList.remove('open');
@@ -5188,48 +6199,44 @@ function pmLessonAnswer(idx) {
       }, 1200);
       return;
     }
-    // Mostrar botón reintentar
-    const retryBtn = document.getElementById('pmLessonContinue');
-    retryBtn.textContent = 'Reintentar →';
-    retryBtn.className = 'pm-lesson-continue show';
-    retryBtn.style.background = '#EF4444';
-    retryBtn.style.borderBottomColor = '#B91C1C';
-    retryBtn.onclick = pmLessonRetry;
-    return;
+    btn.textContent = 'Reintentar →';
+    btn.style.background = '#EF4444';
+    btn.style.borderBottomColor = '#B91C1C';
+    btn.onclick = pmLessonRetry;
+    btn.className = 'pm-lesson-continue show';
   }
-  document.getElementById('pmLessonContinue').className = 'pm-lesson-continue show';
 }
 
 function pmLessonRetry() {
   if (!pmLessonCtx) return;
-  const data = LESSON_CONTENT[pmLessonCtx.node.id];
-  // Resetear estado de respuesta (pero mantener lifeLost para no cobrar 2 veces)
   pmLessonCtx.answered = false;
-  pmLessonCtx.correct = false;
+  pmLessonCtx.correct  = false;
 
-  // Limpiar feedback y opciones
-  const fb = document.getElementById('pmLessonFeedback');
-  fb.className = 'pm-lesson-feedback';
-  fb.textContent = '';
-  document.getElementById('pmLessonBar').style.width = '50%';
+  const data = LESSON_CONTENT[pmLessonCtx.node.id];
+  const pv   = pmLessonPathVars(pmLessonCtx.pathId);
+  const btn  = document.getElementById('pmLessonContinue');
+  const bar  = document.getElementById('pmLessonBar');
 
-  // Reactivar botones de opción
-  const optsEl = document.getElementById('pmLessonOpts');
-  optsEl.innerHTML = '';
-  data.opts.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'pm-lesson-opt';
-    btn.textContent = opt;
-    btn.onclick = () => pmLessonAnswer(i);
-    optsEl.appendChild(btn);
-  });
+  bar.style.width = (4 / 5 * 100) + '%';
+  btn.style.background = '';
+  btn.style.borderBottomColor = '';
 
-  // Ocultar botón continuar/reintentar
-  const continueBtn = document.getElementById('pmLessonContinue');
-  continueBtn.className = 'pm-lesson-continue';
-  continueBtn.style.background = '';
-  continueBtn.style.borderBottomColor = '';
-  continueBtn.onclick = pmLessonFinish;
+  const optsContainer = document.getElementById('pm-ls-opts');
+  const inlineFb      = document.getElementById('pm-ls-inline-fb');
+  const reaction      = document.getElementById('pm-ls-reaction');
+  const LETTERS = ['A','B','C','D'];
+
+  if (optsContainer) {
+    optsContainer.innerHTML = data.opts.map((opt, i) =>
+      `<button class="pm-ls-opt-card" style="--ls-color:${pv.color};--ls-bg-hover:${pv.hover}" onclick="pmLessonAnswer(${i})" data-idx="${i}">
+        <div class="pm-ls-opt-letter">${LETTERS[i]}</div>
+        <span>${opt}</span>
+      </button>`
+    ).join('');
+  }
+  if (inlineFb) { inlineFb.style.display = 'none'; inlineFb.innerHTML = ''; }
+  if (reaction) { reaction.style.display = 'none'; reaction.innerHTML = ''; }
+  btn.className = 'pm-lesson-continue';
 }
 
 function pmLessonFinish() {
@@ -5242,6 +6249,8 @@ function pmLessonFinish() {
     pmAwardCoins(2, pathId);
     pmCheckBadges(pathId);
     showAchievement('🎉', '¡Bien hecho!', 'Completaste la lección', 100);
+    if (typeof pmDfOnLessonComplete === 'function') pmDfOnLessonComplete();
+    if (typeof pmLgAwardXp === 'function') pmLgAwardXp(10);
     if (typeof setPesoExpression === 'function') setPesoExpression('happy');
   }
   pmRenderNodes(pathId);
@@ -5451,8 +6460,11 @@ function pmShowCertificate(pathId) {
   document.getElementById('pmCertDate').textContent =
     new Date().toLocaleDateString('es-CL', { year:'numeric', month:'long', day:'numeric' });
   screen.classList.add('open');
-  // Marcar badge en landing
   pmMarkLandingBadge(pathId);
+  if (!localStorage.getItem('pm_cert_date_' + pathId)) {
+    localStorage.setItem('pm_cert_date_' + pathId,
+      new Date().toLocaleDateString('es-CL', { year:'numeric', month:'long', day:'numeric' }));
+  }
 }
 
 function pmCertShare() {
@@ -5606,8 +6618,8 @@ function closePlatinModal() {
 
 function pmMaybeShowWelcome(pathId, afterCb) {
   const key = 'pl_welcome_' + pathId;
-  if (localStorage.getItem(key)) { afterCb(); return; }
-  localStorage.setItem(key, '1');
+  if (sessionStorage.getItem(key)) { afterCb(); return; }
+  sessionStorage.setItem(key, '1');
   showPlatinModal({
     label: '¡Bienvenido/a!',
     text:  PLATIN_WELCOME[pathId] || '¡Hola! Soy Platín 🪙 ¡Empecemos!',
@@ -5625,10 +6637,10 @@ function pmMaybeShowTip(pathId) {
   const tips = PLATIN_TIPS[pathId] || [];
   const tip  = tips[Math.floor(done / 3 - 1) % tips.length];
   if (!tip) return;
-  // Solo mostrar una vez por hito
+  // Solo mostrar una vez por hito (por sesión)
   const tipKey = 'pl_tip_' + pathId + '_' + done;
-  if (localStorage.getItem(tipKey)) return;
-  localStorage.setItem(tipKey, '1');
+  if (sessionStorage.getItem(tipKey)) return;
+  sessionStorage.setItem(tipKey, '1');
   setTimeout(() => {
     showPlatinModal({
       label: '💡 Consejo de Platín',
@@ -5675,11 +6687,12 @@ function pmOnboardSelect(unlockUntil) {
 
 /* ── BADGES ── */
 const PM_BADGES_DEF = [
-  { id:'primer_paso', icon:'🥇', name:'Primer paso',  desc:'Completaste tu primer nodo' },
-  { id:'ahorra_10k',  icon:'🐷', name:'Ahorra 10k',   desc:'Acumulaste 10.000 monedas' },
-  { id:'racha_7',     icon:'🔥', name:'Racha 7 días', desc:'7 días consecutivos usando Platuuu' },
-  { id:'experto',     icon:'🎓', name:'Experto',      desc:'Completaste un camino completo' },
-  { id:'maestro',     icon:'💎', name:'Maestro',      desc:'Completaste los 4 caminos' },
+  { id:'primer_paso',    icon:'🥇', name:'Primer paso',    desc:'Completaste tu primer nodo' },
+  { id:'ahorra_10k',     icon:'🐷', name:'Ahorra 10k',     desc:'Acumulaste 10.000 monedas' },
+  { id:'racha_7',        icon:'🔥', name:'Racha 7 días',   desc:'7 días consecutivos usando Platuuu' },
+  { id:'experto',        icon:'🎓', name:'Experto',        desc:'Completaste un camino completo' },
+  { id:'maestro',        icon:'💎', name:'Maestro',        desc:'Completaste los 4 caminos' },
+  { id:'habito_formado', icon:'💪', name:'Hábito Formado', desc:'Completaste Etapa 3 — Hábitos que duran' },
 ];
 
 function pmGetBadges() {
@@ -5725,6 +6738,771 @@ function pmSidebarPlaceholder(section) {
   document.body.appendChild(toast);
   setTimeout(() => toast.remove(), 2200);
 }
+
+/* ── SCREEN DISPATCHER ── */
+function pmOpenScreen(screen, pathId) {
+  if (screen === 'perfil')    { pmOpenPerfil(pathId); return; }
+  if (screen === 'conceptos') { pmOpenConceptos(pathId); return; }
+  if (screen === 'desafios')  { pmOpenDesafios(pathId); return; }
+  if (screen === 'ligas')     { pmOpenLigas(pathId); return; }
+  const labels = { mas:'Más ⋯' };
+  pmSidebarPlaceholder(labels[screen] || screen);
+}
+
+/* ── DESAFÍOS DIARIOS ── */
+const PM_DF_KEY_PREFIX = 'pl_challenges_';
+const PM_DF_STREAK_KEY = 'pl_df_streak';
+let pmDfCountdownInterval = null;
+
+function pmDfTodayKey() {
+  const d = new Date();
+  return PM_DF_KEY_PREFIX + d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function pmDfDateKey(offset) {
+  const d = new Date();
+  d.setDate(d.getDate() + offset);
+  return PM_DF_KEY_PREFIX + d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function pmDfLoadToday() {
+  const raw = localStorage.getItem(pmDfTodayKey());
+  return raw ? JSON.parse(raw) : { l:0, q:0, g:0, bonus:false };
+}
+
+function pmDfSaveToday(data) {
+  localStorage.setItem(pmDfTodayKey(), JSON.stringify(data));
+}
+
+function pmDfIsDone(data) {
+  return data.l >= 1 && data.q >= 3 && data.g >= 1;
+}
+
+function pmOpenDesafios(pathId) {
+  pmRenderDesafios();
+  document.getElementById('pmDesafiosScreen').classList.add('open');
+  pmDfStartCountdown();
+}
+
+function pmCloseDesafios() {
+  document.getElementById('pmDesafiosScreen').classList.remove('open');
+  if (pmDfCountdownInterval) { clearInterval(pmDfCountdownInterval); pmDfCountdownInterval = null; }
+}
+
+function pmRenderDesafios() {
+  const data = pmDfLoadToday();
+  const allDone = pmDfIsDone(data);
+
+  /* Desafío 1 — lección */
+  const d1done = data.l >= 1;
+  const d1pct = Math.min(data.l / 1, 1) * 100;
+  document.getElementById('pmDf1').className = 'pm-df-card' + (d1done ? ' done' : '');
+  document.getElementById('pmDf1Name').className = 'pm-df-card-name' + (d1done ? ' done' : '');
+  document.getElementById('pmDf1Badge').textContent = d1done ? '✅' : '○';
+  document.getElementById('pmDf1Bar').style.width = d1pct + '%';
+  document.getElementById('pmDf1Bar').className = 'pm-df-bar' + (d1done ? ' done' : '');
+  document.getElementById('pmDf1Label').textContent = Math.min(data.l,1) + ' / 1';
+
+  /* Desafío 2 — preguntas correctas */
+  const d2done = data.q >= 3;
+  const d2pct = Math.min(data.q / 3, 1) * 100;
+  document.getElementById('pmDf2').className = 'pm-df-card' + (d2done ? ' done' : '');
+  document.getElementById('pmDf2Name').className = 'pm-df-card-name' + (d2done ? ' done' : '');
+  document.getElementById('pmDf2Badge').textContent = d2done ? '✅' : '○';
+  document.getElementById('pmDf2Bar').style.width = d2pct + '%';
+  document.getElementById('pmDf2Bar').className = 'pm-df-bar' + (d2done ? ' done' : '');
+  document.getElementById('pmDf2Label').textContent = Math.min(data.q,3) + ' / 3';
+
+  /* Desafío 3 — mini-juego */
+  const d3done = data.g >= 1;
+  const d3pct = Math.min(data.g / 1, 1) * 100;
+  document.getElementById('pmDf3').className = 'pm-df-card' + (d3done ? ' done' : '');
+  document.getElementById('pmDf3Name').className = 'pm-df-card-name' + (d3done ? ' done' : '');
+  document.getElementById('pmDf3Badge').textContent = d3done ? '✅' : '○';
+  document.getElementById('pmDf3Bar').style.width = d3pct + '%';
+  document.getElementById('pmDf3Bar').className = 'pm-df-bar' + (d3done ? ' done' : '');
+  document.getElementById('pmDf3Label').textContent = Math.min(data.g,1) + ' / 1';
+
+  /* Bonus */
+  const bonus = document.getElementById('pmDfBonus');
+  if (allDone) {
+    bonus.className = 'pm-df-bonus earned';
+    bonus.querySelector('.pm-df-bonus-title').textContent = '🎉 ¡Bonus desbloqueado! +25 fichas';
+    bonus.querySelector('.pm-df-bonus-sub').textContent = 'Los 3 desafíos completados hoy';
+    bonus.querySelector('.pm-df-bonus-icon').textContent = '🏆';
+  } else {
+    bonus.className = 'pm-df-bonus';
+    bonus.querySelector('.pm-df-bonus-title').textContent = 'Bonus diario: +25 fichas';
+    bonus.querySelector('.pm-df-bonus-sub').textContent = 'Completa los 3 desafíos para desbloquearlo';
+    bonus.querySelector('.pm-df-bonus-icon').textContent = '🎁';
+  }
+
+  /* Mascot */
+  const mascot = document.getElementById('pmDfMascot');
+  const msg    = document.getElementById('pmDfMascotMsg');
+  const done3  = [d1done, d2done, d3done].filter(Boolean).length;
+  if (allDone) {
+    mascot.textContent = '🥳';
+    msg.textContent = '¡Eres un campeón! Todos los desafíos completados 🏆';
+  } else if (done3 >= 2) {
+    mascot.textContent = '🤩';
+    msg.textContent = '¡Falta solo uno! ¡Tú puedes! 💪';
+  } else if (done3 >= 1) {
+    mascot.textContent = '😊';
+    msg.textContent = '¡Bien encaminado! Sigue así 🔥';
+  } else {
+    mascot.textContent = '🐷';
+    msg.textContent = '¡Completa los 3 desafíos y gana fichas extra!';
+  }
+
+  /* Historial últimos 7 días */
+  pmDfRenderHistory();
+}
+
+function pmDfRenderHistory() {
+  const dots = document.getElementById('pmDfHistDots');
+  dots.innerHTML = '';
+  let streak = 0;
+  for (let i = -6; i <= 0; i++) {
+    const key = pmDfDateKey(i);
+    const raw = localStorage.getItem(key);
+    const data = raw ? JSON.parse(raw) : null;
+    const dot = document.createElement('div');
+    const allDone = data && pmDfIsDone(data);
+    const partial = data && (data.l > 0 || data.q > 0 || data.g > 0) && !allDone;
+    if (allDone) {
+      dot.className = 'pm-df-hist-dot full';
+      dot.textContent = '🔥';
+      streak++;
+    } else if (partial) {
+      dot.className = 'pm-df-hist-dot partial';
+      dot.textContent = '⭐';
+      streak = 0;
+    } else {
+      dot.className = 'pm-df-hist-dot empty';
+      dot.textContent = '○';
+      if (i < 0) streak = 0;
+    }
+    dots.appendChild(dot);
+  }
+  document.getElementById('pmDfHistStreak').textContent = streak > 0 ? '🔥 ' + streak + (streak === 1 ? ' día' : ' días') : '○ Sin racha';
+}
+
+function pmDfStartCountdown() {
+  if (pmDfCountdownInterval) clearInterval(pmDfCountdownInterval);
+  const tick = () => {
+    const now = new Date();
+    const midnight = new Date(now);
+    midnight.setHours(24, 0, 0, 0);
+    let diff = Math.floor((midnight - now) / 1000);
+    if (diff <= 0) { pmDfSaveToday({ l:0, q:0, g:0, bonus:false }); pmRenderDesafios(); diff = 86400; }
+    const h = String(Math.floor(diff / 3600)).padStart(2,'0');
+    const m = String(Math.floor((diff % 3600) / 60)).padStart(2,'0');
+    const s = String(diff % 60).padStart(2,'0');
+    const el = document.getElementById('pmDfCountdown');
+    if (el) el.textContent = 'Se renuevan en ' + h + ':' + m + ':' + s;
+  };
+  tick();
+  pmDfCountdownInterval = setInterval(tick, 1000);
+}
+
+/* ── HOOKS: llamar desde lección/juego ── */
+function pmDfOnLessonComplete() {
+  const data = pmDfLoadToday();
+  if (data.l < 1) { data.l++; pmDfSaveToday(data); pmDfCheckBonus(data); pmDfRefreshIfOpen(); }
+}
+
+function pmDfOnCorrectAnswer() {
+  const data = pmDfLoadToday();
+  if (data.q < 3) { data.q++; pmDfSaveToday(data); pmDfCheckBonus(data); pmDfRefreshIfOpen(); }
+}
+
+function pmDfOnGameComplete() {
+  const data = pmDfLoadToday();
+  if (data.g < 1) { data.g++; pmDfSaveToday(data); pmDfCheckBonus(data); pmDfRefreshIfOpen(); }
+}
+
+function pmDfCheckBonus(data) {
+  if (!data.bonus && pmDfIsDone(data)) {
+    data.bonus = true;
+    pmDfSaveToday(data);
+    pmState.coins = (pmState.coins || 0) + 25;
+    pmSaveCoins();
+    ['ahorro','deudas','inversion','presupuesto'].forEach(p => {
+      const ov = document.getElementById('pm-' + p);
+      if (ov) ov.querySelectorAll('.pm-sb-coins').forEach(c => c.textContent = pmState.coins);
+    });
+    showAchievement('🏆', '¡Bonus completado!', '+25 fichas por los 3 desafíos 🎉');
+  }
+}
+
+function pmDfRefreshIfOpen() {
+  if (document.getElementById('pmDesafiosScreen').classList.contains('open')) pmRenderDesafios();
+}
+
+/* ── LIGAS SEMANALES ── */
+const PM_LIGA_KEY      = 'pl_liga_current';   // bronce/plata/oro/diamante
+const PM_XP_WEEKLY_KEY = 'pl_xp_weekly';
+const PM_XP_WEEK_ID    = 'pl_xp_week_id';
+const PM_XP_TOTAL_KEY  = 'pl_xp_total';
+const PM_LIGA_PROMO_KEY = 'pl_liga_promo_shown';
+
+const PM_LIGA_DEF = [
+  { id:'bronce',   icon:'🥉', name:'Liga Bronce',   color:'#B45309' },
+  { id:'plata',    icon:'🥈', name:'Liga Plata',    color:'#94A3B8' },
+  { id:'oro',      icon:'🥇', name:'Liga Oro',      color:'#FFC700' },
+  { id:'diamante', icon:'💎', name:'Liga Diamante', color:'#A78BFA' },
+];
+
+const PM_NPC_POOLS = {
+  bronce: [
+    { name:'Valentina M.', xp:2840 }, { name:'Rodrigo F.',   xp:2210 },
+    { name:'Camila S.',    xp:1980 }, { name:'Diego A.',     xp:1750 },
+    { name:'Javiera P.',   xp:1320 }, { name:'Tomás E.',     xp:1180 },
+    { name:'Sofía R.',     xp:980  }, { name:'Bastián L.',   xp:870  },
+    { name:'Nicole C.',    xp:650  },
+  ],
+  plata: [
+    { name:'Fernanda V.',  xp:3940 }, { name:'Matías R.',    xp:3510 },
+    { name:'Isidora C.',   xp:3180 }, { name:'Sebastián O.', xp:2870 },
+    { name:'Javiera M.',   xp:2560 }, { name:'Ignacio T.',   xp:2340 },
+    { name:'Paula E.',     xp:2100 }, { name:'Cristóbal N.', xp:1870 },
+    { name:'Antonia S.',   xp:1540 },
+  ],
+  oro: [
+    { name:'Constanza A.', xp:5210 }, { name:'Felipe R.',    xp:4890 },
+    { name:'Amanda V.',    xp:4420 }, { name:'Gabriel C.',   xp:4070 },
+    { name:'Catalina M.',  xp:3760 }, { name:'Andrés F.',    xp:3490 },
+    { name:'Daniela S.',   xp:3210 }, { name:'Emilio N.',    xp:2880 },
+    { name:'Renata P.',    xp:2540 },
+  ],
+  diamante: [
+    { name:'Valentina K.', xp:8400 }, { name:'Martín R.',    xp:7920 },
+    { name:'Florencia A.', xp:7310 }, { name:'Rodrigo M.',   xp:6870 },
+    { name:'Magdalena V.', xp:6320 }, { name:'Óscar F.',     xp:5910 },
+    { name:'Trinidad C.',  xp:5450 }, { name:'Benjamín S.',  xp:4980 },
+    { name:'Esperanza L.', xp:4320 },
+  ],
+};
+
+let pmLgCountdownInterval = null;
+let pmLgCurrentTab = 'bronce';
+
+function pmLgGetWeekId() {
+  const d = new Date();
+  const mon = new Date(d);
+  mon.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  return mon.getFullYear() + '-W' + String(mon.getMonth()+1).padStart(2,'0') + '-' + String(mon.getDate()).padStart(2,'0');
+}
+
+function pmLgGetWeeklyXp() {
+  const storedWeek = localStorage.getItem(PM_XP_WEEK_ID);
+  const currentWeek = pmLgGetWeekId();
+  if (storedWeek !== currentWeek) {
+    localStorage.setItem(PM_XP_WEEK_ID, currentWeek);
+    localStorage.setItem(PM_XP_WEEKLY_KEY, '0');
+    return 0;
+  }
+  return parseInt(localStorage.getItem(PM_XP_WEEKLY_KEY) || '0');
+}
+
+function pmLgGetLiga() {
+  return localStorage.getItem(PM_LIGA_KEY) || 'bronce';
+}
+
+function pmLgSetLiga(ligaId) {
+  localStorage.setItem(PM_LIGA_KEY, ligaId);
+}
+
+function pmLgUserPosition(ligaId, userXp) {
+  const npcs = PM_NPC_POOLS[ligaId] || PM_NPC_POOLS.bronce;
+  return npcs.filter(n => n.xp > userXp).length + 1;
+}
+
+function pmOpenLigas(pathId) {
+  const liga = pmLgGetLiga();
+  pmLgCurrentTab = liga;
+  pmRenderLigas();
+  document.getElementById('pmLigasScreen').classList.add('open');
+  pmLgStartCountdown();
+}
+
+function pmCloseLigas() {
+  document.getElementById('pmLigasScreen').classList.remove('open');
+  if (pmLgCountdownInterval) { clearInterval(pmLgCountdownInterval); pmLgCountdownInterval = null; }
+}
+
+function pmLgSetTab(ligaId) {
+  pmLgCurrentTab = ligaId;
+  document.querySelectorAll('.pm-lg-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.liga === ligaId);
+  });
+  pmLgRenderRanking(ligaId);
+  pmLgUpdateBadge(ligaId);
+}
+
+function pmRenderLigas() {
+  const liga    = pmLgGetLiga();
+  const weekXp  = pmLgGetWeeklyXp();
+  const pos     = pmLgUserPosition(liga, weekXp);
+  const ligaDef = PM_LIGA_DEF.find(l => l.id === liga) || PM_LIGA_DEF[0];
+
+  document.getElementById('pmLgTitle').textContent = '🏆 ' + ligaDef.name;
+  pmLgUpdateBadge(liga);
+  pmLgSetTab(liga);
+
+  /* XP card */
+  document.getElementById('pmLgUserXp').textContent = weekXp.toLocaleString('es-CL') + ' XP';
+  const totalXp = parseInt(localStorage.getItem(PM_XP_TOTAL_KEY) || '0');
+  document.getElementById('pmLgUserXpSub').textContent = 'XP total acumulado: ' + totalXp.toLocaleString('es-CL');
+
+  /* Mascot */
+  pmLgUpdateMascot(pos);
+}
+
+function pmLgUpdateBadge(ligaId) {
+  const def = PM_LIGA_DEF.find(l => l.id === ligaId) || PM_LIGA_DEF[0];
+  document.getElementById('pmLgBadgeIcon').textContent = def.icon;
+  document.getElementById('pmLgBadgeName').textContent = def.name;
+}
+
+function pmLgUpdateMascot(pos) {
+  const mascot = document.getElementById('pmLgMascot');
+  const msg    = document.getElementById('pmLgMsg');
+  if (pos <= 3) {
+    mascot.textContent = '🏆';
+    msg.textContent = '¡Estás dominando! 🏆 Mantén la racha y asegura tu ascenso a la siguiente liga.';
+  } else if (pos <= 6) {
+    mascot.textContent = '💪';
+    msg.textContent = '¡Vas muy bien! 💪 Completa más lecciones para subir al podio y ascender de liga.';
+  } else {
+    mascot.textContent = '⚡';
+    msg.textContent = '¡Tú puedes! ⚡ Unos desafíos más y subes de posición. ¡La semana no ha terminado!';
+  }
+}
+
+function pmLgRenderRanking(ligaId) {
+  const weekXp  = pmLgGetWeeklyXp();
+  const userLiga = pmLgGetLiga();
+  const isMyLiga = ligaId === userLiga;
+  const npcs = (PM_NPC_POOLS[ligaId] || PM_NPC_POOLS.bronce).slice();
+
+  let players;
+  if (isMyLiga) {
+    const all = [...npcs, { name:'Sebastián B.', xp: weekXp, isMe: true }];
+    all.sort((a,b) => b.xp - a.xp);
+    players = all.slice(0, 10);
+  } else {
+    players = npcs.slice(0, 10).map(n => ({ ...n }));
+  }
+
+  const list = document.getElementById('pmLgList');
+  list.innerHTML = '';
+
+  const posIcons = ['🥇','🥈','🥉'];
+
+  players.forEach((p, i) => {
+    const rank  = i + 1;
+    const isMe  = !!p.isMe;
+    const inUp  = rank <= 5;
+    const inDn  = rank >= 8;
+
+    const row = document.createElement('div');
+    let rowClass = 'pm-lg-row';
+    if (isMe)  rowClass += ' me';
+    else if (inUp)  rowClass += ' zone-up';
+    else if (inDn)  rowClass += ' zone-down';
+    row.className = rowClass;
+
+    const posClass = rank === 1 ? 'pm-lg-pos gold' : rank === 2 ? 'pm-lg-pos silver' : rank === 3 ? 'pm-lg-pos bronze' : 'pm-lg-pos';
+    const posText  = rank <= 3 ? posIcons[rank-1] : rank;
+
+    const initials = p.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+    const avatarClass = isMe ? 'pm-lg-avatar me-av' : 'pm-lg-avatar npc';
+
+    let zonePill = '';
+    if (inUp && !isMe)  zonePill = '<span class="pm-lg-zone-label up">🚀 Ascenso</span>';
+    if (inDn && !isMe)  zonePill = '<span class="pm-lg-zone-label down">⚠️ Descenso</span>';
+    if (isMe && inUp)   zonePill = '<span class="pm-lg-zone-label up">🚀 Ascenso</span>';
+    if (isMe && inDn)   zonePill = '<span class="pm-lg-zone-label down">⚠️ Descenso</span>';
+
+    row.innerHTML = `
+      <div class="${posClass}">${posText}</div>
+      <div class="${avatarClass}">${initials}</div>
+      <div class="pm-lg-name${isMe ? ' me-name' : ''}">${p.name}${isMe ? ' (tú)' : ''}</div>
+      ${zonePill}
+      <div class="pm-lg-xp${isMe ? ' me-xp' : ''}">${p.xp.toLocaleString('es-CL')} XP</div>`;
+    list.appendChild(row);
+  });
+
+  /* Actualizar mascot según posición real del usuario */
+  if (isMyLiga) {
+    const myIdx = players.findIndex(p => p.isMe);
+    if (myIdx !== -1) pmLgUpdateMascot(myIdx + 1);
+  }
+}
+
+function pmLgStartCountdown() {
+  if (pmLgCountdownInterval) clearInterval(pmLgCountdownInterval);
+  const tick = () => {
+    const now = new Date();
+    const daysUntilMon = (8 - now.getDay()) % 7 || 7;
+    const nextMon = new Date(now);
+    nextMon.setDate(now.getDate() + daysUntilMon);
+    nextMon.setHours(0, 0, 0, 0);
+    let diff = Math.floor((nextMon - now) / 1000);
+    if (diff <= 0) { pmLgResetWeek(); diff = 604800; }
+    const h = String(Math.floor(diff / 3600)).padStart(2,'0');
+    const m = String(Math.floor((diff % 3600) / 60)).padStart(2,'0');
+    const s = String(diff % 60).padStart(2,'0');
+    const el = document.getElementById('pmLgCountdown');
+    if (el) el.textContent = 'Se reinicia el lunes en ' + h + ':' + m + ':' + s;
+  };
+  tick();
+  pmLgCountdownInterval = setInterval(tick, 1000);
+}
+
+function pmLgResetWeek() {
+  const liga    = pmLgGetLiga();
+  const weekXp  = parseInt(localStorage.getItem(PM_XP_WEEKLY_KEY) || '0');
+  const pos     = pmLgUserPosition(liga, weekXp);
+  const ligaIdx = PM_LIGA_DEF.findIndex(l => l.id === liga);
+
+  /* Ascenso si top 5, no en Diamante */
+  if (pos <= 5 && ligaIdx < PM_LIGA_DEF.length - 1) {
+    const nextLiga = PM_LIGA_DEF[ligaIdx + 1];
+    pmLgSetLiga(nextLiga.id);
+    pmState.coins = (pmState.coins || 0) + 50;
+    pmSaveCoins();
+    showAchievement('🎉', '¡Subiste de liga!', nextLiga.icon + ' ' + nextLiga.name + ' — +50 fichas 🪙');
+    if (nextLiga.id === 'diamante') pmGrantBadge('maestro', null);
+  }
+  /* Reset XP semanal */
+  localStorage.setItem(PM_XP_WEEKLY_KEY, '0');
+  localStorage.setItem(PM_XP_WEEK_ID, pmLgGetWeekId());
+  if (document.getElementById('pmLigasScreen').classList.contains('open')) pmRenderLigas();
+}
+
+/* ── HOOK: Sumar XP al completar lección/juego ── */
+function pmLgAwardXp(amount) {
+  const weekXp = pmLgGetWeeklyXp();
+  localStorage.setItem(PM_XP_WEEKLY_KEY, weekXp + amount);
+  const totalXp = parseInt(localStorage.getItem(PM_XP_TOTAL_KEY) || '0');
+  localStorage.setItem(PM_XP_TOTAL_KEY, totalXp + amount);
+  if (document.getElementById('pmLigasScreen').classList.contains('open')) pmRenderLigas();
+}
+
+/* ── CONCEPTOS / GLOSARIO CMF ── */
+const PM_GLOSARIO = [
+  { id:'uf', icon:'📐', name:'UF', fullName:'Unidad de Fomento', cat:'general',
+    short:'Unidad reajustable diariamente con la inflación. Base de hipotecas y arriendos.',
+    full:'La UF es una unidad de cuenta que se reajusta cada día según la variación del IPC del mes anterior. Se usa en créditos hipotecarios, arriendos y contratos de largo plazo en Chile. La CMF la publica diariamente.',
+    example:'Un departamento cuesta 2.000 UF. Si la UF vale $38.408, el precio es $76.816.000. Al estar en UF, ese valor se ajusta con la inflación y no pierde poder adquisitivo.',
+    cmfLabel:'UF hoy', cmfKey:'uf', camino:'ahorro' },
+  { id:'utm', icon:'📋', name:'UTM', fullName:'Unidad Tributaria Mensual', cat:'general',
+    short:'Unidad para calcular multas, impuestos y trámites ante el SII.',
+    full:'La UTM es la unidad de referencia del sistema tributario chileno. Se usa para calcular multas, impuestos y trámites ante el SII. Se reajusta mensualmente según el IPC y la fija el Ministerio de Hacienda.',
+    example:'Una multa de 1 UTM equivale a aprox. $65.832. El SII usa UTM para las sanciones por declaraciones tributarias tardías o incorrectas.',
+    cmfLabel:'UTM hoy', cmfKey:'utm', camino:'presupuesto' },
+  { id:'ipc', icon:'🌡️', name:'IPC', fullName:'Índice de Precios al Consumidor', cat:'general',
+    short:'Mide cuánto suben los precios en Chile cada mes.',
+    full:'El IPC mide la variación de precios de una canasta representativa del consumo de los hogares chilenos. Lo calcula el INE mensualmente. Es la base del reajuste de la UF, sueldos y contratos. El Banco Central busca mantenerlo en torno al 3% anual.',
+    example:'Si el IPC de mayo fue 0,2%, los precios subieron 0,2% ese mes. Un sueldo de $600.000 debería reajustarse en $1.200 para mantener su poder de compra real.',
+    cmfLabel:'IPC último mes', cmfKey:'ipc', camino:'presupuesto' },
+  { id:'tmc', icon:'🚫', name:'TMC', fullName:'Tasa Máxima Convencional', cat:'deudas',
+    short:'El tope legal de interés que te pueden cobrar en cualquier crédito en Chile.',
+    full:'La TMC es el máximo legal de tasa de interés que pueden cobrar bancos, multitiendas y casas comerciales. La fija la CMF mensualmente según el tipo de crédito. Cobrar sobre la TMC es un delito en Chile.',
+    example:'La TMC para créditos de consumo puede estar en torno al 35% anual. Si una tienda te ofrece financiamiento al 40%, eso es ilegal. Siempre compara la CAE antes de firmar.',
+    cmfLabel:null, camino:'deudas' },
+  { id:'apv', icon:'🏦', name:'APV', fullName:'Ahorro Previsional Voluntario', cat:'ahorro',
+    short:'Ahorro extra para la jubilación con beneficios tributarios del Estado.',
+    full:'El APV permite ahorrar voluntariamente para la jubilación con incentivos del Estado. En el Régimen A recibes un bono del 15% de lo aportado. En el Régimen B puedes descontar el ahorro de tu base imponible. Disponible en AFP, bancos y compañías de seguros.',
+    example:'Ahorras $100.000/mes en APV Régimen A. El Estado te aporta un bono del 15% = $15.000 adicionales al año, más la rentabilidad de tu fondo. En 10 años eso suma millones.',
+    cmfLabel:null, camino:'ahorro' },
+  { id:'afp', icon:'👴', name:'AFP', fullName:'Administradora de Fondos de Pensiones', cat:'ahorro',
+    short:'Empresa que administra tu ahorro obligatorio para la jubilación.',
+    full:'Las AFP administran el 10% obligatorio de cotización que descuenta cada mes tu empleador. Puedes elegir entre 5 AFP en Chile y entre fondos A (agresivo) a E (conservador) según tu perfil de riesgo y edad.',
+    example:'Con sueldo de $800.000, tu AFP recibe $80.000/mes. En el Fondo A (más agresivo, para jóvenes) esos aportes pueden crecer significativamente más en 30 años que en el Fondo E.',
+    cmfLabel:null, camino:'ahorro' },
+  { id:'cae', icon:'📉', name:'CAE', fullName:'Carga Anual Equivalente', cat:'deudas',
+    short:'El costo real total de un crédito expresado en % anual — el número a comparar.',
+    full:'El CAE incluye la tasa de interés más TODOS los costos del crédito: seguros, comisiones, gastos operacionales. Es el único número válido para comparar distintos créditos entre sí. La CMF obliga a publicarlo en toda oferta de crédito.',
+    example:'Banco A: 18% anual, CAE 27%. Banco B: 21% anual, CAE 23%. El Banco B es más barato en la práctica. La tasa nominal engaña — el CAE no miente.',
+    cmfLabel:null, camino:'deudas' },
+  { id:'ipsa', icon:'📈', name:'IPSA', fullName:'Índice de Precio Selectivo de Acciones', cat:'inversion',
+    short:'Termómetro de la economía chilena: las 30 mayores empresas de la Bolsa.',
+    full:'El IPSA agrupa las 30 empresas con mayor presencia bursátil en la Bolsa de Santiago. Es el indicador de referencia del mercado accionario chileno. Si el IPSA sube, la economía va bien en general.',
+    example:'Si el IPSA subió un 8% este año y tu fondo mutuo accionario chileno rindió 11%, el gestor lo hizo mejor que el mercado. Es la forma de evaluar si tu inversión vale la pena.',
+    cmfLabel:null, camino:'inversion' },
+  { id:'fondo_mutuo', icon:'🧺', name:'Fondo Mutuo', fullName:'Fondo de Inversión Colectivo', cat:'inversion',
+    short:'Pool de inversores que invierten juntos con un gestor profesional.',
+    full:'Un fondo mutuo agrupa el dinero de muchos inversores para comprar activos diversificados (acciones, bonos, dólares). Un gestor profesional toma las decisiones. Puedes entrar desde $1.000 y rescatar cuando quieras.',
+    example:'Invertiste $50.000 en un fondo mutuo de renta variable chilena. En 5 años creció 40%: ahora tienes $70.000. En una cuenta de ahorro al 2% anual tendrías solo $55.204.',
+    cmfLabel:null, camino:'inversion' },
+  { id:'dicom', icon:'🚨', name:'DICOM', fullName:'Boletín Comercial / DICOM', cat:'deudas',
+    short:'Registro de deudas impagas que afecta tu historial crediticio en Chile.',
+    full:'El Boletín Comercial (conocido como DICOM) registra las deudas impagas. Estar en este registro dificulta obtener créditos, arrendar departamentos o incluso conseguir empleo. Se sale pagando la deuda y esperando el tiempo de prescripción.',
+    example:'No pagaste $150.000 por más de 3 meses. El acreedor te ingresa al DICOM. El banco lo ve al evaluar tu crédito hipotecario y lo rechaza. Pagar esa deuda es urgente.',
+    cmfLabel:null, camino:'deudas' },
+  { id:'sernac', icon:'⚖️', name:'SERNAC', fullName:'Servicio Nacional del Consumidor', cat:'general',
+    short:'El organismo del Estado que protege tus derechos como consumidor.',
+    full:'SERNAC vela por los derechos de los consumidores ante bancos, multitiendas, servicios básicos y cualquier empresa. Puedes presentar reclamos gratis en SERNAC.cl. Tienen poder de mediación y pueden multar a las empresas.',
+    example:'Un banco te cobra una comisión no informada en el contrato. Presentas un reclamo en SERNAC.cl. Ellos median con el banco. El 70% de los reclamos se resuelven favorablemente.',
+    cmfLabel:null, camino:'presupuesto' },
+  { id:'cuenta_vista', icon:'💳', name:'Cuenta Vista', fullName:'Cuenta Vista / Cuenta RUT', cat:'ahorro',
+    short:'Cuenta bancaria básica y gratuita para recibir y transferir dinero.',
+    full:'La cuenta vista (como la RUT de BancoEstado) es la cuenta bancaria más básica: recibe depósitos, hace transferencias, paga con débito y gira en cajeros. No da acceso a créditos ni chequera. La Cuenta RUT es 100% gratuita para todos los chilenos.',
+    example:'Depositas tu sueldo de $700.000 en tu Cuenta RUT. Pagas arriendo por transferencia, supermercado con débito y separas $100.000 a tu cuenta de ahorro. Todo gratis.',
+    cmfLabel:null, camino:'ahorro' },
+  { id:'cuenta_corriente', icon:'🏧', name:'Cuenta Corriente', fullName:'Cuenta Corriente Bancaria', cat:'general',
+    short:'Cuenta premium con chequera, línea de crédito y tarjeta de crédito.',
+    full:'La cuenta corriente incluye chequera, acceso a línea de crédito, tarjeta de débito y crédito. Requiere calificación crediticia y tiene costos de mantención de $5.000-$15.000/mes. Da acceso a más productos financieros.',
+    example:'Tu cuenta corriente tiene una línea de crédito de $500.000 para emergencias. El costo de mantención es $8.000/mes = $96.000 al año. Evalúa si realmente la necesitas o una cuenta vista es suficiente.',
+    cmfLabel:null, camino:'presupuesto' },
+  { id:'seguro_cesantia', icon:'🛡️', name:'Seguro Cesantía', fullName:'Seguro de Cesantía AFC Chile', cat:'general',
+    short:'Seguro obligatorio que te protege económicamente si pierdes el trabajo.',
+    full:'Es obligatorio para todos los trabajadores con contrato. Tu empleador aporta el 2,4% de tu sueldo y tú el 0,6% mensualmente a la AFC. Si te despiden, puedes retirar ese dinero acumulado según la causa de término del contrato.',
+    example:'Con 2 años de trabajo en empresa, acumulaste ~$1.200.000 en tu cuenta individual. Si te despiden, retiras ese monto en cuotas mientras buscas trabajo nuevo.',
+    cmfLabel:null, camino:'presupuesto' },
+  { id:'tasa_interes', icon:'💹', name:'Tasa de Interés', fullName:'Tasa de Interés y TPM', cat:'deudas',
+    short:'El precio del dinero prestado, que el Banco Central regula en Chile.',
+    full:'La tasa de interés es el costo de usar dinero prestado o lo que ganas por depositarlo. El Banco Central fija la Tasa de Política Monetaria (TPM) que influye en todas las tasas del sistema. Cuando la TPM sube, los créditos se encarecen.',
+    example:'Pides $1.000.000 a 12 meses al 25% anual. Al final pagas ~$1.139.000. Los $139.000 de diferencia son los intereses — el precio que pagaste por usar ese dinero hoy.',
+    cmfLabel:null, camino:'deudas' },
+  { id:'inflacion', icon:'📊', name:'Inflación', fullName:'Inflación y Poder Adquisitivo', cat:'general',
+    short:'El alza generalizada de precios que reduce el poder de compra de tu dinero.',
+    full:'La inflación ocurre cuando los precios suben de forma generalizada. El Banco Central tiene como objetivo mantenerla en torno al 3% anual. Alta inflación destruye el poder adquisitivo de ahorros en cuentas que no reajustan.',
+    example:'Inflación del 6% y tu sueldo no sube: perdiste 6% de poder adquisitivo. $600.000 ahora equivalen a $564.000 del año anterior en términos reales.',
+    cmfLabel:'IPC último mes', cmfKey:'ipc', camino:'presupuesto' },
+  { id:'dividendo', icon:'💰', name:'Dividendo', fullName:'Dividendo de Acciones', cat:'inversion',
+    short:'Parte de las ganancias de una empresa repartida a sus accionistas.',
+    full:'Cuando una empresa tiene utilidades, puede repartir parte de ellas entre sus accionistas en forma de dividendos. En Chile, las empresas que cotizan en bolsa están obligadas a repartir al menos el 30% de sus utilidades como dividendos.',
+    example:'Tienes 100 acciones de Banco de Chile que paga $50 de dividendo por acción. Recibes $5.000 en efectivo sin vender ninguna acción. Ese dinero llega directamente a tu cuenta de corredora.',
+    cmfLabel:null, camino:'inversion' },
+  { id:'acciones', icon:'📉', name:'Acciones', fullName:'Acciones Bursátiles', cat:'inversion',
+    short:'Títulos que te hacen dueño de una fracción de una empresa.',
+    full:'Al comprar una acción te conviertes en propietario de una fracción de la empresa. Ganas si el precio sube (plusvalía) o si reparte dividendos. En Chile se transan en la Bolsa de Santiago a través de corredoras reguladas por la CMF.',
+    example:'Compras 10 acciones de Falabella a $1.500 cada una ($15.000 total). Si suben a $1.800, tus acciones valen $18.000. Ganaste $3.000 (20%) sin trabajar. Si bajan, pierdes.',
+    cmfLabel:null, camino:'inversion' },
+];
+
+let pmCxCurrentTerm = null;
+
+function pmOpenConceptos(pathId) {
+  pmRenderConceptos();
+  document.getElementById('pmCxSearch').value = '';
+  pmCxFilter('');
+  document.getElementById('pmConceptosScreen').classList.add('open');
+}
+
+function pmCloseConceptos() {
+  document.getElementById('pmConceptosScreen').classList.remove('open');
+  pmCxCloseModal();
+}
+
+function pmRenderConceptos() {
+  const grid = document.getElementById('pmCxGrid');
+  if (grid.children.length > 0) return;
+  const catLabel = { ahorro:'💰 Ahorro', deudas:'💳 Deudas', inversion:'📈 Inversión', general:'🔵 General' };
+  PM_GLOSARIO.forEach(term => {
+    const card = document.createElement('div');
+    card.className = 'pm-cx-card';
+    card.dataset.search = (term.name + ' ' + term.fullName + ' ' + term.short).toLowerCase();
+    card.innerHTML = `
+      <div class="pm-cx-card-top">
+        <div class="pm-cx-icon cat-${term.cat}">${term.icon}</div>
+        <div class="pm-cx-card-right">
+          <div class="pm-cx-name">${term.name}</div>
+          ${term.cmfKey ? '<span class="pm-cx-cmf-badge">📊 CMF</span>' : ''}
+        </div>
+      </div>
+      <div class="pm-cx-short">${term.short}</div>
+      <span class="pm-cx-tag cat-${term.cat}">${catLabel[term.cat]}</span>`;
+    card.addEventListener('click', () => pmCxOpenModal(term));
+    grid.appendChild(card);
+  });
+}
+
+function pmCxFilter(q) {
+  const query = q.toLowerCase().trim();
+  const cards = document.querySelectorAll('.pm-cx-card');
+  let visible = 0;
+  cards.forEach(card => {
+    const match = !query || card.dataset.search.includes(query);
+    card.style.display = match ? '' : 'none';
+    if (match) visible++;
+  });
+  document.getElementById('pmCxEmpty').style.display = visible === 0 ? '' : 'none';
+}
+
+function pmCxOpenModal(term) {
+  pmCxCurrentTerm = term;
+  document.getElementById('pmCxMIcon').textContent     = term.icon;
+  document.getElementById('pmCxMName').textContent     = term.name;
+  document.getElementById('pmCxMFullName').textContent = term.fullName;
+  document.getElementById('pmCxMDef').textContent      = term.full;
+  document.getElementById('pmCxMExample').textContent  = '📌 Ejemplo real: ' + term.example;
+  const cmfWrap = document.getElementById('pmCxMCmf');
+  if (term.cmfKey && window.CMF_DATA[term.cmfKey]) {
+    document.getElementById('pmCxMCmfLabel').textContent = term.cmfLabel + ' (CMF)';
+    document.getElementById('pmCxMCmfVal').textContent = term.cmfKey === 'ipc'
+      ? window.CMF_DATA.ipc + '%' : window.CMF_DATA[term.cmfKey];
+    cmfWrap.style.display = '';
+  } else {
+    cmfWrap.style.display = 'none';
+  }
+  const caminoNames = { ahorro:'💰 Guardar tu plata', deudas:'💳 Aplasta tus deudas', inversion:'📈 Haz crecer tu dinero', presupuesto:'📊 Ordena tus gastos' };
+  document.getElementById('pmCxMBtn').textContent = '📚 Ir al camino: ' + (caminoNames[term.camino] || term.camino) + ' →';
+  document.getElementById('pmCxModal').classList.add('open');
+}
+
+function pmCxCloseModal() {
+  document.getElementById('pmCxModal').classList.remove('open');
+  pmCxCurrentTerm = null;
+}
+
+function pmCxModalBgClick(e) {
+  if (e.target === document.getElementById('pmCxModal')) pmCxCloseModal();
+}
+
+function pmCxOpenCamino() {
+  if (!pmCxCurrentTerm) return;
+  const target = pmCxCurrentTerm.camino;
+  pmCxCloseModal();
+  pmCloseConceptos();
+  closePath();
+  setTimeout(() => openPath(target), 80);
+}
+
+/* ── CMF API ── */
+window.CMF_DATA = { uf:null, ipc:null, utm:null };
+function pmUpdateCMFWidget() {
+  const today = new Date().toLocaleDateString('es-CL',{day:'2-digit',month:'short'});
+  document.querySelectorAll('.pm-cmf-uf').forEach(el => el.textContent = window.CMF_DATA.uf || '—');
+  document.querySelectorAll('.pm-cmf-utm').forEach(el => el.textContent = window.CMF_DATA.utm || '—');
+  document.querySelectorAll('.pm-cmf-ipc').forEach(el => el.textContent = window.CMF_DATA.ipc ? window.CMF_DATA.ipc+'%' : '—');
+  document.querySelectorAll('.pm-cmf-updated').forEach(el => el.textContent = 'Actualizado: '+today);
+}
+(async () => {
+  const CACHE_KEY = 'pm_cmf_cache', TTL = 86400000;
+  const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+  if (cached && Date.now() - cached.ts < TTL) { window.CMF_DATA = cached.data; pmUpdateCMFWidget(); return; }
+  const base = 'https://api.cmfchile.cl/api-sbifv3/recursos_api/';
+  const key  = '?apikey=5db8ce1dbbb31c6886d26ccc2d5665d122a77141&formato=json';
+  try {
+    const [rUF,rUTM,rIPC] = await Promise.all([
+      fetch(base+'uf'+key).then(r=>r.json()).catch(()=>null),
+      fetch(base+'utm'+key).then(r=>r.json()).catch(()=>null),
+      fetch(base+'ipc'+key).then(r=>r.json()).catch(()=>null),
+    ]);
+    if (rUF?.UFs?.[0]?.Valor)   window.CMF_DATA.uf  = '$'+rUF.UFs[0].Valor.replace(',','.');
+    if (rUTM?.UTMs?.[0]?.Valor) window.CMF_DATA.utm = '$'+rUTM.UTMs[0].Valor.replace(',','.');
+    if (rIPC?.IPCs?.[0]?.Valor) window.CMF_DATA.ipc = rIPC.IPCs[0].Valor.replace(',','.');
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ts:Date.now(), data:window.CMF_DATA}));
+  } catch(_) {
+    window.CMF_DATA.uf  = window.CMF_DATA.uf  || '$38.408';
+    window.CMF_DATA.utm = window.CMF_DATA.utm  || '$65.832';
+    window.CMF_DATA.ipc = window.CMF_DATA.ipc  || '0,2';
+  }
+  pmUpdateCMFWidget();
+})();
+
+/* ── PERFIL SCREEN ── */
+const PM_PATHS_META = [
+  { id:'ahorro',      icon:'💰', name:'Aprende a guardar tu plata' },
+  { id:'deudas',      icon:'💳', name:'Aplasta tus deudas' },
+  { id:'inversion',   icon:'📈', name:'Haz crecer tu dinero' },
+  { id:'presupuesto', icon:'📊', name:'Ordena tus gastos' },
+];
+const PM_BADGE_HINTS = {
+  primer_paso:'Completa tu primer nodo en cualquier camino.',
+  ahorra_10k:'Acumula 10.000 fichas 🪙 en total.',
+  racha_7:'Usa Platuuu 7 días consecutivos.',
+  experto:'Completa un camino entero hasta el certificado.',
+  maestro:'Completa los 4 caminos hasta el certificado.',
+  habito_formado:'Completa la Etapa 3 del camino Ahorro (nodo 35).',
+};
+function pmOpenPerfil(pathId) { pmRenderPerfil(); document.getElementById('pmPerfilScreen').classList.add('open'); }
+function pmClosePerfil() { document.getElementById('pmPerfilScreen').classList.remove('open'); document.querySelectorAll('.pm-pf-badge-tip').forEach(t=>t.remove()); }
+function pmRenderPerfil() {
+  const earned = pmGetBadges();
+  const n = earned.length;
+  const [mascot, frase] = n===0 ? ['🤔','¡Empieza tu primer camino! Cada lección te acerca a la libertad financiera.']
+    : n<=2 ? ['😊','¡Bien hecho, Sebastián! Vas por buen camino — sigue aprendiendo.']
+    : n<=4 ? ['🤩','¡Eres increíble! Ya dominas las finanzas personales de Chile.']
+    :        ['🥰','¡Maestro del ahorro! Lo lograste — eres un referente financiero.'];
+  document.getElementById('pmPfMascot').textContent = mascot;
+  document.getElementById('pmPfFrase').textContent  = frase;
+  let totalDone = 0;
+  PM_PATHS_META.forEach(p => {
+    const prog = JSON.parse(localStorage.getItem('pm_progress_'+p.id)||'{}');
+    totalDone += Object.values(prog).filter(v=>v==='done').length;
+  });
+  document.getElementById('pmPfStreak').textContent = pmState.streak;
+  document.getElementById('pmPfCoins').textContent  = pmState.coins.toLocaleString('es-CL');
+  document.getElementById('pmPfLives').textContent  = pmState.lives;
+  document.getElementById('pmPfXP').textContent     = (totalDone*10).toLocaleString('es-CL');
+  // Badges
+  const bw = document.getElementById('pmPfBadges');
+  bw.innerHTML = '';
+  PM_BADGES_DEF.forEach(def => {
+    const ok = earned.includes(def.id);
+    const d = document.createElement('div');
+    d.className = 'pm-pf-badge'+(ok?' earned':' locked');
+    d.innerHTML = `<span class="pm-pf-badge-icon">${def.icon}</span><span class="pm-pf-badge-name">${def.name}</span>${!ok?'<span class="pm-pf-badge-lock">🔒</span>':''}`;
+    d.addEventListener('click', e => pmPfBadgeTip(e, def, ok));
+    bw.appendChild(d);
+  });
+  // Caminos
+  const pw = document.getElementById('pmPfPaths');
+  pw.innerHTML = '';
+  PM_PATHS_META.forEach(p => {
+    const prog  = JSON.parse(localStorage.getItem('pm_progress_'+p.id)||'{}');
+    const total = PATH_DATA[p.id].nodes.length;
+    const done  = Object.values(prog).filter(v=>v==='done').length;
+    const cert  = localStorage.getItem('pm_cert_'+p.id)==='true';
+    const pct   = total>0?Math.round(done/total*100):0;
+    const started = done>0;
+    const c = document.createElement('div');
+    c.className = 'pm-pf-path-card'+(started?'':' unstarted');
+    c.innerHTML = `<span class="pm-pf-path-icon">${p.icon}</span><div class="pm-pf-path-info"><div class="pm-pf-path-name">${p.name}</div><div class="pm-pf-path-bar-wrap"><div class="pm-pf-path-bar" style="width:${pct}%"></div></div><div class="pm-pf-path-pct">${started?pct+'% completado · '+done+'/'+total+' nodos':'Sin empezar'}</div></div><span class="pm-pf-path-status">${cert?'✅':started?'🔓':'🔒'}</span>`;
+    pw.appendChild(c);
+  });
+  // Certificados
+  const certIds = PM_PATHS_META.map(p=>p.id).filter(id=>localStorage.getItem('pm_cert_'+id)==='true');
+  const cs = document.getElementById('pmPfCertsSection');
+  const cw = document.getElementById('pmPfCerts');
+  cw.innerHTML = '';
+  if (certIds.length>0) {
+    cs.style.display='';
+    certIds.forEach(id => {
+      const meta = PM_CERT_META[id];
+      const date = localStorage.getItem('pm_cert_date_'+id)||'Obtenido recientemente';
+      const c = document.createElement('div');
+      c.className='pm-pf-cert-card';
+      c.innerHTML=`<span class="pm-pf-cert-badge">${meta.badge}</span><div class="pm-pf-cert-info"><div class="pm-pf-cert-name">${meta.name}</div><div class="pm-pf-cert-date">${date}</div><div class="pm-pf-cert-btns"><button class="pm-pf-cert-btn primary" onclick="pmPfViewCert('${id}')">Ver certificado</button><button class="pm-pf-cert-btn secondary" onclick="pmPfShareCert('${id}')">Compartir</button></div></div>`;
+      cw.appendChild(c);
+    });
+  } else { cs.style.display='none'; }
+}
+function pmPfBadgeTip(e, def, earned) {
+  document.querySelectorAll('.pm-pf-badge-tip').forEach(t=>t.remove());
+  const tip = document.createElement('div');
+  tip.className='pm-pf-badge-tip';
+  tip.textContent = earned ? def.icon+' '+def.name+' — '+def.desc : '🔒 Para obtenerlo: '+(PM_BADGE_HINTS[def.id]||def.desc);
+  document.body.appendChild(tip);
+  const r=e.currentTarget.getBoundingClientRect(), W=220;
+  let left=r.left+r.width/2-W/2;
+  left=Math.max(12,Math.min(left,window.innerWidth-W-12));
+  tip.style.cssText+=`;left:${left}px;top:${r.bottom+8}px;width:${W}px`;
+  setTimeout(()=>document.addEventListener('click',()=>tip.remove(),{once:true}),80);
+}
+function pmPfViewCert(pathId) { pmClosePerfil(); pmShowCertificate(pathId); }
+function pmPfShareCert(pathId) {
+  const meta=PM_CERT_META[pathId]||{};
+  const text=meta.shareMsg||'¡Completé un camino en Platuuu! 🪙 #Platuuu';
+  if (navigator.clipboard) navigator.clipboard.writeText(text).then(()=>pmSidebarPlaceholder('📋 Copiado al portapapeles'));
+}
 </script>
 
 <!-- PATH MAP: AHORRO -->
@@ -5741,18 +7519,28 @@ function pmSidebarPlaceholder(section) {
   <div class="pm-layout">
     <nav class="pm-sidebar" id="pm-sb-ahorro">
       <button class="pm-sidebar-item active" onclick="closePath()"><span class="pm-sb-icon">🏠</span>Mis caminos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-sb-icon">📖</span>Conceptos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('conceptos','ahorro')"><span class="pm-sb-icon">📊</span>Conceptos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('ligas','ahorro')"><span class="pm-sb-icon">🏆</span>Ligas</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('desafios','ahorro')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
       <button class="pm-sidebar-item" onclick="openShop('ahorro')"><span class="pm-sb-icon">🛒</span>Tienda</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('perfil','ahorro')"><span class="pm-sb-icon">👤</span>Perfil</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('mas','ahorro')"><span class="pm-sb-icon">⋯</span>Más</button>
       <div class="pm-sidebar-divider"></div>
       <div class="pm-sidebar-profile">
-        <div class="pm-sb-profile-name">Tu progreso</div>
+        <div class="pm-sb-avatar"><span class="pm-sb-avatar-letter">S</span></div>
+        <div class="pm-sb-profile-name">Sebastián</div>
         <div class="pm-sb-stat-row">
           <div class="pm-sb-chip">🪙 <span class="pm-sb-coins">0</span></div>
           <div class="pm-sb-chip">🔥 <span class="pm-sb-streak">0</span></div>
           <div class="pm-sb-chip">❤️ <span class="pm-sb-lives">5/5</span></div>
         </div>
+      </div>
+      <div class="pm-cmf-widget">
+        <div class="pm-cmf-title">📊 Indicadores hoy</div>
+        <div class="pm-cmf-row"><span>UF</span><span class="pm-cmf-uf pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>UTM</span><span class="pm-cmf-utm pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>IPC</span><span class="pm-cmf-ipc pm-cmf-val">—</span></div>
+        <div class="pm-cmf-updated">Fuente: CMF Chile</div>
       </div>
     </nav>
     <div class="pm-main">
@@ -5765,10 +7553,10 @@ function pmSidebarPlaceholder(section) {
   </div>
   <div class="pm-bottomnav">
     <button class="pm-bottomnav-item active" onclick="closePath()"><span class="pm-bn-icon">🏠</span>Caminos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-bn-icon">📖</span>Conceptos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
-    <button class="pm-bottomnav-item" onclick="openShop('ahorro')"><span class="pm-bn-icon">🛒</span>Tienda</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('conceptos','ahorro')"><span class="pm-bn-icon">📊</span>Conceptos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('ligas','ahorro')"><span class="pm-bn-icon">🏆</span>Ligas</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('desafios','ahorro')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('perfil','ahorro')"><span class="pm-bn-icon">👤</span>Perfil</button>
   </div>
 </div>
 
@@ -5786,18 +7574,28 @@ function pmSidebarPlaceholder(section) {
   <div class="pm-layout">
     <nav class="pm-sidebar">
       <button class="pm-sidebar-item active" onclick="closePath()"><span class="pm-sb-icon">🏠</span>Mis caminos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-sb-icon">📖</span>Conceptos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('conceptos','deudas')"><span class="pm-sb-icon">📊</span>Conceptos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('ligas','deudas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('desafios','deudas')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
       <button class="pm-sidebar-item" onclick="openShop('deudas')"><span class="pm-sb-icon">🛒</span>Tienda</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('perfil','deudas')"><span class="pm-sb-icon">👤</span>Perfil</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('mas','deudas')"><span class="pm-sb-icon">⋯</span>Más</button>
       <div class="pm-sidebar-divider"></div>
       <div class="pm-sidebar-profile">
-        <div class="pm-sb-profile-name">Tu progreso</div>
+        <div class="pm-sb-avatar"><span class="pm-sb-avatar-letter">S</span></div>
+        <div class="pm-sb-profile-name">Sebastián</div>
         <div class="pm-sb-stat-row">
           <div class="pm-sb-chip">🪙 <span class="pm-sb-coins">0</span></div>
           <div class="pm-sb-chip">🔥 <span class="pm-sb-streak">0</span></div>
           <div class="pm-sb-chip">❤️ <span class="pm-sb-lives">5/5</span></div>
         </div>
+      </div>
+      <div class="pm-cmf-widget">
+        <div class="pm-cmf-title">📊 Indicadores hoy</div>
+        <div class="pm-cmf-row"><span>UF</span><span class="pm-cmf-uf pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>UTM</span><span class="pm-cmf-utm pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>IPC</span><span class="pm-cmf-ipc pm-cmf-val">—</span></div>
+        <div class="pm-cmf-updated">Fuente: CMF Chile</div>
       </div>
     </nav>
     <div class="pm-main">
@@ -5810,10 +7608,10 @@ function pmSidebarPlaceholder(section) {
   </div>
   <div class="pm-bottomnav">
     <button class="pm-bottomnav-item active" onclick="closePath()"><span class="pm-bn-icon">🏠</span>Caminos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-bn-icon">📖</span>Conceptos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
-    <button class="pm-bottomnav-item" onclick="openShop('deudas')"><span class="pm-bn-icon">🛒</span>Tienda</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('conceptos','deudas')"><span class="pm-bn-icon">📊</span>Conceptos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('ligas','deudas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('desafios','deudas')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('perfil','deudas')"><span class="pm-bn-icon">👤</span>Perfil</button>
   </div>
 </div>
 
@@ -5831,18 +7629,28 @@ function pmSidebarPlaceholder(section) {
   <div class="pm-layout">
     <nav class="pm-sidebar">
       <button class="pm-sidebar-item active" onclick="closePath()"><span class="pm-sb-icon">🏠</span>Mis caminos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-sb-icon">📖</span>Conceptos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('conceptos','inversion')"><span class="pm-sb-icon">📊</span>Conceptos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('ligas','inversion')"><span class="pm-sb-icon">🏆</span>Ligas</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('desafios','inversion')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
       <button class="pm-sidebar-item" onclick="openShop('inversion')"><span class="pm-sb-icon">🛒</span>Tienda</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('perfil','inversion')"><span class="pm-sb-icon">👤</span>Perfil</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('mas','inversion')"><span class="pm-sb-icon">⋯</span>Más</button>
       <div class="pm-sidebar-divider"></div>
       <div class="pm-sidebar-profile">
-        <div class="pm-sb-profile-name">Tu progreso</div>
+        <div class="pm-sb-avatar"><span class="pm-sb-avatar-letter">S</span></div>
+        <div class="pm-sb-profile-name">Sebastián</div>
         <div class="pm-sb-stat-row">
           <div class="pm-sb-chip">🪙 <span class="pm-sb-coins">0</span></div>
           <div class="pm-sb-chip">🔥 <span class="pm-sb-streak">0</span></div>
           <div class="pm-sb-chip">❤️ <span class="pm-sb-lives">5/5</span></div>
         </div>
+      </div>
+      <div class="pm-cmf-widget">
+        <div class="pm-cmf-title">📊 Indicadores hoy</div>
+        <div class="pm-cmf-row"><span>UF</span><span class="pm-cmf-uf pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>UTM</span><span class="pm-cmf-utm pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>IPC</span><span class="pm-cmf-ipc pm-cmf-val">—</span></div>
+        <div class="pm-cmf-updated">Fuente: CMF Chile</div>
       </div>
     </nav>
     <div class="pm-main">
@@ -5855,10 +7663,10 @@ function pmSidebarPlaceholder(section) {
   </div>
   <div class="pm-bottomnav">
     <button class="pm-bottomnav-item active" onclick="closePath()"><span class="pm-bn-icon">🏠</span>Caminos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-bn-icon">📖</span>Conceptos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
-    <button class="pm-bottomnav-item" onclick="openShop('inversion')"><span class="pm-bn-icon">🛒</span>Tienda</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('conceptos','inversion')"><span class="pm-bn-icon">📊</span>Conceptos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('ligas','inversion')"><span class="pm-bn-icon">🏆</span>Ligas</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('desafios','inversion')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('perfil','inversion')"><span class="pm-bn-icon">👤</span>Perfil</button>
   </div>
 </div>
 
@@ -5876,18 +7684,28 @@ function pmSidebarPlaceholder(section) {
   <div class="pm-layout">
     <nav class="pm-sidebar">
       <button class="pm-sidebar-item active" onclick="closePath()"><span class="pm-sb-icon">🏠</span>Mis caminos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-sb-icon">📖</span>Conceptos</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-sb-icon">🏆</span>Ligas</button>
-      <button class="pm-sidebar-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('conceptos','presupuesto')"><span class="pm-sb-icon">📊</span>Conceptos</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('ligas','presupuesto')"><span class="pm-sb-icon">🏆</span>Ligas</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('desafios','presupuesto')"><span class="pm-sb-icon">⚡</span>Desafíos</button>
       <button class="pm-sidebar-item" onclick="openShop('presupuesto')"><span class="pm-sb-icon">🛒</span>Tienda</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('perfil','presupuesto')"><span class="pm-sb-icon">👤</span>Perfil</button>
+      <button class="pm-sidebar-item" onclick="pmOpenScreen('mas','presupuesto')"><span class="pm-sb-icon">⋯</span>Más</button>
       <div class="pm-sidebar-divider"></div>
       <div class="pm-sidebar-profile">
-        <div class="pm-sb-profile-name">Tu progreso</div>
+        <div class="pm-sb-avatar"><span class="pm-sb-avatar-letter">S</span></div>
+        <div class="pm-sb-profile-name">Sebastián</div>
         <div class="pm-sb-stat-row">
           <div class="pm-sb-chip">🪙 <span class="pm-sb-coins">0</span></div>
           <div class="pm-sb-chip">🔥 <span class="pm-sb-streak">0</span></div>
           <div class="pm-sb-chip">❤️ <span class="pm-sb-lives">5/5</span></div>
         </div>
+      </div>
+      <div class="pm-cmf-widget">
+        <div class="pm-cmf-title">📊 Indicadores hoy</div>
+        <div class="pm-cmf-row"><span>UF</span><span class="pm-cmf-uf pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>UTM</span><span class="pm-cmf-utm pm-cmf-val">—</span></div>
+        <div class="pm-cmf-row"><span>IPC</span><span class="pm-cmf-ipc pm-cmf-val">—</span></div>
+        <div class="pm-cmf-updated">Fuente: CMF Chile</div>
       </div>
     </nav>
     <div class="pm-main">
@@ -5900,10 +7718,219 @@ function pmSidebarPlaceholder(section) {
   </div>
   <div class="pm-bottomnav">
     <button class="pm-bottomnav-item active" onclick="closePath()"><span class="pm-bn-icon">🏠</span>Caminos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Conceptos')"><span class="pm-bn-icon">📖</span>Conceptos</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Ligas')"><span class="pm-bn-icon">🏆</span>Ligas</button>
-    <button class="pm-bottomnav-item" onclick="pmSidebarPlaceholder('Desafíos')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
-    <button class="pm-bottomnav-item" onclick="openShop('presupuesto')"><span class="pm-bn-icon">🛒</span>Tienda</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('conceptos','presupuesto')"><span class="pm-bn-icon">📊</span>Conceptos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('ligas','presupuesto')"><span class="pm-bn-icon">🏆</span>Ligas</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('desafios','presupuesto')"><span class="pm-bn-icon">⚡</span>Desafíos</button>
+    <button class="pm-bottomnav-item" onclick="pmOpenScreen('perfil','presupuesto')"><span class="pm-bn-icon">👤</span>Perfil</button>
+  </div>
+</div>
+
+<!-- PERFIL SCREEN -->
+<div class="pm-pf-overlay" id="pmPerfilScreen">
+  <div class="pm-pf-inner">
+    <div class="pm-pf-header">
+      <button class="pm-pf-back" onclick="pmClosePerfil()">←</button>
+      <span class="pm-pf-header-title">Perfil</span>
+      <div style="width:40px"></div>
+    </div>
+    <div class="pm-pf-scroll">
+      <div class="pm-pf-hero">
+        <div class="pm-pf-mascot" id="pmPfMascot">🤔</div>
+        <div class="pm-pf-avatar">S</div>
+        <div class="pm-pf-username">Sebastián</div>
+        <div class="pm-pf-frase" id="pmPfFrase">¡Empieza tu primer camino! Cada lección te acerca a la libertad financiera.</div>
+      </div>
+      <div class="pm-pf-stats">
+        <div class="pm-pf-stat-card"><div class="pm-pf-stat-icon">🔥</div><div class="pm-pf-stat-val" id="pmPfStreak">0</div><div class="pm-pf-stat-lbl">racha</div></div>
+        <div class="pm-pf-stat-card"><div class="pm-pf-stat-icon">🪙</div><div class="pm-pf-stat-val" id="pmPfCoins">0</div><div class="pm-pf-stat-lbl">fichas</div></div>
+        <div class="pm-pf-stat-card"><div class="pm-pf-stat-icon">❤️</div><div class="pm-pf-stat-val" id="pmPfLives">5</div><div class="pm-pf-stat-lbl">vidas</div></div>
+        <div class="pm-pf-stat-card"><div class="pm-pf-stat-icon">⭐</div><div class="pm-pf-stat-val" id="pmPfXP">0</div><div class="pm-pf-stat-lbl">XP</div></div>
+      </div>
+      <div class="pm-pf-section">
+        <span class="pm-pf-section-title">Badges</span>
+        <div class="pm-pf-badges" id="pmPfBadges"></div>
+      </div>
+      <div class="pm-pf-section">
+        <span class="pm-pf-section-title">Caminos</span>
+        <div class="pm-pf-paths" id="pmPfPaths"></div>
+      </div>
+      <div class="pm-pf-section" id="pmPfCertsSection" style="display:none">
+        <span class="pm-pf-section-title">Certificados</span>
+        <div class="pm-pf-certs" id="pmPfCerts"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONCEPTOS SCREEN -->
+<div class="pm-cx-overlay" id="pmConceptosScreen">
+  <div class="pm-cx-inner">
+    <div class="pm-cx-header">
+      <button class="pm-cx-back" onclick="pmCloseConceptos()">←</button>
+      <span class="pm-cx-header-title">📊 Conceptos financieros</span>
+      <div style="width:40px"></div>
+    </div>
+    <div class="pm-cx-search-wrap">
+      <input class="pm-cx-search" id="pmCxSearch" type="text" placeholder="🔍 Buscar término financiero..." oninput="pmCxFilter(this.value)">
+    </div>
+    <div class="pm-cx-scroll">
+      <div class="pm-cx-grid" id="pmCxGrid"></div>
+      <div class="pm-cx-empty" id="pmCxEmpty" style="display:none">Sin resultados para esa búsqueda 🤔</div>
+    </div>
+    <div class="pm-cx-platin" id="pmCxPlatin">🤔</div>
+  </div>
+</div>
+
+<!-- CONCEPTOS MODAL -->
+<div class="pm-cx-modal" id="pmCxModal" onclick="pmCxModalBgClick(event)">
+  <div class="pm-cx-modal-card">
+    <button class="pm-cx-modal-close" onclick="pmCxCloseModal()">✕</button>
+    <div class="pm-cx-modal-icon" id="pmCxMIcon">📐</div>
+    <div class="pm-cx-modal-name" id="pmCxMName"></div>
+    <div class="pm-cx-modal-fullname" id="pmCxMFullName"></div>
+    <div class="pm-cx-modal-def" id="pmCxMDef"></div>
+    <div class="pm-cx-modal-example" id="pmCxMExample"></div>
+    <div class="pm-cx-modal-cmf" id="pmCxMCmf" style="display:none">
+      <div class="pm-cx-modal-cmf-label" id="pmCxMCmfLabel"></div>
+      <div class="pm-cx-modal-cmf-val" id="pmCxMCmfVal"></div>
+    </div>
+    <button class="pm-cx-modal-btn" id="pmCxMBtn" onclick="pmCxOpenCamino()">📚 Ir al camino →</button>
+  </div>
+</div>
+
+<!-- DESAFÍOS SCREEN -->
+<div class="pm-df-overlay" id="pmDesafiosScreen">
+  <div class="pm-df-header">
+    <button class="pm-df-back" onclick="pmCloseDesafios()">←</button>
+    <div class="pm-df-header-text">
+      <div class="pm-df-title">⚡ Desafíos del día</div>
+      <div class="pm-df-countdown" id="pmDfCountdown">Se renuevan en —</div>
+    </div>
+  </div>
+  <div class="pm-df-body">
+
+    <div>
+      <div class="pm-df-mascot" id="pmDfMascot">🐷</div>
+      <div class="pm-df-mascot-msg" id="pmDfMascotMsg">¡Completa los 3 desafíos y gana fichas extra!</div>
+    </div>
+
+    <div>
+      <div class="pm-df-section-title">Desafíos de hoy</div>
+      <!-- Desafío 1: Lección -->
+      <div class="pm-df-card" id="pmDf1">
+        <div class="pm-df-card-top">
+          <div class="pm-df-card-icon">⚡</div>
+          <div class="pm-df-card-info">
+            <div class="pm-df-card-name" id="pmDf1Name">Completa 1 lección hoy</div>
+            <div class="pm-df-card-reward">+10 🪙 fichas</div>
+          </div>
+          <div class="pm-df-card-badge" id="pmDf1Badge">○</div>
+        </div>
+        <div class="pm-df-bar-wrap"><div class="pm-df-bar" id="pmDf1Bar" style="width:0%"></div></div>
+        <div class="pm-df-bar-label" id="pmDf1Label">0 / 1</div>
+      </div>
+    </div>
+
+    <div>
+      <!-- Desafío 2: Preguntas -->
+      <div class="pm-df-card" id="pmDf2">
+        <div class="pm-df-card-top">
+          <div class="pm-df-card-icon">⚡</div>
+          <div class="pm-df-card-info">
+            <div class="pm-df-card-name" id="pmDf2Name">Responde 3 preguntas sin fallar</div>
+            <div class="pm-df-card-reward">+15 🪙 fichas</div>
+          </div>
+          <div class="pm-df-card-badge" id="pmDf2Badge">○</div>
+        </div>
+        <div class="pm-df-bar-wrap"><div class="pm-df-bar" id="pmDf2Bar" style="width:0%"></div></div>
+        <div class="pm-df-bar-label" id="pmDf2Label">0 / 3</div>
+      </div>
+    </div>
+
+    <div>
+      <!-- Desafío 3: Mini-juego -->
+      <div class="pm-df-card" id="pmDf3">
+        <div class="pm-df-card-top">
+          <div class="pm-df-card-icon">⚡</div>
+          <div class="pm-df-card-info">
+            <div class="pm-df-card-name" id="pmDf3Name">Juega un mini-juego completo</div>
+            <div class="pm-df-card-reward">+20 🪙 fichas</div>
+          </div>
+          <div class="pm-df-card-badge" id="pmDf3Badge">○</div>
+        </div>
+        <div class="pm-df-bar-wrap"><div class="pm-df-bar" id="pmDf3Bar" style="width:0%"></div></div>
+        <div class="pm-df-bar-label" id="pmDf3Label">0 / 1</div>
+      </div>
+    </div>
+
+    <!-- Bonus -->
+    <div class="pm-df-bonus" id="pmDfBonus">
+      <div class="pm-df-bonus-icon">🎁</div>
+      <div class="pm-df-bonus-text">
+        <div class="pm-df-bonus-title">Bonus diario: +25 fichas</div>
+        <div class="pm-df-bonus-sub">Completa los 3 desafíos para desbloquearlo</div>
+      </div>
+    </div>
+
+    <!-- Historial -->
+    <div class="pm-df-history">
+      <div class="pm-df-section-title">Últimos 7 días</div>
+      <div class="pm-df-hist-row">
+        <div class="pm-df-hist-dots" id="pmDfHistDots"></div>
+        <div class="pm-df-hist-streak" id="pmDfHistStreak">🔥 0 días</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGAS SCREEN -->
+<div class="pm-lg-overlay" id="pmLigasScreen">
+  <div class="pm-lg-header">
+    <button class="pm-lg-back" onclick="pmCloseLigas()">←</button>
+    <div class="pm-lg-header-text">
+      <div class="pm-lg-title" id="pmLgTitle">🏆 Liga Bronce</div>
+      <div class="pm-lg-countdown" id="pmLgCountdown">Se reinicia el lunes en —</div>
+    </div>
+  </div>
+  <div class="pm-lg-body">
+
+    <!-- Badge de liga actual -->
+    <div class="pm-lg-badge-wrap">
+      <div class="pm-lg-badge-icon" id="pmLgBadgeIcon">🥉</div>
+      <div class="pm-lg-badge-name" id="pmLgBadgeName">Liga Bronce</div>
+    </div>
+
+    <!-- Tabs de ligas -->
+    <div class="pm-lg-tabs" id="pmLgTabs">
+      <button class="pm-lg-tab active" data-liga="bronce"   onclick="pmLgSetTab('bronce')">🥉 Bronce</button>
+      <button class="pm-lg-tab"        data-liga="plata"    onclick="pmLgSetTab('plata')">🥈 Plata</button>
+      <button class="pm-lg-tab"        data-liga="oro"      onclick="pmLgSetTab('oro')">🥇 Oro</button>
+      <button class="pm-lg-tab"        data-liga="diamante" onclick="pmLgSetTab('diamante')">💎 Diamante</button>
+    </div>
+
+    <!-- XP semanal del usuario -->
+    <div class="pm-lg-xp-card">
+      <div class="pm-lg-xp-icon">⚡</div>
+      <div class="pm-lg-xp-info">
+        <div class="pm-lg-xp-label">Tu XP esta semana</div>
+        <div class="pm-lg-xp-val" id="pmLgUserXp">0 XP</div>
+        <div class="pm-lg-xp-sub" id="pmLgUserXpSub">Completa lecciones para ganar XP</div>
+      </div>
+    </div>
+
+    <!-- Mensaje de Platín -->
+    <div class="pm-lg-mascot-card">
+      <div class="pm-lg-mascot-emoji" id="pmLgMascot">🏆</div>
+      <div class="pm-lg-mascot-msg" id="pmLgMsg">¡Bienvenido a las Ligas! Completa lecciones para ganar XP y subir de posición.</div>
+    </div>
+
+    <!-- Ranking -->
+    <div>
+      <div class="pm-lg-section-title">Ranking semanal</div>
+      <div class="pm-lg-list" id="pmLgList"></div>
+    </div>
+
   </div>
 </div>
 
