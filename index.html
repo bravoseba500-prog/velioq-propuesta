@@ -12,36 +12,33 @@
 
   :root {
     --gold: #D4A843;
-    --gold2: #F0C060;
     --ink: #0D0D0D;
     --ink2: #3A3A3A;
     --muted: #888;
     --bg: #F8F6F1;
     --surface: #FFFFFF;
     --border: rgba(0,0,0,0.08);
+    --max-w: 720px;
   }
 
-  html, body {
-    height: 100%;
+  html { scroll-behavior: smooth; }
+
+  body {
     font-family: 'DM Sans', sans-serif;
     background: var(--bg);
     color: var(--ink);
   }
 
-  body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  /* ── NAV ── */
   nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 28px 48px;
+    padding: 26px 48px;
     border-bottom: 1px solid var(--border);
     background: var(--surface);
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
 
   .nav-logo {
@@ -54,24 +51,31 @@
     text-decoration: none;
   }
 
-  .nav-tag {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
   }
 
-  /* ── HERO ── */
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.18s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
   .hero {
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 80px 24px 60px;
+    padding: 80px 24px 72px;
     text-align: center;
-    gap: 0;
+    border-bottom: 1px solid var(--border);
   }
 
   .hero-label {
@@ -100,14 +104,12 @@
     color: var(--ink2);
     max-width: 380px;
     line-height: 1.7;
-    margin-bottom: 56px;
+    margin-bottom: 48px;
   }
 
-  /* ── TEAM ── */
   .team {
     display: flex;
     gap: 12px;
-    margin-bottom: 64px;
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -138,41 +140,253 @@
     color: var(--ink);
   }
 
-  /* ── PRODUCTOS / SERVICIOS ── */
-  .sections-stack {
-    width: 100%;
-    max-width: 520px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+  .section {
+    padding: 72px 24px;
+    border-bottom: 1px solid var(--border);
   }
 
-  .products-section {
-    width: 100%;
+  .section-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
   }
 
-  .products-label {
+  .section-label {
     font-size: 10px;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 12px;
-    text-align: left;
+    margin-bottom: 6px;
   }
 
-  .services-intro {
-    font-size: 12px;
+  .section-intro {
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.65;
+    margin-bottom: 52px;
+    max-width: 440px;
+  }
+
+  .service-block + .service-block {
+    margin-top: 64px;
+    padding-top: 64px;
+    border-top: 1px solid var(--border);
+  }
+
+  .service-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .service-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .service-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .service-icon.clinic { background: linear-gradient(135deg, #E0F2FE, #BAE6FD); }
+  .service-icon.legal  { background: linear-gradient(135deg, #EDE9FE, #DDD6FE); }
+
+  .service-name {
+    font-family: 'Cormorant', serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .service-tagline {
+    font-size: 13px;
     color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 12px;
-    text-align: left;
   }
 
-  .products-grid {
+  .service-link {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    padding-top: 6px;
+    transition: color 0.18s;
+  }
+
+  .service-link .arrow { transition: transform 0.18s; display: inline-block; }
+  .service-link:hover { color: var(--ink); }
+  .service-link:hover .arrow { transform: translateX(3px); }
+
+  .metrics {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .metric {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px;
+    text-align: center;
+    min-width: 80px;
+  }
+
+  .metric-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    display: block;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .metric-label {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    align-items: start;
+  }
+
+  .plan-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    position: relative;
+  }
+
+  .plan-card.featured {
+    border-color: var(--gold);
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .plan-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .plan-price {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    margin-bottom: 3px;
+  }
+
+  .plan-price-unit {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink2);
+  }
+
+  .plan-price-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  .plan-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    margin-bottom: 20px;
+  }
+
+  .plan-features li {
+    font-size: 12px;
+    color: var(--ink2);
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    line-height: 1.45;
+  }
+
+  .plan-features li::before {
+    content: '✓';
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .plan-btn {
+    display: block;
+    text-align: center;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+    border: 1px solid var(--border);
+    color: var(--ink2);
+    background: transparent;
+  }
+
+  .plan-card.featured .plan-btn {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #fff;
+  }
+
+  .plan-btn:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
   }
 
   .product-card {
@@ -186,6 +400,7 @@
     text-decoration: none;
     color: inherit;
     transition: box-shadow 0.2s, transform 0.2s;
+    margin-top: 12px;
   }
 
   .product-card:hover {
@@ -208,11 +423,8 @@
     justify-content: center;
     font-size: 22px;
     flex-shrink: 0;
+    background: linear-gradient(135deg, #FFF8DC, #FFE080);
   }
-
-  .product-icon.clinic   { background: linear-gradient(135deg, #E0F2FE, #BAE6FD); }
-  .product-icon.legal    { background: linear-gradient(135deg, #EDE9FE, #DDD6FE); }
-  .product-icon.platuuu  { background: linear-gradient(135deg, #FFF8DC, #FFE080); }
 
   .product-name {
     font-size: 16px;
@@ -229,7 +441,7 @@
   .product-arrow {
     font-size: 18px;
     color: #CBD5E1;
-    transition: transform 0.2s, color 0.2s;
+    transition: transform 0.18s, color 0.18s;
   }
 
   .product-card:hover .product-arrow {
@@ -237,7 +449,82 @@
     color: var(--ink2);
   }
 
-  /* ── FOOTER ── */
+  .cta-section {
+    padding: 80px 24px;
+    text-align: center;
+    background: var(--ink);
+  }
+
+  .cta-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .cta-title {
+    font-family: 'Cormorant', serif;
+    font-size: clamp(32px, 6vw, 54px);
+    font-weight: 500;
+    color: #F8F6F1;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .cta-sub {
+    font-size: 13px;
+    color: rgba(248,246,241,0.52);
+    margin-bottom: 36px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 28px;
+    background: var(--gold);
+    color: #fff;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: opacity 0.18s;
+  }
+
+  .btn-primary:hover { opacity: 0.86; }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 28px;
+    background: transparent;
+    color: rgba(248,246,241,0.72);
+    border: 1px solid rgba(248,246,241,0.18);
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: border-color 0.18s, color 0.18s;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(248,246,241,0.44);
+    color: #F8F6F1;
+  }
+
   footer {
     text-align: center;
     padding: 28px;
@@ -247,10 +534,19 @@
     background: var(--surface);
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 680px) {
     nav { padding: 20px 24px; }
-    .hero { padding: 60px 20px 40px; }
+    .nav-links { display: none; }
+    .hero { padding: 60px 20px 52px; }
     .team-chip { min-width: 140px; padding: 14px 20px; }
+    .section { padding: 52px 20px; }
+    .plans-grid { grid-template-columns: 1fr; }
+    .service-header { flex-direction: column; }
+    .cta-section { padding: 60px 20px; }
+  }
+
+  @media (min-width: 681px) and (max-width: 960px) {
+    .plans-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -258,71 +554,226 @@
 
 <nav>
   <a class="nav-logo" href="/">Velioq</a>
-  <span class="nav-tag">Empresa de tecnología</span>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#producto">Producto</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
 </nav>
 
-<main class="hero">
-  <p class="hero-label">Empresa de tecnología · Chile</p>
-  <h1 class="hero-title">Velioq</h1>
-  <p class="hero-sub">Automatización con inteligencia artificial para empresas. Desde la idea hasta el producto.</p>
+<main>
 
-  <div class="team">
-    <div class="team-chip">
-      <span class="team-role">Fundador</span>
-      <span class="team-name">Sebastián Bravo</span>
-    </div>
-    <div class="team-chip">
-      <span class="team-role">Cofundador</span>
-      <span class="team-name">Katalina Riffo</span>
-    </div>
-  </div>
-
-  <div class="sections-stack">
-
-    <div class="products-section">
-      <p class="products-label">Servicios</p>
-      <p class="services-intro">Sistemas de IA en producción para negocios que no pueden perder un lead.</p>
-      <div class="products-grid">
-        <a class="product-card" href="https://clinicai-landing.vercel.app" target="_blank">
-          <div class="product-left">
-            <div class="product-icon clinic">🦷</div>
-            <div>
-              <div class="product-name">ClinicAI</div>
-              <div class="product-desc">Automatización WhatsApp 24/7 para clínicas estéticas y dentales · Chile</div>
-            </div>
-          </div>
-          <span class="product-arrow">→</span>
-        </a>
-        <a class="product-card" href="https://legalai-planes.vercel.app" target="_blank">
-          <div class="product-left">
-            <div class="product-icon legal">⚖️</div>
-            <div>
-              <div class="product-name">LegalAI</div>
-              <div class="product-desc">Automatización inteligente para estudios jurídicos · Chile</div>
-            </div>
-          </div>
-          <span class="product-arrow">→</span>
-        </a>
+  <section class="hero">
+    <p class="hero-label">Empresa de tecnología · Chile</p>
+    <h1 class="hero-title">Velioq</h1>
+    <p class="hero-sub">Automatización con inteligencia artificial para empresas. Desde la idea hasta el producto.</p>
+    <div class="team">
+      <div class="team-chip">
+        <span class="team-role">Fundador</span>
+        <span class="team-name">Sebastián Bravo</span>
+      </div>
+      <div class="team-chip">
+        <span class="team-role">Cofundador</span>
+        <span class="team-name">Katalina Riffo</span>
       </div>
     </div>
+  </section>
 
-    <div class="products-section">
-      <p class="products-label">Producto</p>
-      <div class="products-grid">
-        <a class="product-card" href="https://platuuu.vercel.app" target="_blank">
-          <div class="product-left">
-            <div class="product-icon platuuu">🪙</div>
+  <section class="section" id="servicios">
+    <div class="section-inner">
+      <p class="section-label">Servicios</p>
+      <p class="section-intro">Sistemas de IA en producción para negocios que no pueden perder un lead.</p>
+
+      <div class="service-block">
+        <div class="service-header">
+          <div class="service-header-left">
+            <div class="service-icon clinic">🦷</div>
             <div>
-              <div class="product-name">Platuuu</div>
-              <div class="product-desc">Educación financiera gamificada · Chile</div>
+              <h2 class="service-name">ClinicAI</h2>
+              <p class="service-tagline">Tu clínica captando pacientes sola</p>
             </div>
           </div>
-          <span class="product-arrow">→</span>
-        </a>
-      </div>
-    </div>
+          <a class="service-link" href="https://clinicai-landing.vercel.app" target="_blank">
+            Ver landing <span class="arrow">→</span>
+          </a>
+        </div>
 
-  </div>
+        <div class="metrics">
+          <div class="metric">
+            <span class="metric-value">3×</span>
+            <span class="metric-label">Leads calificados</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">24h</span>
+            <span class="metric-label">Respuesta automática</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">−40%</span>
+            <span class="metric-label">Carga administrativa</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">41%</span>
+            <span class="metric-label">Tasa de conversión</span>
+          </div>
+        </div>
+
+        <div class="plans-grid">
+          <div class="plan-card">
+            <p class="plan-name">Starter · LeadCatcher</p>
+            <p class="plan-price">$99 <span class="plan-price-unit">/mes</span></p>
+            <p class="plan-price-sub">+ $497 setup único · Entrega 48h</p>
+            <ul class="plan-features">
+              <li>Bot WhatsApp 24/7</li>
+              <li>Calificación automática de leads</li>
+              <li>Notificación al equipo</li>
+              <li>CRM básico en Google Sheets</li>
+              <li>Integración con agenda actual</li>
+              <li>Soporte y mantenimiento</li>
+            </ul>
+            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%2C%20me%20interesa%20el%20plan%20Starter%20de%20ClinicAI" target="_blank">Comenzar</a>
+          </div>
+
+          <div class="plan-card featured">
+            <span class="plan-badge">Más popular</span>
+            <p class="plan-name">ClinicGrowth Suite</p>
+            <p class="plan-price">$199 <span class="plan-price-unit">/mes</span></p>
+            <p class="plan-price-sub">+ $1.800 setup único · Entrega 5 días</p>
+            <ul class="plan-features">
+              <li>Todo LeadCatcher incluido</li>
+              <li>Agendamiento automático desde WhatsApp</li>
+              <li>CRM con historial y ficha de paciente</li>
+              <li>Kanban de pipeline + calendario</li>
+              <li>Seguimiento post-visita automatizado</li>
+              <li>Dashboard semanal de métricas</li>
+              <li>Mejoras mensuales incluidas</li>
+            </ul>
+            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%2C%20me%20interesa%20ClinicGrowth%20Suite" target="_blank">Agendar demo</a>
+          </div>
+
+          <div class="plan-card">
+            <p class="plan-name">Retainer Operativo</p>
+            <p class="plan-price">$1.200 <span class="plan-price-unit">/mes</span></p>
+            <p class="plan-price-sub">Sin setup · Todo incluido</p>
+            <ul class="plan-features">
+              <li>Todo ClinicGrowth Suite</li>
+              <li>Dashboard con marca propia</li>
+              <li>Multi-canal (WhatsApp + Instagram DM)</li>
+              <li>Reactivación automática 30 y 60 días</li>
+              <li>Encuesta NPS post-visita</li>
+              <li>Campañas de temporada programadas</li>
+              <li>Soporte prioritario — respuesta 2h</li>
+            </ul>
+            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%2C%20me%20interesa%20el%20Retainer%20Operativo%20de%20ClinicAI" target="_blank">Consultar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-block">
+        <div class="service-header">
+          <div class="service-header-left">
+            <div class="service-icon legal">⚖️</div>
+            <div>
+              <h2 class="service-name">LegalAI</h2>
+              <p class="service-tagline">Su estudio respondiendo consultas a las 11 PM. Automáticamente.</p>
+            </div>
+          </div>
+          <a class="service-link" href="https://legalai-planes.vercel.app" target="_blank">
+            Ver landing <span class="arrow">→</span>
+          </a>
+        </div>
+
+        <div class="metrics">
+          <div class="metric">
+            <span class="metric-value">24h</span>
+            <span class="metric-label">Disponibilidad</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">&lt;45s</span>
+            <span class="metric-label">Primera respuesta</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">3×</span>
+            <span class="metric-label">Consultas atendidas</span>
+          </div>
+        </div>
+
+        <div class="plans-grid">
+          <div class="plan-card">
+            <p class="plan-name">CaseIntake</p>
+            <p class="plan-price">$99 <span class="plan-price-unit">/mes</span></p>
+            <p class="plan-price-sub">+ $497 setup único</p>
+            <ul class="plan-features">
+              <li>Bot WhatsApp 24/7</li>
+              <li>Calificación por área legal y urgencia</li>
+              <li>Notificaciones a abogados</li>
+              <li>CRM en Google Sheets</li>
+              <li>Recordatorios automáticos</li>
+            </ul>
+            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%2C%20me%20interesa%20CaseIntake%20de%20LegalAI" target="_blank">Comenzar</a>
+          </div>
+
+          <div class="plan-card featured">
+            <span class="plan-badge">Más popular</span>
+            <p class="plan-name">LegalOps Suite</p>
+            <p class="plan-price">$199 <span class="plan-price-unit">/mes</span></p>
+            <p class="plan-price-sub">+ $1.800 setup único</p>
+            <ul class="plan-features">
+              <li>Todo CaseIntake incluido</li>
+              <li>Dashboard con pipeline de casos</li>
+              <li>Borradores de contratos con IA</li>
+              <li>Seguimiento a 24h, 7 y 30 días</li>
+              <li>Recordatorios de plazos procesales</li>
+              <li>Reportes semanales automáticos</li>
+            </ul>
+            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%2C%20me%20interesa%20LegalOps%20Suite" target="_blank">Agendar demo</a>
+          </div>
+
+          <div class="plan-card">
+            <p class="plan-name">Copiloto Jurídico</p>
+            <p class="plan-price">$2.500 <span class="plan-price-unit">/mes</span></p>
+            <p class="plan-price-sub">Sin setup · Todo incluido</p>
+            <ul class="plan-features">
+              <li>Todo LegalOps Suite</li>
+              <li>Claude integrado en Word</li>
+              <li>Revisión automática de contratos</li>
+              <li>Investigación jurisprudencial asistida</li>
+              <li>Multi-canal (WhatsApp + email)</li>
+              <li>Soporte prioritario</li>
+            </ul>
+            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%2C%20me%20interesa%20el%20Copiloto%20Jur%C3%ADdico%20de%20LegalAI" target="_blank">Consultar</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="producto">
+    <div class="section-inner">
+      <p class="section-label">Producto</p>
+      <a class="product-card" href="https://platuuu.vercel.app" target="_blank">
+        <div class="product-left">
+          <div class="product-icon">🪙</div>
+          <div>
+            <div class="product-name">Platuuu</div>
+            <div class="product-desc">Educación financiera gamificada · Chile</div>
+          </div>
+        </div>
+        <span class="product-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="cta-section" id="contacto">
+    <p class="cta-label">Trabajemos juntos</p>
+    <h2 class="cta-title">¿Tu negocio listo para crecer?</h2>
+    <p class="cta-sub">Demo gratuita de 30 minutos · Sin compromiso · Respuesta en menos de 2 horas</p>
+    <div class="cta-buttons">
+      <a class="btn-primary" href="https://wa.me/56932446500?text=Hola%2C%20quiero%20una%20demo%20gratuita%20de%20Velioq" target="_blank">💬 WhatsApp</a>
+      <a class="btn-secondary" href="mailto:sebastiandev@gmail.com">✉ sebastiandev@gmail.com</a>
+    </div>
+  </section>
+
 </main>
 
 <footer>
