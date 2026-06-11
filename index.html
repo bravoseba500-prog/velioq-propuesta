@@ -284,9 +284,7 @@
     position: relative;
   }
 
-  .plan-card.featured {
-    border-color: var(--gold);
-  }
+  .plan-card.featured { border-color: var(--gold); }
 
   .plan-badge {
     position: absolute;
@@ -312,14 +310,11 @@
   }
 
   .plan-price {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 700;
     color: var(--ink);
     line-height: 1;
-    display: flex;
-    align-items: baseline;
-    gap: 3px;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
   }
 
   .plan-price-unit {
@@ -331,7 +326,7 @@
   .plan-price-sub {
     font-size: 11px;
     color: var(--muted);
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
 
   .plan-features {
@@ -433,10 +428,7 @@
     margin-bottom: 2px;
   }
 
-  .product-desc {
-    font-size: 12px;
-    color: var(--muted);
-  }
+  .product-desc { font-size: 12px; color: var(--muted); }
 
   .product-arrow {
     font-size: 18px;
@@ -584,6 +576,7 @@
       <p class="section-label">Servicios</p>
       <p class="section-intro">Sistemas de IA en producción para negocios que no pueden perder un lead.</p>
 
+      <!-- ClinicAI -->
       <div class="service-block">
         <div class="service-header">
           <div class="service-header-left">
@@ -619,55 +612,54 @@
 
         <div class="plans-grid">
           <div class="plan-card">
-            <p class="plan-name">Starter · LeadCatcher</p>
-            <p class="plan-price">$99 <span class="plan-price-unit">/mes</span></p>
-            <p class="plan-price-sub">+ $497 setup único · Entrega 48h</p>
+            <p class="plan-name">🌱 Starter</p>
+            <p class="plan-price">$59.990 <span class="plan-price-unit">/mes</span></p>
+            <p class="plan-price-sub">+ $49.990 setup único · Entrega 48h</p>
             <ul class="plan-features">
               <li>Bot WhatsApp 24/7</li>
-              <li>Calificación automática de leads</li>
-              <li>Notificación al equipo</li>
-              <li>CRM básico en Google Sheets</li>
-              <li>Integración con agenda actual</li>
+              <li>Responde precios y servicios</li>
+              <li>5 preguntas frecuentes configuradas</li>
+              <li>Ficha automática en Google Sheets</li>
+              <li>Agenda automática de citas</li>
               <li>Soporte y mantenimiento</li>
             </ul>
-            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%2C%20me%20interesa%20el%20plan%20Starter%20de%20ClinicAI" target="_blank">Comenzar</a>
+            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%20Sebasti%C3%A1n%2C%20quiero%20contratar%20el%20plan%20Starter%20de%20ClinicAI" target="_blank">Comenzar</a>
           </div>
 
           <div class="plan-card featured">
-            <span class="plan-badge">Más popular</span>
-            <p class="plan-name">ClinicGrowth Suite</p>
-            <p class="plan-price">$199 <span class="plan-price-unit">/mes</span></p>
-            <p class="plan-price-sub">+ $1.800 setup único · Entrega 5 días</p>
+            <span class="plan-badge">Más elegido</span>
+            <p class="plan-name">🚀 Growth</p>
+            <p class="plan-price">$89.990 <span class="plan-price-unit">/mes</span></p>
+            <p class="plan-price-sub">+ $99.990 setup único · Entrega 48h</p>
             <ul class="plan-features">
-              <li>Todo LeadCatcher incluido</li>
-              <li>Agendamiento automático desde WhatsApp</li>
-              <li>CRM con historial y ficha de paciente</li>
-              <li>Kanban de pipeline + calendario</li>
-              <li>Seguimiento post-visita automatizado</li>
-              <li>Dashboard semanal de métricas</li>
-              <li>Mejoras mensuales incluidas</li>
+              <li>Todo Starter incluido</li>
+              <li>Calificación de leads con IA</li>
+              <li>Urgencia automática + alertas Slack</li>
+              <li>CRM visual 7 columnas con score</li>
+              <li>10 preguntas frecuentes + actualizaciones</li>
+              <li>Notificación instantánea al equipo</li>
             </ul>
-            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%2C%20me%20interesa%20ClinicGrowth%20Suite" target="_blank">Agendar demo</a>
+            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%20Sebasti%C3%A1n%2C%20quiero%20contratar%20el%20plan%20Growth%20de%20ClinicAI" target="_blank">Agendar demo</a>
           </div>
 
           <div class="plan-card">
-            <p class="plan-name">Retainer Operativo</p>
-            <p class="plan-price">$1.200 <span class="plan-price-unit">/mes</span></p>
-            <p class="plan-price-sub">Sin setup · Todo incluido</p>
+            <p class="plan-name">👑 Premium</p>
+            <p class="plan-price">$149.990 <span class="plan-price-unit">/mes</span></p>
+            <p class="plan-price-sub">+ $199.990 setup único · Entrega 48h</p>
             <ul class="plan-features">
-              <li>Todo ClinicGrowth Suite</li>
-              <li>Dashboard con marca propia</li>
+              <li>Todo Growth incluido</li>
               <li>Multi-canal (WhatsApp + Instagram DM)</li>
-              <li>Reactivación automática 30 y 60 días</li>
-              <li>Encuesta NPS post-visita</li>
+              <li>Reporte semanal PDF automático</li>
+              <li>Carpeta por paciente en Google Drive</li>
               <li>Campañas de temporada programadas</li>
               <li>Soporte prioritario — respuesta 2h</li>
             </ul>
-            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%2C%20me%20interesa%20el%20Retainer%20Operativo%20de%20ClinicAI" target="_blank">Consultar</a>
+            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%20Sebasti%C3%A1n%2C%20quiero%20contratar%20el%20plan%20Premium%20de%20ClinicAI" target="_blank">Consultar</a>
           </div>
         </div>
       </div>
 
+      <!-- LegalAI -->
       <div class="service-block">
         <div class="service-header">
           <div class="service-header-left">
@@ -699,48 +691,48 @@
 
         <div class="plans-grid">
           <div class="plan-card">
-            <p class="plan-name">CaseIntake</p>
-            <p class="plan-price">$99 <span class="plan-price-unit">/mes</span></p>
-            <p class="plan-price-sub">+ $497 setup único</p>
+            <p class="plan-name">⚖️ Starter</p>
+            <p class="plan-price">$59.990 <span class="plan-price-unit">/mes</span></p>
+            <p class="plan-price-sub">+ $49.990 setup único · Entrega 48h</p>
             <ul class="plan-features">
-              <li>Bot WhatsApp 24/7</li>
-              <li>Calificación por área legal y urgencia</li>
-              <li>Notificaciones a abogados</li>
-              <li>CRM en Google Sheets</li>
-              <li>Recordatorios automáticos</li>
+              <li>Recepción WhatsApp 24/7</li>
+              <li>Agenda de entrevistas automática</li>
+              <li>FAQ jurídico — 5 consultas frecuentes</li>
+              <li>RMC básico en Google Sheets</li>
+              <li>Soporte y mantenimiento</li>
             </ul>
-            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%2C%20me%20interesa%20CaseIntake%20de%20LegalAI" target="_blank">Comenzar</a>
+            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%20Sebasti%C3%A1n%2C%20quiero%20contratar%20el%20plan%20Starter%20de%20LegalAI" target="_blank">Comenzar</a>
           </div>
 
           <div class="plan-card featured">
-            <span class="plan-badge">Más popular</span>
-            <p class="plan-name">LegalOps Suite</p>
-            <p class="plan-price">$199 <span class="plan-price-unit">/mes</span></p>
-            <p class="plan-price-sub">+ $1.800 setup único</p>
+            <span class="plan-badge">Más elegido</span>
+            <p class="plan-name">🚀 Growth</p>
+            <p class="plan-price">$89.990 <span class="plan-price-unit">/mes</span></p>
+            <p class="plan-price-sub">+ $99.990 setup único · Entrega 48h</p>
             <ul class="plan-features">
-              <li>Todo CaseIntake incluido</li>
-              <li>Dashboard con pipeline de casos</li>
-              <li>Borradores de contratos con IA</li>
-              <li>Seguimiento a 24h, 7 y 30 días</li>
-              <li>Recordatorios de plazos procesales</li>
-              <li>Reportes semanales automáticos</li>
+              <li>Todo Starter incluido</li>
+              <li>Precalificación de casos con IA</li>
+              <li>Alertas Slack para plazos urgentes</li>
+              <li>FAQ jurídico — 10 consultas + actualizaciones</li>
+              <li>RMC ampliado con score de viabilidad</li>
+              <li>Documentos del cliente en Drive</li>
             </ul>
-            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%2C%20me%20interesa%20LegalOps%20Suite" target="_blank">Agendar demo</a>
+            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%20Sebasti%C3%A1n%2C%20quiero%20contratar%20el%20plan%20Growth%20de%20LegalAI" target="_blank">Agendar demo</a>
           </div>
 
           <div class="plan-card">
-            <p class="plan-name">Copiloto Jurídico</p>
-            <p class="plan-price">$2.500 <span class="plan-price-unit">/mes</span></p>
-            <p class="plan-price-sub">Sin setup · Todo incluido</p>
+            <p class="plan-name">👑 Premium</p>
+            <p class="plan-price">$149.990 <span class="plan-price-unit">/mes</span></p>
+            <p class="plan-price-sub">+ $199.990 setup único · Entrega 48h</p>
             <ul class="plan-features">
-              <li>Todo LegalOps Suite</li>
-              <li>Claude integrado en Word</li>
-              <li>Revisión automática de contratos</li>
-              <li>Investigación jurisprudencial asistida</li>
-              <li>Multi-canal (WhatsApp + email)</li>
-              <li>Soporte prioritario</li>
+              <li>Todo Growth incluido</li>
+              <li>Pipeline de estados por caso</li>
+              <li>Expediente digital individual en Drive</li>
+              <li>Reporte semanal automático</li>
+              <li>FAQ jurídico ilimitado</li>
+              <li>Soporte prioritario 24/7</li>
             </ul>
-            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%2C%20me%20interesa%20el%20Copiloto%20Jur%C3%ADdico%20de%20LegalAI" target="_blank">Consultar</a>
+            <a class="plan-btn" href="https://wa.me/56932446500?text=Hola%20Sebasti%C3%A1n%2C%20quiero%20contratar%20el%20plan%20Premium%20de%20LegalAI" target="_blank">Consultar</a>
           </div>
         </div>
       </div>
